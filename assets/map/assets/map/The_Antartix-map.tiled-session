@@ -1,0 +1,123 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "world.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
+    "fileStates": {
+        "C:/Users/cleme/OneDrive/dev/TheAntartix/assets/map/house.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/cleme/OneDrive/dev/TheAntartix/assets/map/nature.tsx": {
+            "scaleInDock": 1
+        },
+        "house.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 1.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 194.66666666666666,
+                "y": 205.33333333333334
+            }
+        },
+        "house.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "house1.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 120,
+                "y": 120.33333333333331
+            }
+        },
+        "house2.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 120,
+                "y": 119.83333333333334
+            }
+        },
+        "house_1.tmx": {
+            "scale": 1.6909999999999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 200.47309284447073,
+                "y": 200.47309284447073
+            }
+        },
+        "house_2.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 1.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 152.66666666666666,
+                "y": 77.33333333333334
+            }
+        },
+        "mobilier.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "nature.tsx": {
+            "scaleInDock": 1
+        },
+        "world.tmx": {
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 3,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 224.66666666666666,
+                "y": 1235.6666666666665
+            }
+        }
+    },
+    "last.externalTilesetPath": "C:/Users/cleme/OneDrive/dev/python/TheAntartix/assets/map",
+    "last.imagePath": "D:/cloud/OneDrive/dev/python/TheAntartix/map",
+    "map.height": 15,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 15,
+    "openFiles": [
+        "world.tmx",
+        "house1.tmx",
+        "house2.tmx"
+    ],
+    "project": "The_Antartix-map.tiled-project",
+    "recentFiles": [
+        "house2.tmx",
+        "house1.tmx",
+        "world.tmx",
+        "mobilier.tsx",
+        "house.tmx",
+        "house_2.tmx",
+        "house_1.tmx",
+        "house.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    },
+    "tileset.transparentColor": "#000000",
+    "tileset.useTransparentColor": true
+}
