@@ -47,12 +47,13 @@ class Inventory:
 # Ajoute une certaine quantité d'objet à l'inventaire si il existe déjà
     def update_quantity_object(self, current_objet, new_quantity):
         for i, (objet, number_object) in enumerate(self.objet_inventory):
-            if self.can_add_quantity(number_object, new_quantity):
-                new_number_object = self.add_quantity(number_object, new_quantity)
-                self.objet_inventory[i] = (current_objet, new_number_object)
+            if objet.name == current_objet.name:
+                if self.can_add_quantity(number_object, new_quantity):
+                    new_number_object = self.add_quantity(number_object, new_quantity)
+                    self.objet_inventory[i] = (current_objet, new_number_object)
+                else:
+                    self.objet_inventory[i] = (current_objet, self.max_quantity)
                 break
-            else:
-                self.objet_inventory[i] = (current_objet, self.max_quantity)
 
 # Vérifie si la limite d'objet est atteinte ou non et agis en conséquent
     def add_quantity(self, quantity, add_quantity):
