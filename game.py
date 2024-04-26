@@ -8,8 +8,6 @@ from fight_player import Fight_Player
 from inventory import Inventory
 from inventory import *
 
-
-
 class Game():
 
     def __init__(self):

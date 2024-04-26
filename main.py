@@ -1,4 +1,4 @@
-import pygame
+import pygame, os
 from game import Game
 from inventory import *
 
@@ -12,6 +12,9 @@ memo patch note :
     modification rapide de la taille de la bar d'exp
     quand le joueur gagne un combat, il gagne un objet 
 '''
+
+if not os.path.exists(r'saves'):
+    os.makedirs(r'saves')
 
 game = Game()
 # game.inventory.append_object(Life_Potion(game), 999)
