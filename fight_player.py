@@ -24,6 +24,9 @@ class Fight_Player():
             self.enemy.health -= self.player.attack
         else: 
             self.enemy.health = 0
+            message = "Tu as attaqué !"
+            self.game.add_message(message)
+            self.game.update_screen()
         return False
 
     def player_escape(self):
