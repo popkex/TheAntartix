@@ -110,6 +110,9 @@ class Inventory:
                     x, y = rect
                     rect = pygame.Rect((x, y, 35, 50))
                     if rect.collidepoint(event.pos):
+                        message = f"Tu as utilisé : {objet[0].name}"
+                        self.game.add_message(message)
+                        self.game.update_screen()
                         return False, objet[0].used()
 
                 rect = self.game.screen.inventory_display.enter_zone_inventory()
