@@ -1,12 +1,13 @@
-import pygame
+import pygame, sys, os
 
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         super().__init__()
-
+        
         #recupere les sprites du joueur
-        self.sprite_sheet = pygame.image.load(r'assets\player.png')
+        path = self.get_path_assets('player.png')
+        self.sprite_sheet = pygame.image.load(path)
         #recupere l'image du joueur par defaut
         self.image = self.get_image(0, 0)
         self.settings_img_player(self.image)
@@ -23,6 +24,14 @@ class Player(pygame.sprite.Sprite):
         self.feet = pygame.Rect(0, 0, self.rect.width / 2, 1)
         self.old_position = self.position.copy()
         self.speed = 3
+
+# permet de retrouver le chemin d'acces vers les assets lors de la compilation du jeu
+    def get_path_assets(self, ressource):
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+        return os.path.join(base_path, "assets") + "\\" + ressource
 
 #sauvegarde lancienne position du joueur
     def save_location(self):
