@@ -30,7 +30,8 @@ class Screen:
         self.draw_txt("HP", 20, (300, 24), False, (255, 102, 0))
 
     def show_inventory_asset(self):
-        image = pygame.image.load(r'assets\action_player/Item.png')
+        path = self.game.get_path_assets('action_player/Item.png')
+        image = pygame.image.load(path)
         image = pygame.transform.scale(image, (75, 75))
         self.blit_ressource(image, (1200, 640))
 
@@ -48,7 +49,8 @@ class Screen:
         pygame.draw.rect(surface, color, position)
 
     def draw_txt(self, txt, police=50, position=(0, 0), center=False, color=(255, 255, 255), render=False):
-        font = pygame.font.SysFont(r'assets\font\Arialic Hollow.ttf', police, True)
+        path = self.game.get_path_assets('font\Arialic Hollow.ttf')
+        font = pygame.font.SysFont(path, police, True)
         txt_surface = font.render(txt, render, color)
 
         if center:
@@ -107,7 +109,8 @@ class Fight_display:
 
 # regroupe tout se qui a à afficher durant un combat (normalement)
     def screen_fight(self, action):
-        background = pygame.image.load(r"assets\bg_fight.jpeg")
+        path = self.screen.game.get_path_assets('bg_fight.jpeg')
+        background = pygame.image.load(path)
         self.screen.blit_ressource(background)
         self.show_entity()
         self.show_hud_fight(action)
@@ -127,7 +130,8 @@ class Fight_display:
     def draw_player_action(self, action):
         x, y = 1040, 640
         for txt in action:
-            image = pygame.image.load(f'assets/action_player/{txt}.png')
+            path = self.screen.game.get_path_assets(f'action_player/{txt}.png')
+            image = pygame.image.load(path)
             image = pygame.transform.scale(image, (75, 75))
             image_rect = image.get_rect()
             image_rect.topleft = (x, y)
@@ -187,7 +191,10 @@ class Inventory_display:
         self.draw_object(position)
 
     def draw_inventory_background(self, origin):
-        img = pygame.image.load(r'assets\inventory\inventory_background.png')
+        path = self.screen.game.get_path_assets('inventory\inventory_background.png')
+        img = pygame.image.load(path)
+
+        # Défini ou le background de l'inventaire s'arrete (en hauteur)
         if origin == "fight":
             h = 612
         else:
@@ -245,5 +252,6 @@ class Death:
         self.blit_background(cause, number_image)
 
     def blit_background(self, cause, number_image):
-        image = pygame.image.load(f"assets/game_over/{cause}/Game_Over-mort-combat{number_image}.png")
+        path = self.screen.game.get_path_assets(f"game_over/{cause}/Game_Over-mort-combat{number_image}.png")
+        image = pygame.image.load(path)
         self.screen.blit_ressource(image)
