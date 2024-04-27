@@ -85,11 +85,11 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 3,
-            "selectedLayer": 2,
+            "scale": 4,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 359,
-                "y": 1175
+                "x": 389.5,
+                "y": 1155.75
             }
         }
     },
@@ -104,7 +104,6 @@
         "world.tmx",
         "house1.tmx",
         "house2.tmx",
-        "house.tsx",
         "house.tsx"
     ],
     "project": "The_Antartix-map.tiled-project",
