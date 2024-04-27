@@ -205,7 +205,7 @@ class Bomb(Weapon):
         image = pygame.transform.scale(image, (48, 48))
         super().__init__(name, image, game, self.effect)
 
-        self.dommage = 100 # de base 20
+        self.dommage = 20 # de base 20
 
     def effect(self):
         current_enemy = self.game.fight.current_enemy
