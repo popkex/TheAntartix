@@ -1,11 +1,11 @@
 import pygame, sys, os, pickle, time
+import inventory
 from map import MapManager
 from screen import Screen
 from data_player import Data_Player
 from player import Player
 from fight import Fight
 from fight_player import Fight_Player
-from inventory import Inventory
 
 class Game():
 
@@ -14,7 +14,7 @@ class Game():
         self.player = Player(0, 0)
         self.screen = Screen(self)
         self.map_manager = MapManager(self, self.screen.screen, self.player)
-        self.inventory = Inventory(self)
+        self.inventory = inventory.Inventory(self)
         self.object_name_inventory = []
         self.active_fight = False
         self.messages_system = []
@@ -104,7 +104,7 @@ class Game():
                     objects.append((objet[0], objet[1]))
 
                 for objet, number in objects:
-                    new_instance = self.class_in_str(self.inventory, objet)
+                    new_instance = self.class_in_str(inventory, objet)
                     self.inventory.append_object(new_instance(self), number)
         except:
             self.save_inventory()
