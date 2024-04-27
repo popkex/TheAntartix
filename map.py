@@ -40,10 +40,10 @@ class MapManager:
         #defini le monde d'origine (la maison), le point de sortie, le monde de sortie, l'endroit du spawn dans le monde de sortie
         #la meme sortie car les 2maisons sont coller
         self.register_map("house1", portals=[
-            Portal(from_world="house1", origin_point="exit_house", target_world="world", teleport_point="enter_exit_house")
+            Portal(from_world="house1", origin_point="exit_house", target_world="world", teleport_point="exit_house1")
         ])
         self.register_map("house2", portals=[
-            Portal(from_world="house2", origin_point="exit_house", target_world="world", teleport_point="enter_exit_house")
+            Portal(from_world="house2", origin_point="exit_house", target_world="world", teleport_point="exit_house2")
         ])
 
         #défini le lieu de spawn qui s'appelle 'player_spawn'
@@ -96,7 +96,8 @@ class MapManager:
 #enregistre les maps
     def register_map(self, name, portals=[]):
         #charge la carte 
-        tmx_data = pytmx.util_pygame.load_pygame(f"assets\map\{name}.tmx")
+        path = self.game.get_path_assets(f'map\{name}.tmx')
+        tmx_data = pytmx.util_pygame.load_pygame(path)
         map_data = pyscroll.data.TiledMapData(tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
         map_layer.zoom = 2

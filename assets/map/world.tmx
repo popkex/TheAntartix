@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="93">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="94">
  <tileset firstgid="1" source="nature.tsx"/>
  <tileset firstgid="721" source="house.tsx"/>
  <layer id="1" name="background" width="200" height="100">
@@ -630,7 +630,7 @@
   <object id="55" name="player_spawn" x="319" y="1275">
    <point/>
   </object>
-  <object id="56" name="enter_exit_house" x="51" y="1251.7">
+  <object id="56" name="exit_house1" x="19.1818" y="1228.43">
    <point/>
   </object>
   <object id="57" name="enter_house1" x="33.1875" y="1225" width="5.625" height="7"/>
@@ -652,5 +652,8 @@
   <object id="90" type="enemie" x="496" y="1152" width="128" height="432"/>
   <object id="91" type="enemie" x="448" y="1280" width="16" height="304"/>
   <object id="92" type="enemie" x="464" y="1360" width="32" height="224"/>
+  <object id="93" name="exit_house2" x="51.2727" y="1229.64">
+   <point/>
+  </object>
  </objectgroup>
 </map>
