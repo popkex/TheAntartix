@@ -50,4 +50,4 @@ class EnemyB(Enemy):
         image = pygame.transform.scale(image, (250, 250))
         loot = [(Life_Potion, 6), (Big_Life_Potion, 3)] # (L'objet, le nombre d'objet au max)
 
-        super().__init__("enemy B", loot, image, max_health=80, health=80, attack=15, give_xp=3) # de base 120, 120, 12, 5
+        super().__init__("enemy B", loot, image, max_health=80, health=80, attack=15, give_xp=5) # de base 120, 120, 12, 5
