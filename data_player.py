@@ -36,6 +36,7 @@ class Data_Player:
                 self.xp = int(self.xp_max/1.5)
             else:
                 self.xp = 0
+
     def lvl_down(self):
         self.lvl -= 1
         self.xp_max = int(self.xp_max/1.25)

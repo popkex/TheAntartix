@@ -75,16 +75,14 @@ class Fight:
         while self.game.active_fight:
             #affiche l'écran de fight
             self.screen.fight_display.screen_fight(self.game.fight_player.txt_player_action)
-
-            #actualise l'écran
-            pygame.display.flip()
+            self.game.update_screen()
 
             self.game.active_fight = self.entity_is_alive()
 
             self.turn_management()
 
             pygame.display.flip()
-            self.game.clock.tick(250)
+            self.game.clock.tick(60)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

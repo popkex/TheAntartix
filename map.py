@@ -64,7 +64,7 @@ class MapManager:
     def active_fight(self):
         find_enemy = random.randint(0, 2000)
         for object_ in self.get_map().tmx_data.objects:
-            if object_.type == "enemie" and find_enemy <= 2: # (de base 2)
+            if object_.type == "enemie" and find_enemy <= 2000000000: # (de base 2)
                 enemy_rect = pygame.Rect(object_.x, object_.y, object_.width, object_.height)
                 if self.player.feet.colliderect(enemy_rect):
                     return True

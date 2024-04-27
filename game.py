@@ -1,4 +1,4 @@
-import pygame, sys, os, pickle, inventory
+import pygame, sys, os, pickle, time
 from map import MapManager
 from screen import Screen
 from data_player import Data_Player
@@ -6,7 +6,6 @@ from player import Player
 from fight import Fight
 from fight_player import Fight_Player
 from inventory import Inventory
-from inventory import *
 
 class Game():
 
@@ -18,6 +17,7 @@ class Game():
         self.inventory = Inventory(self)
         self.object_name_inventory = []
         self.active_fight = False
+        self.messages_system = []
 
     def class_in_str(self, module, name):
         return getattr(module, name)
@@ -104,12 +104,10 @@ class Game():
                     objects.append((objet[0], objet[1]))
 
                 for objet, number in objects:
-                    new_instance = self.class_in_str(inventory, objet)
+                    new_instance = self.class_in_str(self.inventory, objet)
                     self.inventory.append_object(new_instance(self), number)
         except:
             self.save_inventory()
-
-                                                    # fin de la partie sauvegarde et chargement du jeu
 
     def handle_input(self):
         pressed = pygame.key.get_pressed()
@@ -126,6 +124,11 @@ class Game():
         if pressed[pygame.K_DOWN] or pressed[pygame.K_s]:
             self.player.move_down()
             self.player.change_animation('down')
+
+    def update_screen(self):
+        self.screen.display_messages()
+        pygame.display.flip()
+        self.clock.tick(60)
 
     def update(self):
         self.map_manager.update()
@@ -167,6 +170,10 @@ class Game():
         #detecte si un combat peut se lancer
         self.active_fight = self.map_manager.active_fight()
 
+    def add_message(self, message):
+        # Ajoute un message à la file d'attente
+        self.messages_system.append((message, time.time()))
+
     def run(self):
         self.clock = pygame.time.Clock()
         self.running = True
@@ -178,9 +185,7 @@ class Game():
             self.launch_fight()
             self.update_game()
 
-            pygame.display.flip()
-
-            self.clock.tick(60)
+            self.update_screen()
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:

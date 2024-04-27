@@ -29,11 +29,13 @@ class Fight_Player():
     def player_escape(self):
         luck = random.randint(0, 100)
         # Le joueur a 20% de chance d'échouer à la fuite du combat 
-        if luck <= 80: #de base 80
+        if luck <= 0: #de base 85
             self.game.active_fight = False
-        else: 
+        else:
             message = "Tu n'as pas réussi a t'échapper"
-            self.game.screen.system_message(message)
+            self.game.add_message(message)
+            self.game.update_screen()
+            # self.game.screen.system_message(message)
         return False
 
     def player_choose_object(self) -> bool:

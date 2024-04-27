@@ -1,4 +1,4 @@
-import pygame
+import pygame, time
 
 class Screen:
 
@@ -85,6 +85,34 @@ class Screen:
         color = (255, 255, 255)
         position = (x, y + 3)
         self.draw_txt(txt, 20, position, False, color)
+
+    def background_message(self, position, txt_width, txt_height):
+        (x, y), w, h = position, txt_width+25, txt_height
+        self.draw_color(self.screen, (0, 0, 0), (x-5, y-2, w, h+2))
+
+    def display_messages(self):
+        # Obtient l'heure actuelle
+        now = time.time()
+        font = pygame.font.Font(None, 20)
+
+        # Affiche tous les messages
+        for i, (message, message_time) in enumerate(self.game.messages_system):
+            message, message_time = self.game.messages_system[i]
+
+            # Si le message a plus de 5 secondes, le supprime de la file d'attente
+            if now - message_time > 5 or len(self.game.messages_system) >= 2:
+                self.game.messages_system.pop(i)
+            else:
+                # Prépare le texte
+                text = font.render(message, True, (255, 255, 255))
+                text_width, text_height = text.get_size()
+                x, y = 20, (135 + i * 16)
+
+                # Dessine le fond
+                self.background_message((x, y), text_width, text_height)
+
+                # Puis dessine le texte
+                self.screen.blit(text, (x, y))
 
 
 
