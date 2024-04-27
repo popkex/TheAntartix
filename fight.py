@@ -12,7 +12,7 @@ class Fight:
         self.player_selected_object = False
 
         #choisi un enemie aléatoirement
-        enemy_list = [EnemyA(), EnemyB()]
+        enemy_list = [EnemyA(game), EnemyB(game)]
         self.current_enemy = random.choice(enemy_list)
 
     # Vérifie si il reste des entités en vie

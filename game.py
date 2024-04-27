@@ -37,6 +37,7 @@ class Game():
         self.load_inventory()
 
     def save_attribut_player(self):
+        path = self.get_path_saves('player_attribut.bin')
         health = self.data_player.health
         max_health = self.data_player.max_health
         attack = self.data_player.attack
@@ -44,12 +45,14 @@ class Game():
         xp_max = self.data_player.xp_max
         lvl = self.data_player.lvl
         data = (health, max_health, attack, xp, xp_max, lvl)
-        with open('saves\player_attribut.bin', 'wb') as fichier:
+
+        with open(path, 'wb') as fichier:
             pickle.dump(data, fichier, pickle.HIGHEST_PROTOCOL)
 
     def load_attribut_player(self):
+        path = self.get_path_saves('player_attribut.bin')
         try:
-            with open('saves\player_attribut.bin', 'rb') as fichier:
+            with open(path, 'rb') as fichier:
                 health, max_health, attack, xp, xp_max, lvl = pickle.load(fichier)
         except:
             max_health = 100
@@ -62,15 +65,19 @@ class Game():
         return health, max_health, attack, xp, xp_max ,lvl
 
     def save_position(self):
+        path = self.get_path_saves('player_position.bin')
         coordonates = self.player.get_coordonnes()
         map = self.map_manager.current_map
         data = (coordonates, map)
-        with open('saves\player_position.bin', 'wb') as fichier:
+
+        with open(path, 'wb') as fichier:
             pickle.dump(data, fichier, pickle.HIGHEST_PROTOCOL)
 
     def load_position(self):
+        path = self.get_path_saves('player_position.bin')
+
         try:
-            with open('saves\player_position.bin', 'rb') as fichier:
+            with open(path, 'rb') as fichier:
                 (x, y), map  = pickle.load(fichier)
                 self.map_manager.current_map = map
                 self.map_manager.teleport_player_with_position(x, y)
@@ -78,16 +85,21 @@ class Game():
             pass
 
     def save_inventory(self):
+        path = self.get_path_saves('inventory.bin')
+
         for objet in self.inventory.objet_inventory:
             self.object_name_inventory.append((objet[0].name, objet[1]))
         objects = self.object_name_inventory
-        with open('saves\inventory.bin', 'wb') as fichier:
+
+        with open(path, 'wb') as fichier:
             pickle.dump(objects, fichier, pickle.HIGHEST_PROTOCOL)
 
     def load_inventory(self):
+        path = self.get_path_saves('inventory.bin')
+
         try:
             objects, new_instance = [], []
-            with open('saves\inventory.bin', 'rb') as fichier:
+            with open(path, 'rb') as fichier:
                 for objet in pickle.load(fichier):
                     objects.append((objet[0], objet[1]))
 
@@ -118,13 +130,21 @@ class Game():
     def update(self):
         self.map_manager.update()
 
-# Inutilisé mais faudra le faire quand on compressera le jeu
-    def get_ressource(self, ressource):
+# permet de retrouver le chemin d'acces vers les assets lors de la compilation du jeu
+    def get_path_assets(self, ressource):
         try:
             base_path = sys._MEIPASS
         except Exception:
             base_path = os.path.abspath(".")
         return os.path.join(base_path, "assets") + "\\" + ressource
+
+# permet de retrouver le chemin d'acces vers les saves lors de la compilation du jeu
+    def get_path_saves(self, ressource):
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+        return os.path.join(base_path, "saves") + "\\" + ressource
 
     def launch_fight(self):
         if self.active_fight and self.player.is_moving():
@@ -169,7 +189,5 @@ class Game():
 
                 if event.type == pygame.QUIT:
                     self.running = False
-
-            print(self.inventory.objet_inventory)
 
         self.save_and_quit()

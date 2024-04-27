@@ -14,14 +14,15 @@ class Entity:
 
 class Enemy(Entity):
     def turn(self, game):
-        self.choose_attack(game)
+        self.game = game
+        self.choose_attack()
         return True
 
-    def choose_attack(self, game):
-        if game.data_player.health > self.attack:
-            game.data_player.health -= self.attack
+    def choose_attack(self):
+        if self.game.data_player.health > self.attack:
+            self.game.data_player.health -= self.attack
         else: 
-            game.data_player.health = 0
+            self.game.data_player.health = 0
 
     def is_alive(self):
         return self.health != 0
@@ -34,16 +35,18 @@ class Enemy(Entity):
         return obj, number_loot # return la classe (non initer) de l'objet puis le nombre d'objet
 
 class EnemyA(Enemy):
-    def __init__(self):
-        image = pygame.image.load('assets\enemy\enemyA.gif')
+    def __init__(self, game):
+        path = game.get_path_assets('enemy\enemyA.gif')
+        image = pygame.image.load(path)
         image = pygame.transform.scale(image, (250, 250))
         loot = [(Life_Potion, 3), (Big_Life_Potion, 2)] # (L'objet, le nombre d'objet au max)
 
         super().__init__("enemy A", loot, image, max_health=50, health=50, attack=12, give_xp=2) # de base 100, 100, 10, 2
 
 class EnemyB(Enemy):
-    def __init__(self):
-        image = pygame.image.load('assets\enemy\enemyB.webp')
+    def __init__(self, game):
+        path = game.get_path_assets('enemy\enemyB.webp')
+        image = pygame.image.load(path)
         image = pygame.transform.scale(image, (250, 250))
         loot = [(Life_Potion, 6), (Big_Life_Potion, 3)] # (L'objet, le nombre d'objet au max)
 

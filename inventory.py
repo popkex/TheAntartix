@@ -147,8 +147,9 @@ class Potion(Objet):
 class Life_Potion(Potion):
     def __init__(self, game):
         self.game = game
+        path = self.game.get_path_assets("inventory\objects\potions\heal_potion.png")
         name = "Life_Potion"
-        image = pygame.image.load(r'assets\inventory\objects\potions\heal_potion.png')
+        image = pygame.image.load(path)
         image = pygame.transform.scale(image, (48, 48))
         super().__init__(name, image, game, self.effect)
 
@@ -163,8 +164,9 @@ class Life_Potion(Potion):
 class Big_Life_Potion(Potion):
     def __init__(self, game):
         self.game = game
+        path = self.game.get_path_assets(r"inventory\objects\potions\big_heal_potion.png")
         name = "Big_Life_Potion"
-        image = pygame.image.load(r'assets\inventory\objects\potions\big_healt_potion.png')
+        image = pygame.image.load(path)
         image = pygame.transform.scale(image, (48, 48))
         super().__init__(name, image, game, self.effect)
 
@@ -197,8 +199,9 @@ class Weapon(Objet):
 class Bomb(Weapon):
     def __init__(self, game):
         self.game = game
+        path = self.game.get_path_assets(r"inventory\objects\weapons\Bomb.png")
         name = "Bomb"
-        image = pygame.image.load(r'assets\inventory\objects\weapons\Bomb.png')
+        image = pygame.image.load(path)
         image = pygame.transform.scale(image, (48, 48))
         super().__init__(name, image, game, self.effect)
 
