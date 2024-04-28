@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "world.tmx",
+    "activeFile": "house1.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -30,7 +30,7 @@
             }
         },
         "house.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 11,
             "scaleInEditor": 1
         },
         "house1.tmx": {
@@ -40,19 +40,19 @@
             "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 114.66666666666663,
-                "y": 114.66666666666666
+                "x": 113.99999999999997,
+                "y": 114
             }
         },
         "house2.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 3,
-            "selectedLayer": 2,
+            "scale": 16,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 116.99999999999999,
-                "y": 116.99999999999999
+                "x": 37,
+                "y": 108.5
             }
         },
         "house_1.tmx": {
@@ -85,11 +85,11 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 4,
-            "selectedLayer": 3,
+            "scale": 8,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 389.5,
-                "y": 1155.75
+                "x": 63,
+                "y": 1200.125
             }
         }
     },
@@ -108,10 +108,10 @@
     ],
     "project": "The_Antartix-map.tiled-project",
     "recentFiles": [
+        "world.tmx",
         "house.tsx",
         "house2.tmx",
         "house1.tmx",
-        "world.tmx",
         "mobilier.tsx",
         "house.tmx",
         "house_2.tmx",

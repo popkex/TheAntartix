@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="94">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="96">
  <tileset firstgid="1" source="nature.tsx"/>
  <tileset firstgid="721" source="house.tsx"/>
  <layer id="1" name="background" width="200" height="100">
@@ -639,8 +639,8 @@
   <object id="60" type="collision" x="0" y="1584" width="640" height="16"/>
   <object id="61" type="collision" x="624" y="960" width="16" height="640"/>
   <object id="63" type="collision" x="0" y="960" width="640" height="24"/>
-  <object id="68" type="collision" x="58.5" y="1220.94" width="18.5" height="11"/>
-  <object id="69" type="collision" x="26.75" y="1221" width="18.3125" height="11.125"/>
+  <object id="68" type="collision" x="58.5" y="1202.75" width="18.5" height="29.1902"/>
+  <object id="69" type="collision" x="26.75" y="1202.8" width="18.3125" height="29.3261"/>
   <object id="80" type="collision" x="368" y="976" width="80" height="260.667"/>
   <object id="81" type="collision" x="368" y="1280.96" width="80" height="303.042"/>
   <object id="82" type="enemie" x="16" y="1280" width="320" height="304"/>
