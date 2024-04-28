@@ -15,14 +15,16 @@ class Entity:
 class Enemy(Entity):
     def turn(self, game):
         self.game = game
-        self.choose_attack()
+        self.choose_action()
         return True
 
-    def choose_attack(self):
+    def choose_action(self):
         if self.game.data_player.health > self.attack:
             self.game.data_player.health -= self.attack
         else: 
             self.game.data_player.health = 0
+        message = f"Tu as subie {self.attack} de dégàts"
+        self.game.add_message(message)
 
     def is_alive(self):
         return self.health != 0
