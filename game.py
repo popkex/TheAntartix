@@ -1,5 +1,6 @@
 import pygame, sys, os, pickle, time
 import inventory
+from inventory import *
 from map import MapManager
 from screen import Screen
 from data_player import Data_Player
