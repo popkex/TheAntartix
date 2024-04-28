@@ -39,15 +39,21 @@ class Player(pygame.sprite.Sprite):
             self.get_image(60, 96), # L'image numéro 3
         ]
 
-        #stock les differentes images du joueur
+        #stock les differentes images animées du joueur
+        self.images_animations = {
+            'down' : self.get_animation('down'),
+            'left' : self.get_animation('left'),
+            'right' : self.get_animation('right'),
+            'up' : self.get_animation('up')
+        }
+
+        # stock les differentes images statique du joueur
         self.images = {
             'down' : self.get_image(0, 0),
             'left' : self.get_image(0, 32),
             'right' : self.get_image(0, 64),
             'up' : self.get_image(0, 96)
         }
-
-        self.get_animation('down')
 
 # gere l'animation du joueur
     def get_animation(self, name_sprite):
@@ -78,7 +84,22 @@ class Player(pygame.sprite.Sprite):
         return self.image
 
 #change l'image du joueur
-    def change_animation(self, name):
+    def change_animation(self, game, name):
+        # Obtenir le temps actuel
+        current_time = pygame.time.get_ticks()
+        # Définir la vitesse d'animation (millisecondes par image)
+        animation_speed = 100 
+        # Obtenir les images d'animation
+        animation_images = self.images_animations[name]
+        # Calculer l'indice de l'image actuelle en fonction du temps
+        frame_index = (current_time // animation_speed) % len(animation_images)
+        # Afficher l'image actuelle à l'écran
+        game.screen.blit_ressource(animation_images[frame_index], self.position)
+        # Mettre à jour l'affichage
+        pygame.display.flip()
+
+#change l'image du joueur
+    def change_image(self, name):
         self.image = self.images[name]
         self.settings_img_player(self.image)
 
@@ -114,4 +135,3 @@ class Player(pygame.sprite.Sprite):
 
     def is_moving(self):
         return self.old_position != self.position
-

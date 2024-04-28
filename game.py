@@ -115,16 +115,16 @@ class Game():
 
         if pressed[pygame.K_LEFT] or pressed[pygame.K_q]:
             self.player.move_left()
-            self.player.change_animation('left')
+            self.player.change_image('left')
         if pressed[pygame.K_RIGHT] or pressed[pygame.K_d]:
             self.player.move_right()
-            self.player.change_animation('right')
+            self.player.change_image('right')
         if pressed[pygame.K_UP] or pressed[pygame.K_z]:
             self.player.move_up()
-            self.player.change_animation('up')
+            self.player.change_image('up')
         if pressed[pygame.K_DOWN] or pressed[pygame.K_s]:
             self.player.move_down()
-            self.player.change_animation('down')
+            self.player.change_image('down')
 
     def update_screen(self):
         self.screen.display_messages()
@@ -175,16 +175,21 @@ class Game():
         # Ajoute un message à la file d'attente
         self.messages_system.append((message, time.time()))
 
+# vérifie si le joueur est en combat / actualise le jeu
+    def update_zone(self):
+            self.launch_fight()
+            self.update_game()
+
     def run(self):
         self.clock = pygame.time.Clock()
         self.running = True
 
-        self.player.change_animation('up')
+        self.player.change_image('up')
+        pygame.display.flip()
         self.load_all()
 
         while self.running:
-            self.launch_fight()
-            self.update_game()
+            self.update_zone()
 
             self.update_screen()
 
