@@ -4,7 +4,7 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         super().__init__()
-        
+
         #recupere les sprites du joueur
         path = self.get_path_assets('player.png')
         self.sprite_sheet = pygame.image.load(path)
@@ -14,6 +14,31 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         #determine la postiton du joueur
         self.position = [x, y]
+        self.feet = pygame.Rect(0, 0, self.rect.width / 2, 1)
+        self.old_position = self.position.copy()
+        self.speed = 3
+
+        self.image_animation_down = [
+            self.get_image(0, 0), # L'image numéro 1
+            self.get_image(27, 0), # L'image numéro 2
+            self.get_image(60, 0), # L'image numéro 3
+        ]
+        self.image_animation_left = [
+            self.get_image(0, 32), # L'image numéro 1
+            self.get_image(27, 32), # L'image numéro 2
+            self.get_image(60, 32), # L'image numéro 3
+        ]
+        self.image_animation_right = [
+            self.get_image(0, 64), # L'image numéro 1
+            self.get_image(27, 64), # L'image numéro 2
+            self.get_image(60, 64), # L'image numéro 3
+        ]
+        self.image_animation_up = [
+            self.get_image(0, 96), # L'image numéro 1
+            self.get_image(27, 96), # L'image numéro 2
+            self.get_image(60, 96), # L'image numéro 3
+        ]
+
         #stock les differentes images du joueur
         self.images = {
             'down' : self.get_image(0, 0),
@@ -21,9 +46,15 @@ class Player(pygame.sprite.Sprite):
             'right' : self.get_image(0, 64),
             'up' : self.get_image(0, 96)
         }
-        self.feet = pygame.Rect(0, 0, self.rect.width / 2, 1)
-        self.old_position = self.position.copy()
-        self.speed = 3
+
+        self.get_animation('down')
+
+# gere l'animation du joueur
+    def get_animation(self, name_sprite):
+        animations = []
+        for i in range(0, 3):
+            animations.append(getattr(self, 'image_animation_' + name_sprite)[i])
+        return animations
 
 # permet de retrouver le chemin d'acces vers les assets lors de la compilation du jeu
     def get_path_assets(self, ressource):
