@@ -99,8 +99,8 @@ class Screen:
         for i, (message, message_time) in enumerate(self.game.messages_system):
             message, message_time = self.game.messages_system[i]
 
-            # Si le message a plus de 5 secondes, le supprime de la file d'attente
-            if now - message_time > 5:
+            # Si le message a plus de 2 secondes, le supprime de la file d'attente
+            if now - message_time > 2:
                 self.game.messages_system.pop(i)
             else:
                 # Prépare le texte
