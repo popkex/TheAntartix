@@ -19,6 +19,7 @@ class Game():
         self.object_name_inventory = []
         self.active_fight = False
         self.messages_system = []
+        self.current_direction = 'up' #défini la direction par defaut
 
     def class_in_str(self, module, name):
         return getattr(module, name)
@@ -115,16 +116,17 @@ class Game():
 
         if pressed[pygame.K_LEFT] or pressed[pygame.K_q]:
             self.player.move_left()
-            self.player.change_image('left')
+            self.current_direction = 'left'
         if pressed[pygame.K_RIGHT] or pressed[pygame.K_d]:
             self.player.move_right()
-            self.player.change_image('right')
+            self.current_direction = 'right'
         if pressed[pygame.K_UP] or pressed[pygame.K_z]:
             self.player.move_up()
-            self.player.change_image('up')
+            self.current_direction = 'up'
         if pressed[pygame.K_DOWN] or pressed[pygame.K_s]:
             self.player.move_down()
-            self.player.change_image('down')
+            self.current_direction = 'down'
+        return self.current_direction
 
     def update_screen(self):
         self.screen.display_messages()
@@ -190,6 +192,12 @@ class Game():
 
         while self.running:
             self.update_zone()
+
+            # Mettre à jour l'animation du joueur en fonction de la touche pressée
+            if self.player.is_moving():
+                self.player.change_animation(self.handle_input())
+            else:
+                self.player.change_image(self.current_direction)
 
             self.update_screen()
 

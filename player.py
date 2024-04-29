@@ -16,27 +16,27 @@ class Player(pygame.sprite.Sprite):
         self.position = [x, y]
         self.feet = pygame.Rect(0, 0, self.rect.width / 2, 1)
         self.old_position = self.position.copy()
-        self.speed = 3
+        self.speed = 2
 
         self.image_animation_down = [
             self.get_image(0, 0), # L'image numéro 1
-            self.get_image(27, 0), # L'image numéro 2
-            self.get_image(60, 0), # L'image numéro 3
+            self.get_image(34, 0), # L'image numéro 2
+            self.get_image(67, 0), # L'image numéro 3
         ]
         self.image_animation_left = [
-            self.get_image(0, 32), # L'image numéro 1
-            self.get_image(27, 32), # L'image numéro 2
-            self.get_image(60, 32), # L'image numéro 3
+            self.get_image(2, 32), # L'image numéro 1
+            self.get_image(34, 32), # L'image numéro 2
+            self.get_image(66, 32), # L'image numéro 3
         ]
         self.image_animation_right = [
-            self.get_image(0, 64), # L'image numéro 1
-            self.get_image(27, 64), # L'image numéro 2
-            self.get_image(60, 64), # L'image numéro 3
+            self.get_image(3, 64), # L'image numéro 1
+            self.get_image(35, 64), # L'image numéro 2
+            self.get_image(67, 64), # L'image numéro 3
         ]
         self.image_animation_up = [
-            self.get_image(0, 96), # L'image numéro 1
-            self.get_image(27, 96), # L'image numéro 2
-            self.get_image(60, 96), # L'image numéro 3
+            self.get_image(2, 96), # L'image numéro 1
+            self.get_image(34, 96), # L'image numéro 2
+            self.get_image(66, 96), # L'image numéro 3
         ]
 
         #stock les differentes images animées du joueur
@@ -84,19 +84,18 @@ class Player(pygame.sprite.Sprite):
         return self.image
 
 #change l'image du joueur
-    def change_animation(self, game, name):
+    def change_animation(self, name):
         # Obtenir le temps actuel
         current_time = pygame.time.get_ticks()
         # Définir la vitesse d'animation (millisecondes par image)
-        animation_speed = 100 
+        animation_speed = 250  # Réglage de la vitesse d'animation
         # Obtenir les images d'animation
         animation_images = self.images_animations[name]
         # Calculer l'indice de l'image actuelle en fonction du temps
         frame_index = (current_time // animation_speed) % len(animation_images)
-        # Afficher l'image actuelle à l'écran
-        game.screen.blit_ressource(animation_images[frame_index], self.position)
-        # Mettre à jour l'affichage
-        pygame.display.flip()
+        # Changer l'image du joueur
+        self.image = animation_images[frame_index]
+        self.settings_img_player(self.image)
 
 #change l'image du joueur
     def change_image(self, name):
