@@ -40,8 +40,8 @@
             "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 113.99999999999997,
-                "y": 114
+                "x": 113.33333333333331,
+                "y": 113.33333333333331
             }
         },
         "house2.tmx": {
@@ -51,8 +51,8 @@
             "scale": 16,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 37,
-                "y": 108.5
+                "x": 120,
+                "y": 120
             }
         },
         "house_1.tmx": {
@@ -88,8 +88,8 @@
             "scale": 8,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 63,
-                "y": 1200.125
+                "x": 1600,
+                "y": 799.875
             }
         }
     },
