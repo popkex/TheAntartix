@@ -5,7 +5,7 @@ pygame.init()
 
 '''
 les enemies spawn uniquement dans des dj prevus a cette effet (a faire)
-ajouter des png
+ajouter des png (a faire)
 '''
 
 # vérifie si le dossier 'saves' existe (si le jeu est pas compiler)
