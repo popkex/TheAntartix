@@ -13,8 +13,10 @@ class Inventory:
         self.objet_inventory_rects = []
         self.max_quantity = 999
 
+        self.tutorial_message = "Voici ton inventaire\nIci (comme tout inventaire) tu vas pouvoir stoquer des objets et les utilisers.\nAppuie sur 'E' pour pouvoir le fermer et l'ouvrir/fermer quand tu veux.\n\nAppuie sur 'ESC' pour quitter"
+
 # Gère l'ouverture et la gestion de l'inventaire
-    def open_inventory(self, game, origin):
+    def open_inventory(self, game, origin) -> bool:
         is_open = True
         object_used = False
 
@@ -25,11 +27,7 @@ class Inventory:
 
             pygame.display.flip()
 
-            if not self.game.tutorial.dic_tutorial['inventory']:
-                tutorial_message = "Voici ton inventaire\nIci (comme tout inventaire) tu vas pouvoir stoquer des objets et les utilisers.\nAppuie sur 'E' pour pouvoir le fermer et l'ouvrir/fermer quand tu veux.\nAppuie sur 'ESC' pour quitter"
-                self.game.tutorial.running(tutorial_message)
-                self.game.tutorial.dic_tutorial['inventory'] = True
-                pygame.display.flip()
+
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
