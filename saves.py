@@ -1,9 +1,18 @@
 import pygame, pickle
+from inventory import *
 
 class Saves:
 
     def __init__(self, game):
         self.game = game
+
+    def class_in_str(self, class_name):
+        class_dict = {
+            'Life_Potion': Life_Potion,
+            'Big_Life_Potion': Big_Life_Potion,
+            'Bomb': Bomb,
+        }
+        return class_dict.get(class_name)
 
     def save_and_quit(self):
         self.save_all()
@@ -54,12 +63,19 @@ class Saves:
     def save_inventory(self):
         path = self.game.get_path_saves('inventory.bin')
 
-        for objet in self.game.inventory.objet_inventory:
-            self.game.object_name_inventory.append((objet[0].name, objet[1]))
+        # Sauvegarder les noms des classes des objets
+        self.game.object_name_inventory = [(type(objet[0]).__name__, objet[1]) for objet in self.game.inventory.objet_inventory]
         objects = self.game.object_name_inventory
 
         with open(path, 'wb') as content:
             pickle.dump(objects, content, pickle.HIGHEST_PROTOCOL)
+
+
+    # def save_inventory(self):
+    #     path = self.game.get_path_saves('inventory.bin')
+
+    #     for objet in self.game.inventory.all_objects():
+    #         print(objet)
 
     def save_tutorial(self):
         path = self.game.get_path_saves('tutorials.bin')
@@ -85,7 +101,7 @@ class Saves:
         except:
             max_health = 100
             health = 100
-            attack = 10
+            attack = 100000000000
             xp = 0
             xp_max = 25
             lvl = 1
@@ -107,17 +123,20 @@ class Saves:
 
     def load_inventory(self):
         path = self.game.get_path_saves('inventory.bin')
+        objects = []
 
         try:
-            objects, new_instance = [], []
             with open(path, 'rb') as content:
                 for objet in pickle.load(content):
                     objects.append((objet[0], objet[1]))
-
+                print('ok, objects length:', len(objects))
                 for objet, number in objects:
-                    new_instance = self.class_in_str(self.game.inventory, objet)
+                    print('okkk')
+                    new_instance = self.class_in_str(objet)
+                    print(new_instance)
                     self.game.inventory.append_object(new_instance(self.game), number)
-        except:
+        except Exception as e:
+            print('Exception caught:', e)
             self.save_inventory()
 
     def load_tutorial(self):

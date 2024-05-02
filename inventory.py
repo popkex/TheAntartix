@@ -3,15 +3,14 @@ import pygame
 
 class Inventory:
     def __init__(self, game):
+        self.objet_inventory = []
+        self.objet_inventory_rects = []
+        self.max_quantity = 999
         self.game = game
         self.potion = Potion(any, any, game)
         self.potion.init_all_potion()
         self.weapon = Weapon(any, any, game)
         self.weapon.init_all_weapon()
-
-        self.objet_inventory = []
-        self.objet_inventory_rects = []
-        self.max_quantity = 999
 
 # Gère l'ouverture et la gestion de l'inventaire
     def open_inventory(self, game, origin) -> bool:
@@ -115,9 +114,11 @@ class Inventory:
                     x, y = rect
                     rect = pygame.Rect((x, y, 35, 50))
                     if rect.collidepoint(event.pos):
-                        message = f"Tu as utilisé : {objet[0].name}"
-                        self.game.add_message(message)
-                        self.game.update_screen()
+                        object_used = objet[0].used()
+                        if object_used:
+                            message = self.game.current_language.translations['object_used'] + self.game.current_language.translations[objet[0].name]
+                            self.game.add_message(message)
+                            self.game.update_screen()
                         return False, objet[0].used()
 
                 rect = self.game.screen.inventory_display.enter_zone_inventory()

@@ -1,6 +1,5 @@
-import pygame, sys, os, pickle, time
-import inventory
-from inventory import *
+import pygame, sys, os, time
+from inventory import Inventory
 from map import MapManager
 from screen import Screen
 from data_player import Data_Player
@@ -16,14 +15,13 @@ class Game():
         self.defaut_language = "fr"
         self.current_language, self.str_language = None, None
 
+        self.inventory = Inventory(self)
         self.saves = Saves(self)
         self.data_player = Data_Player(self)
         self.data_player.load_attributes() # charge les attrbutes du joueur
-        print(self.data_player.health)
         self.player = Player(0, 0)
         self.screen = Screen(self)
         self.map_manager = MapManager(self, self.screen.screen, self.player)
-        self.inventory = inventory.Inventory(self)
         self.tutorial = Tutorial(self)
 
         self.object_name_inventory = [] # met l'inventaire vide (avant de le charger et de le remplir)
@@ -39,9 +37,6 @@ class Game():
             import translation.french as new_language
             str_new_language = "fr"
         self.current_language, self.str_language = new_language, str_new_language
-
-    def class_in_str(self, module, name):
-        return getattr(module, name)
 
     def handle_input(self):
         pressed = pygame.key.get_pressed()
