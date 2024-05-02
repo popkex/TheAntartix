@@ -18,6 +18,8 @@ class Saves:
         self.load_position()
         self.load_inventory()
 
+                                            # les saves
+
     def save_attribut_player(self):
         path = self.game.get_path_saves('player_attribut.bin')
         health = self.game.data_player.health
@@ -31,6 +33,27 @@ class Saves:
         with open(path, 'wb') as fichier:
             pickle.dump(data, fichier, pickle.HIGHEST_PROTOCOL)
 
+    def save_position(self):
+        path = self.game.get_path_saves('player_position.bin')
+        coordonates = self.game.player.get_coordonnes()
+        map = self.game.map_manager.current_map
+        data = (coordonates, map)
+
+        with open(path, 'wb') as fichier:
+            pickle.dump(data, fichier, pickle.HIGHEST_PROTOCOL)
+
+    def save_inventory(self):
+        path = self.game.get_path_saves('inventory.bin')
+
+        for objet in self.game.inventory.objet_inventory:
+            self.game.object_name_inventory.append((objet[0].name, objet[1]))
+        objects = self.game.object_name_inventory
+
+        with open(path, 'wb') as fichier:
+            pickle.dump(objects, fichier, pickle.HIGHEST_PROTOCOL)
+
+
+                                            # les loads
     def load_attribut_player(self):
         path = self.game.get_path_saves('player_attribut.bin')
         try:
@@ -46,15 +69,6 @@ class Saves:
 
         return health, max_health, attack, xp, xp_max ,lvl
 
-    def save_position(self):
-        path = self.game.get_path_saves('player_position.bin')
-        coordonates = self.game.player.get_coordonnes()
-        map = self.game.map_manager.current_map
-        data = (coordonates, map)
-
-        with open(path, 'wb') as fichier:
-            pickle.dump(data, fichier, pickle.HIGHEST_PROTOCOL)
-
     def load_position(self):
         path = self.game.get_path_saves('player_position.bin')
 
@@ -65,16 +79,6 @@ class Saves:
                 self.game.map_manager.teleport_player_with_position(x, y)
         except:
             pass
-
-    def save_inventory(self):
-        path = self.game.get_path_saves('inventory.bin')
-
-        for objet in self.game.inventory.objet_inventory:
-            self.game.object_name_inventory.append((objet[0].name, objet[1]))
-        objects = self.game.object_name_inventory
-
-        with open(path, 'wb') as fichier:
-            pickle.dump(objects, fichier, pickle.HIGHEST_PROTOCOL)
 
     def load_inventory(self):
         path = self.game.get_path_saves('inventory.bin')
