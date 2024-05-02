@@ -13,10 +13,12 @@ class Saves:
         self.save_attribut_player()
         self.save_position()
         self.save_inventory()
+        self.save_tutorial()
 
     def load_all(self):
         self.load_position()
         self.load_inventory()
+        self.load_tutorial()
 
                                             # les saves
 

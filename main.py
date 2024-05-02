@@ -13,8 +13,6 @@ ajouter des png
 
 game = Game()
 
-game.saves.load_tutorial()
-
 # vérifie si le dossier 'saves' existe (si le jeu est pas compiler)
 if not os.path.exists(r'saves'):
     if not os.path.exists(r'_internal'):
