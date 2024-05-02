@@ -101,7 +101,7 @@ class Saves:
         except:
             max_health = 100
             health = 100
-            attack = 100000000000
+            attack = 10
             xp = 0
             xp_max = 25
             lvl = 1
