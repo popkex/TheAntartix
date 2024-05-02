@@ -70,13 +70,6 @@ class Saves:
         with open(path, 'wb') as content:
             pickle.dump(objects, content, pickle.HIGHEST_PROTOCOL)
 
-
-    # def save_inventory(self):
-    #     path = self.game.get_path_saves('inventory.bin')
-
-    #     for objet in self.game.inventory.all_objects():
-    #         print(objet)
-
     def save_tutorial(self):
         path = self.game.get_path_saves('tutorials.bin')
         data = self.game.tutorial.dic_tutorial
