@@ -2,7 +2,16 @@ from inventory import *
 
 class Data_Player:
     def __init__(self, game):
-        self.health, self.max_health, self.attack, self.xp, self.xp_max, self.lvl = game.saves.load_attribut_player()
+        self.game = game
+        self.health = None
+        self.max_health = None
+        self.attack = None
+        self.xp = None
+        self.xp_max = None
+        self.lvl = None
+
+    def load_attributes(self):
+        self.health, self.max_health, self.attack, self.xp, self.xp_max, self.lvl = self.game.saves.load_attribut_player()
 
 # si le joueur gagne de l'exp
     def get_xp(self, give_xp):

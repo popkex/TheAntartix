@@ -15,6 +15,8 @@ class Game():
     def __init__(self):
         self.saves = Saves(self)
         self.data_player = Data_Player(self)
+        self.data_player.load_attributes() # charge les attrbutes du joueur
+        print(self.data_player.health)
         self.player = Player(0, 0)
         self.screen = Screen(self)
         self.map_manager = MapManager(self, self.screen.screen, self.player)

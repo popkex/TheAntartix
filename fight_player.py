@@ -38,7 +38,6 @@ class Fight_Player():
             message = "Tu n'as pas réussi a t'échapper"
             self.game.add_message(message)
             self.game.update_screen()
-            # self.game.screen.system_message(message)
         return False
 
     def player_choose_object(self) -> bool:
@@ -67,4 +66,5 @@ class Fight_Player():
 
             if event.type == pygame.QUIT:
                 self.game.saves.save_and_quit()
+        self.game.update_screen()
         return True

@@ -24,12 +24,14 @@ class Saves:
 
     def save_attribut_player(self):
         path = self.game.get_path_saves('player_attribut.bin')
+
         health = self.game.data_player.health
         max_health = self.game.data_player.max_health
         attack = self.game.data_player.attack
         xp = self.game.data_player.xp
         xp_max = self.game.data_player.xp_max
         lvl = self.game.data_player.lvl
+
         data = (health, max_health, attack, xp, xp_max, lvl)
 
         with open(path, 'wb') as content:

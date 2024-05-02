@@ -27,8 +27,9 @@ class Screen:
         self.show_xp_player()
 
     def show_life_player(self):
-        self.life.show_hud_life(self.game.data_player.health, self.game.data_player.max_health, (20, 20), (50, 178, 50), (50, 50, 50))
-        self.draw_txt("HP", 20, (300, 24), False, (255, 102, 0))
+        if self.game.data_player.health is not None and self.game.data_player.max_health is not None:
+            self.life.show_hud_life(self.game.data_player.health, self.game.data_player.max_health, (20, 20), (50, 178, 50), (50, 50, 50))
+            self.draw_txt("HP", 20, (300, 24), False, (255, 102, 0))
 
     def show_inventory_asset(self):
         path = self.game.get_path_assets('action_player/Item.png')
@@ -296,16 +297,19 @@ class Tutorial:
         self.show_message(message)
 
     def background(self, txt_surface, margin, image=None):
-        size_screen = (txt_surface.get_width() + margin, txt_surface.get_height() + margin)
-        background = pygame.Surface(size_screen)
+        background = pygame.Surface((2000, 1000))
         if image:  # Si une image est fournie
             image_surface = pygame.image.load(image)  # Chargez l'image en tant que surface Pygame
             background.blit(image_surface, (0, 0))  # Affichez le fond aux coordonnées
         return background
 
     def show_message(self, message):
-        txt_surface = self.screen.draw_txt(message, 60, (0, 0), True, (255, 255, 255), True, False)
-        background = self.background(txt_surface, 10)  # Ajoutez 10px de marge
-        background.blit(txt_surface, (5, 5))  # Dessinez le texte sur le fond avec une marge de 5px
-        # background.blit_ressource(self.image, (0, 0))  # Dessinez l'image en haut à gauche
-        self.screen.blit_ressource(background, (0, 0))  # Dessinez le fond (avec le texte) sur l'écran
+        lines = message.split('\n')  # Divisez le message en lignes
+        for i, line in enumerate(lines):
+            txt_surface = self.screen.draw_txt(line, 30, (0, i*10), True, (255, 255, 255), True, False)  # Rendez chaque ligne séparément
+            background = self.background(txt_surface, 10)  # Ajoutez 10px de marge
+            background.blit(txt_surface, (5, 5))  # Dessinez le texte sur le fond avec une marge de 5px
+            self.screen.blit_ressource(background, (0, i*30))
+
+    def clear_tutorial(self):
+        self.screen.game.map_manager.draw()

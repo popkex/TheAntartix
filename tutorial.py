@@ -13,12 +13,14 @@ class Tutorial:
 
             # actualise l'écran
             self.game.screen.tutorial.show_tutorial(message)
-            self.game.update_screen()
+
+            pygame.display.flip()
 
             for event in pygame.event.get():
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
+                        self.game.screen.tutorial.clear_tutorial()
                         running = False
 
                 if event.type == pygame.QUIT:
