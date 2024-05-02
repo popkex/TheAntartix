@@ -118,10 +118,6 @@ class Game():
             else:
                 self.player.change_image(self.current_direction)
 
-            if not self.tutorial.dic_tutorial['inventory']:
-                print("ok")
-                self.tutorial.dic_tutorial['inventory'] = True
-
             self.update_screen()
 
             for event in pygame.event.get():
