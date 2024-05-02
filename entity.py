@@ -50,6 +50,6 @@ class EnemyB(Enemy):
         path = game.get_path_assets('enemy\enemyB.webp')
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (250, 250))
-        loot = [(Life_Potion, 6), (Big_Life_Potion, 3)] # (L'objet, le nombre d'objet au max)
+        loot = [(Big_Life_Potion, 3), (Bomb, 1)] # (L'objet, le nombre d'objet au max)
 
         super().__init__("enemy B", loot, image, max_health=80, health=80, attack=15, give_xp=5) # de base 120, 120, 12, 5
