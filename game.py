@@ -25,7 +25,6 @@ class Game():
         self.active_fight = False   # n'active pas de combat
         self.messages_system = [] # met aucun message systeme
         self.current_direction = 'up' #défini la direction par defaut
-        self.dic_tutorial = {} # creer les tuto lors du chargement du jeu (ailleurs)
 
     def class_in_str(self, module, name):
         return getattr(module, name)
@@ -119,8 +118,9 @@ class Game():
             else:
                 self.player.change_image(self.current_direction)
 
-
-            self.tutorial.running('test')
+            if not self.tutorial.dic_tutorial['inventory']:
+                print("ok")
+                self.tutorial.dic_tutorial['inventory'] = True
 
             self.update_screen()
 

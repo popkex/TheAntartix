@@ -4,6 +4,7 @@ class Tutorial:
 
     def __init__(self, game):
         self.game = game
+        self.dic_tutorial = {} # se défini quand on load si le fichier existe pas
 
     def running(self, message):
         running = True

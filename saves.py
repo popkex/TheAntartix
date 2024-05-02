@@ -30,8 +30,8 @@ class Saves:
         lvl = self.game.data_player.lvl
         data = (health, max_health, attack, xp, xp_max, lvl)
 
-        with open(path, 'wb') as fichier:
-            pickle.dump(data, fichier, pickle.HIGHEST_PROTOCOL)
+        with open(path, 'wb') as content:
+            pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
 
     def save_position(self):
         path = self.game.get_path_saves('player_position.bin')
@@ -39,8 +39,8 @@ class Saves:
         map = self.game.map_manager.current_map
         data = (coordonates, map)
 
-        with open(path, 'wb') as fichier:
-            pickle.dump(data, fichier, pickle.HIGHEST_PROTOCOL)
+        with open(path, 'wb') as content:
+            pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
 
     def save_inventory(self):
         path = self.game.get_path_saves('inventory.bin')
@@ -49,16 +49,23 @@ class Saves:
             self.game.object_name_inventory.append((objet[0].name, objet[1]))
         objects = self.game.object_name_inventory
 
-        with open(path, 'wb') as fichier:
-            pickle.dump(objects, fichier, pickle.HIGHEST_PROTOCOL)
+        with open(path, 'wb') as content:
+            pickle.dump(objects, content, pickle.HIGHEST_PROTOCOL)
+
+    def save_tutorial(self):
+        path = self.game.get_path_saves('tutorials.bin')
+        data = self.game.tutorial.dic_tutorial
+
+        with open(path, 'wb') as content:
+            pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
 
 
                                             # les loads
     def load_attribut_player(self):
         path = self.game.get_path_saves('player_attribut.bin')
         try:
-            with open(path, 'rb') as fichier:
-                health, max_health, attack, xp, xp_max, lvl = pickle.load(fichier)
+            with open(path, 'rb') as content:
+                health, max_health, attack, xp, xp_max, lvl = pickle.load(content)
         except:
             max_health = 100
             health = 100
@@ -66,6 +73,7 @@ class Saves:
             xp = 0
             xp_max = 25
             lvl = 1
+            self.save_attribut_player()
 
         return health, max_health, attack, xp, xp_max ,lvl
 
@@ -73,8 +81,8 @@ class Saves:
         path = self.game.get_path_saves('player_position.bin')
 
         try:
-            with open(path, 'rb') as fichier:
-                (x, y), map  = pickle.load(fichier)
+            with open(path, 'rb') as content:
+                (x, y), map  = pickle.load(content)
                 self.game.map_manager.current_map = map
                 self.game.map_manager.teleport_player_with_position(x, y)
         except:
@@ -85,8 +93,8 @@ class Saves:
 
         try:
             objects, new_instance = [], []
-            with open(path, 'rb') as fichier:
-                for objet in pickle.load(fichier):
+            with open(path, 'rb') as content:
+                for objet in pickle.load(content):
                     objects.append((objet[0], objet[1]))
 
                 for objet, number in objects:
@@ -94,3 +102,16 @@ class Saves:
                     self.game.inventory.append_object(new_instance(self.game), number)
         except:
             self.save_inventory()
+
+    def load_tutorial(self):
+        path = self.game.get_path_saves('tutorials.bin')
+
+        try:
+            with open(path, 'rb') as content:
+                self.game.tutorial.dic_tutorial = pickle.load(content)
+        except:
+            self.game.tutorial.dic_tutorial = {
+                'inventory': False,
+                'fight': False,
+            }
+            self.save_tutorial()
