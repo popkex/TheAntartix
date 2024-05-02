@@ -4,7 +4,7 @@ from game import Game
 pygame.init()
 
 '''
-ajout d'un tutoriel (en cours)
+ajout d'un tutoriel (en cours) (faire celui du combat)
 les enemies spawn uniquement dans des dj prevus a cette effet (a faire)
 ajouter des png
 '''
