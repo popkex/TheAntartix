@@ -15,6 +15,7 @@ class Screen:
         self.fight_display = Fight_display(self)
         self.inventory_display = Inventory_display(self)
         self.death_display = Death(self)
+        self.tutorial = Tutorial(self)
 
         #charge le hud
         self.hud()
@@ -48,15 +49,16 @@ class Screen:
     def draw_color(self, surface, color, position=(0, 0)):
         pygame.draw.rect(surface, color, position)
 
-    def draw_txt(self, txt, police=50, position=(0, 0), center=False, color=(255, 255, 255), render=False):
+    def draw_txt(self, txt, police=50, position=(0, 0), center=False, color=(255, 255, 255), render=False, can_blit=True):
         path = self.game.get_path_assets('font\Arialic Hollow.ttf')
         font = pygame.font.SysFont(path, police, True)
         txt_surface = font.render(txt, render, color)
 
         if center:
-            position = txt_surface.get_rect(center=(self.screen.get_width()/2, position[1]))
+            position = txt_surface.get_rect(center=(self.screen.get_width()/2, position[1])) # position 1 signifie le y
 
-        self.blit_ressource(txt_surface, position)
+        if can_blit:
+            self.blit_ressource(txt_surface, position)
         return txt_surface
 
 # Permet de changer facilement le changement de taille d'une image
@@ -283,3 +285,27 @@ class Death:
         path = self.screen.game.get_path_assets(f"game_over/{cause}/Game_Over-mort-combat{number_image}.png")
         image = pygame.image.load(path)
         self.screen.blit_ressource(image)
+
+
+
+class Tutorial:
+    def __init__(self, screen):
+        self.screen = screen
+
+    def show_tutorial(self, message):
+        self.show_message(message)
+
+    def background(self, txt_surface, margin, image=None):
+        size_screen = (txt_surface.get_width() + margin, txt_surface.get_height() + margin)
+        background = pygame.Surface(size_screen)
+        if image:  # Si une image est fournie
+            image_surface = pygame.image.load(image)  # Chargez l'image en tant que surface Pygame
+            background.blit(image_surface, (0, 0))  # Affichez le fond aux coordonnées
+        return background
+
+    def show_message(self, message):
+        txt_surface = self.screen.draw_txt(message, 60, (0, 0), True, (255, 255, 255), True, False)
+        background = self.background(txt_surface, 10)  # Ajoutez 10px de marge
+        background.blit(txt_surface, (5, 5))  # Dessinez le texte sur le fond avec une marge de 5px
+        # background.blit_ressource(self.image, (0, 0))  # Dessinez l'image en haut à gauche
+        self.screen.blit_ressource(background, (0, 0))  # Dessinez le fond (avec le texte) sur l'écran

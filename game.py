@@ -191,6 +191,7 @@ class Game():
         self.load_all()
 
         while self.running:
+
             self.update_zone()
 
             # Mettre à jour l'animation du joueur en fonction de la touche pressée
@@ -198,6 +199,9 @@ class Game():
                 self.player.change_animation(self.handle_input())
             else:
                 self.player.change_image(self.current_direction)
+
+
+            self.screen.tutorial.show_tutorial('test')
 
             self.update_screen()
 
