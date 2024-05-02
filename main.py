@@ -3,15 +3,11 @@ from game import Game
 
 pygame.init()
 
-
 '''
 ajout d'un tutoriel (en cours)
 les enemies spawn uniquement dans des dj prevus a cette effet (a faire)
 ajouter des png
 '''
-
-
-game = Game()
 
 # vérifie si le dossier 'saves' existe (si le jeu est pas compiler)
 if not os.path.exists(r'saves'):
@@ -20,4 +16,5 @@ if not os.path.exists(r'saves'):
     elif not os.path.exists(r'_internal\saves'):
         os.makedirs(r'_internal\saves')
 
+game = Game()
 game.run()
