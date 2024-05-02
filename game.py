@@ -13,7 +13,7 @@ from saves import Saves
 class Game():
 
     def __init__(self):
-        self.defaut_language = "en"
+        self.defaut_language = "fr"
         self.current_language, self.str_language = None, None
 
         self.saves = Saves(self)
