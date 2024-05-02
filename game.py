@@ -13,6 +13,9 @@ from saves import Saves
 class Game():
 
     def __init__(self):
+        self.current_language, self.str_language = self.load_language('en') # Défini la langue par defaut
+        print(self.current_language)
+
         self.saves = Saves(self)
         self.data_player = Data_Player(self)
         self.data_player.load_attributes() # charge les attrbutes du joueur
@@ -27,6 +30,17 @@ class Game():
         self.active_fight = False   # n'active pas de combat
         self.messages_system = [] # met aucun message systeme
         self.current_direction = 'up' #défini la direction par defaut
+
+    def load_language(self, lang):
+        import translation.french as new_language # défini la langue par défaut sur francais, a changer
+        str_new_language = "fr"
+        if lang == 'en':
+            import translation.english as new_language
+            str_new_language = "en"
+        elif lang == 'fr':
+            import translation.french as new_language
+            str_new_language = "fr"
+        return new_language, str_new_language
 
     def class_in_str(self, module, name):
         return getattr(module, name)

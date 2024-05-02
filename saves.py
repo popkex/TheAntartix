@@ -14,15 +14,17 @@ class Saves:
         self.save_position()
         self.save_inventory()
         self.save_tutorial()
+        self.save_settings()
 
     def load_all(self):
+        self.load_settings()
         self.load_position()
         self.load_inventory()
         self.load_tutorial()
 
                                             # les saves
 
-    def save_attribut_player(self):
+    def save_attribut_player(self, data_provided):
         path = self.game.get_path_saves('player_attribut.bin')
 
         health = self.game.data_player.health
@@ -32,7 +34,10 @@ class Saves:
         xp_max = self.game.data_player.xp_max
         lvl = self.game.data_player.lvl
 
-        data = (health, max_health, attack, xp, xp_max, lvl)
+        if not data_provided:
+            data = (health, max_health, attack, xp, xp_max, lvl)
+        else:
+            data = data_provided
 
         with open(path, 'wb') as content:
             pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
@@ -63,6 +68,13 @@ class Saves:
         with open(path, 'wb') as content:
             pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
 
+    def save_settings(self):
+        path = self.game.get_path_saves('settings.bin')
+        data = self.game.str_language
+
+        with open(path, 'wb') as content:
+            pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
+
 
                                             # les loads
     def load_attribut_player(self):
@@ -77,7 +89,8 @@ class Saves:
             xp = 0
             xp_max = 25
             lvl = 1
-            self.save_attribut_player()
+            data = max_health, health, attack, xp, xp_max, lvl
+            self.save_attribut_player(data)
 
         return health, max_health, attack, xp, xp_max ,lvl
 
@@ -119,3 +132,14 @@ class Saves:
                 'fight': False,
             }
             self.save_tutorial()
+
+    def load_settings(self):
+        path = self.game.get_path_saves('settings.bin')
+
+        try:
+            with open(path, 'rb') as content:
+                data = pickle.load(content)
+                self.game.load_load_language(data)
+        except:
+            self.game.load_language('fr')
+            self.save_settings()
