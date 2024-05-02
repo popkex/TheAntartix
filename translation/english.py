@@ -1,13 +1,13 @@
 translations = {
     # objets
-    'Life_Potion': 'one health potion',
-    'Big_Life_Potion': 'one big health potion',
-    'Bomb': 'one bomb',
+    'Life_Potion': 'a health potion',
+    'Big_Life_Potion': 'a big health potion',
+    'Bomb': 'a bomb',
 
     # utilisations
-    'object_used': 'Object used ',
+    'object_used': 'You used ',
 
     # the tutorials
-    'tuto_iv': "This is your inventory.\nLike with every others inventory, you'll be able to stock items in it.\nPress 'E' to open and close it at any time.\n\nPress 'ESC' to quit",
-    'tuto_fight': "Here you are in a fight! Press 'A' to attack your opponent.\nBut be careful, you will take damage back. If you succumb to your injuries, you'll leave the fight, your health will get back at 50%\nand you'll lose a level!\nBut if you're able to defeat your enemy, you'll win some xp and items!\nYou can also get to your inventory with 'E' and flee.\nBut if you try to flee, you may fail and take damage.\nGood luck and don't die\n\nPress 'ESC' to leave."
+    'tuto_iv': "This is your inventory.\nLike any other inventory, you can store items and use them here.\nPress 'E' to open and close it whenever you want.\n\nPress 'ESC' to exit",
+    'tuto_fight': "You're in a fight! Here, by pressing 'A' you can attack your opponent.\nBut be careful, you will take damage. If you die, your health will return to 50%\nand you will lose experience/level down!\nBut if you manage to kill your opponent, you gain xp and items\nYou can also access your inventory by pressing 'E' and flee\nBut if you flee, you might not make it and you will take damage\nGood luck and don't get killed\n\nPress 'ESC' to exit"
 }
