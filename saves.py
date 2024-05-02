@@ -24,7 +24,7 @@ class Saves:
 
                                             # les saves
 
-    def save_attribut_player(self, data_provided):
+    def save_attribut_player(self, data_provided=None):
         path = self.game.get_path_saves('player_attribut.bin')
 
         health = self.game.data_player.health
