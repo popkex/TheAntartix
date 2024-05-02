@@ -15,8 +15,6 @@ class Fight:
         enemy_list = [EnemyA(game), EnemyB(game)]
         self.current_enemy = random.choice(enemy_list)
 
-        self.tutorial_message = "Te voilà en en combat, ici, en appuyant sur 'A' tu peux attaquer ton adversaire\nMais attention, tu te prendras des dégàts. Si tu meurt ta vie reviendras à 50% et tu perdras de l'experience/diminuera de niveau !\nMais si tu arrive à tuer ton adversaire, tu gagne de l'xp et des objets\nTu peux aussi accéder a ton inventaire en appuyant sur 'E' et fuire\nMais si tu fuis il se peut que tu n'y arrive pas et tu te prendras des dégàts\nBonne chance et va pas te faire tuer\n\nAppuie sur 'ESC' pour quitter"
-
     # Vérifie si il reste des entités en vie
     def entity_is_alive(self) -> bool:
         return self.game.fight_player.is_alive() and self.current_enemy.is_alive()
@@ -77,7 +75,7 @@ class Fight:
         while self.game.active_fight:
             # lance le tuto et le désactive une fois que l'utilisateur le quitte
             if not self.game.tutorial.dic_tutorial['fight']:
-                self.game.tutorial.running(self.tutorial_message)
+                self.game.tutorial.running('tuto_fight')
                 self.game.tutorial.dic_tutorial['fight'] = True
                 pygame.display.flip()
 
