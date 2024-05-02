@@ -7,6 +7,7 @@ from data_player import Data_Player
 from player import Player
 from fight import Fight
 from fight_player import Fight_Player
+from tutorial import Tutorial
 
 class Game():
 
@@ -16,9 +17,11 @@ class Game():
         self.screen = Screen(self)
         self.map_manager = MapManager(self, self.screen.screen, self.player)
         self.inventory = inventory.Inventory(self)
-        self.object_name_inventory = []
-        self.active_fight = False
-        self.messages_system = []
+        self.tutorial = Tutorial(self)
+
+        self.object_name_inventory = [] # met l'inventaire vide (avant de le charger et de le remplir)
+        self.active_fight = False   # n'active pas de combat
+        self.messages_system = [] # met aucun message systeme
         self.current_direction = 'up' #défini la direction par defaut
 
     def class_in_str(self, module, name):
@@ -201,7 +204,7 @@ class Game():
                 self.player.change_image(self.current_direction)
 
 
-            self.screen.tutorial.show_tutorial('test')
+            self.tutorial.show_tutorial('test')
 
             self.update_screen()
 
