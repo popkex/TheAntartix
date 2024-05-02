@@ -27,7 +27,7 @@ class Inventory:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    game.save_and_quit()
+                    game.saves.save_and_quit()
 
         return object_used
 
@@ -120,7 +120,7 @@ class Inventory:
                     return False, True
 
             if event.type == pygame.QUIT:
-                self.game.save_and_quit()
+                self.game.saves.save_and_quit()
         return True, True
 
 

@@ -8,10 +8,12 @@ from player import Player
 from fight import Fight
 from fight_player import Fight_Player
 from tutorial import Tutorial
+from saves import Saves
 
 class Game():
 
     def __init__(self):
+        self.saves = Saves(self)
         self.data_player = Data_Player(self)
         self.player = Player(0, 0)
         self.screen = Screen(self)
@@ -23,96 +25,10 @@ class Game():
         self.active_fight = False   # n'active pas de combat
         self.messages_system = [] # met aucun message systeme
         self.current_direction = 'up' #défini la direction par defaut
+        self.dic_tutorial = {} # creer les tuto lors du chargement du jeu (ailleurs)
 
     def class_in_str(self, module, name):
         return getattr(module, name)
-
-                                                    # partie sauvegarde et chargement du jeu
-    def save_and_quit(self):
-        self.save_all()
-        pygame.quit()
-
-    def save_all(self):
-        self.save_attribut_player()
-        self.save_position()
-        self.save_inventory()
-
-    def load_all(self):
-        self.load_position()
-        self.load_inventory()
-
-    def save_attribut_player(self):
-        path = self.get_path_saves('player_attribut.bin')
-        health = self.data_player.health
-        max_health = self.data_player.max_health
-        attack = self.data_player.attack
-        xp = self.data_player.xp
-        xp_max = self.data_player.xp_max
-        lvl = self.data_player.lvl
-        data = (health, max_health, attack, xp, xp_max, lvl)
-
-        with open(path, 'wb') as fichier:
-            pickle.dump(data, fichier, pickle.HIGHEST_PROTOCOL)
-
-    def load_attribut_player(self):
-        path = self.get_path_saves('player_attribut.bin')
-        try:
-            with open(path, 'rb') as fichier:
-                health, max_health, attack, xp, xp_max, lvl = pickle.load(fichier)
-        except:
-            max_health = 100
-            health = 100
-            attack = 10
-            xp = 0
-            xp_max = 25
-            lvl = 1
-
-        return health, max_health, attack, xp, xp_max ,lvl
-
-    def save_position(self):
-        path = self.get_path_saves('player_position.bin')
-        coordonates = self.player.get_coordonnes()
-        map = self.map_manager.current_map
-        data = (coordonates, map)
-
-        with open(path, 'wb') as fichier:
-            pickle.dump(data, fichier, pickle.HIGHEST_PROTOCOL)
-
-    def load_position(self):
-        path = self.get_path_saves('player_position.bin')
-
-        try:
-            with open(path, 'rb') as fichier:
-                (x, y), map  = pickle.load(fichier)
-                self.map_manager.current_map = map
-                self.map_manager.teleport_player_with_position(x, y)
-        except:
-            pass
-
-    def save_inventory(self):
-        path = self.get_path_saves('inventory.bin')
-
-        for objet in self.inventory.objet_inventory:
-            self.object_name_inventory.append((objet[0].name, objet[1]))
-        objects = self.object_name_inventory
-
-        with open(path, 'wb') as fichier:
-            pickle.dump(objects, fichier, pickle.HIGHEST_PROTOCOL)
-
-    def load_inventory(self):
-        path = self.get_path_saves('inventory.bin')
-
-        try:
-            objects, new_instance = [], []
-            with open(path, 'rb') as fichier:
-                for objet in pickle.load(fichier):
-                    objects.append((objet[0], objet[1]))
-
-                for objet, number in objects:
-                    new_instance = self.class_in_str(inventory, objet)
-                    self.inventory.append_object(new_instance(self), number)
-        except:
-            self.save_inventory()
 
     def handle_input(self):
         pressed = pygame.key.get_pressed()
@@ -182,8 +98,8 @@ class Game():
 
 # vérifie si le joueur est en combat / actualise le jeu
     def update_zone(self):
-            self.launch_fight()
-            self.update_game()
+        self.launch_fight()
+        self.update_game()
 
     def run(self):
         self.clock = pygame.time.Clock()
@@ -191,7 +107,7 @@ class Game():
 
         self.player.change_image('up')
         pygame.display.flip()
-        self.load_all()
+        self.saves.load_all()
 
         while self.running:
 
@@ -204,7 +120,7 @@ class Game():
                 self.player.change_image(self.current_direction)
 
 
-            self.tutorial.show_tutorial('test')
+            self.tutorial.running('test')
 
             self.update_screen()
 
@@ -216,4 +132,4 @@ class Game():
                 if event.type == pygame.QUIT:
                     self.running = False
 
-        self.save_and_quit()
+        self.saves.save_and_quit()

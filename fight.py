@@ -58,7 +58,7 @@ class Fight:
                         running = False
 
                 if event.type == pygame.QUIT:
-                    self.game.save_and_quit()
+                    self.game.saves.save_and_quit()
 
 # Gère le système de tour par tour
     def turn_management(self):

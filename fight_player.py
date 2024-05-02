@@ -66,5 +66,5 @@ class Fight_Player():
                     return self.player_escape()
 
             if event.type == pygame.QUIT:
-                self.game.save_and_quit()
+                self.game.saves.save_and_quit()
         return True
