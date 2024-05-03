@@ -31,6 +31,8 @@ class Game():
         self.messages_system = [] # met aucun message systeme
         self.current_direction = 'up' #défini la direction par defaut
 
+        self.saves.load_all()
+
     def load_language(self, lang):
         if lang == 'en':
             import translation.english as new_language
@@ -117,7 +119,6 @@ class Game():
 
         self.player.change_image('up')
         pygame.display.flip()
-        self.saves.load_all()
 
         while self.running:
 

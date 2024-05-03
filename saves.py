@@ -146,8 +146,10 @@ class Saves:
 
         try:
             with open(path, 'rb') as content:
-                data, data_str = pickle.load(content)
-                self.game.load_languages(data_str)
+                data_str = pickle.load(content)
+                print(data_str)
+                self.game.load_language(data_str)
+                print('ok')
         except:
             self.game.load_language(self.game.defaut_language)
             self.save_settings()
