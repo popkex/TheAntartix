@@ -97,9 +97,7 @@ class Settings_language:
                 rect = pygame.Rect(button_position)
                 if rect.collidepoint(event.pos):
                     if txt == 'french':
-                        print('fr')
                         self.game.load_language('fr')
 
                     elif txt == 'english':
-                        print('en')
                         self.game.load_language('en')

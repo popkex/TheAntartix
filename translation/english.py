@@ -1,7 +1,6 @@
 translations = {
 
     'message_system': {
-        # utilisations
         'object_used': 'You used ',
     },
 
