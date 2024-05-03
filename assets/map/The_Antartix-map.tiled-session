@@ -18,6 +18,17 @@
         "C:/Users/cleme/OneDrive/dev/TheAntartix/assets/map/nature.tsx": {
             "scaleInDock": 1
         },
+        "donjon1.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 4,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 250.25,
+                "y": 407.25
+            }
+        },
         "house.tmx": {
             "expandedObjectLayers": [
                 4
@@ -34,14 +45,11 @@
             "scaleInEditor": 1
         },
         "house1.tmx": {
-            "expandedObjectLayers": [
-                4
-            ],
             "scale": 1.5,
-            "selectedLayer": 2,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 119.99999999999997,
-                "y": 120
+                "x": 58,
+                "y": 94
             }
         },
         "house2.tmx": {
@@ -85,21 +93,22 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 8,
+            "scale": 5.5,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 1600,
-                "y": 799.875
+                "x": 242.36363636363637,
+                "y": 1006.909090909091
             }
         }
     },
     "last.externalTilesetPath": "C:/Users/cleme/OneDrive/dev/python/TheAntartix/assets/map",
-    "last.imagePath": "C:/Users/cleme/OneDrive/dev/python/TheAntartix/assets",
-    "map.height": 15,
+    "last.imagePath": "C:/Users/cleme/OneDrive/dev/python/TheAntartix/assets/map/assets",
+    "map.fixedSize": false,
+    "map.height": 5,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 15,
+    "map.width": 25,
     "openFiles": [
         "world.tmx",
         "house1.tmx",

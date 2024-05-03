@@ -33,17 +33,20 @@ class MapManager:
         #défini : le monde d'origine (le monde normal), le point d'entrée, le monde d'entrée, le lieu de spawn dans le monde d'entrée
         self.register_map("world", portals=[
             Portal(from_world="world", origin_point="enter_house1", target_world="house1", teleport_point="spawn_house"),
-            Portal(from_world="world", origin_point="enter_house2", target_world="house2", teleport_point="spawn_house")
+            Portal(from_world="world", origin_point="enter_house2", target_world="house2", teleport_point="spawn_house"),
+            Portal(from_world="world", origin_point="enter_donjon1", target_world="donjon1", teleport_point="spawn_donjon"),
         ])
 
 #depuis les maisons
         #defini le monde d'origine (la maison), le point de sortie, le monde de sortie, l'endroit du spawn dans le monde de sortie
-        #la meme sortie car les 2maisons sont coller
         self.register_map("house1", portals=[
             Portal(from_world="house1", origin_point="exit_house", target_world="world", teleport_point="exit_house1")
         ])
         self.register_map("house2", portals=[
             Portal(from_world="house2", origin_point="exit_house", target_world="world", teleport_point="exit_house2")
+        ])
+        self.register_map("donjon1", portals=[
+            Portal(from_world="donjon1", origin_point="exit_donjon", target_world="world", teleport_point="exit_donjon1")
         ])
 
         #défini le lieu de spawn qui s'appelle 'player_spawn'
