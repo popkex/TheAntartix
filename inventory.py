@@ -115,11 +115,12 @@ class Inventory:
                     rect = pygame.Rect((x, y, 35, 50))
                     if rect.collidepoint(event.pos):
                         object_used = objet[0].used()
+                        print(object_used)
                         if object_used:
-                            message = self.game.current_language.translations['object_used'] + self.game.current_language.translations[objet[0].name]
+                            message = self.game.current_language.translations['message_system']['object_used'] + self.game.current_language.translations['objects'][objet[0].name]
                             self.game.add_message(message)
                             self.game.update_screen()
-                        return False, objet[0].used()
+                        return False, object_used
 
                 rect = self.game.screen.inventory_display.enter_zone_inventory()
                 if not rect.collidepoint(event.pos):
@@ -151,7 +152,7 @@ class Potion(Objet):
     def used(self):
         self.effect()
         self.game.inventory.remove_object(self, 1)
-        return False
+        return True
 
 class Life_Potion(Potion):
     def __init__(self, game):

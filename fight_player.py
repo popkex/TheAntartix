@@ -24,7 +24,7 @@ class Fight_Player():
             self.enemy.health -= self.player.attack
         else: 
             self.enemy.health = 0
-        message = "Tu as attaqué !"
+        message = self.game.current_language.translations['message_system']['player_attack']
         self.game.add_message(message)
         self.game.update_screen()
         return False
@@ -35,14 +35,14 @@ class Fight_Player():
         if luck <= 85: #de base 85
             self.game.active_fight = False
         else:
-            message = "Tu n'as pas réussi a t'échapper"
+            message = self.game.current_language.translations['message_system']['failed escape']
             self.game.add_message(message)
             self.game.update_screen()
         return False
 
     def player_choose_object(self) -> bool:
         if not self.game.fight.player_selected_object:
-            return self.game.inventory.open_inventory(self.game, "fight")
+            return not self.game.inventory.open_inventory(self.game, "fight")
 
 # Détécte sur quoi le joueur clique et lance l'action séléctionné
     def turn(self) -> bool:

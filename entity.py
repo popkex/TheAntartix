@@ -23,7 +23,12 @@ class Enemy(Entity):
             self.game.data_player.health -= self.attack
         else: 
             self.game.data_player.health = 0
-        message = f"Tu as subie {self.attack} de dégàts"
+
+        txt1 = self.game.current_language.translations['message_system']['damage_suffered1']
+        txt_dommage = self.attack
+        txt2 = self.game.current_language.translations['message_system']['damage_suffered2']
+        message = f"{txt1} {txt_dommage} {txt2}"
+
         self.game.add_message(message)
 
     def is_alive(self):

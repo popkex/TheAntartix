@@ -312,7 +312,7 @@ class Tutorial:
     def show_message(self, message):
         lines = message.split('\n')  # Divisez le message en lignes
         for i, line in enumerate(lines):
-            txt_surface = self.screen.draw_txt(line, 30, (0, i*10), True, (255, 255, 255), True, False)  # Rendez chaque ligne séparément
+            txt_surface, position = self.screen.draw_txt(line, 30, (0, i*10), True, (255, 255, 255), True, False)  # Rendez chaque ligne séparément
             background = self.background(txt_surface, 10)  # Ajoutez 10px de marge
             background.blit(txt_surface, (5, 5))  # Dessinez le texte sur le fond avec une marge de 5px
             self.screen.blit_ressource(background, (0, i*30))

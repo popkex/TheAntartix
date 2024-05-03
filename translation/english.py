@@ -1,7 +1,11 @@
 translations = {
 
     'message_system': {
-        'object_used': 'You used ',
+        "object_used": "You used",
+        "damage_suffered1": "You suffered",
+        "damage_suffered2": "damage",
+        "failed escape": "You failed to escape",
+        'player_attack': "You attacked!",
     },
 
     'objects': {

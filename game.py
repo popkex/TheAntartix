@@ -1,5 +1,5 @@
 import pygame, sys, os, time
-from inventory import Inventory
+from inventory import *
 from map import MapManager
 from screen import Screen
 from data_player import Data_Player
