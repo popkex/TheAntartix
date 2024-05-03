@@ -114,7 +114,7 @@ class MapManager:
                 walls.append(pygame.Rect(object_.x, object_.y, object_.width, object_.height))
 
         #dessine le groupe de calques
-        group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=5)
+        group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=6)
         group.add(self.player)
 
         #creer un objet map
