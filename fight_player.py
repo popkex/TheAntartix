@@ -46,6 +46,7 @@ class Fight_Player():
 
 # Détécte sur quoi le joueur clique et lance l'action séléctionné
     def turn(self) -> bool:
+        self.game.update_screen()
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 index = 0
@@ -66,5 +67,4 @@ class Fight_Player():
 
             if event.type == pygame.QUIT:
                 self.game.saves.save_and_quit()
-        self.game.update_screen()
         return True

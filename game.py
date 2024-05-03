@@ -57,8 +57,8 @@ class Game():
 
     def update_screen(self):
         self.screen.display_messages()
-        pygame.display.flip()
         self.clock.tick(60)
+        pygame.display.flip()
 
     def update(self):
         self.map_manager.update()

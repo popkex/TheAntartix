@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "house1.tmx",
+    "activeFile": "world.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -18,15 +18,18 @@
         "C:/Users/cleme/OneDrive/dev/TheAntartix/assets/map/nature.tsx": {
             "scaleInDock": 1
         },
+        "donjon.tsx": {
+            "scaleInDock": 1
+        },
         "donjon1.tmx": {
             "expandedObjectLayers": [
-                4
+                3
             ],
-            "scale": 4,
-            "selectedLayer": 3,
+            "scale": 2,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 250.25,
-                "y": 407.25
+                "x": 82.5,
+                "y": 293
             }
         },
         "house.tmx": {
@@ -48,19 +51,19 @@
             "scale": 1.5,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 58,
-                "y": 94
+                "x": 118,
+                "y": 118
             }
         },
         "house2.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 16,
-            "selectedLayer": 3,
+            "scale": 2,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 120,
-                "y": 120
+                "x": 153,
+                "y": 111
             }
         },
         "house_1.tmx": {
@@ -93,17 +96,17 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 5.5,
+            "scale": 0.75,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 242.36363636363637,
-                "y": 1006.909090909091
+                "x": 433.3333333333333,
+                "y": 232
             }
         }
     },
     "last.externalTilesetPath": "C:/Users/cleme/OneDrive/dev/python/TheAntartix/assets/map",
     "last.imagePath": "C:/Users/cleme/OneDrive/dev/python/TheAntartix/assets/map/assets",
-    "map.fixedSize": false,
+    "map.fixedSize": true,
     "map.height": 5,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
@@ -117,10 +120,11 @@
     ],
     "project": "The_Antartix-map.tiled-project",
     "recentFiles": [
-        "world.tmx",
         "house.tsx",
         "house2.tmx",
         "house1.tmx",
+        "world.tmx",
+        "donjon1.tmx",
         "mobilier.tsx",
         "house.tmx",
         "house_2.tmx",

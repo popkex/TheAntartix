@@ -45,7 +45,7 @@ class MapManager:
         self.register_map("house2", portals=[
             Portal(from_world="house2", origin_point="exit_house", target_world="world", teleport_point="exit_house2")
         ])
-        self.register_map("donjon1", portals=[
+        self.register_map("donjon1", portals=[ 
             Portal(from_world="donjon1", origin_point="exit_donjon", target_world="world", teleport_point="exit_donjon1")
         ])
 

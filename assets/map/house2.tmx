@@ -2,7 +2,7 @@
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="15" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="16">
  <tileset firstgid="1" source="nature.tsx"/>
  <tileset firstgid="721" source="mobilier.tsx"/>
- <layer id="1" name="background" width="15" height="15">
+ <layer id="1" name="floor" width="15" height="15">
   <data encoding="csv">
 165,166,165,166,165,166,165,166,165,166,165,166,165,166,165,
 205,206,205,206,205,206,205,206,205,206,205,206,205,206,205,
