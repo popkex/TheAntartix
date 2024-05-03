@@ -8,6 +8,7 @@ from fight import Fight
 from fight_player import Fight_Player
 from tutorial import Tutorial
 from saves import Saves
+from pause_menu import Pause_Menu
 
 class Game():
 
@@ -15,6 +16,7 @@ class Game():
         self.defaut_language = "fr"
         self.current_language, self.str_language = None, None
 
+        self.pause_menu = Pause_Menu(self)
         self.inventory = Inventory(self)
         self.saves = Saves(self)
         self.data_player = Data_Player(self)
@@ -133,6 +135,9 @@ class Game():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_e:
                         self.inventory.open_inventory(self, "game")
+
+                    if event.key == pygame.K_ESCAPE:
+                        self.pause_menu.running()
 
                 if event.type == pygame.QUIT:
                     self.running = False

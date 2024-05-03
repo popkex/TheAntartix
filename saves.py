@@ -122,14 +122,10 @@ class Saves:
             with open(path, 'rb') as content:
                 for objet in pickle.load(content):
                     objects.append((objet[0], objet[1]))
-                print('ok, objects length:', len(objects))
                 for objet, number in objects:
-                    print('okkk')
                     new_instance = self.class_in_str(objet)
-                    print(new_instance)
                     self.game.inventory.append_object(new_instance(self.game), number)
         except Exception as e:
-            print('Exception caught:', e)
             self.save_inventory()
 
     def load_tutorial(self):

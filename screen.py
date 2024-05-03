@@ -16,6 +16,9 @@ class Screen:
         self.inventory_display = Inventory_display(self)
         self.death_display = Death(self)
         self.tutorial = Tutorial(self)
+        self.pause_menu = Pause_menu(self)
+        self.settings = Settings(self)
+        self.settings_languages = Settings_Languages(self)
 
         #charge le hud
         self.hud()
@@ -60,7 +63,8 @@ class Screen:
 
         if can_blit:
             self.blit_ressource(txt_surface, position)
-        return txt_surface
+        return txt_surface, position
+
 
 # Permet de changer facilement le changement de taille d'une image
     def transform_img(self, image, scale):
@@ -289,6 +293,8 @@ class Death:
 
 
 
+
+
 class Tutorial:
     def __init__(self, screen):
         self.screen = screen
@@ -313,3 +319,107 @@ class Tutorial:
 
     def clear_tutorial(self):
         self.screen.game.map_manager.draw()
+
+
+
+
+
+class Pause_menu:
+
+    def __init__(self, screen):
+        self.screen = screen
+        self.dic_buttons = {}  # stock les coordonnées des bouttons
+
+    def show_pause(self):
+        self.show_background()
+        self.show_title()
+        self.show_buttons()
+
+    def show_background(self):
+        background_path = self.screen.game.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background = pygame.image.load(background_path)
+        background = self.screen.transform_img(background, self.screen.display_width)
+        self.screen.blit_ressource(background, (0, 0))
+
+    def show_title(self):
+        title = self.screen.game.current_language.translations['main_pause_menu_title']
+        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+
+    def show_buttons(self):
+        self.show_button_settings()
+
+    def buttons(self, txt_key, txt, button_number, dic):
+        y = 100+50*button_number
+        txt_surface, position = self.screen.draw_txt(txt, 50, (0, y), True, (255, 255, 255), True)
+        x, y, w, h = position
+        button_position = x -10, y-10, w + 10, h + 10
+        dic[txt_key] = button_position  # Stockez les coordonnées du bouton
+
+    def show_button_settings(self):
+        txt_key = 'settings_button'
+        txt = self.screen.game.current_language.translations[txt_key]
+        self.buttons(txt_key, txt, 1, self.dic_buttons)
+
+
+
+
+
+class Settings:
+
+    def __init__(self, screen):
+        self.screen = screen
+        self.dic_buttons = {}  # stock les coordonnées des bouttons
+
+    def show_settings(self):
+        self.show_background()
+        self.show_title()
+        self.show_buttons()
+
+    def show_background(self):
+        self.screen.pause_menu.show_background()
+
+    def show_title(self):
+        title = self.screen.game.current_language.translations['main_settings_title']
+        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+
+    def show_buttons(self):
+        self.show_button_language()
+
+    def show_button_language(self):
+        txt_key = 'language'
+        txt = self.screen.game.current_language.translations[txt_key]
+        self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
+
+
+
+
+class Settings_Languages:
+    def __init__(self, screen):
+        self.screen = screen
+        self.dic_buttons = {}  # stock les coordonnées des bouttons
+
+    def show_settings_languages(self):
+        self.show_background()
+        self.show_title()
+        self.show_buttons()
+
+    def show_background(self):
+        self.screen.pause_menu.show_background()
+
+    def show_title(self):
+        title = self.screen.game.current_language.translations['main_settings_languages_title']
+        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+
+    def show_buttons(self):
+        self.show_button_language_french()
+        self.show_button_language_english()
+
+    def show_button_language_french(self):
+        txt_key = 'french'
+        txt = self.screen.game.current_language.translations[txt_key]
+        self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
+
+    def show_button_language_english(self):
+        txt_key = 'english'
+        txt = self.screen.game.current_language.translations[txt_key]
+        self.screen.pause_menu.buttons(txt_key, txt, 2, self.dic_buttons)

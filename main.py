@@ -5,7 +5,7 @@ pygame.init()
 
 '''
 ajouter des png (a faire)
-
+bloquer l'utilisation des poitions si le joueurs est full hp
 changer le mode de fonctionnement du screen de mort et le traduire !!!!
 '''
 
