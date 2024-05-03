@@ -4,8 +4,9 @@ from game import Game
 pygame.init()
 
 '''
-les enemies spawn uniquement dans des dj prevus a cette effet (a faire)
 ajouter des png (a faire)
+
+changer le mode de fonctionnement du screen de mort et le traduire !!!!
 '''
 
 # vérifie si le dossier 'saves' existe (si le jeu est pas compiler)
