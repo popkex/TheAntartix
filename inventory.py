@@ -113,9 +113,11 @@ class Inventory:
                 for rect, objet in self.objet_inventory_rects:
                     x, y = rect
                     rect = pygame.Rect((x, y, 35, 50))
+
                     if rect.collidepoint(event.pos):
                         object_used = objet[0].used()
                         print(object_used)
+
                         if object_used:
                             message = self.game.load_txt('message_system', 'object_used') + self.game.load_txt('objects', objet[0].name)
                             self.game.add_message(message)
@@ -154,7 +156,6 @@ class Potion(Objet):
             self.effect()
             self.game.inventory.remove_object(self, 1)
             return True
-        return False
 
 class Life_Potion(Potion):
     def __init__(self, game):
