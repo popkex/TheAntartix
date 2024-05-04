@@ -48,7 +48,7 @@ class Fight:
         running = True
         number_image = random.randint(1, 10)
         while running:
-            self.game.screen.death_display.show_death("fight", number_image)
+            self.game.screen.death_display.show_death("fight_message", number_image)
 
             pygame.display.flip()
 

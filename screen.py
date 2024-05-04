@@ -284,13 +284,28 @@ class Death:
         self.screen = screen
 
     def show_death(self, cause, number_image):
-        self.blit_background(cause, number_image)
+        self.blit_background()
+        self.show_txt(cause, number_image)
 
-    def blit_background(self, cause, number_image):
-        path = self.screen.game.get_path_assets(f"game_over/{cause}/Game_Over-mort-combat{number_image}.png")
+    def blit_background(self):
+        path = self.screen.game.get_path_assets(f"Game_Over.png")
         image = pygame.image.load(path)
         self.screen.blit_ressource(image)
 
+    def show_txt(self, cause, number_image):
+        self.show_txt_death(cause, number_image)
+        self.show_exit_txt()
+
+    def show_txt_death(self, cause, number_image):
+        txt_key = f"{cause}_{number_image}"
+        txt = self.screen.game.load_txt("game_over", txt_key)
+        self.screen.draw_txt(txt, 60, (0, 200), True) # affiche le txt a l'écran avec une police de 30 et en x=centre, y=200
+
+    def show_exit_txt(self):
+        txt_key_button = "press_space"
+        txt_key_exit = 'exit'
+        txt = f"{self.screen.game.load_txt('button_press', txt_key_button)} {self.screen.game.load_txt('message_system', txt_key_exit)}"
+        self.screen.draw_txt(txt, 50, (0, 650), True) # affiche le txt a l'écran avec une police de 50 et en x=centre, y=650
 
 
 

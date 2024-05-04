@@ -6,6 +6,7 @@ translations = {
         "damage_suffered2": "de dégàts",
         "failed escape": "Tu n'as pas réussi a t'échapper",
         'player_attack': "Tu as attaqué !",
+        'exit': 'pour quitter',
     },
 
     "objects": {
@@ -37,5 +38,22 @@ translations = {
     "languages": {
         "french": "Français",
         "english": "Anglais",
+    },
+
+    'game_over': {
+        'fight_message_1': 'Il a voulu jouer au héros, mais il a fini en zéro.',
+        'fight_message_2': "Une autre âme courageuse... écrasée par la réalité du 'Game Over'.",
+        'fight_message_3': "Il a tenté, il a échoué, et maintenant il fait partie du décor.",
+        'fight_message_4': "Il a couru vers la goile, mais il a trébuché sur son épée.",
+        'fight_message_5': "Il a sauté dans la bataille... et directement dans un pège.",
+        'fight_message_6': "Il a crié 'Pour l'honneur !', mais tout ce qu'on a entendu, c'est 'Aie !'",
+        'fight_message_7': "Il a combattu comme un lion, mais hélas, il n'était qu'un chaton.",
+        'fight_message_8': "Il a cherché la victoire, mais a trouver une fin pittoresque.",
+        'fight_message_9': "Il a rêvé d'être invincible, il a oublié de le pratiquer.",
+        'fight_message_10': "Il a voulu être le maître du jeu, mais le jeu l'a maîtrisé.",
+    },
+
+    'button_press': {
+        'press_space': 'Appuie sur espace',
     }
 }
