@@ -38,7 +38,7 @@ class MapManager:
             Portal(from_world="world", origin_point="enter_house2", target_world="house2", teleport_point="player_spawn"),
             Portal(from_world="world", origin_point="enter_donjon1", target_world="donjon1", teleport_point="player_spawn"),
         ], npcs=[
-            NPC('paul', nb_points=2)
+            NPC('paul', nb_points=2, dialog=self.game.load_txt('npc', 'paul'))
         ])
 
 #depuis les maisons
@@ -57,6 +57,12 @@ class MapManager:
         self.teleport_player_with_name('player_spawn')
 
         self.teleport_npcs()
+
+    def check_npcs_collisions(self, dialog_box):
+        for sprite in self.get_group().sprites():
+            for npc in self.get_map().npcs:
+                if npc.rect.colliderect(self.game.player.rect):
+                    dialog_box.execute(npc.dialog)
 
     def check_enter_portal(self):
         #portal
@@ -90,13 +96,9 @@ class MapManager:
                 npc.npc_collide = False
 
                 for wall in self.get_walls():
-                    if npc.feet.colliderect(wall):
+                    # si le npc touche un mur ou le joueur
+                    if npc.feet.colliderect(wall) or npc.rect.colliderect(self.game.player.rect):
                         npc.npc_collide = True
-
-                if npc.rect.colliderect(self.game.player.rect):
-                    npc.npc_collide = True
-                    self.game.player.move_back()
-
 #verifie les collisions
     def check_collisions(self):
         self.check_enter_portal()

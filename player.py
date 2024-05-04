@@ -147,10 +147,11 @@ class Player(Entity):
 
 class NPC(Entity):
 
-    def __init__(self, name, nb_points):
+    def __init__(self, name, nb_points, dialog):
         super().__init__(name, 0, 0)
         self.nb_points = nb_points
         self.name = name
+        self.dialog = dialog
         self.npc_collide = False
         self.current_position = 'up'
         self.points = []
@@ -192,7 +193,6 @@ class NPC(Entity):
         self.save_location()
 
         return current_direction, moving
-
 
     def teleport_spawn(self):
         location = self.points[self.current_point]

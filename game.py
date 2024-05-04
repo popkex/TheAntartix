@@ -1,6 +1,7 @@
 import pygame, sys, os, time
 from inventory import *
 from map import MapManager
+from dialog import DialogBox
 from screen import Screen
 from data_player import Data_Player
 from player import Player
@@ -14,7 +15,7 @@ class Game():
 
     def __init__(self):
         self.defaut_language = "fr"
-        self.current_language, self.str_language = None, None
+        self.load_language(self.defaut_language)
 
         self.pause_menu = Pause_Menu(self)
         self.inventory = Inventory(self)
@@ -24,6 +25,7 @@ class Game():
         self.player = Player()
         self.screen = Screen(self)
         self.map_manager = MapManager(self, self.screen.screen, self.player)
+        self.dialog_box = DialogBox()
         self.tutorial = Tutorial(self)
 
         self.object_name_inventory = [] # met l'inventaire vide (avant de le charger et de le remplir)
@@ -64,6 +66,7 @@ class Game():
 
     def update_screen(self):
         self.screen.display_messages()
+        self.dialog_box.render(self.screen.screen)
         self.clock.tick(60)
         pygame.display.flip()
 
@@ -111,11 +114,6 @@ class Game():
         # Ajoute un message à la file d'attente
         self.messages_system.append((message, time.time()))
 
-# vérifie si le joueur est en combat / actualise le jeu
-    def update_zone(self):
-        self.launch_fight()
-        self.update_game()
-
     def run(self):
         self.clock = pygame.time.Clock()
         self.running = True
@@ -125,7 +123,8 @@ class Game():
 
         while self.running:
 
-            self.update_zone()
+            self.launch_fight()
+            self.update_game()
 
             # Mettre à jour l'animation du joueur en fonction de la touche pressée
             if self.player.is_moving():
@@ -139,6 +138,10 @@ class Game():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_e:
                         self.inventory.open_inventory(self, "game")
+
+                    if event.key == pygame.K_SPACE:
+                        self.map_manager.check_npcs_collisions(self.dialog_box)
+
 
                     if event.key == pygame.K_ESCAPE:
                         self.pause_menu.running()
