@@ -93,6 +93,6 @@ class Fight:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.game.save_and_quit()
+                    self.saves.game.save_and_quit()
 
         self.who_win()
