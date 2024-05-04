@@ -342,7 +342,7 @@ class Pause_menu:
         self.screen.blit_ressource(background, (0, 0))
 
     def show_title(self):
-        title = self.screen.game.current_language.translations['pause_menu']['title']
+        title = self.screen.game.load_txt('pause_menu', 'title')
         self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
 
     def show_buttons(self):
@@ -357,7 +357,7 @@ class Pause_menu:
 
     def show_button_settings(self):
         txt_key = 'settings_button'
-        txt = self.screen.game.current_language.translations['pause_menu'][txt_key]
+        txt = self.screen.game.load_txt('pause_menu', txt_key)
         self.buttons(txt_key, txt, 1, self.dic_buttons)
 
 
@@ -379,7 +379,7 @@ class Settings:
         self.screen.pause_menu.show_background()
 
     def show_title(self):
-        title = self.screen.game.current_language.translations['settings_menu']['title']
+        title = self.screen.game.load_txt('settings_menu', 'title')
         self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
 
     def show_buttons(self):
@@ -387,7 +387,7 @@ class Settings:
 
     def show_button_language(self):
         txt_key = 'language'
-        txt = self.screen.game.current_language.translations['settings_menu'][txt_key]
+        txt = self.screen.game.load_txt('settings_menu', txt_key)
         self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
 
 
@@ -407,7 +407,7 @@ class Settings_Languages:
         self.screen.pause_menu.show_background()
 
     def show_title(self):
-        title = self.screen.game.current_language.translations['settings_languages_menu']['title']
+        title = self.screen.game.load_txt('settings_languages_menu', 'title')
         self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
 
     def show_buttons(self):
@@ -416,10 +416,10 @@ class Settings_Languages:
 
     def show_button_language_french(self):
         txt_key = 'french'
-        txt = self.screen.game.current_language.translations['languages'][txt_key]
+        txt = self.screen.game.load_txt('languages', txt_key)
         self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
 
     def show_button_language_english(self):
         txt_key = 'english'
-        txt = self.screen.game.current_language.translations['languages'][txt_key]
+        txt = self.screen.game.load_txt('languages', txt_key)
         self.screen.pause_menu.buttons(txt_key, txt, 2, self.dic_buttons)

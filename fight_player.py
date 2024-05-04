@@ -24,7 +24,7 @@ class Fight_Player():
             self.enemy.health -= self.player.attack
         else: 
             self.enemy.health = 0
-        message = self.game.current_language.translations['message_system']['player_attack']
+        message = self.game.load_txt('message_system', 'player_attack')
         self.game.add_message(message)
         self.game.update_screen()
         return False
@@ -35,7 +35,7 @@ class Fight_Player():
         if luck <= 85: #de base 85
             self.game.active_fight = False
         else:
-            message = self.game.current_language.translations['message_system']['failed escape']
+            message = self.game.load_txt('message_system', 'failed escape')
             self.game.add_message(message)
             self.game.update_screen()
         return False

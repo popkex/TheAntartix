@@ -33,6 +33,9 @@ class Game():
 
         self.saves.load_all()
 
+    def load_txt(self, page, txt):
+        return self.current_language.translations[page][txt]
+
     def load_language(self, lang):
         if lang == 'en':
             import translation.english as new_language

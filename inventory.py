@@ -117,7 +117,7 @@ class Inventory:
                         object_used = objet[0].used()
                         print(object_used)
                         if object_used:
-                            message = self.game.current_language.translations['message_system']['object_used'] + self.game.current_language.translations['objects'][objet[0].name]
+                            message = self.game.load_txt('message_system', 'object_used') + self.game.load_txt('objects', objet[0].name)
                             self.game.add_message(message)
                             self.game.update_screen()
                         return False, object_used

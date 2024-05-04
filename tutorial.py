@@ -10,7 +10,7 @@ class Tutorial:
         running = True
 
         while running:
-            message = self.game.current_language.translations['tutorials'][tutorial]
+            message = self.game.load_txt('tutorials', tutorial)
 
             # actualise l'écran
             self.game.screen.tutorial.show_tutorial(message)
