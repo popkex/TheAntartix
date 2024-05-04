@@ -150,9 +150,11 @@ class Potion(Objet):
         Big_Life_Potion(self.game)
 
     def used(self):
-        self.effect()
-        self.game.inventory.remove_object(self, 1)
-        return True
+        if self.game.data_player.health != self.game.data_player.max_health:
+            self.effect()
+            self.game.inventory.remove_object(self, 1)
+            return True
+        return False
 
 class Life_Potion(Potion):
     def __init__(self, game):
@@ -183,10 +185,10 @@ class Big_Life_Potion(Potion):
         self.add_life = 40
 
     def effect(self):
-        if self.game.data_player.health + self.add_life <= self.game.data_player.max_health:
-            self.game.data_player.health += self.add_life
-        else:
-            self.game.data_player.health = self.game.data_player.max_health
+            if self.game.data_player.health + self.add_life <= self.game.data_player.max_health:
+                self.game.data_player.health += self.add_life
+            else:
+                self.game.data_player.health = self.game.data_player.max_health
 
 
 class Weapon(Objet):
@@ -202,7 +204,7 @@ class Weapon(Objet):
         try:
             self.effect()
             self.game.inventory.remove_object(self, 1)
-            return False
+            return True
         except:
             pass
 
