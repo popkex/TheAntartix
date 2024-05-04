@@ -99,8 +99,11 @@ class Settings_language:
             for txt, button_position in self.game.screen.settings_languages.dic_buttons.items():
                 rect = pygame.Rect(button_position)
                 if rect.collidepoint(event.pos):
-                    if txt == 'french':
+                    if txt == 'english':
+                        self.game.load_language('en')
+
+                    elif txt == 'french':
                         self.game.load_language('fr')
 
-                    elif txt == 'english':
-                        self.game.load_language('en')
+                    elif txt == 'spanish':
+                        self.game.load_language('es')
