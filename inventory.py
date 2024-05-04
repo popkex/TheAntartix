@@ -119,7 +119,7 @@ class Inventory:
                         print(object_used)
 
                         if object_used:
-                            message = self.game.load_txt('message_system', 'object_used') + self.game.load_txt('objects', objet[0].name)
+                            message = f"{self.game.load_txt('message_system', 'object_used')} {self.game.load_txt('objects', objet[0].name)}"
                             self.game.add_message(message)
                             self.game.update_screen()
                         return False, object_used
