@@ -20,7 +20,7 @@ class Fight:
         return self.game.fight_player.is_alive() and self.current_enemy.is_alive()
 
     def reset_life(self):
-        self.game.data_player.health = self.game.data_player.max_health / 4
+        self.game.data_player.health = self.game.data_player.max_health / 2
 
     def give_enemy_loot(self):
         self.game.data_player.get_xp(self.current_enemy.give_xp)
