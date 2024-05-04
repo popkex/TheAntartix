@@ -21,7 +21,7 @@ class Entity(pygame.sprite.Sprite):
         self.image_animation_down = [
             self.get_image(0, 0), # L'image numéro 1
             self.get_image(34, 0), # L'image numéro 2
-            self.get_image(67, 0), # L'image numéro 3
+            self.get_image(68, 0), # L'image numéro 3
         ]
         self.image_animation_left = [
             self.get_image(2, 32), # L'image numéro 1
