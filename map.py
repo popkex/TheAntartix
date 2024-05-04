@@ -1,4 +1,5 @@
 import pygame, pytmx, pyscroll, random
+from player import NPC
 from dataclasses import dataclass
 
 @dataclass
@@ -15,6 +16,7 @@ class Map:
     portals: list[Portal]
     group: pyscroll.PyscrollGroup
     tmx_data: pytmx.TiledMap
+    npcs: list[NPC]
 
 class MapManager:
 
@@ -35,6 +37,8 @@ class MapManager:
             Portal(from_world="world", origin_point="enter_house1", target_world="house1", teleport_point="player_spawn"),
             Portal(from_world="world", origin_point="enter_house2", target_world="house2", teleport_point="player_spawn"),
             Portal(from_world="world", origin_point="enter_donjon1", target_world="donjon1", teleport_point="player_spawn"),
+        ], npcs=[
+            NPC('paul', nb_points=2)
         ])
 
 #depuis les maisons
@@ -52,11 +56,13 @@ class MapManager:
         #défini le lieu de spawn qui s'appelle 'player_spawn'
         self.teleport_player_with_name('player_spawn')
 
+        self.teleport_npcs()
+
     def check_enter_portal(self):
         #portal
         for portal in self.get_map().portals:
             if portal.from_world == self.current_map:
-                point = self.get_obstact(portal.origin_point)
+                point = self.get_obstect(portal.origin_point)
                 rect = pygame.Rect(point.x, point.y, point.width, point.height)
 
                 if self.player.feet.colliderect(rect):
@@ -74,10 +80,22 @@ class MapManager:
         return False
 
     def check_collisions_walls(self):
-        #detect la collision avec les mures
+        # Détecte la collision avec les murs
         for sprite in self.get_group().sprites():
+            # Vérifie la collision avec les murs
             if sprite.feet.collidelist(self.get_walls()) > -1:
                 sprite.move_back()
+
+            for npc in self.get_map().npcs:
+                npc.npc_collide = False
+
+                for wall in self.get_walls():
+                    if npc.feet.colliderect(wall):
+                        npc.npc_collide = True
+
+                if npc.rect.colliderect(self.game.player.rect):
+                    npc.npc_collide = True
+                    self.game.player.move_back()
 
 #verifie les collisions
     def check_collisions(self):
@@ -86,7 +104,7 @@ class MapManager:
 
 #teleporte le joueur
     def teleport_player_with_name(self, name):
-        point = self.get_obstact(name)
+        point = self.get_obstect(name)
         self.player.position[0] = point.x
         self.player.position[1] = point.y
         self.player.save_location()
@@ -97,7 +115,7 @@ class MapManager:
         self.player.save_location()
 
 #enregistre les maps
-    def register_map(self, name, portals=[]):
+    def register_map(self, name, portals=[], npcs=[]):
         #charge la carte 
         path = self.game.get_path_assets(f'map\{name}.tmx')
         tmx_data = pytmx.util_pygame.load_pygame(path)
@@ -117,8 +135,12 @@ class MapManager:
         group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=6)
         group.add(self.player)
 
+        # recupere les npc au groupe
+        for npc in npcs:
+            group.add(npc)
+
         #creer un objet map
-        self.maps[name] = Map(name, walls, portals, group, tmx_data)
+        self.maps[name] = Map(name, walls, portals, group, tmx_data, npcs)
 
 #recupere les maps 
     def get_map(self):
@@ -133,8 +155,17 @@ class MapManager:
         return self.get_map().walls
 
 #recupere tout les obstacles de la map
-    def get_obstact(self, name):
+    def get_obstect(self, name):
         return self.get_map().tmx_data.get_object_by_name(name)
+
+    def teleport_npcs(self):
+        for map in self.maps:
+            map_data = self.maps[map]
+            npcs = map_data.npcs
+
+            for npc in npcs:
+                npc.load_points(self)
+                npc.teleport_spawn()
 
 #dessine le joueur et centre la cam
     def draw(self):
@@ -145,3 +176,6 @@ class MapManager:
     def update(self):
         self.get_group().update()
         self.check_collisions()
+
+        for npc in self.get_map().npcs:
+            npc.change_animation(npc.move())

@@ -1,12 +1,12 @@
 import pygame, sys, os
 
-class Player(pygame.sprite.Sprite):
+class Entity(pygame.sprite.Sprite):
 
-    def __init__(self, x, y):
+    def __init__(self, name, x, y):
         super().__init__()
 
         #recupere les sprites du joueur
-        path = self.get_path_assets('player.png')
+        path = self.get_path_assets(f'{name}.png')
         self.sprite_sheet = pygame.image.load(path)
         #recupere l'image du joueur par defaut
         self.image = self.get_image(0, 0)
@@ -85,17 +85,18 @@ class Player(pygame.sprite.Sprite):
 
 #change l'image du joueur
     def change_animation(self, name):
-        # Obtenir le temps actuel
-        current_time = pygame.time.get_ticks()
-        # Définir la vitesse d'animation (millisecondes par image)
-        animation_speed = 250  # Réglage de la vitesse d'animation
-        # Obtenir les images d'animation
-        animation_images = self.images_animations[name]
-        # Calculer l'indice de l'image actuelle en fonction du temps
-        frame_index = (current_time // animation_speed) % len(animation_images)
-        # Changer l'image du joueur
-        self.image = animation_images[frame_index]
-        self.settings_img_player(self.image)
+        if name:
+            # Obtenir le temps actuel
+            current_time = pygame.time.get_ticks()
+            # Définir la vitesse d'animation (millisecondes par image)
+            animation_speed = 250  # Réglage de la vitesse d'animation
+            # Obtenir les images d'animation
+            animation_images = self.images_animations[name]
+            # Calculer l'indice de l'image actuelle en fonction du temps
+            frame_index = (current_time // animation_speed) % len(animation_images)
+            # Changer l'image du joueur
+            self.image = animation_images[frame_index]
+            self.settings_img_player(self.image)
 
 #change l'image du joueur
     def change_image(self, name):
@@ -134,3 +135,67 @@ class Player(pygame.sprite.Sprite):
 
     def is_moving(self):
         return self.old_position != self.position
+
+
+
+class Player(Entity):
+
+    def __init__(self):
+        super().__init__('player', 0, 0)
+
+
+
+class NPC(Entity):
+
+    def __init__(self, name, nb_points):
+        super().__init__(name, 0, 0)
+        self.nb_points = nb_points
+        self.name = name
+        self.npc_collide = False
+        self.current_position = 'up'
+        self.points = []
+        self.speed = 0.5
+        self.current_point = 0
+
+    def move(self):
+        target_point = self.current_point + 1
+
+        if target_point >= self.nb_points:
+            target_point = 0
+
+        target_rect = self.points[target_point]
+
+        current_direction = None
+
+        if not self.npc_collide:
+            if self.position[1] < target_rect.y:
+                self.move_down()
+                current_direction = 'down'
+            elif self.position[1] > target_rect.y:
+                self.move_up()
+                current_direction = 'up'
+            elif self.position[0] > target_rect.x:
+                self.move_left()
+                current_direction = 'left'
+            elif self.position[0] < target_rect.x:
+                self.move_right()
+                current_direction = 'right'
+
+        if self.rect.colliderect(target_rect):
+            self.current_point = target_point
+
+        self.save_location()
+
+        return current_direction
+
+    def teleport_spawn(self):
+        location = self.points[self.current_point]
+        self.position[0] = location.x
+        self.position[1] = location.y
+        self.save_location()
+
+    def load_points(self, map):
+        for num in range(1, self.nb_points + 1):
+            point = map.get_obstect(f"{self.name}_path{num}")
+            rect = pygame.Rect(point.x, point.y, point.width, point.height)
+            self.points.append(rect)

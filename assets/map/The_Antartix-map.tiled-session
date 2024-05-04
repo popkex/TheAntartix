@@ -48,6 +48,9 @@
             "scaleInEditor": 1
         },
         "house1.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
             "scale": 1.5,
             "selectedLayer": 3,
             "viewCenter": {
@@ -96,11 +99,11 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 2,
-            "selectedLayer": 8,
+            "scale": 3,
+            "selectedLayer": 9,
             "viewCenter": {
-                "x": 307,
-                "y": 298.5
+                "x": 42.333333333333314,
+                "y": 230.66666666666663
             }
         }
     },
@@ -116,16 +119,15 @@
         "world.tmx",
         "house1.tmx",
         "house2.tmx",
-        "donjon1.tmx",
-        "house.tsx"
+        "donjon1.tmx"
     ],
     "project": "The_Antartix-map.tiled-project",
     "recentFiles": [
-        "house.tsx",
         "donjon1.tmx",
         "house2.tmx",
         "house1.tmx",
         "world.tmx",
+        "house.tsx",
         "mobilier.tsx",
         "house.tmx",
         "house_2.tmx",
