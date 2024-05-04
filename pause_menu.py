@@ -36,6 +36,9 @@ class Pause_Menu:
                     if txt == 'settings_button':
                         self.settings_menu.running()
 
+                    if txt == 'save_and_quit_button':
+                        self.game.saves.save_and_quit()
+
 
 class Settings_Menu():
     def __init__(self, game):

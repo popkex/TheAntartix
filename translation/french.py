@@ -24,6 +24,7 @@ translations = {
     "pause_menu": {
         "title": "Menu Pause",
         "settings_button": "Paramètres",
+        'save_and_quit_button': "Sauvegarder et quitter",
     },
 
     "settings_menu": {

@@ -25,6 +25,7 @@ translations = {
     'pause_menu': {
         'title': 'Pause Menu',
         'settings_button': 'Settings',
+        'save_and_quit_button': "Save and quit",
     },
 
     'settings_menu': {
