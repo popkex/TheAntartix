@@ -46,15 +46,15 @@ class DialogBox:
                 self.letter_index = self.letter_index
 
             screen.blit(self.box, (self.x_position, self.y_position))
-            
+
             # Séparer le texte en lignes
             lines = self.txts[self.txt_index].split('\n')
-            y_offset = 10  # Ajustez cette valeur pour l'espacement vertical entre les lignes
+            y_offset = 20  # l'emplacement y de la position la plus haute pour le premier txt
 
             # Rendre chaque ligne séparément
             for line in lines:
                 txt = self.font.render(line[0:self.letter_index], False, (0, 0, 0))
-                screen.blit(txt, (self.x_position + 50, self.y_position + y_offset))
+                screen.blit(txt, (self.x_position + 45, self.y_position + y_offset))
                 y_offset += 20
 
     def next_text(self):
