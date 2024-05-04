@@ -10,11 +10,14 @@ class Tutorial:
         running = True
         dialog = self.game.load_txt('tutorials', tutorial)
         self.game.dialog_box.execute(dialog)
+        self.clock = pygame.time.Clock()
 
         while running:
             # actualise l'écran
             self.game.dialog_box.render(self.game.screen.screen)
+
             pygame.display.flip()
+            self.clock.tick(60)
 
             for event in pygame.event.get():
 
