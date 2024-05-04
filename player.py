@@ -84,7 +84,7 @@ class Entity(pygame.sprite.Sprite):
         return self.image
 
 #change l'image du joueur
-    def change_animation(self, name, mooving):
+    def change_animation(self, name, mooving=True):
         if name and mooving:
             # Obtenir le temps actuel
             current_time = pygame.time.get_ticks()
