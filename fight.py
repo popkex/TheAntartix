@@ -20,7 +20,7 @@ class Fight:
         return self.game.fight_player.is_alive() and self.current_enemy.is_alive()
 
     def reset_life(self):
-        self.game.data_player.health = self.game.data_player.max_health / 4
+        self.game.data_player.health = self.game.data_player.max_health / 2
 
     def give_enemy_loot(self):
         self.game.data_player.get_xp(self.current_enemy.give_xp)
@@ -48,7 +48,7 @@ class Fight:
         running = True
         number_image = random.randint(1, 10)
         while running:
-            self.game.screen.death_display.show_death("fight", number_image)
+            self.game.screen.death_display.show_death("fight_message", number_image)
 
             pygame.display.flip()
 
@@ -56,9 +56,10 @@ class Fight:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
                         running = False
+                        self.game.map_manager.teleport_player_with_name('player_spawn')
 
                 if event.type == pygame.QUIT:
-                    self.game.save_and_quit()
+                    self.game.saves.save_and_quit()
 
 # Gère le système de tour par tour
     def turn_management(self):
@@ -76,18 +77,22 @@ class Fight:
             #affiche l'écran de fight
             self.screen.fight_display.screen_fight(self.game.fight_player.txt_player_action)
 
-            #actualise l'écran
-            pygame.display.flip()
+            # lance le tuto et le désactive une fois que l'utilisateur le quitte
+            if not self.game.tutorial.dic_tutorial['fight']:
+                self.game.tutorial.running('tuto_fight')
+                self.game.tutorial.dic_tutorial['fight'] = True
+
+            self.game.update_screen()
 
             self.game.active_fight = self.entity_is_alive()
 
             self.turn_management()
 
             pygame.display.flip()
-            self.game.clock.tick(250)
+            self.game.clock.tick(60)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    pygame.quit()
+                    self.saves.game.save_and_quit()
 
         self.who_win()

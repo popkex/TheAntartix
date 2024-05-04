@@ -1,4 +1,5 @@
 import pygame, pytmx, pyscroll, random
+from player import NPC
 from dataclasses import dataclass
 
 @dataclass
@@ -15,6 +16,7 @@ class Map:
     portals: list[Portal]
     group: pyscroll.PyscrollGroup
     tmx_data: pytmx.TiledMap
+    npcs: list[NPC]
 
 class MapManager:
 
@@ -32,28 +34,41 @@ class MapManager:
 #dans le monde normal
         #défini : le monde d'origine (le monde normal), le point d'entrée, le monde d'entrée, le lieu de spawn dans le monde d'entrée
         self.register_map("world", portals=[
-            Portal(from_world="world", origin_point="enter_house1", target_world="house1", teleport_point="spawn_house"),
-            Portal(from_world="world", origin_point="enter_house2", target_world="house2", teleport_point="spawn_house")
+            Portal(from_world="world", origin_point="enter_house1", target_world="house1", teleport_point="player_spawn"),
+            Portal(from_world="world", origin_point="enter_house2", target_world="house2", teleport_point="player_spawn"),
+            Portal(from_world="world", origin_point="enter_donjon1", target_world="donjon1", teleport_point="player_spawn"),
+        ], npcs=[
+            NPC('paul', nb_points=2, dialog=self.game.load_txt('npc', 'paul'))
         ])
 
 #depuis les maisons
         #defini le monde d'origine (la maison), le point de sortie, le monde de sortie, l'endroit du spawn dans le monde de sortie
-        #la meme sortie car les 2maisons sont coller
         self.register_map("house1", portals=[
-            Portal(from_world="house1", origin_point="exit_house", target_world="world", teleport_point="enter_exit_house")
+            Portal(from_world="house1", origin_point="exit_house", target_world="world", teleport_point="exit_house1")
         ])
         self.register_map("house2", portals=[
-            Portal(from_world="house2", origin_point="exit_house", target_world="world", teleport_point="enter_exit_house")
+            Portal(from_world="house2", origin_point="exit_house", target_world="world", teleport_point="exit_house2")
+        ])
+        self.register_map("donjon1", portals=[ 
+            Portal(from_world="donjon1", origin_point="exit_donjon", target_world="world", teleport_point="exit_donjon1")
         ])
 
         #défini le lieu de spawn qui s'appelle 'player_spawn'
         self.teleport_player_with_name('player_spawn')
 
+        self.teleport_npcs()
+
+    def check_npcs_collisions(self, dialog_box):
+        for sprite in self.get_group().sprites():
+            for npc in self.get_map().npcs:
+                if npc.rect.colliderect(self.game.player.rect):
+                    dialog_box.execute(npc.dialog)
+
     def check_enter_portal(self):
         #portal
         for portal in self.get_map().portals:
             if portal.from_world == self.current_map:
-                point = self.get_obstact(portal.origin_point)
+                point = self.get_obstect(portal.origin_point)
                 rect = pygame.Rect(point.x, point.y, point.width, point.height)
 
                 if self.player.feet.colliderect(rect):
@@ -64,18 +79,26 @@ class MapManager:
     def active_fight(self):
         find_enemy = random.randint(0, 2000)
         for object_ in self.get_map().tmx_data.objects:
-            if object_.type == "enemie" and find_enemy <= 200000000000: # (de base 2)
+            if object_.type == "enemie" and find_enemy <= 2: # (de base 2)
                 enemy_rect = pygame.Rect(object_.x, object_.y, object_.width, object_.height)
                 if self.player.feet.colliderect(enemy_rect):
                     return True
         return False
 
     def check_collisions_walls(self):
-        #detect la collision avec les mures
+        # Détecte la collision avec les murs
         for sprite in self.get_group().sprites():
+            # Vérifie la collision avec les murs
             if sprite.feet.collidelist(self.get_walls()) > -1:
                 sprite.move_back()
 
+            for npc in self.get_map().npcs:
+                npc.npc_collide = False
+
+                for wall in self.get_walls():
+                    # si le npc touche un mur ou le joueur
+                    if npc.feet.colliderect(wall) or npc.rect.colliderect(self.game.player.rect):
+                        npc.npc_collide = True
 #verifie les collisions
     def check_collisions(self):
         self.check_enter_portal()
@@ -83,7 +106,7 @@ class MapManager:
 
 #teleporte le joueur
     def teleport_player_with_name(self, name):
-        point = self.get_obstact(name)
+        point = self.get_obstect(name)
         self.player.position[0] = point.x
         self.player.position[1] = point.y
         self.player.save_location()
@@ -94,9 +117,10 @@ class MapManager:
         self.player.save_location()
 
 #enregistre les maps
-    def register_map(self, name, portals=[]):
+    def register_map(self, name, portals=[], npcs=[]):
         #charge la carte 
-        tmx_data = pytmx.util_pygame.load_pygame(f"assets\map\{name}.tmx")
+        path = self.game.get_path_assets(f'map\{name}.tmx')
+        tmx_data = pytmx.util_pygame.load_pygame(path)
         map_data = pyscroll.data.TiledMapData(tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
         map_layer.zoom = 2
@@ -110,11 +134,15 @@ class MapManager:
                 walls.append(pygame.Rect(object_.x, object_.y, object_.width, object_.height))
 
         #dessine le groupe de calques
-        group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=5)
+        group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=6)
         group.add(self.player)
 
+        # recupere les npc au groupe
+        for npc in npcs:
+            group.add(npc)
+
         #creer un objet map
-        self.maps[name] = Map(name, walls, portals, group, tmx_data)
+        self.maps[name] = Map(name, walls, portals, group, tmx_data, npcs)
 
 #recupere les maps 
     def get_map(self):
@@ -129,8 +157,17 @@ class MapManager:
         return self.get_map().walls
 
 #recupere tout les obstacles de la map
-    def get_obstact(self, name):
+    def get_obstect(self, name):
         return self.get_map().tmx_data.get_object_by_name(name)
+
+    def teleport_npcs(self):
+        for map in self.maps:
+            map_data = self.maps[map]
+            npcs = map_data.npcs
+
+            for npc in npcs:
+                npc.load_points(map_data.tmx_data)
+                npc.teleport_spawn()
 
 #dessine le joueur et centre la cam
     def draw(self):
@@ -141,3 +178,7 @@ class MapManager:
     def update(self):
         self.get_group().update()
         self.check_collisions()
+
+        for npc in self.get_map().npcs:
+            current_direction, moving = npc.move()
+            npc.change_animation(current_direction, moving)

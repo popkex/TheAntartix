@@ -3,18 +3,17 @@ import pygame
 
 class Inventory:
     def __init__(self, game):
+        self.objet_inventory = []
+        self.objet_inventory_rects = []
+        self.max_quantity = 999
         self.game = game
         self.potion = Potion(any, any, game)
         self.potion.init_all_potion()
         self.weapon = Weapon(any, any, game)
         self.weapon.init_all_weapon()
 
-        self.objet_inventory = []
-        self.objet_inventory_rects = []
-        self.max_quantity = 999
-
 # Gère l'ouverture et la gestion de l'inventaire
-    def open_inventory(self, game, origin):
+    def open_inventory(self, game, origin) -> bool:
         is_open = True
         object_used = False
 
@@ -25,9 +24,14 @@ class Inventory:
 
             pygame.display.flip()
 
+            if not self.game.tutorial.dic_tutorial['inventory']:
+                self.game.tutorial.running('tuto_iv')
+                self.game.tutorial.dic_tutorial['inventory'] = True
+                pygame.display.flip()
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    game.save_and_quit()
+                    game.saves.save_and_quit()
 
         return object_used
 
@@ -109,15 +113,23 @@ class Inventory:
                 for rect, objet in self.objet_inventory_rects:
                     x, y = rect
                     rect = pygame.Rect((x, y, 35, 50))
+
                     if rect.collidepoint(event.pos):
-                        return False, objet[0].used()
+                        object_used = objet[0].used()
+                        print(object_used)
+
+                        if object_used:
+                            message = f"{self.game.load_txt('message_system', 'object_used')} {self.game.load_txt('objects', objet[0].name)}"
+                            self.game.add_message(message)
+                            self.game.update_screen()
+                        return False, object_used
 
                 rect = self.game.screen.inventory_display.enter_zone_inventory()
                 if not rect.collidepoint(event.pos):
                     return False, True
 
             if event.type == pygame.QUIT:
-                self.game.save_and_quit()
+                self.game.saves.save_and_quit()
         return True, True
 
 
@@ -140,9 +152,10 @@ class Potion(Objet):
         Big_Life_Potion(self.game)
 
     def used(self):
-        self.effect()
-        self.game.inventory.remove_object(self, 1)
-        return False
+        if self.game.data_player.health != self.game.data_player.max_health:
+            self.effect()
+            self.game.inventory.remove_object(self, 1)
+            return True
 
 class Life_Potion(Potion):
     def __init__(self, game):
@@ -173,10 +186,10 @@ class Big_Life_Potion(Potion):
         self.add_life = 40
 
     def effect(self):
-        if self.game.data_player.health + self.add_life <= self.game.data_player.max_health:
-            self.game.data_player.health += self.add_life
-        else:
-            self.game.data_player.health = self.game.data_player.max_health
+            if self.game.data_player.health + self.add_life <= self.game.data_player.max_health:
+                self.game.data_player.health += self.add_life
+            else:
+                self.game.data_player.health = self.game.data_player.max_health
 
 
 class Weapon(Objet):
@@ -192,7 +205,7 @@ class Weapon(Objet):
         try:
             self.effect()
             self.game.inventory.remove_object(self, 1)
-            return False
+            return True
         except:
             pass
 
@@ -205,7 +218,7 @@ class Bomb(Weapon):
         image = pygame.transform.scale(image, (48, 48))
         super().__init__(name, image, game, self.effect)
 
-        self.dommage = 100 # de base 20
+        self.dommage = 20 # de base 20
 
     def effect(self):
         current_enemy = self.game.fight.current_enemy

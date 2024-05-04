@@ -1,4 +1,4 @@
-import pygame
+import pygame, time
 
 class Screen:
 
@@ -15,6 +15,10 @@ class Screen:
         self.fight_display = Fight_display(self)
         self.inventory_display = Inventory_display(self)
         self.death_display = Death(self)
+        self.tutorial = Tutorial(self)
+        self.pause_menu = Pause_menu(self)
+        self.settings = Settings(self)
+        self.settings_languages = Settings_Languages(self)
 
         #charge le hud
         self.hud()
@@ -26,8 +30,9 @@ class Screen:
         self.show_xp_player()
 
     def show_life_player(self):
-        self.life.show_hud_life(self.game.data_player.health, self.game.data_player.max_health, (20, 20), (50, 178, 50), (50, 50, 50))
-        self.draw_txt("HP", 20, (300, 24), False, (255, 102, 0))
+        if self.game.data_player.health is not None and self.game.data_player.max_health is not None:
+            self.life.show_hud_life(self.game.data_player.health, self.game.data_player.max_health, (20, 20), (50, 178, 50), (50, 50, 50))
+            self.draw_txt("HP", 20, (300, 24), False, (255, 102, 0))
 
     def show_inventory_asset(self):
         path = self.game.get_path_assets('action_player/Item.png')
@@ -48,16 +53,18 @@ class Screen:
     def draw_color(self, surface, color, position=(0, 0)):
         pygame.draw.rect(surface, color, position)
 
-    def draw_txt(self, txt, police=50, position=(0, 0), center=False, color=(255, 255, 255), render=False):
+    def draw_txt(self, txt, police=50, position=(0, 0), center=False, color=(255, 255, 255), render=False, can_blit=True):
         path = self.game.get_path_assets('font\Arialic Hollow.ttf')
         font = pygame.font.SysFont(path, police, True)
         txt_surface = font.render(txt, render, color)
 
         if center:
-            position = txt_surface.get_rect(center=(self.screen.get_width()/2, position[1]))
+            position = txt_surface.get_rect(center=(self.screen.get_width()/2, position[1])) # position 1 signifie le y
 
-        self.blit_ressource(txt_surface, position)
-        return txt_surface
+        if can_blit:
+            self.blit_ressource(txt_surface, position)
+        return txt_surface, position
+
 
 # Permet de changer facilement le changement de taille d'une image
     def transform_img(self, image, scale):
@@ -85,6 +92,34 @@ class Screen:
         color = (255, 255, 255)
         position = (x, y + 3)
         self.draw_txt(txt, 20, position, False, color)
+
+    def background_message(self, position, txt_width, txt_height):
+        (x, y), w, h = position, txt_width+10, txt_height
+        self.draw_color(self.screen, (0, 0, 0), (x-5, y-2, w, h+2))
+
+    def display_messages(self):
+        # Obtient l'heure actuelle
+        now = time.time()
+        font = pygame.font.Font(None, 20)
+
+        # Affiche tous les messages
+        for i, (message, message_time) in enumerate(self.game.messages_system):
+            message, message_time = self.game.messages_system[i]
+
+            # Si le message a plus de 2 secondes, le supprime de la file d'attente
+            if now - message_time > 2:
+                self.game.messages_system.pop(i)
+            else:
+                # Prépare le texte
+                text = font.render(message, True, (255, 255, 255))
+                text_width, text_height = text.get_size()
+                x, y = 20, (135 + i * 15)
+
+                # Dessine le fond
+                self.background_message((x, y), text_width, text_height)
+
+                # Puis dessine le texte
+                self.screen.blit(text, (x, y))
 
 
 
@@ -249,9 +284,151 @@ class Death:
         self.screen = screen
 
     def show_death(self, cause, number_image):
-        self.blit_background(cause, number_image)
+        self.blit_background()
+        self.show_txt(cause, number_image)
 
-    def blit_background(self, cause, number_image):
-        path = self.screen.game.get_path_assets(f"game_over/{cause}/Game_Over-mort-combat{number_image}.png")
+    def blit_background(self):
+        path = self.screen.game.get_path_assets(f"Game_Over.png")
         image = pygame.image.load(path)
         self.screen.blit_ressource(image)
+
+    def show_txt(self, cause, number_image):
+        self.show_txt_death(cause, number_image)
+        self.show_exit_txt()
+
+    def show_txt_death(self, cause, number_image):
+        txt_key = f"{cause}_{number_image}"
+        txt = self.screen.game.load_txt("game_over", txt_key)
+        self.screen.draw_txt(txt, 60, (0, 200), True, (255, 255, 255), True) # affiche le txt a l'écran avec une police de 30 et en x=centre, y=200
+
+    def show_exit_txt(self):
+        txt_key_button = "press_space"
+        txt_key_exit = 'exit'
+        txt = f"{self.screen.game.load_txt('button_press', txt_key_button)} {self.screen.game.load_txt('message_system', txt_key_exit)}"
+        self.screen.draw_txt(txt, 50, (0, 650), True, (255, 255, 255), True) # affiche le txt a l'écran avec une police de 50 et en x=centre, y=650
+
+
+
+
+class Tutorial:
+    def __init__(self, screen):
+        self.screen = screen
+
+    def clear_tutorial(self):
+        self.screen.game.map_manager.draw()
+
+
+
+
+
+class Pause_menu:
+
+    def __init__(self, screen):
+        self.screen = screen
+        self.dic_buttons = {}  # stock les coordonnées des bouttons
+
+    def show_pause(self):
+        self.show_background()
+        self.show_title()
+        self.show_buttons()
+
+    def show_background(self):
+        background_path = self.screen.game.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background = pygame.image.load(background_path)
+        background = self.screen.transform_img(background, self.screen.display_width)
+        self.screen.blit_ressource(background, (0, 0))
+
+    def show_title(self):
+        title = self.screen.game.load_txt('pause_menu', 'title')
+        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+
+    def show_buttons(self):
+        self.show_button_settings()
+        self.show_button_save_and_quit()
+
+    def buttons(self, txt_key, txt, button_number, dic):
+        y = 100+50*button_number
+        txt_surface, position = self.screen.draw_txt(txt, 50, (0, y), True, (255, 255, 255), True)
+        x, y, w, h = position
+        button_position = x -10, y-10, w + 10, h + 10
+        dic[txt_key] = button_position  # Stockez les coordonnées du bouton
+
+    def show_button_settings(self):
+        txt_key = 'settings_button'
+        txt = self.screen.game.load_txt('pause_menu', txt_key)
+        self.buttons(txt_key, txt, 1, self.dic_buttons)
+
+    def show_button_save_and_quit(self):
+        txt_key = 'save_and_quit_button'
+        txt = self.screen.game.load_txt('pause_menu', txt_key)
+        self.buttons(txt_key, txt, 11, self.dic_buttons)
+
+
+
+
+
+class Settings:
+
+    def __init__(self, screen):
+        self.screen = screen
+        self.dic_buttons = {}  # stock les coordonnées des bouttons
+
+    def show_settings(self):
+        self.show_background()
+        self.show_title()
+        self.show_buttons()
+
+    def show_background(self):
+        self.screen.pause_menu.show_background()
+
+    def show_title(self):
+        title = self.screen.game.load_txt('settings_menu', 'title')
+        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+
+    def show_buttons(self):
+        self.show_button_language()
+
+    def show_button_language(self):
+        txt_key = 'language'
+        txt = self.screen.game.load_txt('settings_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
+
+
+
+
+class Settings_Languages:
+    def __init__(self, screen):
+        self.screen = screen
+        self.dic_buttons = {}  # stock les coordonnées des bouttons
+
+    def show_settings_languages(self):
+        self.show_background()
+        self.show_title()
+        self.show_buttons()
+
+    def show_background(self):
+        self.screen.pause_menu.show_background()
+
+    def show_title(self):
+        title = self.screen.game.load_txt('settings_languages_menu', 'title')
+        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+
+    def show_buttons(self):
+        self.show_button_language_english()
+        self.show_button_language_french()
+        self.show_button_language_spanish()
+
+    def show_button_language_english(self):
+        txt_key = 'english'
+        txt = self.screen.game.load_txt('languages', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
+
+    def show_button_language_french(self):
+        txt_key = 'french'
+        txt = self.screen.game.load_txt('languages', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 2, self.dic_buttons)
+
+    def show_button_language_spanish(self):
+        txt_key = 'spanish'
+        txt = self.screen.game.load_txt('languages', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 3, self.dic_buttons)

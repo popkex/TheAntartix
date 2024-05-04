@@ -18,6 +18,20 @@
         "C:/Users/cleme/OneDrive/dev/TheAntartix/assets/map/nature.tsx": {
             "scaleInDock": 1
         },
+        "donjon.tsx": {
+            "scaleInDock": 1
+        },
+        "donjon1.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 1.5,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 269.33333333333337,
+                "y": 114.66666666666664
+            }
+        },
         "house.tmx": {
             "expandedObjectLayers": [
                 4
@@ -30,7 +44,7 @@
             }
         },
         "house.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 11,
             "scaleInEditor": 1
         },
         "house1.tmx": {
@@ -38,21 +52,21 @@
                 4
             ],
             "scale": 1.5,
-            "selectedLayer": 2,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 115.33333333333331,
-                "y": 115.33333333333333
+                "x": 119.99999999999997,
+                "y": 120
             }
         },
         "house2.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 3,
-            "selectedLayer": 2,
+            "scale": 2,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 117.66666666666666,
-                "y": 117.66666666666666
+                "x": 120,
+                "y": 120
             }
         },
         "house_1.tmx": {
@@ -79,40 +93,41 @@
             "scaleInEditor": 1
         },
         "nature.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 3
         },
         "world.tmx": {
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 3,
-            "selectedLayer": 2,
+            "scale": 1.5,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 359.3333333333333,
-                "y": 1175.3333333333333
+                "x": 53.333333333333314,
+                "y": 374
             }
         }
     },
     "last.externalTilesetPath": "C:/Users/cleme/OneDrive/dev/python/TheAntartix/assets/map",
-    "last.imagePath": "C:/Users/cleme/OneDrive/dev/python/TheAntartix/assets",
-    "map.height": 15,
+    "last.imagePath": "C:/Users/cleme/OneDrive/dev/python/TheAntartix/assets/map/assets",
+    "map.fixedSize": true,
+    "map.height": 5,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 15,
+    "map.width": 25,
     "openFiles": [
         "world.tmx",
         "house1.tmx",
         "house2.tmx",
-        "house.tsx",
-        "house.tsx"
+        "donjon1.tmx"
     ],
     "project": "The_Antartix-map.tiled-project",
     "recentFiles": [
-        "house.tsx",
+        "donjon1.tmx",
         "house2.tmx",
         "house1.tmx",
         "world.tmx",
+        "house.tsx",
         "mobilier.tsx",
         "house.tmx",
         "house_2.tmx",
