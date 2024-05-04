@@ -28,8 +28,8 @@
             "scale": 1.5,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 203.33333333333337,
-                "y": 186
+                "x": 46,
+                "y": 284
             }
         },
         "house.tmx": {
@@ -51,8 +51,8 @@
             "scale": 1.5,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 118,
-                "y": 118
+                "x": 20.666666666666686,
+                "y": 159.33333333333334
             }
         },
         "house2.tmx": {
@@ -60,10 +60,10 @@
                 3
             ],
             "scale": 2,
-            "selectedLayer": 0,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 153,
-                "y": 111
+                "x": 160,
+                "y": 152.5
             }
         },
         "house_1.tmx": {
@@ -99,8 +99,8 @@
             "scale": 2,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 73,
-                "y": 482
+                "x": 307,
+                "y": 298.5
             }
         }
     },

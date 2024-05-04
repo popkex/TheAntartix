@@ -173,7 +173,7 @@
 </data>
  </layer>
  <objectgroup id="3" name="objets">
-  <object id="1" name="spawn_donjon" x="47.3333" y="286.5">
+  <object id="1" name="player_spawn" x="47.3333" y="286.5">
    <point/>
   </object>
   <object id="3" type="collision" x="305.833" y="-0.833333" width="14.5" height="321.394"/>

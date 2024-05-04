@@ -32,9 +32,9 @@ class MapManager:
 #dans le monde normal
         #défini : le monde d'origine (le monde normal), le point d'entrée, le monde d'entrée, le lieu de spawn dans le monde d'entrée
         self.register_map("world", portals=[
-            Portal(from_world="world", origin_point="enter_house1", target_world="house1", teleport_point="spawn_house"),
-            Portal(from_world="world", origin_point="enter_house2", target_world="house2", teleport_point="spawn_house"),
-            Portal(from_world="world", origin_point="enter_donjon1", target_world="donjon1", teleport_point="spawn_donjon"),
+            Portal(from_world="world", origin_point="enter_house1", target_world="house1", teleport_point="player_spawn"),
+            Portal(from_world="world", origin_point="enter_house2", target_world="house2", teleport_point="player_spawn"),
+            Portal(from_world="world", origin_point="enter_donjon1", target_world="donjon1", teleport_point="player_spawn"),
         ])
 
 #depuis les maisons
