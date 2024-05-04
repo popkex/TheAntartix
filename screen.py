@@ -314,24 +314,6 @@ class Tutorial:
     def __init__(self, screen):
         self.screen = screen
 
-    def show_tutorial(self, message):
-        self.show_message(message)
-
-    def background(self, txt_surface, margin, image=None):
-        background = pygame.Surface((2000, 1000))
-        if image:  # Si une image est fournie
-            image_surface = pygame.image.load(image)  # Chargez l'image en tant que surface Pygame
-            background.blit(image_surface, (0, 0))  # Affichez le fond aux coordonnées
-        return background
-
-    def show_message(self, message):
-        lines = message.split('\n')  # Divisez le message en lignes
-        for i, line in enumerate(lines):
-            txt_surface, position = self.screen.draw_txt(line, 30, (0, i*10), True, (255, 255, 255), True, False)  # Rendez chaque ligne séparément
-            background = self.background(txt_surface, 10)  # Ajoutez 10px de marge
-            background.blit(txt_surface, (5, 5))  # Dessinez le texte sur le fond avec une marge de 5px
-            self.screen.blit_ressource(background, (0, i*30))
-
     def clear_tutorial(self):
         self.screen.game.map_manager.draw()
 
@@ -432,15 +414,21 @@ class Settings_Languages:
         self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
 
     def show_buttons(self):
-        self.show_button_language_french()
         self.show_button_language_english()
-
-    def show_button_language_french(self):
-        txt_key = 'french'
-        txt = self.screen.game.load_txt('languages', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
+        self.show_button_language_french()
+        self.show_button_language_spanish()
 
     def show_button_language_english(self):
         txt_key = 'english'
         txt = self.screen.game.load_txt('languages', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
+
+    def show_button_language_french(self):
+        txt_key = 'french'
+        txt = self.screen.game.load_txt('languages', txt_key)
         self.screen.pause_menu.buttons(txt_key, txt, 2, self.dic_buttons)
+
+    def show_button_language_spanish(self):
+        txt_key = 'spanish'
+        txt = self.screen.game.load_txt('languages', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 3, self.dic_buttons)
