@@ -4,9 +4,6 @@ from game import Game
 pygame.init()
 
 '''
-a faire impérativement
-    changer le mode de fonctionnement du screen de mort et le traduire !!!!
-
 ajouter des png (a faire)
 '''
 
@@ -18,4 +15,8 @@ if not os.path.exists(r'saves'):
         os.makedirs(r'_internal\saves')
 
 game = Game()
-game.run()
+
+try:
+    game.run()
+except pygame.error:
+    print('le joueur a quitter le jeu')
