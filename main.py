@@ -4,7 +4,10 @@ from game import Game
 pygame.init()
 
 '''
-ajouter des png (a faire)
+idées : 
+    dans le dj ajouter un téléporteur vers une salle de boss et y mettre le pnj du boss
+
+ajouter des png (a finir)
 '''
 
 # vérifie si le dossier 'saves' existe (si le jeu est pas compiler)

@@ -84,8 +84,8 @@ class Entity(pygame.sprite.Sprite):
         return self.image
 
 #change l'image du joueur
-    def change_animation(self, name):
-        if name:
+    def change_animation(self, name, mooving):
+        if name and mooving:
             # Obtenir le temps actuel
             current_time = pygame.time.get_ticks()
             # Définir la vitesse d'animation (millisecondes par image)
@@ -166,27 +166,33 @@ class NPC(Entity):
         target_rect = self.points[target_point]
 
         current_direction = None
+        moving = False  # Initialisation du drapeau de mouvement
 
-        if not self.npc_collide:
-            if self.position[1] < target_rect.y:
-                self.move_down()
-                current_direction = 'down'
-            elif self.position[1] > target_rect.y:
-                self.move_up()
-                current_direction = 'up'
-            elif self.position[0] > target_rect.x:
-                self.move_left()
-                current_direction = 'left'
-            elif self.position[0] < target_rect.x:
-                self.move_right()
-                current_direction = 'right'
+        if self.position[0] > target_rect.x and not self.npc_collide:
+            self.move_left()
+            current_direction = 'left'
+            moving = True
+        elif self.position[0] < target_rect.x and not self.npc_collide:
+            self.move_right()
+            current_direction = 'right'
+            moving = True
+
+        if self.position[1] < target_rect.y and not self.npc_collide:
+            self.move_down()  # Déplacement vers le bas effectué ici
+            current_direction = 'down'
+            moving = True
+        elif self.position[1] > target_rect.y and not self.npc_collide:
+            self.move_up()  # Déplacement vers le haut effectué ici
+            current_direction = 'up'
+            moving = True
 
         if self.rect.colliderect(target_rect):
             self.current_point = target_point
 
         self.save_location()
 
-        return current_direction
+        return current_direction, moving
+
 
     def teleport_spawn(self):
         location = self.points[self.current_point]
@@ -194,8 +200,8 @@ class NPC(Entity):
         self.position[1] = location.y
         self.save_location()
 
-    def load_points(self, map):
+    def load_points(self, tmx_data):
         for num in range(1, self.nb_points + 1):
-            point = map.get_obstect(f"{self.name}_path{num}")
+            point = tmx_data.get_object_by_name(f"{self.name}_path{num}")
             rect = pygame.Rect(point.x, point.y, point.width, point.height)
             self.points.append(rect)

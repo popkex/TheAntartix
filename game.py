@@ -129,7 +129,7 @@ class Game():
 
             # Mettre à jour l'animation du joueur en fonction de la touche pressée
             if self.player.is_moving():
-                self.player.change_animation(self.handle_input())
+                self.player.change_animation(self.handle_input(), self.player.is_moving())
             else:
                 self.player.change_image(self.current_direction)
 

@@ -164,7 +164,7 @@ class MapManager:
             npcs = map_data.npcs
 
             for npc in npcs:
-                npc.load_points(self)
+                npc.load_points(map_data.tmx_data)
                 npc.teleport_spawn()
 
 #dessine le joueur et centre la cam
@@ -178,4 +178,5 @@ class MapManager:
         self.check_collisions()
 
         for npc in self.get_map().npcs:
-            npc.change_animation(npc.move())
+            current_direction, moving = npc.move()
+            npc.change_animation(current_direction, moving)
