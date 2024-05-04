@@ -1,6 +1,6 @@
 translations = {
 
-    'message_system': {
+    "message_system": {
         "object_used": "You used",
         "damage_suffered1": "You suffered",
         "damage_suffered2": "damage",
@@ -9,44 +9,49 @@ translations = {
         'exit': 'to exit',
     },
 
-    'objects': {
-        'Life_Potion': 'a health potion',
-        'Big_Life_Potion': 'a big health potion',
-        'Bomb': 'a bomb',
+    "objects": {
+        "Life_Potion": "a health potion",
+        "Big_Life_Potion": "a big health potion",
+        "Bomb": "a bomb",
     },
 
-    # les tutoriels
-    'tutorials': {
-        'tuto_iv': "Here is your inventory.\nHere (like any inventory), you will be able to store items and use them.\nPress 'E' to open/close it whenever you want.\n\nPress 'ESP' to exit.",
-        'tuto_fight': "You are now in battle! Here, by pressing 'A', you can attack your opponent.\nBut be careful, you will take damage. If you die, your health will return to 50%\nand you will lose experience/level down!\nBut if you manage to kill your opponent, you will gain experience and items.\nYou can also access your inventory by pressing 'E' and flee.\nBut if you flee, you may not succeed and you will take damage.\nGood luck and don't get killed!\n\nPress 'ESC' to quit.",
+    'npc': {
+        # a list containing all the dialogues of the npc
+        'paul': ['Hello, I am Paul', 'How are you?', 'Who are you?', 'Why are you not talking to me? What do you want?', 'I am going to call the police if you continue', '...', '...', '...']
     },
 
-    # le menu pause
-    'pause_menu': {
-        'title': 'Pause Menu',
-        'settings_button': 'Settings',
-        'save_and_quit_button': "Save and quit",
+    "tutorials": {
+        "tuto_iv": ["Here is your inventory.", "Here (like any inventory),\nyou will be able to store items and use them.", "you can press 'E' to be able to \nclose it and open/close it whenever you want."],
+        "tuto_fight": ["You are now in combat!", "Here, by pressing 'A', \nyou can attack your opponent.\nBut be careful, you will take damage.", "If you die, your life will return to 50% of your life\nand you will lose experience/level down!", "But if you manage to kill your opponent, \nyou gain experience and items.", "You can also access your inventory by pressing \n'E' and flee with 'ESC'.", "I am going to tell you a secret, you can also press \nthe icons with your mouse to execute the action", "But be careful, if you flee, you may not \nsucceed and you will take damage.", "Good luck and don't get killed!"],
     },
 
-    'settings_menu': {
-        'title': 'Settings',
-        'language': 'Language',
+    # the pause menu
+    "pause_menu": {
+        "title": "Pause Menu",
+        "settings_button": "Settings",
+        'save_and_quit_button': "Save and Quit",
     },
 
-    'settings_languages_menu': {
-        'title': 'Language Settings',
+    "settings_menu": {
+        "title": "Settings",
+        "language": "Language",
     },
 
-    'languages': {
-        'french': 'French',
-        'english': 'English',
+    "settings_languages_menu": {
+        "title": "Language Settings",
+    },
+
+    "languages": {
+        "english": "English",
+        "french": "French",
+        'spanish': "Spanish",
     },
 
     'game_over': {
         'fight_message_1': 'He wanted to play the hero, but he ended up a zero.',
         'fight_message_2': "Another brave soul... crushed by the reality of 'Game Over'.",
         'fight_message_3': "He tried, he failed, and now he's part of the scenery.",
-        'fight_message_4': "He ran towards the goal, but he tripped over his sword.",
+        'fight_message_4': "He ran towards glory, but he tripped over his sword.",
         'fight_message_5': "He jumped into the battle... and directly into a trap.",
         'fight_message_6': "He shouted 'For honor!', but all we heard was 'Ouch!'",
         'fight_message_7': "He fought like a lion, but alas, he was just a kitten.",
