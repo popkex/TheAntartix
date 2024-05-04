@@ -14,7 +14,7 @@ from pause_menu import Pause_Menu
 class Game():
 
     def __init__(self):
-        self.defaut_language = "fr"
+        self.defaut_language = "en"
         self.load_language(self.defaut_language)
 
         self.pause_menu = Pause_Menu(self)
@@ -45,6 +45,10 @@ class Game():
         elif lang == 'fr':
             import translation.french as new_language
             str_new_language = "fr"
+        elif lang == 'es':
+            import translation.spanish as new_language
+            str_new_language = "es"
+
         self.current_language, self.str_language = new_language, str_new_language
 
     def handle_input(self):
