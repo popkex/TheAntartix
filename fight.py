@@ -74,14 +74,14 @@ class Fight:
 #le combat
     def run(self):
         while self.game.active_fight:
+            #affiche l'écran de fight
+            self.screen.fight_display.screen_fight(self.game.fight_player.txt_player_action)
+
             # lance le tuto et le désactive une fois que l'utilisateur le quitte
             if not self.game.tutorial.dic_tutorial['fight']:
                 self.game.tutorial.running('tuto_fight')
                 self.game.tutorial.dic_tutorial['fight'] = True
-                pygame.display.flip()
 
-            #affiche l'écran de fight
-            self.screen.fight_display.screen_fight(self.game.fight_player.txt_player_action)
             self.game.update_screen()
 
             self.game.active_fight = self.entity_is_alive()

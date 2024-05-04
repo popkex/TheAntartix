@@ -25,7 +25,7 @@ class DialogBox:
 
 
     # traduire l'erreur
-    def execute(self, dialog=['erreur dans le chargement du dialogue']):
+    def execute(self, dialog=['erreur dans le chargement du dialogue']) -> bool:
         if self.can_execute: # evite qu'il se lance 2fois (j'ai pas trouver pourquoi)
             if self.reading:
                 self.next_text()
@@ -34,6 +34,8 @@ class DialogBox:
                 self.txt_index = 0
                 self.txts = dialog
             self.can_execute = False
+
+        return self.reading
 
     def render(self, screen):
         self.can_execute = True

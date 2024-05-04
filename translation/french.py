@@ -21,8 +21,8 @@ translations = {
     },
 
     "tutorials": {
-        "tuto_iv": "Voici ton inventaire.\nIci (comme dans tout inventaire), tu vas pouvoir stocker des objets et les utiliser.\nAppuie sur 'E' pour pouvoir le fermer et l'ouvrir/fermer quand tu veux.\n\nAppuie sur 'ESP' pour quitter.",
-        "tuto_fight": "Te voilà en combat ! Ici, en appuyant sur 'A', tu peux attaquer ton adversaire.\nMais attention, tu te prendras des dégâts. Si tu meurs, ta vie reviendra à 50% et tu perdras de l'expérience/diminueras de niveau !\nMais si tu arrives à tuer ton adversaire, tu gagnes de l'expérience et des objets.\nTu peux aussi accéder à ton inventaire en appuyant sur 'E' et fuir.\nMais si tu fuis, il se peut que tu n'y arrives pas et tu te prendras des dégâts.\nBonne chance et ne te fais pas tuer !\n\nAppuie sur 'ESC' pour quitter.",
+        "tuto_iv": ["Voici ton inventaire.", "Ici (comme dans tout inventaire),\ntu vas pouvoir stocker des objets et les utiliser.", "tu peux appuyer sur 'E' pour pouvoir \nle fermer et l'ouvrir/fermer quand tu veux."],
+        "tuto_fight": ["Te voilà en combat ! Ici, en appuyant sur 'A', tu peux attaquer ton adversaire.\nMais attention, tu te prendras des dégâts. Si tu meurs, ta vie reviendra à 50% et tu perdras de l'expérience/diminueras de niveau !\nMais si tu arrives à tuer ton adversaire, tu gagnes de l'expérience et des objets.\nTu peux aussi accéder à ton inventaire en appuyant sur 'E' et fuir.\nMais si tu fuis, il se peut que tu n'y arrives pas et tu te prendras des dégâts.\nBonne chance et ne te fais pas tuer !\n\nAppuie sur 'ESC' pour quitter."],
     },
 
     # le menu pause
