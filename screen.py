@@ -17,6 +17,7 @@ class Screen:
         self.death_display = Death(self)
         self.tutorial = Tutorial(self)
         self.pause_menu = Pause_menu(self)
+        self.quest = Quest(self)
         self.settings = Settings(self)
         self.settings_languages = Settings_Languages(self)
 
@@ -345,6 +346,7 @@ class Pause_menu:
     def show_buttons(self):
         self.show_button_settings()
         self.show_button_save_and_quit()
+        self.show_quest_button()
 
     def buttons(self, txt_key, txt, button_number, dic):
         y = 100+50*button_number
@@ -353,15 +355,56 @@ class Pause_menu:
         button_position = x -10, y-10, w + 10, h + 10
         dic[txt_key] = button_position  # Stockez les coordonnées du bouton
 
+    def show_quest_button(self):
+        txt_key = 'quest_button'
+        txt = self.screen.game.load_txt('pause_menu', txt_key)
+        self.buttons(txt_key, txt, 1, self.dic_buttons)
+
     def show_button_settings(self):
         txt_key = 'settings_button'
         txt = self.screen.game.load_txt('pause_menu', txt_key)
-        self.buttons(txt_key, txt, 1, self.dic_buttons)
+        self.buttons(txt_key, txt, 2, self.dic_buttons)
 
     def show_button_save_and_quit(self):
         txt_key = 'save_and_quit_button'
         txt = self.screen.game.load_txt('pause_menu', txt_key)
         self.buttons(txt_key, txt, 11, self.dic_buttons)
+
+
+
+
+
+class Quest:
+
+    def __init__(self, screen):
+        self.screen = screen
+        self.dic_buttons = {}  # stock les coordonnées des bouttons
+
+    def show_elements(self):
+        self.show_background()
+        self.show_title()
+        self.show_quests()
+
+    def show_background(self):
+        self.screen.pause_menu.show_background()
+
+    def show_title(self):
+        title = self.screen.game.load_txt('quest_menu', 'title')
+        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+
+    def show_quests(self):
+        y_offset = 100  # Décalage vertical initial pour le premier élément de quête
+
+        for quest in self.screen.game.active_quests:
+            quest_name = self.screen.game.load_txt(quest.name, 'title')
+            quest_text = f"{quest_name} - {quest.progression}/{quest.objectif}"
+            txt_surface, position = self.screen.draw_txt(quest_text, 50, (0, 0), True, (255, 255, 255), True, False)
+            position.topleft = (position[0], y_offset)  # Position de la quête sur l'écran
+            self.screen.screen.blit(txt_surface, position)  # Affichage de la quête sur l'écran
+            y_offset += 50
+
+
+
 
 
 

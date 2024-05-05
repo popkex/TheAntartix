@@ -42,6 +42,12 @@ class DialogBox:
 
         return self.reading
 
+    def close_dialog(self):
+        self.reading = False
+        self.letter_index = 0
+        self.txt_index = 0
+        self.can_execute = True
+
     def render(self, screen):
         self.can_execute = True
         if self.reading:
@@ -69,8 +75,8 @@ class DialogBox:
         if self.txt_index >= len(self.txts):
 
             if quest:
-                name, objectif, rewards, rewards_quantity = quest
-                self.game.quest.add_quest(name, objectif, rewards, rewards_quantity)
+                name, objectif, rewards, rewards_quantity, key_description = quest
+                self.game.quest.add_quest(name, objectif, rewards, rewards_quantity, key_description)
 
             # ferme le dialogue
             self.reading = False

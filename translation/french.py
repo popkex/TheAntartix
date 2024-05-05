@@ -21,6 +21,16 @@ translations = {
         'michel': ['Je suis grièvement blaisser à cause de mon\nescurtion dans se donjon.', 'Tu voudras pas me ramener 2 potion de soins ?'],
     },
 
+    'michel_quest': {
+        'title': 'test',
+        'description': 'testaaa'
+    },
+
+    'paule_quest': {
+        'title': 'donner des potions de soins à paule',
+        'description':'testzar',
+    },
+
     "tutorials": {
         "tuto_iv": ["Voici ton inventaire.", "Ici (comme dans tout inventaire),\ntu vas pouvoir stocker des objets et les utiliser.", "tu peux appuyer sur 'E' pour pouvoir \nle fermer et l'ouvrir/fermer quand tu veux."],
         "tuto_fight": ["Te voilà en combat !", "Ici, en appuyant sur 'A', tu peux attaquer ton \nadversaire. Mais attention, tu te prendras des \ndégâts.", "Si tu meurs, ta vie reviendra à 50% de ta vie\net tu perdras de l'expérience/diminueras de niveau !", "Mais si tu arrives à tuer ton adversaire, \ntu gagnes de l'expérience et des objets.", "Tu peux aussi accéder à ton inventaire en appuyant \nsur 'E' et fuir avec 'ECHAP'.", "Je vais te dire un secret, tu peux aussi appuyer \nsur les icones avec ta souris pour executer l'action", "Mais attention, si tu fuis, il se peut que tu n'y \narrives pas et tu te prendras des dégâts.", "Bonne chance et ne te fais pas tuer !"],
@@ -31,6 +41,11 @@ translations = {
         "title": "Menu Pause",
         "settings_button": "Paramètres",
         'save_and_quit_button': "Sauvegarder et quitter",
+        "quest_button": 'Quêtes'
+    },
+
+    "quest_menu": {
+        'title': "Quêtes",
     },
 
     "settings_menu": {

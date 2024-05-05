@@ -1,28 +1,36 @@
 class Quest:
 
-    def __init__(self, game, name=None, objectif=None, rewards=None, rewards_quantity=None):
+    def __init__(self, game, name=None, objectif=None, rewards=None, rewards_quantity=None, key_description=None):
         self.game = game
         self.name = name
         self.progression = 0
         self.objectif = objectif
         self.rewards = rewards
         self.rewards_quantity = rewards_quantity
+        self.key_description = key_description
         self.state = False # False pour non completer
 
-    def add_quest(self, name, objectif, rewards, rewards_quantity):
-        can_add_quest = True
+    def add_quest(self, name, objectif, rewards, rewards_quantity, key_description):
+        if len(self.game.active_quests) <= 5:
+            existing_quest = None
 
-        #vérifie dans toute les quests si celle qu'on essaye d'ajouter existe ou non
-        for quest in self.game.active_quests:
-            if quest.name == name:
-                can_add_quest = False
+            # Vérifie si une quête avec le même nom est déjà active
+            for quest in self.game.active_quests:
+                if quest.name == name:
+                    existing_quest = quest
+                    break
 
-        if can_add_quest:
-            self.name = name  # Mettre à jour le nom de la quête
-            self.objectif = objectif  # Mettre à jour l'objectif
-            self.rewards = rewards  # Mettre à jour les récompenses
-            self.rewards_quantity = rewards_quantity  # Mettre à jour les quantités des récompenses
-            self.game.active_quests.append(self) 
+            if existing_quest:
+                # Mettre à jour la quête existante
+                existing_quest.objectif = objectif
+                existing_quest.rewards = rewards
+                existing_quest.rewards_quantity = rewards_quantity
+                existing_quest.key_description = key_description
+            else:
+                # Ajouter une nouvelle quête
+                new_quest = Quest(self.game, name, objectif, rewards, rewards_quantity, key_description)
+                self.game.active_quests.append(new_quest)
+
 
     def is_completed(self):
         return self.state

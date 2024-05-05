@@ -5,6 +5,7 @@ class Pause_Menu:
     def __init__(self, game):
         self.game = game
         self.settings_menu = Settings_Menu(game)
+        self.quest = Quest(game)
 
     def running(self):
         running = True
@@ -33,12 +34,45 @@ class Pause_Menu:
             for txt, button_position in self.game.screen.pause_menu.dic_buttons.items():
                 rect = pygame.Rect(button_position)
                 if rect.collidepoint(event.pos):
+                    if txt == 'quest_button':
+                        self.quest.running()
+
                     if txt == 'settings_button':
                         self.settings_menu.running()
 
                     if txt == 'save_and_quit_button':
                         self.game.saves.save_and_quit()
 
+class Quest:
+
+    def __init__(self, game):
+        self.game = game
+
+    def running(self):
+        running = True
+
+        while running:
+            self.game.screen.quest.show_elements()
+
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                self.handle_mouse_click(event)
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        running = False
+
+                if event.type == pygame.QUIT:
+                    self.game.saves.save_and_quit()
+
+    def handle_mouse_click(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            for txt, button_position in self.game.screen.pause_menu.dic_buttons.items():
+                rect = pygame.Rect(button_position)
+                if rect.collidepoint(event.pos):
+                    if txt == 'quest_button':
+                        pass
 
 class Settings_Menu():
     def __init__(self, game):

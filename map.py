@@ -29,7 +29,8 @@ class MapManager:
         self.game = game
         self.current_map = "world"
         
-        self.michel_quest = ('test', 2, self.game.inventory.potion.life_potion, 2)
+        self.paul_quest = ('paule_quest', 1, self.game.inventory.potion.life_potion, 2, 'test')
+        self.michel_quest = ('michel_quest', 2, self.game.inventory.potion.life_potion, 2, 'test')
 
         #permet le lancement des combats
         self.battle_running = False
@@ -42,7 +43,7 @@ class MapManager:
             Portal(from_world="world", origin_point="enter_house2", target_world="house2", teleport_point="player_spawn"),
             Portal(from_world="world", origin_point="enter_donjon1", target_world="donjon1", teleport_point="player_spawn"),
         ], npcs=[
-            NPC('paul', nb_points=2, key_txt=('npc', 'paul')), # donne la liste pour pouvoir traduire apres*
+            NPC('paul', nb_points=2, key_txt=('npc', 'paul'), quest=self.paul_quest), # donne la liste pour pouvoir traduire apres*
             NPC('michel', nb_points=1, key_txt=('npc', 'michel'), quest=self.michel_quest)
         ])
 
@@ -70,8 +71,8 @@ class MapManager:
                     reading = dialog_box.execute(npc.key_txt, npc.quest)
 
                     if npc.quest and not reading:
-                        name_quest, objectif_quest, rewards, rewards_quantity = npc.quest
-                        self.game.quest.add_quest(name_quest, objectif_quest, rewards, rewards_quantity)
+                        name_quest, objectif_quest, rewards, rewards_quantity, key_description = npc.quest
+                        self.game.quest.add_quest(name_quest, objectif_quest, rewards, rewards_quantity, key_description)
 
 
     def check_enter_portal(self):
