@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "world.tmx",
+    "activeFile": "donjon1.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -25,11 +25,11 @@
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 1.5,
+            "scale": 1,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 269.33333333333337,
-                "y": 114.66666666666664
+                "x": 242,
+                "y": 142
             }
         },
         "house.tmx": {
@@ -102,8 +102,8 @@
             "scale": 1.5,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 53.333333333333314,
-                "y": 374
+                "x": 52.66666666666663,
+                "y": 373.33333333333326
             }
         }
     },
@@ -123,10 +123,10 @@
     ],
     "project": "The_Antartix-map.tiled-project",
     "recentFiles": [
-        "donjon1.tmx",
-        "house2.tmx",
-        "house1.tmx",
         "world.tmx",
+        "house1.tmx",
+        "house2.tmx",
+        "donjon1.tmx",
         "house.tsx",
         "mobilier.tsx",
         "house.tmx",
