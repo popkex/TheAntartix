@@ -1,8 +1,9 @@
 class Quest:
 
-    def __init__(self, game, name=None, objectif=None, rewards=None, rewards_quantity=None, key_description=None):
+    def __init__(self, game, name=None, type=None, objectif=None, rewards=None, rewards_quantity=None, key_description=None):
         self.game = game
         self.name = name
+        self.type = type
         self.progression = 0
         self.objectif = objectif
         self.rewards = rewards
@@ -10,7 +11,7 @@ class Quest:
         self.key_description = key_description
         self.state = False # False pour non completer
 
-    def add_quest(self, name, objectif, rewards, rewards_quantity, key_description):
+    def add_quest(self, name, type, objectif, rewards, rewards_quantity, key_description):
         if len(self.game.active_quests) <= 5:
             existing_quest = None
 
@@ -22,35 +23,43 @@ class Quest:
 
             if existing_quest:
                 # Mettre à jour la quête existante
+                existing_quest.type = type
                 existing_quest.objectif = objectif
                 existing_quest.rewards = rewards
                 existing_quest.rewards_quantity = rewards_quantity
                 existing_quest.key_description = key_description
             else:
                 # Ajouter une nouvelle quête
-                new_quest = Quest(self.game, name, objectif, rewards, rewards_quantity, key_description)
+                new_quest = Quest(self.game, name, type, objectif, rewards, rewards_quantity, key_description)
                 self.game.active_quests.append(new_quest)
 
+    def check_quest_progress(self, type, number=1):
+        for quest in self.game.active_quests:
+            if quest.type == type:
+                quest.progress_quest(number)
+
+    def quest_type_exist(self, quest_name):
+        for quest in self.game.active_quests:
+            if quest.type == quest_name:
+                return True
+        return False
 
     def is_completed(self):
         return self.state
 
-    def add_progress(self, quest_name, progress):
-        for quest in self.game.active_quests:
-            if quest.name == quest_name:
-                quest.progress(progress)
-                break
-            else:
-                self.progression = progress
-                self.progress(progress)
+    def progress(self, quest_type, progress):
+        if self.game.can_modifie_quest:
+            for quest in self.game.active_quests:
+                print(quest.progression)
+                if quest.type == quest_type:
+                    quest.progression += progress
+                    print(progress)
 
-    def progress(self, name, progress):
-        for quest in self.game.active_quests:
-            if quest.name == name:
-                quest.progression += progress
+                    # Vérifier si la quête est complétée
+                    if quest.progression >= quest.objectif:
+                        quest.complete()
 
-                if quest.progression >= quest.objectif:
-                    quest.complete()
+                    break
 
     def complete(self):
         self.remove_quest(self.name)

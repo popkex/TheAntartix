@@ -4,7 +4,7 @@ translations = {
         "object_used": "Tu as utilisé",
         "damage_suffered1": "Tu as subi",
         "damage_suffered2": "de dégâts",
-        "failed escape": "Tu n'as pas réussi à t'échapper",
+        "failed_escape": "Tu n'as pas réussi à t'échapper",
         'player_attack': "Tu as attaqué !",
         'exit': 'pour quitter',
     },
@@ -16,9 +16,9 @@ translations = {
     },
 
     'npc': {
-        # une liste contenant tout les dialogues du npc
-        'paul': ['Bonjour je suis paul', 'Comment vas tu ?', 'Qui est tu ?', 'Pourquoi tu ne me parle pas ? Tu veux quoi ?', 'Je vais finir par appeler la police si tu continues', '...', '...', '...'],
-        'michel': ['Je suis grièvement blaisser à cause de mon\nescurtion dans se donjon.', 'Tu voudras pas me ramener 2 potion de soins ?'],
+        # une liste contenant tous les dialogues du npc
+        'paul': ['Bonjour, je suis Paul', 'Comment vas-tu ?', 'Qui es-tu ?', "J'ai peur des monstres", "J'adorerais que quelqu'un m'aide à me débarrasser \nde ces monstres ?", "Une petite vingtaine ?\nMerci, je te récompenserai bien comme il faut"],
+        'michel': ['Je suis grièvement blessé à cause de mon\nexcursion dans ce donjon.', 'Tu ne voudrais pas me ramener 2 potions de soins ?'],
     },
 
     'michel_quest': {
@@ -26,14 +26,14 @@ translations = {
         'description': 'testaaa'
     },
 
-    'paule_quest': {
-        'title': 'donner des potions de soins à paule',
+    'paul_quest': {
+        'title': 'Donner des potions de soins à Paul',
         'description':'testzar',
     },
 
     "tutorials": {
-        "tuto_iv": ["Voici ton inventaire.", "Ici (comme dans tout inventaire),\ntu vas pouvoir stocker des objets et les utiliser.", "tu peux appuyer sur 'E' pour pouvoir \nle fermer et l'ouvrir/fermer quand tu veux."],
-        "tuto_fight": ["Te voilà en combat !", "Ici, en appuyant sur 'A', tu peux attaquer ton \nadversaire. Mais attention, tu te prendras des \ndégâts.", "Si tu meurs, ta vie reviendra à 50% de ta vie\net tu perdras de l'expérience/diminueras de niveau !", "Mais si tu arrives à tuer ton adversaire, \ntu gagnes de l'expérience et des objets.", "Tu peux aussi accéder à ton inventaire en appuyant \nsur 'E' et fuir avec 'ECHAP'.", "Je vais te dire un secret, tu peux aussi appuyer \nsur les icones avec ta souris pour executer l'action", "Mais attention, si tu fuis, il se peut que tu n'y \narrives pas et tu te prendras des dégâts.", "Bonne chance et ne te fais pas tuer !"],
+        "tuto_iv": ["Voici ton inventaire.", "Ici (comme dans tout inventaire),\ntu vas pouvoir stocker des objets et les utiliser.", "Tu peux appuyer sur 'E' pour pouvoir \nle fermer et l'ouvrir/fermer quand tu veux."],
+        "tuto_fight": ["Te voilà en combat !", "Ici, en appuyant sur 'A', tu peux attaquer ton \nadversaire. Mais attention, tu te prendras des \ndégâts.", "Si tu meurs, ta vie reviendra à 50% de ta vie\net tu perdras de l'expérience/diminueras de niveau !", "Mais si tu arrives à tuer ton adversaire, \ntu gagnes de l'expérience et des objets.", "Tu peux aussi accéder à ton inventaire en appuyant \nsur 'E' et fuir avec 'ECHAP'.", "Je vais te dire un secret, tu peux aussi appuyer \nsur les icônes avec ta souris pour exécuter l'action", "Mais attention, si tu fuis, il se peut que tu n'y \narrives pas et tu te prendras des dégâts.", "Bonne chance et ne te fais pas tuer !"],
     },
 
     # le menu pause

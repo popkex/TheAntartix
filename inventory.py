@@ -59,8 +59,10 @@ class Inventory:
                     new_number_object = self.add_quantity(number_object, new_quantity)
                     self.objet_inventory[i] = (current_objet, new_number_object)
                 else:
+                    new_number_object = self.max_quantity
                     self.objet_inventory[i] = (current_objet, self.max_quantity)
-                break
+
+                return new_number_object
 
 # Vérifie si la limite d'objet est atteinte ou non et agis en conséquent
     def add_quantity(self, quantity, add_quantity):
@@ -71,10 +73,16 @@ class Inventory:
 
 # Ajoute un objet a l'inventaire
     def append_object(self, objet, number=1):
+        # vérifie si l'objet existe ou non et l'ajoute
         if not self.object_existing(objet):
             self.objet_inventory.append((objet, number))
         else:
-            self.update_quantity_object(objet, number)
+            number = self.update_quantity_object(objet, number)
+
+        # vérifie si l'objet est dans une quete, si oui increment la quete du nombre d'objet obtenu
+        if self.game.quest.quest_type_exist(objet.name):
+            print('ok')
+            self.game.quest.progress(objet.name, number)
 
 # Retire un objet de l'inventaire
     def delete_object(self, objet):
@@ -201,7 +209,7 @@ class Weapon(Objet):
         super().__init__(name, image)
 
     def init_all_weapon(self):
-        Bomb(self.game)
+        self.bomb = Bomb(self.game)
 
     def used(self):
         try:

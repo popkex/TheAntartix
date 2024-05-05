@@ -15,8 +15,10 @@ from pause_menu import Pause_Menu
 class Game():
 
     def __init__(self):
-        self.defaut_language = "en"
+        self.defaut_language = "fr"
         self.load_language(self.defaut_language)
+
+        self.can_modifie_quest = False
 
         self.quest = Quest(self)
         self.active_quests = []
@@ -43,6 +45,9 @@ class Game():
         #
 
         self.saves.load_all()
+
+        self.can_modifie_quest = True
+
 
     def load_txt(self, page, txt):
         return self.current_language.translations[page][txt]

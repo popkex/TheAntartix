@@ -29,8 +29,8 @@ class MapManager:
         self.game = game
         self.current_map = "world"
         
-        self.paul_quest = ('paule_quest', 1, self.game.inventory.potion.life_potion, 2, 'test')
-        self.michel_quest = ('michel_quest', 2, self.game.inventory.potion.life_potion, 2, 'test')
+        self.paul_quest = ('paul_quest', 'kill_enemy', 20, self.game.inventory.potion.life_potion, 10, 'test')
+        self.michel_quest = ('michel_quest', 'Life_Potion', 10, self.game.inventory.weapon.bomb, 10, 'test')
 
         #permet le lancement des combats
         self.battle_running = False
@@ -71,8 +71,8 @@ class MapManager:
                     reading = dialog_box.execute(npc.key_txt, npc.quest)
 
                     if npc.quest and not reading:
-                        name_quest, objectif_quest, rewards, rewards_quantity, key_description = npc.quest
-                        self.game.quest.add_quest(name_quest, objectif_quest, rewards, rewards_quantity, key_description)
+                        name_quest, type_quest, objectif_quest, rewards, rewards_quantity, key_description = npc.quest
+                        self.game.quest.add_quest(name_quest, type_quest, objectif_quest, rewards, rewards_quantity, key_description)
 
 
     def check_enter_portal(self):

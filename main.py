@@ -6,9 +6,9 @@ pygame.init()
 '''
 patch_note memo:
     correction du beug de traduction des dialoges des pnjs qui ne changaient pas de langue
-
-
-    afficher les questes ou non via un parametre d'affichage
+    ajout de differentes quetes
+    amélioration des traductions
+    afficher les questes ou non via le menu pause > quetes
 
 
 idées : 

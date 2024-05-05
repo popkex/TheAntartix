@@ -75,8 +75,8 @@ class DialogBox:
         if self.txt_index >= len(self.txts):
 
             if quest:
-                name, objectif, rewards, rewards_quantity, key_description = quest
-                self.game.quest.add_quest(name, objectif, rewards, rewards_quantity, key_description)
+                name, type, objectif, rewards, rewards_quantity, key_description = quest
+                self.game.quest.add_quest(name, type, objectif, rewards, rewards_quantity, key_description)
 
             # ferme le dialogue
             self.reading = False

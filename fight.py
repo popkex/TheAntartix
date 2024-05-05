@@ -40,6 +40,9 @@ class Fight:
         # si le joueur gagne
         if self.game.fight_player.is_alive() and not self.current_enemy.is_alive():
             self.give_enemy_loot()
+            if self.game.quest.quest_type_exist('kill_enemy'):
+                self.game.quest.progress('kill_enemy', 1)
+
         # si le joueur perd
         elif not self.game.fight_player.is_alive():
             self.kill_player()
