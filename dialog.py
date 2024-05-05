@@ -26,16 +26,18 @@ class DialogBox:
 
 
     # traduire l'erreur
-    def execute(self, key_txt) -> bool:
+    def execute(self, key_txt, quest=None) -> bool:
         page, txt = key_txt
         dialog = self.game.load_txt(page, txt)
+
         if self.can_execute: # evite qu'il se lance 2fois (j'ai pas trouver pourquoi)
             if self.reading:
-                self.next_text()
+                self.next_text(quest)
             else:
                 self.reading = True
                 self.txt_index = 0
                 self.txts = dialog
+
             self.can_execute = False
 
         return self.reading
@@ -60,10 +62,15 @@ class DialogBox:
                 screen.blit(txt, (self.x_position + 45, self.y_position + y_offset))
                 y_offset += 20
 
-    def next_text(self):
+    def next_text(self, quest=None):
         self.txt_index += 1
         self.letter_index = 0
 
         if self.txt_index >= len(self.txts):
+
+            if quest:
+                name, objectif, rewards, rewards_quantity = quest
+                self.game.quest.add_quest(name, objectif, rewards, rewards_quantity)
+
             # ferme le dialogue
             self.reading = False

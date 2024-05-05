@@ -1,5 +1,6 @@
 import pygame, sys, os, time
 from inventory import *
+from quest import Quest
 from map import MapManager
 from dialog import DialogBox
 from screen import Screen
@@ -17,6 +18,9 @@ class Game():
         self.defaut_language = "en"
         self.load_language(self.defaut_language)
 
+        self.quest = Quest(self)
+        self.active_quests = []
+
         self.pause_menu = Pause_Menu(self)
         self.inventory = Inventory(self)
         self.saves = Saves(self)
@@ -32,6 +36,11 @@ class Game():
         self.active_fight = False   # n'active pas de combat
         self.messages_system = [] # met aucun message systeme
         self.current_direction = 'up' #défini la direction par defaut
+        #
+        #
+        # faire le chargement des quests
+        #
+        #
 
         self.saves.load_all()
 
@@ -50,6 +59,15 @@ class Game():
             str_new_language = "es"
 
         self.current_language, self.str_language = new_language, str_new_language
+
+    def check_quest_completion(self):
+        # Vérifier si une quête est terminée
+        for quest in self.active_quests:
+            if quest.is_completed():
+                # Récompenser le joueur
+                self.player.receive_rewards(quest.rewards)
+                # Marquer la quête comme terminée
+                quest.complete()
 
     def handle_input(self):
         pressed = pygame.key.get_pressed()
@@ -126,6 +144,8 @@ class Game():
         pygame.display.flip()
 
         while self.running:
+
+            print(self.active_quests)
 
             self.launch_fight()
             self.update_game()

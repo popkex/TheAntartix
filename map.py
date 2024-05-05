@@ -1,5 +1,7 @@
-import pygame, pytmx, pyscroll, random
+import pygame, pytmx, pyscroll, random, sys, os
 from player import NPC
+from quest import Quest
+from inventory import *
 from dataclasses import dataclass
 
 @dataclass
@@ -26,6 +28,8 @@ class MapManager:
         self.player = player
         self.game = game
         self.current_map = "world"
+        
+        self.michel_quest = ('test', 2, self.game.inventory.potion.life_potion, 2)
 
         #permet le lancement des combats
         self.battle_running = False
@@ -39,7 +43,7 @@ class MapManager:
             Portal(from_world="world", origin_point="enter_donjon1", target_world="donjon1", teleport_point="player_spawn"),
         ], npcs=[
             NPC('paul', nb_points=2, key_txt=('npc', 'paul')), # donne la liste pour pouvoir traduire apres*
-            NPC('michel', nb_points=1, key_txt=('npc', 'michel'))
+            NPC('michel', nb_points=1, key_txt=('npc', 'michel'), quest=self.michel_quest)
         ])
 
 #depuis les maisons
@@ -63,7 +67,12 @@ class MapManager:
         for sprite in self.get_group().sprites():
             for npc in self.get_map().npcs:
                 if npc.rect.colliderect(self.game.player.rect):
-                    dialog_box.execute(npc.key_txt)
+                    reading = dialog_box.execute(npc.key_txt, npc.quest)
+
+                    if npc.quest and not reading:
+                        name_quest, objectif_quest, rewards, rewards_quantity = npc.quest
+                        self.game.quest.add_quest(name_quest, objectif_quest, rewards, rewards_quantity)
+
 
     def check_enter_portal(self):
         #portal
@@ -100,6 +109,7 @@ class MapManager:
                     # si le npc touche un mur ou le joueur
                     if npc.feet.colliderect(wall) or npc.rect.colliderect(self.game.player.rect):
                         npc.npc_collide = True
+
 #verifie les collisions
     def check_collisions(self):
         self.check_enter_portal()

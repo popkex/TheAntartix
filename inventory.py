@@ -7,9 +7,12 @@ class Inventory:
         self.objet_inventory_rects = []
         self.max_quantity = 999
         self.game = game
-        self.potion = Potion(any, any, game)
+        self.init_all_objects()
+
+    def init_all_objects(self):
+        self.potion = Potion(any, any, self.game)
         self.potion.init_all_potion()
-        self.weapon = Weapon(any, any, game)
+        self.weapon = Weapon(any, any, self.game)
         self.weapon.init_all_weapon()
 
 # Gère l'ouverture et la gestion de l'inventaire
@@ -116,7 +119,6 @@ class Inventory:
 
                     if rect.collidepoint(event.pos):
                         object_used = objet[0].used()
-                        print(object_used)
 
                         if object_used:
                             message = f"{self.game.load_txt('message_system', 'object_used')} {self.game.load_txt('objects', objet[0].name)}"
@@ -148,8 +150,8 @@ class Potion(Objet):
         super().__init__(name, image)
 
     def init_all_potion(self):
-        Life_Potion(self.game)
-        Big_Life_Potion(self.game)
+        self.life_potion = Life_Potion(self.game)
+        self.big_life_potion = Big_Life_Potion(self.game)
 
     def used(self):
         if self.game.data_player.health != self.game.data_player.max_health:

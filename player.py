@@ -147,7 +147,7 @@ class Player(Entity):
 
 class NPC(Entity):
 
-    def __init__(self, name, nb_points, key_txt):
+    def __init__(self, name, nb_points, key_txt, quest=None):
         super().__init__(name, 0, 0)
         self.nb_points = nb_points
         self.name = name
@@ -157,6 +157,7 @@ class NPC(Entity):
         self.points = []
         self.speed = 0.5
         self.current_point = 0
+        self.quest = quest
 
     def move(self):
         target_point = self.current_point + 1

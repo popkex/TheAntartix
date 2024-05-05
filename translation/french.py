@@ -18,7 +18,7 @@ translations = {
     'npc': {
         # une liste contenant tout les dialogues du npc
         'paul': ['Bonjour je suis paul', 'Comment vas tu ?', 'Qui est tu ?', 'Pourquoi tu ne me parle pas ? Tu veux quoi ?', 'Je vais finir par appeler la police si tu continues', '...', '...', '...'],
-        'michel': ['Et si tu me ramenais des potions de vie ?'],
+        'michel': ['Je suis grièvement blaisser à cause de mon\nescurtion dans se donjon.', 'Tu voudras pas me ramener 2 potion de soins ?'],
     },
 
     "tutorials": {
