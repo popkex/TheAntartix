@@ -145,8 +145,6 @@ class Game():
 
         while self.running:
 
-            print(self.active_quests)
-
             self.launch_fight()
             self.update_game()
 
