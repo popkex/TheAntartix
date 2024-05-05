@@ -1,5 +1,3 @@
-import pygame
-
 class Quest:
 
     def __init__(self, game, name=None, objectif=None, rewards=None, rewards_quantity=None):
