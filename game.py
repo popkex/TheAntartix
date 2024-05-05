@@ -25,7 +25,7 @@ class Game():
         self.player = Player()
         self.screen = Screen(self)
         self.map_manager = MapManager(self, self.screen.screen, self.player)
-        self.dialog_box = DialogBox()
+        self.dialog_box = DialogBox(self)
         self.tutorial = Tutorial(self)
 
         self.object_name_inventory = [] # met l'inventaire vide (avant de le charger et de le remplir)

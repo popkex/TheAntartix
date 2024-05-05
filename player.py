@@ -147,11 +147,11 @@ class Player(Entity):
 
 class NPC(Entity):
 
-    def __init__(self, name, nb_points, dialog):
+    def __init__(self, name, nb_points, key_txt):
         super().__init__(name, 0, 0)
         self.nb_points = nb_points
         self.name = name
-        self.dialog = dialog
+        self.key_txt = key_txt
         self.npc_collide = False
         self.current_position = 'up'
         self.points = []

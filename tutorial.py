@@ -8,8 +8,8 @@ class Tutorial:
 
     def running(self, tutorial):
         running = True
-        dialog = self.game.load_txt('tutorials', tutorial)
-        self.game.dialog_box.execute(dialog)
+        key_txt = 'tutorials', tutorial
+        self.game.dialog_box.execute(key_txt)
         self.clock = pygame.time.Clock()
 
         while running:
@@ -23,7 +23,7 @@ class Tutorial:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        running = self.game.dialog_box.execute(dialog)
+                        running = self.game.dialog_box.execute(key_txt)
 
                     if event.key == pygame.K_ESCAPE:
                         running = False

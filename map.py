@@ -38,7 +38,7 @@ class MapManager:
             Portal(from_world="world", origin_point="enter_house2", target_world="house2", teleport_point="player_spawn"),
             Portal(from_world="world", origin_point="enter_donjon1", target_world="donjon1", teleport_point="player_spawn"),
         ], npcs=[
-            NPC('paul', nb_points=2, dialog=self.game.load_txt('npc', 'paul'))
+            NPC('paul', nb_points=2, key_txt=('npc', 'paul')) # donne la liste pour pouvoir traduire apres
         ])
 
 #depuis les maisons
@@ -62,7 +62,7 @@ class MapManager:
         for sprite in self.get_group().sprites():
             for npc in self.get_map().npcs:
                 if npc.rect.colliderect(self.game.player.rect):
-                    dialog_box.execute(npc.dialog)
+                    dialog_box.execute(npc.key_txt)
 
     def check_enter_portal(self):
         #portal

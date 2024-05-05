@@ -5,7 +5,8 @@ class DialogBox:
     x_position = 290
     y_position = 590
 
-    def __init__(self):
+    def __init__(self, game):
+        self.game = game
         self.box = pygame.image.load(self.get_path_assets('dialog/dialog_box.png'))
         self.box = pygame.transform.scale(self.box, (700, 100))
         self.txts = ['salut', 'oki', 'ok']
@@ -25,7 +26,9 @@ class DialogBox:
 
 
     # traduire l'erreur
-    def execute(self, dialog=['erreur dans le chargement du dialogue']) -> bool:
+    def execute(self, key_txt) -> bool:
+        page, txt = key_txt
+        dialog = self.game.load_txt(page, txt)
         if self.can_execute: # evite qu'il se lance 2fois (j'ai pas trouver pourquoi)
             if self.reading:
                 self.next_text()
