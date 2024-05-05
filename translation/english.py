@@ -22,7 +22,7 @@ translations = {
 
     "tutorials": {
         "tuto_iv": ["Here is your inventory.", "Here (like any inventory),\nyou will be able to store items and use them.", "you can press 'E' to be able to \nclose it and open/close it whenever you want."],
-        "tuto_fight": ["You are now in combat!", "Here, by pressing 'A', \nyou can attack your opponent.\nBut be careful, you will take damage.", "If you die, your life will return to 50% of your life\nand you will lose experience/level down!", "But if you manage to kill your opponent, \nyou gain experience and items.", "You can also access your inventory by pressing \n'E' and flee with 'ESC'.", "I am going to tell you a secret, you can also press \nthe icons with your mouse to execute the action", "But be careful, if you flee, you may not \nsucceed and you will take damage.", "Good luck and don't get killed!"],
+        "tuto_fight": ["You are now in combat!", "Here, by pressing 'A', you can attack your opponent.\nBut be careful, you will take damage.", "If you die, your life will return to 50% of your life\nand you will lose experience/level down!", "But if you manage to kill your opponent, \nyou gain experience and items.", "You can also access your inventory by pressing \n'E' and flee with 'ESC'.", "I am going to tell you a secret, you can also press \nthe icons with your mouse to execute the action", "But be careful, if you flee, you may not \nsucceed and you will take damage.", "Good luck and don't get killed!"],
     },
 
     # the pause menu
