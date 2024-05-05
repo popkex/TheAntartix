@@ -38,7 +38,8 @@ class MapManager:
             Portal(from_world="world", origin_point="enter_house2", target_world="house2", teleport_point="player_spawn"),
             Portal(from_world="world", origin_point="enter_donjon1", target_world="donjon1", teleport_point="player_spawn"),
         ], npcs=[
-            NPC('paul', nb_points=2, key_txt=('npc', 'paul')) # donne la liste pour pouvoir traduire apres
+            NPC('paul', nb_points=2, key_txt=('npc', 'paul')), # donne la liste pour pouvoir traduire apres*
+            NPC('michel', nb_points=1, key_txt=('npc', 'michel'))
         ])
 
 #depuis les maisons

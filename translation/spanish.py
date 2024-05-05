@@ -17,7 +17,8 @@ translations = {
 
     'npc': {
         # una lista que contiene todos los diálogos del npc
-        'paul': ['Hola, soy Paul', '¿Cómo estás?', '¿Quién eres tú?', '¿Por qué no me hablas? ¿Qué quieres?', 'Voy a terminar llamando a la policía si continúas', '...', '...', '...']
+        'paul': ['Hola, soy Paul', '¿Cómo estás?', '¿Quién eres tú?', '¿Por qué no me hablas? ¿Qué quieres?', 'Voy a terminar llamando a la policía si continúas', '...', '...', '...'],
+        'michel': ['Et si tu me ramenais des potions de vie ?'],
     },
 
     "tutorials": {

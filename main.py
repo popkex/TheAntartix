@@ -4,6 +4,10 @@ from game import Game
 pygame.init()
 
 '''
+patch_note memo:
+    correction du beug de traduction des dialoges des pnjs qui ne changaient pas de langue
+
+
 idées : 
     dans le dj ajouter un téléporteur vers une salle de boss et y mettre le pnj du boss
 '''
