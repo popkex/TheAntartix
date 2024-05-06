@@ -4,6 +4,8 @@ from game import Game
 pygame.init()
 
 '''
+save les quests
+
 patch_note memo:
     correction du beug de traduction des dialoges des pnjs qui ne changaient pas de langue
     ajout de differentes quetes
