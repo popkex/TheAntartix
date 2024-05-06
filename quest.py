@@ -48,7 +48,7 @@ class Quest:
         quests_caracteres = []
 
         for quest in self.game.active_quests:
-            data = (quest.name, quest.type, quest.objectif, quest.rewards.__class__.__name__, quest.rewards_quantity, quest.key_description)
+            data = (quest.name, quest.type, quest.objectif, quest.rewards.__class__.__name__, quest.rewards_quantity, quest.key_description, quest.progression)
             quests_caracteres.append(data)
 
         return quests_caracteres

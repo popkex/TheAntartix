@@ -91,7 +91,6 @@ class Saves:
         data = self.game.quest.all_quests_data()
 
         with open(path, 'wb') as content:
-            print(data)
             pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
 
                                             # les loads
@@ -162,10 +161,13 @@ class Saves:
             self.save_settings()
 
     def load_quests(self):
+        self.game.can_modifie_quest = True
         path = self.game.get_path_saves('quest.bin')
 
         with open(path, 'rb') as content:
             data = pickle.load(content)
             for quest_data in data:
-                name, quest_type, objectif, rewards, rewards_quantity, key_description = quest_data
+                name, quest_type, objectif, rewards, rewards_quantity, key_description, progression = quest_data
                 self.game.quest.add_quest(name, quest_type, objectif, rewards, rewards_quantity, key_description)
+                self.game.quest.progress(quest_type, progression)
+        self.game.can_modifie_quest = False

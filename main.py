@@ -4,13 +4,13 @@ from game import Game
 pygame.init()
 
 '''
-save les quests
-
 patch_note memo:
     correction du beug de traduction des dialoges des pnjs qui ne changaient pas de langue
     ajout de differentes quetes
     amélioration des traductions
     afficher les questes ou non via le menu pause > quetes
+    quand on meurt la vie restorer passe de 25 => 50% vie max
+    ajout d'une save pour les quests
 
 
 idées : 
