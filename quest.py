@@ -44,16 +44,23 @@ class Quest:
                 return True
         return False
 
+    def all_quests_data(self):
+        quests_caracteres = []
+
+        for quest in self.game.active_quests:
+            data = (quest.name, quest.type, quest.objectif, quest.rewards.__class__.__name__, quest.rewards_quantity, quest.key_description)
+            quests_caracteres.append(data)
+
+        return quests_caracteres
+
     def is_completed(self):
         return self.state
 
     def progress(self, quest_type, progress):
         if self.game.can_modifie_quest:
             for quest in self.game.active_quests:
-                print(quest.progression)
                 if quest.type == quest_type:
                     quest.progression += progress
-                    print(progress)
 
                     # Vérifier si la quête est complétée
                     if quest.progression >= quest.objectif:

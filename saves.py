@@ -24,12 +24,14 @@ class Saves:
         self.save_inventory()
         self.save_tutorial()
         self.save_settings()
+        self.save_quests()
 
     def load_all(self):
         self.load_settings()
         self.load_position()
         self.load_inventory()
         self.load_tutorial()
+        self.load_quests()
 
                                             # les saves
 
@@ -84,6 +86,13 @@ class Saves:
         with open(path, 'wb') as content:
             pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
 
+    def save_quests(self):
+        path = self.game.get_path_saves('quest.bin')
+        data = self.game.quest.all_quests_data()
+
+        with open(path, 'wb') as content:
+            print(data)
+            pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
 
                                             # les loads
     def load_attribut_player(self):
@@ -151,3 +160,12 @@ class Saves:
         except:
             self.game.load_language(self.game.defaut_language)
             self.save_settings()
+
+    def load_quests(self):
+        path = self.game.get_path_saves('quest.bin')
+
+        with open(path, 'rb') as content:
+            data = pickle.load(content)
+            for quest_data in data:
+                name, quest_type, objectif, rewards, rewards_quantity, key_description = quest_data
+                self.game.quest.add_quest(name, quest_type, objectif, rewards, rewards_quantity, key_description)

@@ -81,7 +81,6 @@ class Inventory:
 
         # vérifie si l'objet est dans une quete, si oui increment la quete du nombre d'objet obtenu
         if self.game.quest.quest_type_exist(objet.name):
-            print('ok')
             self.game.quest.progress(objet.name, number)
 
 # Retire un objet de l'inventaire
