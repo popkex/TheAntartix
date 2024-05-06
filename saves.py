@@ -162,6 +162,7 @@ class Saves:
 
     def load_quests(self):
         self.game.can_modifie_quest = True
+        type_quests_progress = []
         path = self.game.get_path_saves('quest.bin')
 
         with open(path, 'rb') as content:
@@ -169,5 +170,11 @@ class Saves:
             for quest_data in data:
                 name, quest_type, objectif, rewards, rewards_quantity, key_description, progression = quest_data
                 self.game.quest.add_quest(name, quest_type, objectif, rewards, rewards_quantity, key_description)
-                self.game.quest.progress(quest_type, progression)
+
+                # vérifie si le type de quete a deja ete traiter
+                if not quest_type in type_quests_progress:
+                    self.game.quest.progress(quest_type, progression)
+                else:
+                    type_quests_progress.append(quest_type)
+
         self.game.can_modifie_quest = False
