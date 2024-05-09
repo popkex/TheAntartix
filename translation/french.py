@@ -18,17 +18,17 @@ translations = {
     'npc': {
         # une liste contenant tous les dialogues du npc
         'paul': ['Bonjour, je suis Paul', 'Comment vas-tu ?', 'Qui es-tu ?', "J'ai peur des monstres", "J'adorerais que quelqu'un m'aide à me débarrasser \nde ces monstres ?", "Une petite vingtaine ?\nMerci, je te récompenserai bien comme il faut"],
-        'michel': ['Je suis grièvement blessé à cause de mon\nexcursion dans ce donjon.', 'Tu ne voudrais pas me ramener 2 potions de soins ?'],
+        'michel': ['Je suis grièvement blessé à cause de mon\nexcursion dans ce donjon.', "Dommage que je n'avais plus de potion de soin \nsinon je ne serais pas dans cette état", "Tu ferais mieux d'en recupérer crois moi"],
     },
 
     'michel_quest': {
-        'title': 'test',
-        'description': 'testaaa'
+        'title': 'Récupère des potions de soins pour ne pas te blesser',
+        'description': 'Récupère 10 potions de soins pour ne pas te blesser en combat comme ce pauvre Michel'
     },
 
     'paul_quest': {
-        'title': 'Donner des potions de soins à Paul',
-        'description':'testzar',
+        'title': "Tue des monstres pour que Paul n'ait plus peur",
+        'description': "Tue 20 monstres de n'importe quel type",
     },
 
     "tutorials": {
@@ -78,31 +78,7 @@ translations = {
 
     'button_press': {
         'press_a': "Appuie sur 'A'",
-        'press_b': "Appuie sur 'B'",
-        'press_c': "Appuie sur 'C'",
-        'press_d': "Appuie sur 'D'",
         'press_e': "Appuie sur 'E'",
-        'press_f': "Appuie sur 'F'",
-        'press_g': "Appuie sur 'G'",
-        'press_h': "Appuie sur 'H'",
-        'press_i': "Appuie sur 'I'",
-        'press_j': "Appuie sur 'J'",
-        'press_k': "Appuie sur 'K'",
-        'press_l': "Appuie sur 'L'",
-        'press_m': "Appuie sur 'M'",
-        'press_n': "Appuie sur 'N'",
-        'press_o': "Appuie sur 'O'",
-        'press_p': "Appuie sur 'P'",
-        'press_q': "Appuie sur 'Q'",
-        'press_r': "Appuie sur 'R'",
-        'press_s': "Appuie sur 'S'",
-        'press_t': "Appuie sur 'T'",
-        'press_u': "Appuie sur 'U'",
-        'press_v': "Appuie sur 'V'",
-        'press_w': "Appuie sur 'W'",
-        'press_x': "Appuie sur 'X'",
-        'press_y': "Appuie sur 'Y'",
-        'press_z': "Appuie sur 'Z'",
         'press_space': "Appuie sur 'espace'",
         'press_escape': "Appuie sur 'echap'",
         'press_enter': "Appuie sur 'enter'",
