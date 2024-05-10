@@ -14,7 +14,9 @@ from pause_menu import Pause_Menu
 
 class Game():
 
-    def __init__(self):
+    def __init__(self, main_menu):
+        self.main_menu = main_menu
+
         self.can_modifie_quest = False
 
         self.quest = Quest(self)

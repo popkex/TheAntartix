@@ -37,10 +37,13 @@ class Pause_Menu:
                     if txt == 'quest_button':
                         self.quest.running()
 
-                    if txt == 'settings_button':
+                    elif txt == 'settings_button':
                         self.settings_menu.running()
 
-                    if txt == 'save_and_quit_button':
+                    elif txt == 'save_and_main_menu':
+                        self.game.saves.save_and_main_menu()
+
+                    elif txt == 'save_and_quit_button':
                         self.game.saves.save_and_quit()
 
 class Quest:

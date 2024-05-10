@@ -6,7 +6,7 @@ from pause_menu import Settings_Menu
 class MainMenu:
 
     def __init__(self):
-        self.game = Game()
+        self.game = Game(self)
         self.screen = Screen(self.game)
         self.settings_menu = Settings_Menu(self.game)
 
@@ -14,9 +14,9 @@ class MainMenu:
         self.game.load_language(self.defaut_language)
 
     def running(self):
-        self.running = True
+        self.run = True
 
-        while self.running:
+        while self.run:
             self.screen.main_menu.update_screen()
             pygame.display.flip()
 
@@ -24,7 +24,7 @@ class MainMenu:
                 self.handle_mouse_click(event)
 
                 if event.type == pygame.QUIT:
-                    self.running = False
+                    self.run = False
 
         pygame.quit()
 
@@ -40,4 +40,4 @@ class MainMenu:
                         self.settings_menu.running()
 
                     elif txt == 'quit_button':
-                        self.running = False
+                        self.run = False

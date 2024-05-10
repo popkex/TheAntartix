@@ -56,9 +56,10 @@ translations = {
     # le menu pause
     "pause_menu": {
         "title": "Menu Pause",
-        'save_and_quit_button': "Sauvegarder et quitter",
+        "quest_button": 'Quêtes',
         "settings_button": "Paramètres",
-        "quest_button": 'Quêtes'
+        'save_and_main_menu': 'Sauvegarder et retourner vers le menu principal',
+        'save_and_quit_button': "Sauvegarder et quitter",
     },
 
     "quest_menu": {

@@ -18,6 +18,10 @@ class Saves:
         self.save_all()
         pygame.quit()
 
+    def save_and_main_menu(self):
+        self.save_all()
+        self.game.main_menu.running()
+
     def save_all(self):
         self.save_attribut_player()
         self.save_position()

@@ -38,4 +38,4 @@ main_menu = MainMenu()
 try:
     main_menu.running()
 except pygame.error:
-    print('le joueur a quitter le jeu')
+    pass
