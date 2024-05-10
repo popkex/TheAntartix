@@ -20,7 +20,7 @@ patch_note memo:
         correction de quand on ouvre l'inventaire et qu'on le ferme le joueur passe son tour
         correction, quand le joueur fermait le tuto de l'inventaire, le dialog restait afficher sans pouvoir le retirer
 
-beug:
+beug découvert:
     None
 
 idées : 
