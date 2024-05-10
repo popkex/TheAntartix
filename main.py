@@ -1,5 +1,5 @@
 import pygame, os
-from game import Game
+from main_menu import MainMenu
 
 pygame.init()
 
@@ -23,6 +23,7 @@ beug:
 idées : 
     dans le dj ajouter un téléporteur vers une salle de boss et y mettre le pnj du boss
     creer un menu de demarrage (a faire)
+    ajouter un bouton menu principal dans le menu pause
 '''
 
 # vérifie si le dossier 'saves' existe (si le jeu est pas compiler)
@@ -32,10 +33,9 @@ if not os.path.exists(r'saves'):
     elif not os.path.exists(r'_internal\saves'):
         os.makedirs(r'_internal\saves')
 
-game = Game()
+main_menu = MainMenu()
 
-# si le joueur quitte le jeu il n'a pas de message d'erreur du a pygame
 try:
-    game.run()
+    main_menu.running()
 except pygame.error:
     print('le joueur a quitter le jeu')

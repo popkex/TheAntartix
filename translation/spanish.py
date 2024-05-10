@@ -46,6 +46,10 @@ translations = {
         "tuto_fight": ["¡Estás en combate!", "Aquí, presionando 'A', puedes atacar a tu \nadversario. Pero cuidado, recibirás \ndaño.", "Si mueres, tu vida volverá al 50% de tu vida\ny perderás experiencia/bajarás de nivel!", "Pero si logras matar a tu adversario, \nganas experiencia y objetos.", "También puedes acceder a tu inventario presionando \n'E' y huir con 'ECHAP'.", "Te diré un secreto, también puedes presionar \nen los iconos con tu ratón para ejecutar la acción", "Pero cuidado, si huyes, puede que no lo \nconsigas y recibirás daño.", "¡Buena suerte y no te maten!"],
     },
 
+    "main_menu": {
+        'title': "The Antartix"
+    },
+
     # el menú de pausa
     "pause_menu": {
         "title": "Menú de Pausa",

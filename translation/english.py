@@ -46,6 +46,10 @@ translations = {
         "tuto_fight": ["You are now in combat!", "Here, by pressing 'A', you can attack your \nopponent. But be careful, you will take damage.", "If you die, your life will return to 50% of your life\nand you will lose experience/level down!", "But if you manage to kill your opponent, \nyou gain experience and items.", "You can also access your inventory by pressing \n'E' and flee with 'ESC'.", "I'm going to tell you a secret, you can also press \nthe icons with your mouse to execute the action", "But be careful, if you flee, you may not \nsucceed and you will take damage.", "Good luck and don't get killed!"],
     },
 
+    "main_menu": {
+        'title': "The Antartix"
+    },
+
     # the pause menu
     "pause_menu": {
         "title": "Pause Menu",

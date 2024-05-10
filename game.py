@@ -15,9 +15,6 @@ from pause_menu import Pause_Menu
 class Game():
 
     def __init__(self):
-        self.defaut_language = "fr"
-        self.load_language(self.defaut_language)
-
         self.can_modifie_quest = False
 
         self.quest = Quest(self)
@@ -38,11 +35,6 @@ class Game():
         self.active_fight = False   # n'active pas de combat
         self.messages_system = [] # met aucun message systeme
         self.current_direction = 'up' #défini la direction par defaut
-        #
-        #
-        # faire le chargement des quests
-        #
-        #
 
         self.saves.load_all()
 
@@ -141,7 +133,7 @@ class Game():
         # Ajoute un message à la file d'attente
         self.messages_system.append((message, time.time(), max_time))
 
-    def run(self):
+    def running(self):
         self.clock = pygame.time.Clock()
         self.running = True
 

@@ -46,11 +46,18 @@ translations = {
         "tuto_fight": ["Te voilà en combat !", "Ici, en appuyant sur 'A', tu peux attaquer ton \nadversaire. Mais attention, tu te prendras des \ndégâts.", "Si tu meurs, ta vie reviendra à 50% de ta vie\net tu perdras de l'expérience/diminueras de niveau !", "Mais si tu arrives à tuer ton adversaire, \ntu gagnes de l'expérience et des objets.", "Tu peux aussi accéder à ton inventaire en appuyant \nsur 'E' et fuir avec 'ECHAP'.", "Je vais te dire un secret, tu peux aussi appuyer \nsur les icônes avec ta souris pour exécuter l'action", "Mais attention, si tu fuis, il se peut que tu n'y \narrives pas et tu te prendras des dégâts.", "Bonne chance et ne te fais pas tuer !"],
     },
 
+    "main_menu": {
+        'title': "The Antartix",
+        "play_button": "Jouer",
+        "settings_button": "Paramètres",
+        "quit_button": "Quitter",
+    },
+
     # le menu pause
     "pause_menu": {
         "title": "Menu Pause",
-        "settings_button": "Paramètres",
         'save_and_quit_button': "Sauvegarder et quitter",
+        "settings_button": "Paramètres",
         "quest_button": 'Quêtes'
     },
 

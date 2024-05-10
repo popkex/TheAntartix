@@ -9,9 +9,8 @@ class Screen:
 
         self.game = game
 
-        #créez une instance de Life
+        self.main_menu = MainMenu(self)
         self.life = Life_screen(self)
-        #créez une instance de fight
         self.fight_display = Fight_display(self)
         self.inventory_display = Inventory_display(self)
         self.death_display = Death(self)
@@ -114,6 +113,56 @@ class Screen:
 
                 # Puis dessine le texte
                 self.blit_ressource(text, (x, y))
+
+
+
+class MainMenu:
+
+    def __init__(self, screen):
+        self.screen = screen
+        self.dic_buttons = {}  # stock les coordonnées des bouttons
+
+    def update_screen(self):
+        self.show_background()
+        self.show_title()
+        self.show_buttons()
+
+    def show_background(self):
+        background_path = self.screen.game.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background = pygame.image.load(background_path)
+        background = self.screen.transform_img(background, self.screen.display_width)
+        self.screen.blit_ressource(background, (0, 0))
+
+    def show_title(self):
+        title = self.screen.game.load_txt('main_menu', 'title')
+        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+
+    def show_buttons(self):
+        self.show_button_play()
+        self.show_button_settings()
+        self.show_button_quit()
+
+    def buttons(self, txt_key, txt, button_number, dic):
+        y = 100+50*button_number
+        txt_surface, position = self.screen.draw_txt(txt, 50, (0, y), True, (255, 255, 255), True)
+        x, y, w, h = position
+        button_position = x -10, y-10, w + 10, h + 10
+        dic[txt_key] = button_position  # Stockez les coordonnées du bouton
+
+    def show_button_play(self):
+        txt_key = 'play_button'
+        txt = self.screen.game.load_txt('main_menu', txt_key)
+        self.buttons(txt_key, txt, 1, self.dic_buttons)
+
+    def show_button_settings(self):
+        txt_key = 'settings_button'
+        txt = self.screen.game.load_txt('main_menu', txt_key)
+        self.buttons(txt_key, txt, 2, self.dic_buttons)
+
+    def show_button_quit(self):
+        txt_key = 'quit_button'
+        txt = self.screen.game.load_txt('main_menu', txt_key)
+        self.buttons(txt_key, txt, 11, self.dic_buttons)
 
 
 
