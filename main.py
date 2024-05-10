@@ -11,6 +11,9 @@ patch_note memo:
         afficher les questes ou non via le menu pause > quetes
         ajout de messages systemes quand le joueur entre en combat
         permet de skip les dialogs/tuto en appuyant sur 'return' (entrer)
+        ajout d'un menu principal avant de lancer le jeu
+        ajout d'un bouton pour revenir au menu principal depuis le menu pause
+        modifications du déplacement des pnj michel
 
     patch beug: 
         correction du beug de traduction des dialoges des pnjs qui ne changaient pas de langue
