@@ -5,14 +5,17 @@ pygame.init()
 
 '''
 patch_note memo:
-    correction du beug de traduction des dialoges des pnjs qui ne changaient pas de langue
-    ajout de differentes quetes
-    amélioration des traductions
-    afficher les questes ou non via le menu pause > quetes
-    ajout de messages systemes quand le joueur entre en combat
+    ajout:
+        ajout de differentes quetes
+        amélioration des traductions
+        afficher les questes ou non via le menu pause > quetes
+        ajout de messages systemes quand le joueur entre en combat
+
+    patch beug: 
+        correction du beug de traduction des dialoges des pnjs qui ne changaient pas de langue
+        quand on ouvre l'inventaire et qu'on le ferme le joueur passe son tourz
 
 beug: 
-    quand on ouvre l'inventaire et qu'on le ferme le joueur passe son tourz
     le tuto de l'inventaire reste quand on le skip, obliger de relancer le jeu
     on peut pas skip les dialog 
 
