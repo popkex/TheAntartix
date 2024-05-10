@@ -66,15 +66,10 @@ class Screen:
             self.blit_ressource(txt_surface, position)
         return txt_surface, position
 
-
 # Permet de changer facilement le changement de taille d'une image
     def transform_img(self, image, scale):
         return pygame.transform.scale(image, scale)
 
-    def system_message(self, message, time=2000):
-        self.draw_txt(message, 50, (0, 50), True, (0, 0, 0), True)
-        pygame.display.flip()
-        pygame.time.wait(time)
 
     def show_bar(self, valur, max_valur, position, color_bar, back_color_bar, max_w=300):
         x, y = position
@@ -104,11 +99,9 @@ class Screen:
         font = pygame.font.Font(None, 20)
 
         # Affiche tous les messages
-        for i, (message, message_time) in enumerate(self.game.messages_system):
-            message, message_time = self.game.messages_system[i]
-
+        for i, (message, message_time, message_max_time) in enumerate(self.game.messages_system):
             # Si le message a plus de 2 secondes, le supprime de la file d'attente
-            if now - message_time > 2:
+            if now - message_time > message_max_time:
                 self.game.messages_system.pop(i)
             else:
                 # Prépare le texte
@@ -120,7 +113,7 @@ class Screen:
                 self.background_message((x, y), text_width, text_height)
 
                 # Puis dessine le texte
-                self.screen.blit(text, (x, y))
+                self.blit_ressource(text, (x, y))
 
 
 

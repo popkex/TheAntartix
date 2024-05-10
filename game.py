@@ -137,9 +137,9 @@ class Game():
         #detecte si un combat peut se lancer
         self.active_fight = self.map_manager.active_fight()
 
-    def add_message(self, message):
+    def add_message(self, message, max_time=2):
         # Ajoute un message à la file d'attente
-        self.messages_system.append((message, time.time()))
+        self.messages_system.append((message, time.time(), max_time))
 
     def run(self):
         self.clock = pygame.time.Clock()
