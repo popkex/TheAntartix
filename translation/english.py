@@ -47,15 +47,19 @@ translations = {
     },
 
     "main_menu": {
-        'title': "The Antartix"
+        'title': "The Antartix",
+        "play_button": "Play",
+        "settings_button": "Settings",
+        "quit_button": "Quit",
     },
 
     # the pause menu
     "pause_menu": {
         "title": "Pause Menu",
+        "quest_button": 'Quests',
         "settings_button": "Settings",
-        'save_and_quit_button': "Save and Quit",
-        "quest_button": 'Quests'
+        'save_and_main_menu': 'Save and return to the main menu',
+        'save_and_quit_button': "Save and quit",
     },
 
     "quest_menu": {
