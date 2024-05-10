@@ -9,7 +9,15 @@ patch_note memo:
     ajout de differentes quetes
     amélioration des traductions
     afficher les questes ou non via le menu pause > quetes
+    ajout de messages systemes quand le joueur entre en combat
 
+beug: 
+    quand on ouvre l'inventaire et qu'on le ferme le joueur passe son tourz
+    le tuto de l'inventaire reste quand on le skip, obliger de relancer le jeu
+    on peut pas skip les dialog 
+
+    solution ?:
+        retiré le skip des dialogues
 
 idées : 
     dans le dj ajouter un téléporteur vers une salle de boss et y mettre le pnj du boss
