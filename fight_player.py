@@ -42,7 +42,7 @@ class Fight_Player():
 
     def player_choose_object(self) -> bool:
         if not self.game.fight.player_selected_object:
-            return not self.game.inventory.open_inventory(self.game, "fight")
+            return self.game.inventory.open_inventory(self.game, "fight")
 
 # Détécte sur quoi le joueur clique et lance l'action séléctionné
     def turn(self) -> bool:
