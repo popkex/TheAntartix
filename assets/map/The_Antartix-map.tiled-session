@@ -99,11 +99,11 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 1.5,
+            "scale": 4,
             "selectedLayer": 9,
             "viewCenter": {
-                "x": 320,
-                "y": 319.3333333333333
+                "x": 245.5,
+                "y": 140.25
             }
         }
     },
