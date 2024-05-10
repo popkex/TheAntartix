@@ -25,7 +25,6 @@ beug découvert:
 
 idées : 
     dans le dj ajouter un téléporteur vers une salle de boss et y mettre le pnj du boss
-    creer un menu de demarrage (a faire)
 '''
 
 # vérifie si le dossier 'saves' existe (si le jeu est pas compiler)
