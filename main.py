@@ -10,17 +10,15 @@ patch_note memo:
         amélioration des traductions
         afficher les questes ou non via le menu pause > quetes
         ajout de messages systemes quand le joueur entre en combat
+        permet de skip les dialogs/tuto en appuyant sur 'return' (entrer)
 
     patch beug: 
         correction du beug de traduction des dialoges des pnjs qui ne changaient pas de langue
-        quand on ouvre l'inventaire et qu'on le ferme le joueur passe son tourz
+        correction de quand on ouvre l'inventaire et qu'on le ferme le joueur passe son tour
+        correction, quand le joueur fermait le tuto de l'inventaire, le dialog restait afficher sans pouvoir le retirer
 
-beug: 
-    le tuto de l'inventaire reste quand on le skip, obliger de relancer le jeu
-    on peut pas skip les dialog 
-
-    solution ?:
-        retiré le skip des dialogues
+beug:
+    None
 
 idées : 
     dans le dj ajouter un téléporteur vers une salle de boss et y mettre le pnj du boss
