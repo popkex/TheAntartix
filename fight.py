@@ -76,6 +76,9 @@ class Fight:
 
 #le combat
     def run(self):
+        message = self.current_enemy.lanch_fight_message
+        self.game.add_message(message, 15)
+
         while self.game.active_fight:
             #affiche l'écran de fight
             self.screen.fight_display.screen_fight(self.game.fight_player.txt_player_action)

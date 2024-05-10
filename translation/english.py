@@ -9,6 +9,16 @@ translations = {
         'exit': 'to exit',
     },
 
+    "enemyA":{
+        "name": "enemy A",
+        "lanch_fight_message": "Enemy A has fallen on you",
+    },
+
+    "enemyB": {
+        "name": "enemy B",
+        'lanch_fight_message': "An enemy B has appeared all of a sudden",
+    },
+
     "objects": {
         "Life_Potion": "a health potion",
         "Big_Life_Potion": "a big health potion",

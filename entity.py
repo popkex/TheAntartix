@@ -5,6 +5,7 @@ from inventory import *
 @dataclass
 class Entity:
     name: str
+    lanch_fight_message: str # Le message qui s'affiche quand on join un combat
     loot: list
     image: pygame.Surface
     max_health: int
@@ -43,18 +44,34 @@ class Enemy(Entity):
 
 class EnemyA(Enemy):
     def __init__(self, game):
+        page = 'enemyA'
+        key_txt = 'name'
+        name = game.load_txt(page, key_txt)
+
+        page = 'enemyA'
+        key_txt = 'lanch_fight_message'
+        lanch_fight_message = game.load_txt(page, key_txt)
+
         path = game.get_path_assets('enemy\enemyA.gif')
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (250, 250))
         loot = [(Life_Potion, 3), (Big_Life_Potion, 2)] # (L'objet, le nombre d'objet au max)
 
-        super().__init__("enemy A", loot, image, max_health=50, health=50, attack=12, give_xp=4) # de base 100, 100, 10, 2
+        super().__init__(name, lanch_fight_message, loot, image, max_health=50, health=50, attack=12, give_xp=4) # de base 100, 100, 10, 2
 
 class EnemyB(Enemy):
     def __init__(self, game):
+        page = 'enemyB'
+        key_txt = 'name'
+        name = game.load_txt(page, key_txt)
+
+        page = 'enemyB'
+        key_txt = 'lanch_fight_message'
+        lanch_fight_message = game.load_txt(page, key_txt)
+
         path = game.get_path_assets('enemy\enemyB.webp')
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (250, 250))
         loot = [(Big_Life_Potion, 3), (Bomb, 1)] # (L'objet, le nombre d'objet au max)
 
-        super().__init__("enemy B", loot, image, max_health=60, health=60, attack=12, give_xp=6) # de base 120, 120, 12, 5
+        super().__init__(name, lanch_fight_message, loot, image, max_health=60, health=60, attack=12, give_xp=6) # de base 120, 120, 12, 5

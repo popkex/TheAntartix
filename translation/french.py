@@ -9,6 +9,16 @@ translations = {
         'exit': 'pour quitter',
     },
 
+    "enemyA":{
+        'name': "ennemie A",
+        'lanch_fight_message': "L'énnemie A est tombé sur toi",
+    },
+
+    "enemyB": {
+        "name": "ennemie B",
+        'lanch_fight_message': "Un énnemie B est apparu en toute surprise",
+    },
+
     "objects": {
         "Life_Potion": "une potion de soin",
         "Big_Life_Potion": "une grosse potion de soin",
