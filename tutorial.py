@@ -25,7 +25,8 @@ class Tutorial:
                     if event.key == pygame.K_SPACE:
                         running = self.game.dialog_box.execute(key_txt)
 
-                    if event.key == pygame.K_ESCAPE:
+                    if event.key == pygame.K_RETURN:
+                        self.game.dialog_box.close_dialog()
                         running = False
 
                 if event.type == pygame.QUIT:

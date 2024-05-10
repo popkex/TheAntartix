@@ -28,8 +28,8 @@
             "scale": 1,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 241,
-                "y": 141
+                "x": 200,
+                "y": 240
             }
         },
         "house.tmx": {
@@ -99,11 +99,11 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 0.75,
+            "scale": 1.5,
             "selectedLayer": 9,
             "viewCenter": {
-                "x": 85.33333333333326,
-                "y": 90.66666666666669
+                "x": 48,
+                "y": 471.33333333333326
             }
         }
     },

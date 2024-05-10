@@ -169,6 +169,8 @@ class Game():
                     if event.key == pygame.K_SPACE:
                         self.map_manager.check_npcs_collisions(self.dialog_box)
 
+                    if event.key == pygame.K_RETURN:
+                        self.dialog_box.close_dialog()
 
                     if event.key == pygame.K_ESCAPE:
                         self.pause_menu.running()
