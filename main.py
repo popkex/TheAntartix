@@ -9,12 +9,11 @@ patch_note memo:
     ajout de differentes quetes
     amélioration des traductions
     afficher les questes ou non via le menu pause > quetes
-    quand on meurt la vie restorer passe de 25 => 50% vie max
-    ajout d'une save pour les quests
 
 
 idées : 
     dans le dj ajouter un téléporteur vers une salle de boss et y mettre le pnj du boss
+    creer un menu de demarrage (a faire)
 '''
 
 # vérifie si le dossier 'saves' existe (si le jeu est pas compiler)
@@ -26,6 +25,7 @@ if not os.path.exists(r'saves'):
 
 game = Game()
 
+# si le joueur quitte le jeu il n'a pas de message d'erreur du a pygame
 try:
     game.run()
 except pygame.error:
