@@ -211,12 +211,10 @@ class Weapon(Objet):
         self.bomb = Bomb(self.game)
 
     def used(self):
-        try:
+        if self.game.fight.current_enemy:
             self.effect()
             self.game.inventory.remove_object(self, 1)
-            return True
-        except:
-            pass
+            return False
 
 class Bomb(Weapon):
     def __init__(self, game):
