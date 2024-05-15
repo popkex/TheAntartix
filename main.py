@@ -19,6 +19,7 @@ patch_note memo:
         correction du beug de traduction des dialoges des pnjs qui ne changaient pas de langue
         correction de quand on ouvre l'inventaire et qu'on le ferme le joueur passe son tour
         correction, quand le joueur fermait le tuto de l'inventaire, le dialog restait afficher sans pouvoir le retirer
+        utilisation des bombes quand le joueur sort d'un combat
 
 beug découvert:
     None
