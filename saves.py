@@ -161,7 +161,7 @@ class Saves:
                 data_str = pickle.load(content)
                 self.game.load_language(data_str)
         except:
-            self.game.load_language(self.game.defaut_language)
+            self.game.load_language("en")
             self.save_settings()
 
     def load_quests(self):
