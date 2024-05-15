@@ -6,11 +6,12 @@ class Pause_Menu:
         self.game = game
         self.settings_menu = Settings_Menu(game)
         self.quest = Quest(game)
+        self.tutorial_menu = Tutorial_Menu(game)
 
     def running(self):
-        running = True
+        self.running = True
 
-        while running:
+        while self.running:
 
             # Affiche l'écran de menu de pause
             self.game.screen.pause_menu.show_pause()
@@ -23,11 +24,10 @@ class Pause_Menu:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
-                        running = False
+                        self.running = False
 
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
-
 
     def handle_mouse_click(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -39,6 +39,12 @@ class Pause_Menu:
 
                     elif txt == 'settings_button':
                         self.settings_menu.running()
+
+                    elif txt == 'tutorial_button':
+                        self.tutorial_menu.running()
+
+                    elif txt == 'back_to_the_game':
+                        self.running = False
 
                     elif txt == 'save_and_main_menu':
                         self.game.saves.save_and_main_menu()
@@ -52,9 +58,9 @@ class Quest:
         self.game = game
 
     def running(self):
-        running = True
+        self.running = True
 
-        while running:
+        while self.running:
             self.game.screen.quest.show_elements()
 
             pygame.display.flip()
@@ -62,7 +68,7 @@ class Quest:
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
-                        running = False
+                        self.running = False
 
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
@@ -73,9 +79,9 @@ class Settings_Menu():
         self.settings_language = Settings_language(game)
 
     def running(self):
-        running = True
+        self.running = True
 
-        while running:
+        while self.running:
             self.game.screen.settings.show_settings()
 
             pygame.display.flip()
@@ -85,7 +91,7 @@ class Settings_Menu():
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
-                        running = False
+                        self.running = False
 
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
@@ -98,15 +104,48 @@ class Settings_Menu():
                     if txt == 'language':
                         self.settings_language.running()
 
+                    elif txt == 'back':
+                        self.running = False
+
+
+class Tutorial_Menu():
+    def __init__(self, game):
+        self.game = game
+
+    def running(self):
+        self.running = True
+
+        while self.running:
+            self.game.screen.tutorial.show_tutorial()
+
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                self.handle_mouse_click(event)
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        self.running = False
+
+                if event.type == pygame.QUIT:
+                    self.game.saves.save_and_quit()
+
+    def handle_mouse_click(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            for txt, button_position in self.game.screen.tutorial.dic_buttons.items():
+                rect = pygame.Rect(button_position)
+                if rect.collidepoint(event.pos):
+                    if txt == 'back':
+                        self.running = False
 
 class Settings_language:
     def __init__(self, game):
         self.game = game
 
     def running(self):
-        running = True
+        self.running = True
 
-        while running:
+        while self.running:
             self.game.screen.settings_languages.show_settings_languages()
 
             pygame.display.flip()
@@ -116,7 +155,7 @@ class Settings_language:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
-                        running = False
+                        self.running = False
 
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
@@ -134,3 +173,6 @@ class Settings_language:
 
                     elif txt == 'spanish':
                         self.game.load_language('es')
+
+                    elif txt == 'back':
+                        self.running = False

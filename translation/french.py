@@ -58,21 +58,31 @@ translations = {
         "title": "Menu Pause",
         "quest_button": 'Quêtes',
         "settings_button": "Paramètres",
+        "tutorial_button": "Tutoriels",
+        "back_to_the_game": "Retour",
         'save_and_main_menu': 'Sauvegarder et retourner vers le menu principal',
         'save_and_quit_button': "Sauvegarder et quitter",
     },
 
+    'tutorial_menu': {
+        "title": "Tutoriels",
+        "back": "Retour",
+    },
+
     "quest_menu": {
         'title': "Quêtes",
+        "back": "Retour",
     },
 
     "settings_menu": {
         "title": "Paramètres",
         "language": "Langue",
+        "back": "Retour",
     },
 
     "settings_languages_menu": {
         "title": "Paramètres de langue",
+        "back": "Retour",
     },
 
     "languages": {

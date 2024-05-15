@@ -17,6 +17,7 @@ class Screen:
         self.tutorial = Tutorial(self)
         self.pause_menu = Pause_menu(self)
         self.quest = Quest(self)
+        self.tutorial = Tutorial_Menu(self)
         self.settings = Settings(self)
         self.settings_languages = Settings_Languages(self)
 
@@ -388,6 +389,8 @@ class Pause_menu:
     def show_buttons(self):
         self.show_quest_button()
         self.show_button_settings()
+        self.show_button_tutorial()
+        self.show_button_back_to_the_game()
         self.show_button_save_and_main_menu()
         self.show_button_save_and_quit()
 
@@ -408,15 +411,55 @@ class Pause_menu:
         txt = self.screen.game.load_txt('pause_menu', txt_key)
         self.buttons(txt_key, txt, 2, self.dic_buttons)
 
-    def show_button_save_and_quit(self):
-        txt_key = 'save_and_quit_button'
+    def show_button_tutorial(self):
+        txt_key = 'tutorial_button'
         txt = self.screen.game.load_txt('pause_menu', txt_key)
-        self.buttons(txt_key, txt, 11, self.dic_buttons)
+        self.buttons(txt_key, txt, 3, self.dic_buttons)
+
+    def show_button_back_to_the_game(self):
+        txt_key = 'back_to_the_game'
+        txt = self.screen.game.load_txt('pause_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 9, self.dic_buttons)
 
     def show_button_save_and_main_menu(self):
         txt_key = 'save_and_main_menu'
         txt = self.screen.game.load_txt('pause_menu', txt_key)
         self.buttons(txt_key, txt, 10, self.dic_buttons)
+
+    def show_button_save_and_quit(self):
+        txt_key = 'save_and_quit_button'
+        txt = self.screen.game.load_txt('pause_menu', txt_key)
+        self.buttons(txt_key, txt, 11, self.dic_buttons)
+
+
+
+
+
+class Tutorial_Menu:
+
+    def __init__(self, screen):
+        self.screen = screen
+        self.dic_buttons = {}  # stock les coordonnées des bouttons
+
+    def show_tutorial(self):
+        self.show_background()
+        self.show_title()
+        self.show_buttons()
+
+    def show_background(self):
+        self.screen.pause_menu.show_background()
+
+    def show_title(self):
+        title = self.screen.game.load_txt('tutorial_menu', 'title')
+        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+
+    def show_buttons(self):
+        self.show_button_back()
+
+    def show_button_back(self):
+        txt_key = 'back'
+        txt = self.screen.game.load_txt('tutorial_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
 
 
 
@@ -451,6 +494,11 @@ class Quest:
             self.screen.screen.blit(txt_surface, position)  # Affichage de la quête sur l'écran
             y_offset += 50
 
+    def show_button_back(self):
+        txt_key = 'back'
+        txt = self.screen.game.load_txt('quest_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
+
 
 
 
@@ -484,6 +532,11 @@ class Settings:
         txt = self.screen.game.load_txt('settings_menu', txt_key)
         self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
 
+    def show_button_back(self):
+        txt_key = 'back'
+        txt = self.screen.game.load_txt('settings_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
+
 
 
 
@@ -508,6 +561,7 @@ class Settings_Languages:
         self.show_button_language_english()
         self.show_button_language_french()
         self.show_button_language_spanish()
+        self.show_button_back()
 
     def show_button_language_english(self):
         txt_key = 'english'
@@ -523,3 +577,8 @@ class Settings_Languages:
         txt_key = 'spanish'
         txt = self.screen.game.load_txt('languages', txt_key)
         self.screen.pause_menu.buttons(txt_key, txt, 3, self.dic_buttons)
+
+    def show_button_back(self):
+        txt_key = 'back'
+        txt = self.screen.game.load_txt('languages', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
