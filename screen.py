@@ -475,6 +475,7 @@ class Quest:
         self.show_background()
         self.show_title()
         self.show_quests()
+        self.show_button_back()
 
     def show_background(self):
         self.screen.pause_menu.show_background()
@@ -526,6 +527,7 @@ class Settings:
 
     def show_buttons(self):
         self.show_button_language()
+        self.show_button_back()
 
     def show_button_language(self):
         txt_key = 'language'
@@ -580,5 +582,5 @@ class Settings_Languages:
 
     def show_button_back(self):
         txt_key = 'back'
-        txt = self.screen.game.load_txt('languages', txt_key)
+        txt = self.screen.game.load_txt('settings_languages_menu', txt_key)
         self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
