@@ -68,7 +68,8 @@ class MapManager:
         for sprite in self.get_group().sprites():
             for npc in self.get_map().npcs:
                 if npc.rect.colliderect(self.game.player.rect):
-                    reading = dialog_box.execute(npc.key_txt, npc.name, npc.quest)
+                    key_txt_name = (npc.name, "name")
+                    reading = dialog_box.execute(npc.key_txt, key_txt_name, npc.quest)
 
                     if npc.quest and not reading:
                         name_quest, type_quest, objectif_quest, rewards, rewards_quantity, key_description = npc.quest

@@ -27,10 +27,17 @@ class DialogBox:
 
 
     # traduire l'erreur
-    def execute(self, key_txt, name="???", quest=None) -> bool:
+    def execute(self, key_txt, name=None, quest=None) -> bool:
         self.name = name
         page, txt = key_txt
         dialog = self.game.load_txt(page, txt)
+
+        # regarde si un nom est donner 
+        if name:
+            page, txt = name
+            self.name = self.game.load_txt(page, txt)
+        else:
+            self.name = "???"
 
         if self.can_execute: # evite qu'il se lance 2fois (j'ai pas trouver pourquoi)
             if self.reading:

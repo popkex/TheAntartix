@@ -9,7 +9,8 @@ class Tutorial:
     def running(self, tutorial):
         running = True
         key_txt = 'tutorials', tutorial
-        self.game.dialog_box.execute(key_txt)
+        key_name_txt = "tutorials", "tutorial"
+        self.game.dialog_box.execute(key_txt, key_name_txt)
         self.clock = pygame.time.Clock()
 
         while running:
@@ -23,7 +24,7 @@ class Tutorial:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        running = self.game.dialog_box.execute(key_txt)
+                        running = self.game.dialog_box.execute(key_txt, key_name_txt)
 
                     if event.key == pygame.K_RETURN:
                         self.game.dialog_box.close_dialog()
