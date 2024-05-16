@@ -126,7 +126,7 @@ class Tutorial_Menu():
         self.run = True
 
         while self.run:
-            self.game.screen.tutorial.show_tutorial()
+            self.game.screen.tutorial_menu.show_tutorial()
 
             pygame.display.flip()
 
