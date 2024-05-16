@@ -14,10 +14,11 @@ class Screen:
         self.fight_display = Fight_display(self)
         self.inventory_display = Inventory_display(self)
         self.death_display = Death(self)
+        self.dialog = Dialog(self)
         self.tutorial = Tutorial(self)
         self.pause_menu = Pause_menu(self)
         self.quest = Quest(self)
-        self.tutorial = Tutorial_Menu(self)
+        self.tutorial_menu = Tutorial_Menu(self)
         self.settings = Settings(self)
         self.settings_languages = Settings_Languages(self)
 
@@ -350,6 +351,38 @@ class Death:
         txt_key_exit = 'exit'
         txt = f"{self.screen.game.load_txt('button_press', txt_key_button)} {self.screen.game.load_txt('message_system', txt_key_exit)}"
         self.screen.draw_txt(txt, 50, (0, 650), True, (255, 255, 255), True) # affiche le txt a l'écran avec une police de 50 et en x=centre, y=650
+
+
+
+
+class Dialog:
+
+    def __init__(self, screen):
+        self.screen = screen
+
+    def show_name_box(self, name):
+        self.name = name
+        self.show_background()
+        self.show_txt()
+
+    def show_background(self):
+        # affiche la box avec la bonne dimention 
+        self.txt_rect, self.text = self.calculate_weight()
+        box_img = pygame.image.load(self.screen.game.get_path_assets('dialog/dialog_box.png'))
+        box_img = pygame.transform.scale(box_img, (self.txt_rect.width + 40, 35))
+        self.screen.blit_ressource(box_img, (self.txt_rect.x, self.txt_rect.y))
+
+    def calculate_weight(self) -> tuple:
+        font = pygame.font.Font(None, 40)
+        text = font.render(self.name, True, (0, 0, 0))
+        txt_rect = text.get_rect()
+        txt_rect.x = 315
+        txt_rect.y = 570
+        return txt_rect, text
+
+    def show_txt(self):
+        rect = self.txt_rect.x + 20, self.txt_rect.y + 4
+        self.screen.blit_ressource(self.text, rect)
 
 
 
