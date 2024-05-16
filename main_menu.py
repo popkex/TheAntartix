@@ -13,8 +13,14 @@ class MainMenu:
         self.defaut_language = "fr"
         self.game.load_language(self.defaut_language)
 
+    def show_lunch_game(self):
+        self.screen.screen.fill((0, 0, 0))
+        self.screen.main_menu.show_logo()
+
     def running(self):
         self.run = True
+
+        self.show_lunch_game()
 
         while self.run:
             self.screen.main_menu.update_screen()

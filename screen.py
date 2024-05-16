@@ -49,7 +49,10 @@ class Screen:
         self.draw_txt("XP", 20, (260, 47), False, (255, 102, 0))
         self.draw_txt(f"lvl {self.game.data_player.lvl}", 25, (282,47), False, (0, 0, 139))
 
-    def blit_ressource(self, ressource, position=(0,0)):
+    def blit_ressource(self, ressource, position=(0,0), center=False):
+        if center:
+            position = ressource.get_rect(center=(self.screen.get_width()/2, position[1]))
+
         self.screen.blit(ressource, position)
 
     def draw_color(self, surface, color, position=(0, 0)):
@@ -128,6 +131,24 @@ class MainMenu:
         self.show_background()
         self.show_title()
         self.show_buttons()
+
+# affiche le logo du jeu au demarrage du jeu (possibilité de skip si la personne appuie sur une touche)
+    def show_logo(self):
+        stop = False
+        img = pygame.image.load(self.screen.game.get_path_assets("studio_logo.jpeg"))
+        for alpha in range(0, 5000):
+            img.set_alpha(alpha)
+            self.screen.blit_ressource(img, (0, 425), True)
+            pygame.display.flip()
+            pygame.time.delay(20)  # Pause pour permettre de voir la transition
+
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    stop = True
+
+            if stop:
+                break
+
 
     def show_background(self):
         background_path = self.screen.game.get_path_assets("pause_menu\pause_menu_bg.jpg")
