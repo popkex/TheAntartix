@@ -135,7 +135,7 @@ class MainMenu:
 # affiche le logo du jeu au demarrage du jeu (possibilité de skip si la personne appuie sur une touche)
     def show_logo(self):
         stop = False
-        img = pygame.image.load(self.screen.game.get_path_assets("studio_logo.jpeg"))
+        img = pygame.image.load(self.screen.game.get_path_assets("studio_logo.png"))
         for alpha in range(0, 5000):
             img.set_alpha(alpha)
             self.screen.blit_ressource(img, (0, 425), True)
