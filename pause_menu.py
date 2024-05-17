@@ -77,7 +77,7 @@ class Quest:
 
     def handle_mouse_click(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
-            for txt, button_position in self.game.screen.settings.dic_buttons.items():
+            for txt, button_position in self.game.screen.quest.dic_buttons.items():
                 rect = pygame.Rect(button_position)
                 if rect.collidepoint(event.pos):
                     if txt == 'back':
