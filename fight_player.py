@@ -24,13 +24,16 @@ class Fight_Player():
             self.enemy.health -= self.player.attack
         else: 
             self.enemy.health = 0
+
         message = self.game.load_txt('message_system', 'player_attack')
         self.game.add_message(message)
         self.game.update_screen()
+
         return False
 
     def player_escape(self):
         luck = random.randint(0, 100)
+
         # Le joueur a 15% de chance d'échouer à la fuite du combat 
         if luck <= 85: #de base 85
             self.game.active_fight = False
@@ -38,6 +41,7 @@ class Fight_Player():
             message = self.game.load_txt('message_system', 'failed_escape')
             self.game.add_message(message)
             self.game.update_screen()
+
         return False
 
     def player_choose_object(self) -> bool:
@@ -47,6 +51,7 @@ class Fight_Player():
 # Détécte sur quoi le joueur clique et lance l'action séléctionné
     def turn(self) -> bool:
         self.game.update_screen()
+
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 index = 0
