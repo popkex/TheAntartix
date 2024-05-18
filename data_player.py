@@ -37,12 +37,12 @@ class Data_Player:
     def remove_xp(self):
         if self.lvl > 1:
             if int(self.xp_max/1.5) < 1:
-                self.xp = int(self.xp_max/1.5)
+                self.xp = int(self.xp_max/1.1)
             else:
                 self.lvl_down()
         else:
             if int(self.xp_max/1.5) < 1:
-                self.xp = int(self.xp_max/1.5)
+                self.xp = int(self.xp_max/1.1)
             else:
                 self.xp = 0
 
