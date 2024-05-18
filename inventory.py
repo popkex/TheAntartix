@@ -129,17 +129,20 @@ class Inventory:
                         object_used = objet[0].used()
 
                         if object_used:
-                            message = f"{self.game.load_txt('message_system', 'object_used')} {self.game.load_txt('objects', objet[0].name)}"
+                            message = f"{self.game.load_txt('message_system', 'object_used')} 1 {self.game.load_txt('objects', objet[0].name)}"
                             self.game.add_message(message)
                             self.game.update_screen()
+
                         return False, object_used
 
                 rect = self.game.screen.inventory_display.enter_zone_inventory()
+
                 if not rect.collidepoint(event.pos):
                     return False, True
 
             if event.type == pygame.QUIT:
                 self.game.saves.save_and_quit()
+
         return True, True
 
 
