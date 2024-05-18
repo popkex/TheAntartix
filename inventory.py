@@ -5,7 +5,7 @@ class Inventory:
     def __init__(self, game):
         self.objet_inventory = []
         self.objet_inventory_rects = []
-        self.max_quantity = 999
+        self.max_quantity = 99
         self.game = game
         self.init_all_objects()
 
@@ -169,8 +169,8 @@ class Potion(Objet):
 class Life_Potion(Potion):
     def __init__(self, game):
         self.game = game
-        path = self.game.get_path_assets("inventory\objects\potions\heal_potion.png")
         name = "Life_Potion"
+        path = self.game.get_path_assets("inventory\objects\potions\heal_potion.png")
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (48, 48))
         super().__init__(name, image, game, self.effect)
@@ -186,8 +186,8 @@ class Life_Potion(Potion):
 class Big_Life_Potion(Potion):
     def __init__(self, game):
         self.game = game
-        path = self.game.get_path_assets(r"inventory\objects\potions\big_heal_potion.png")
         name = "Big_Life_Potion"
+        path = self.game.get_path_assets(r"inventory\objects\potions\big_heal_potion.png")
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (48, 48))
         super().__init__(name, image, game, self.effect)
@@ -219,8 +219,8 @@ class Weapon(Objet):
 class Bomb(Weapon):
     def __init__(self, game):
         self.game = game
-        path = self.game.get_path_assets(r"inventory\objects\weapons\Bomb.png")
         name = "Bomb"
+        path = self.game.get_path_assets(r"inventory\objects\weapons\Bomb.png")
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (48, 48))
         super().__init__(name, image, game, self.effect)
@@ -229,6 +229,7 @@ class Bomb(Weapon):
 
     def effect(self):
         current_enemy = self.game.fight.current_enemy
+
         if current_enemy.health - self.dommage > 0:
             current_enemy.health -= self.dommage
         else:
