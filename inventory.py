@@ -23,7 +23,7 @@ class Inventory:
         while is_open:
             game.screen.inventory_display.draw_inventory_display(origin)
 
-            is_open, object_used = game.inventory.detect_object_selectionned()
+            is_open, object_used = self.detect_object_selectionned()
 
             pygame.display.flip()
 
@@ -78,6 +78,7 @@ class Inventory:
             self.objet_inventory.append((objet, number))
         else:
             number = self.update_quantity_object(objet, number)
+            self.objet_inventory.append((objet, number))
 
         # vérifie si l'objet est dans une quete, si oui increment la quete du nombre d'objet obtenu
         if self.game.quest.quest_type_exist(objet.name):
