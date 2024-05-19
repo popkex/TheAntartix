@@ -72,9 +72,9 @@ class Fight:
         if self.is_player_action:
             self.is_player_action = self.game.fight_player.turn()
         elif self.current_enemy.is_alive():
-            pygame.time.delay(1000)
+            pygame.time.delay(500)
             self.is_player_action = self.current_enemy.turn(self.game)
-            pygame.time.delay(1000)
+            pygame.time.delay(750)
 
 #le combat
     def run(self):
