@@ -56,14 +56,14 @@ class MapManager:
             Portal(from_world="house1", origin_point="exit_house", target_world="world", teleport_point="exit_house1")
         ], npcs=[
             # aucun npcs
-        ], ennemys=[
+        ], enemys=[
             # aucun ennemies
         ])
         self.register_map("house2", portals=[
             Portal(from_world="house2", origin_point="exit_house", target_world="world", teleport_point="exit_house2")
         ], npcs=[
             # aucun npcs
-        ], ennemys=[
+        ], enemys=[
             # aucun ennemies
         ])
         self.register_map("donjon1", portals=[ 
