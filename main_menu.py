@@ -1,6 +1,7 @@
 import pygame
 from game import Game
 from screen import Screen
+from saves import Saves
 from pause_menu import Settings_Menu
 
 class MainMenu:
@@ -9,9 +10,8 @@ class MainMenu:
         self.game = Game(self)
         self.screen = Screen(self.game)
         self.settings_menu = Settings_Menu(self.game)
-
-        self.defaut_language = "fr"
-        self.game.load_language(self.defaut_language)
+        self.saves = Saves(self.game)
+        self.saves.load_settings()
 
     def show_lunch_game(self):
         self.screen.screen.fill((0, 0, 0))
@@ -30,6 +30,7 @@ class MainMenu:
                 self.handle_mouse_click(event)
 
                 if event.type == pygame.QUIT:
+                    self.saves.save_settings()
                     self.run = False
 
         pygame.quit()
