@@ -6,6 +6,7 @@ translations = {
         "damage_suffered2": "de dégâts",
         "failed_escape": "Tu n'as pas réussi à t'échapper",
         'player_attack': "Tu as attaqué !",
+        'player_crit': "Tu as fait un dégàt critique !",
         'exit': 'pour quitter',
     },
 

@@ -19,13 +19,36 @@ class Fight_Player():
     def is_alive(self):
         return self.player.health != 0
 
+    def calculate_crit_dommage(self):
+        domage = self.player.attack*self.player.crit_domage
+
+        # vérifie si le crit a bien augmenter l'attack 
+        if domage == self.player.attack:
+            domage += 1
+
+        return domage
+
+    def player_crit(self):
+        crit_luck = random.randint(0, 100)
+
+        domage = self.player.attack
+
+        if crit_luck <= self.player.crit_luck:
+            domage =  self.calculate_crit_dommage()
+            message = self.game.load_txt('message_system', 'player_crit')
+        else:
+            message = self.game.load_txt('message_system', 'player_attack')
+
+        return domage, message
+
     def player_attack(self):
-        if self.enemy.health > self.player.attack:
-            self.enemy.health -= self.player.attack
+        domage, message = self.player_crit()
+
+        if self.enemy.health > domage:
+            self.enemy.health -= domage
         else: 
             self.enemy.health = 0
 
-        message = self.game.load_txt('message_system', 'player_attack')
         self.game.add_message(message)
         self.game.update_screen()
 
