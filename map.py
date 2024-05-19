@@ -216,12 +216,7 @@ class MapManager:
         for enemy in self.get_map().enemys:
             enemy.move()
 
-        # Supprimer les ennemis tués de la carte
-        self.remove_dead_enemies()
-
-    def remove_dead_enemies(self):
-            current_map = self.get_map()
-            for enemy in current_map.enemys:
-                if enemy.enemy_killed:
-                    current_map.group.remove(enemy)  # Supprimer l'ennemi du groupe de sprites
-                    current_map.enemys.remove(enemy)  # Supprimer l'ennemi de la liste des ennemis actifs
+    def remove_enemy(self, enemy):
+            current_map = self.get_map()  # Récupérer la carte actuelle
+            current_map.group.remove(enemy)  # Supprimer l'ennemi du groupe de sprites
+            current_map.enemys.remove(enemy)  # Supprimer l'ennemi de la liste des ennemis actifs
