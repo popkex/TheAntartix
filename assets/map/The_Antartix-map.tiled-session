@@ -19,17 +19,17 @@
             "scaleInDock": 1
         },
         "donjon.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 2
         },
         "donjon1.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 2,
+            "scale": 1.5,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 248,
-                "y": 292.25
+                "x": 66.66666666666669,
+                "y": 276.33333333333337
             }
         },
         "house.tmx": {
@@ -54,7 +54,7 @@
             "scale": 1.5,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 119.66666666666666,
+                "x": 119.33333333333331,
                 "y": 120
             }
         },
@@ -65,7 +65,7 @@
             "scale": 2,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 119.75,
+                "x": 120,
                 "y": 120
             }
         },
@@ -93,7 +93,7 @@
             "scaleInEditor": 1
         },
         "nature.tsx": {
-            "scaleInDock": 3
+            "scaleInDock": 0.75
         },
         "world.tmx": {
             "expandedObjectLayers": [
@@ -102,8 +102,8 @@
             "scale": 1.5,
             "selectedLayer": 9,
             "viewCenter": {
-                "x": 184.3333333333333,
-                "y": 316.99999999999994
+                "x": 314.66666666666663,
+                "y": 506
             }
         }
     },
