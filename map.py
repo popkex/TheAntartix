@@ -45,8 +45,8 @@ class MapManager:
         ], npcs=[
             NPC('paul', nb_points=2, key_txt=('npc', 'paul'), quest=self.paul_quest), # donne la liste pour pouvoir traduire apres*
             NPC('michel', nb_points=2, key_txt=('npc', 'michel'), quest=self.michel_quest)
-        ], enemys=[
-            EnemyA(self.game, (100, 100))
+        ], enemys=[ 
+            # aucun ennemies
         ],
         )
 
@@ -54,13 +54,22 @@ class MapManager:
         #defini le monde d'origine (la maison), le point de sortie, le monde de sortie, l'endroit du spawn dans le monde de sortie
         self.register_map("house1", portals=[
             Portal(from_world="house1", origin_point="exit_house", target_world="world", teleport_point="exit_house1")
+        ], npcs=[
+            # aucun npcs
+        ], ennemys=[
+            # aucun ennemies
         ])
         self.register_map("house2", portals=[
             Portal(from_world="house2", origin_point="exit_house", target_world="world", teleport_point="exit_house2")
+        ], npcs=[
+            # aucun npcs
+        ], ennemys=[
+            # aucun ennemies
         ])
         self.register_map("donjon1", portals=[ 
             Portal(from_world="donjon1", origin_point="exit_donjon", target_world="world", teleport_point="exit_donjon1"),
         ], npcs=[
+            # aucun npcs
         ], enemys=[
                 EnemyA(self.game, (30, 30)),
                 EnemyA(self.game, (60, 86)),
