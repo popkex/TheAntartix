@@ -77,12 +77,12 @@ class Inventory:
         if not self.object_existing(objet):
             self.objet_inventory.append((objet, number))
         else:
-            number = self.update_quantity_object(objet, number)
-            self.objet_inventory.append((objet, number))
+            self.update_quantity_object(objet, number)
 
         # vérifie si l'objet est dans une quete, si oui increment la quete du nombre d'objet obtenu
         if self.game.quest.quest_type_exist(objet.name):
             self.game.quest.progress(objet.name, number)
+
 
 # Retire un objet de l'inventaire
     def delete_object(self, objet):
