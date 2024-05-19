@@ -136,11 +136,13 @@ class MainMenu:
     def show_logo(self):
         stop = False
         img = pygame.image.load(self.screen.game.get_path_assets("studio_logo.png"))
-        for alpha in range(0, 5000):
-            img.set_alpha(alpha)
+        self.clock = pygame.time.Clock()
+        for alpha in range(0, (180)): # affiche pendant 3s (60*seconds)
+            print(alpha)
+            img.set_alpha(alpha/2)
             self.screen.blit_ressource(img, (0, 425), True)
             pygame.display.flip()
-            pygame.time.delay(20)  # Pause pour permettre de voir la transition
+            self.clock.tick(60)
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
