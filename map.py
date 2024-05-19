@@ -1,6 +1,5 @@
-import pygame, pytmx, pyscroll, random, sys, os
-from player import NPC
-from quest import Quest
+import pygame, pytmx, pyscroll
+from player import *
 from inventory import *
 from dataclasses import dataclass
 
@@ -19,6 +18,7 @@ class Map:
     group: pyscroll.PyscrollGroup
     tmx_data: pytmx.TiledMap
     npcs: list[NPC]
+    enemys: list[Enemy]
 
 class MapManager:
 
@@ -29,8 +29,8 @@ class MapManager:
         self.game = game
         self.current_map = "world"
         
-        self.paul_quest = ('paul_quest', 'kill_enemy', 20, self.game.inventory.potion.life_potion, 10, 'test')
-        self.michel_quest = ('michel_quest', 'Life_Potion', 10, self.game.inventory.weapon.bomb, 10, 'test')
+        self.paul_quest = ('paul_quest', 'kill_enemy', 20, self.game.inventory.potion.life_potion, 10, 'descr')
+        self.michel_quest = ('michel_quest', 'Life_Potion', 10, self.game.inventory.weapon.bomb, 10, 'descr')
 
         #permet le lancement des combats
         self.battle_running = False
@@ -44,8 +44,11 @@ class MapManager:
             Portal(from_world="world", origin_point="enter_donjon1", target_world="donjon1", teleport_point="player_spawn"),
         ], npcs=[
             NPC('paul', nb_points=2, key_txt=('npc', 'paul'), quest=self.paul_quest), # donne la liste pour pouvoir traduire apres*
-            NPC('michel', nb_points=1, key_txt=('npc', 'michel'), quest=self.michel_quest)
-        ])
+            NPC('michel', nb_points=2, key_txt=('npc', 'michel'), quest=self.michel_quest)
+        ], enemys=[
+            EnemyA(self.game, (100, 100))
+        ],
+        )
 
 #depuis les maisons
         #defini le monde d'origine (la maison), le point de sortie, le monde de sortie, l'endroit du spawn dans le monde de sortie
@@ -56,7 +59,13 @@ class MapManager:
             Portal(from_world="house2", origin_point="exit_house", target_world="world", teleport_point="exit_house2")
         ])
         self.register_map("donjon1", portals=[ 
-            Portal(from_world="donjon1", origin_point="exit_donjon", target_world="world", teleport_point="exit_donjon1")
+            Portal(from_world="donjon1", origin_point="exit_donjon", target_world="world", teleport_point="exit_donjon1"),
+        ], npcs=[
+        ], enemys=[
+                EnemyA(self.game, (30, 30)),
+                EnemyA(self.game, (60, 86)),
+                EnemyA(self.game, (80, 75)),
+                EnemyB(self.game, (75, 42)),
         ])
 
         #défini le lieu de spawn qui s'appelle 'player_spawn'
@@ -75,7 +84,6 @@ class MapManager:
                         name_quest, type_quest, objectif_quest, rewards, rewards_quantity, key_description = npc.quest
                         self.game.quest.add_quest(name_quest, type_quest, objectif_quest, rewards, rewards_quantity, key_description)
 
-
     def check_enter_portal(self):
         #portal
         for portal in self.get_map().portals:
@@ -87,15 +95,6 @@ class MapManager:
                     copy_portal = portal
                     self.current_map = portal.target_world
                     self.teleport_player_with_name(copy_portal.teleport_point)
-
-    def active_fight(self):
-        find_enemy = random.randint(0, 2000)
-        for object_ in self.get_map().tmx_data.objects:
-            if object_.type == "enemie" and find_enemy <= 5: # (de base 5)
-                enemy_rect = pygame.Rect(object_.x, object_.y, object_.width, object_.height)
-                if self.player.feet.colliderect(enemy_rect):
-                    return True
-        return False
 
     def check_collisions_walls(self):
         # Détecte la collision avec les murs
@@ -111,6 +110,20 @@ class MapManager:
                     # si le npc touche un mur ou le joueur
                     if npc.feet.colliderect(wall) or npc.rect.colliderect(self.game.player.rect):
                         npc.npc_collide = True
+
+            for enemy in self.get_map().enemys:
+                enemy.enemy_collide = False
+
+                for wall in self.get_walls():
+                    # si l'enemy touche un mur
+                    if enemy.feet.colliderect(wall):
+                        enemy.enemy_collide = True
+                        enemy.move_back()
+
+                    # si l'ennemie touche le joueur
+                    elif enemy.rect.colliderect(self.game.player.rect):
+                        enemy.enemy_player_collide = True
+                        enemy.move_back()
 
 #verifie les collisions
     def check_collisions(self):
@@ -130,7 +143,7 @@ class MapManager:
         self.player.save_location()
 
 #enregistre les maps
-    def register_map(self, name, portals=[], npcs=[]):
+    def register_map(self, name, portals=[], npcs=[], enemys=[]):
         #charge la carte 
         path = self.game.get_path_assets(f'map\{name}.tmx')
         tmx_data = pytmx.util_pygame.load_pygame(path)
@@ -154,8 +167,12 @@ class MapManager:
         for npc in npcs:
             group.add(npc)
 
+        # recupere les enemys au groupe
+        for enemy in enemys:
+            group.add(enemy)
+
         #creer un objet map
-        self.maps[name] = Map(name, walls, portals, group, tmx_data, npcs)
+        self.maps[name] = Map(name, walls, portals, group, tmx_data, npcs, enemys)
 
 #recupere les maps 
     def get_map(self):
@@ -195,3 +212,16 @@ class MapManager:
         for npc in self.get_map().npcs:
             current_direction, moving = npc.move()
             npc.change_animation(current_direction, moving)
+
+        for enemy in self.get_map().enemys:
+            enemy.move()
+
+        # Supprimer les ennemis tués de la carte
+        self.remove_dead_enemies()
+
+    def remove_dead_enemies(self):
+            current_map = self.get_map()
+            for enemy in current_map.enemys:
+                if enemy.enemy_killed:
+                    current_map.group.remove(enemy)  # Supprimer l'ennemi du groupe de sprites
+                    current_map.enemys.remove(enemy)  # Supprimer l'ennemi de la liste des ennemis actifs

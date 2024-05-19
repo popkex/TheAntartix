@@ -1,17 +1,23 @@
-import pygame, sys, os
+import pygame, sys, os, random
 
 class Entity(pygame.sprite.Sprite):
 
     def __init__(self, name, x, y):
         super().__init__()
 
-        #recupere les sprites du joueur
-        path = self.get_path_assets(f'{name}.png')
+        #recupere les sprites du joueur si l'image n'est pas en .png 
+        if not "." in name:
+            path = self.get_path_assets(f'{name}.png')
+        else:
+            path = self.get_path_assets(name)
+
         self.sprite_sheet = pygame.image.load(path)
+
         #recupere l'image du joueur par defaut
         self.image = self.get_image(0, 0)
         self.settings_img_player(self.image)
         self.rect = self.image.get_rect()
+
         #determine la postiton du joueur
         self.position = [x, y]
         self.feet = pygame.Rect(0, 0, self.rect.width / 2, 1)
@@ -170,23 +176,24 @@ class NPC(Entity):
         current_direction = None
         moving = False  # Initialisation du drapeau de mouvement
 
-        if self.position[0] > target_rect.x and not self.npc_collide:
-            self.move_left()
-            current_direction = 'left'
-            moving = True
-        elif self.position[0] < target_rect.x and not self.npc_collide:
-            self.move_right()
-            current_direction = 'right'
-            moving = True
+        if not self.npc_collide:
+            if self.position[0] > target_rect.x:
+                self.move_left()
+                current_direction = 'left'
+                moving = True
+            elif self.position[0] < target_rect.x:
+                self.move_right()
+                current_direction = 'right'
+                moving = True
 
-        if self.position[1] < target_rect.y and not self.npc_collide:
-            self.move_down()  # Déplacement vers le bas effectué ici
-            current_direction = 'down'
-            moving = True
-        elif self.position[1] > target_rect.y and not self.npc_collide:
-            self.move_up()  # Déplacement vers le haut effectué ici
-            current_direction = 'up'
-            moving = True
+            if self.position[1] < target_rect.y:
+                self.move_down()  # Déplacement vers le bas effectué ici
+                current_direction = 'down'
+                moving = True
+            elif self.position[1] > target_rect.y:
+                self.move_up()  # Déplacement vers le haut effectué ici
+                current_direction = 'up'
+                moving = True
 
         if self.rect.colliderect(target_rect):
             self.current_point = target_point
@@ -206,3 +213,86 @@ class NPC(Entity):
             point = tmx_data.get_object_by_name(f"{self.name}_path{num}")
             rect = pygame.Rect(point.x, point.y, point.width, point.height)
             self.points.append(rect)
+
+class Enemy(Entity):
+
+    def __init__(self, classe, game, path, image, name, position):
+        super().__init__(path, position[0], position[1])
+        self.game = game
+        self.classe = classe
+        self.name = name
+        self.enemy_collide = False
+        self.enemy_player_collide = False
+        self.current_position = 'up'
+        self.speed = random.randint(30, 80) / 60
+
+        self.enemy_killed = False
+
+        self.image = pygame.transform.scale(image, (32, 32))
+        self.image_rect = self.image.get_rect(topleft=self.position)
+
+
+    def move_and_animate_up(self):
+        self.move_up()  # Déplacement vers le haut effectué ici
+        self.current_direction = 'up'
+        self.moving = True
+
+    def move_and_animate_down(self):
+        self.move_down()  # Déplacement vers le bas effectué ici
+        self.current_direction = 'down'
+        self.moving = True
+
+    def move_and_animate_right(self):
+        self.move_right()
+        self.current_direction = 'right'
+        self.moving = True
+
+    def move_and_animate_left(self):
+        self.move_left()
+        self.current_direction = 'left'
+        self.moving = True
+
+    def in_fight(self):
+        return self.name
+
+    def move(self):
+        self.save_location()
+
+        target_rect = self.game.player.position
+
+        self.current_direction = None
+        self.moving = False  # Initialisation du drapeau de mouvement
+
+        if not self.enemy_collide:
+            if self.position[0] > target_rect[0] and not self.enemy_collide:
+                self.move_and_animate_left()
+            elif self.position[0] < target_rect[0] and not self.enemy_collide:
+                self.move_and_animate_right()
+
+            if self.position[1] < target_rect[1] and not self.enemy_collide:
+                self.move_and_animate_down()
+            elif self.position[1] > target_rect[1] and not self.enemy_collide:
+                self.move_and_animate_up()
+
+        return self.current_direction, self.moving
+
+class EnemyA(Enemy):
+
+    def __init__(self, game, position):
+        self.game = game 
+
+        path = self.game.get_path_assets('enemy\enemyA.gif')
+        image = pygame.image.load(path)
+        image = pygame.transform.scale(image, (32, 32))
+        super().__init__(self, game, "enemy\enemyA.gif", image, "EnemyA", position)
+
+class EnemyB(Enemy):
+
+    def __init__(self, game, position):
+        self.game = game 
+
+        path = self.game.get_path_assets('enemy\enemyB.webp')
+        image = pygame.image.load(path)
+        image = pygame.transform.scale(image, (32, 32))
+
+        super().__init__(self, game, "enemy\enemyB.webp", image, "EnemyB", position)

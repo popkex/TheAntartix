@@ -20,6 +20,9 @@ class Enemy(Entity):
         return True
 
     def choose_action(self):
+        self.action_attack()
+
+    def action_attack(self):
         if self.game.data_player.health > self.attack:
             self.game.data_player.health -= self.attack
         else: 
@@ -55,6 +58,7 @@ class EnemyA(Enemy):
         path = game.get_path_assets('enemy\enemyA.gif')
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (250, 250))
+
         loot = [(Life_Potion, 3), (Big_Life_Potion, 2)] # (L'objet, le nombre d'objet au max)
 
         super().__init__(name, lanch_fight_message, loot, image, max_health=50, health=50, attack=12, give_xp=4) # de base 100, 100, 10, 2

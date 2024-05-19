@@ -1,4 +1,5 @@
 import pygame, sys, os, time
+import fight_entity
 from inventory import *
 from quest import Quest
 from map import MapManager
@@ -32,6 +33,7 @@ class Game():
         self.map_manager = MapManager(self, self.screen.screen, self.player)
         self.dialog_box = DialogBox(self)
         self.tutorial = Tutorial(self)
+        self.fight_entity = fight_entity
 
         self.object_name_inventory = [] # met l'inventaire vide (avant de le charger et de le remplir)
         self.active_fight = False   # n'active pas de combat
@@ -41,7 +43,6 @@ class Game():
         self.saves.load_all()
 
         self.can_modifie_quest = True
-
 
     def load_txt(self, page, txt):
         return self.current_language.translations[page][txt]
@@ -110,12 +111,16 @@ class Game():
             base_path = os.path.abspath(".")
         return os.path.join(base_path, "saves") + "\\" + ressource
 
-    def launch_fight(self):
-        if self.active_fight and self.player.is_moving():
-            self.fight = Fight(self)
-            self.fight_player = Fight_Player(self)
-            self.fight.run()
-            self.active_fight = False
+    def launch_fight(self, enemy):
+        if enemy:
+            enemy_class = getattr(self.fight_entity, enemy)
+            enemy_instance = enemy_class(self)  # Crée une instance de la classe ennemi
+            if enemy_instance.health != 0:
+                self.active_fight = True
+                self.fight = Fight(self, enemy_instance)
+                self.fight_player = Fight_Player(self)
+                self.fight.run()
+                self.active_fight = False
 
     def update_game(self):
         #sauvegarde la position du joueur
@@ -129,30 +134,31 @@ class Game():
         #affiche le hud
         self.screen.hud()
         #detecte si un combat peut se lancer
-        self.active_fight = self.map_manager.active_fight()
+        for enemy in self.map_manager.get_map().enemys:
+            if enemy.enemy_player_collide:
+                self.launch_fight(enemy.in_fight())
 
     def add_message(self, message, max_time=2):
         # Ajoute un message à la file d'attente
         self.messages_system.append((message, time.time(), max_time))
 
+    def update_player_animation(self):
+        if self.player.is_moving():
+            self.player.change_animation(self.handle_input(), self.player.is_moving())
+        else:
+            self.player.change_image(self.current_direction)
+
     def running(self):
         self.clock = pygame.time.Clock()
-        self.running = True
+        self.run = True
 
         self.player.change_image('up')
         pygame.display.flip()
 
-        while self.running:
+        while self.run:
 
-            self.launch_fight()
             self.update_game()
-
-            # Mettre à jour l'animation du joueur en fonction de la touche pressée
-            if self.player.is_moving():
-                self.player.change_animation(self.handle_input(), self.player.is_moving())
-            else:
-                self.player.change_image(self.current_direction)
-
+            self.update_player_animation()
             self.update_screen()
 
             for event in pygame.event.get():
@@ -170,6 +176,6 @@ class Game():
                         self.pause_menu.running()
 
                 if event.type == pygame.QUIT:
-                    self.running = False
+                    self.run = False
 
         self.saves.save_and_quit()

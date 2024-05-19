@@ -1,19 +1,17 @@
 import pygame, random
 from screen import Screen
-from entity import *
+from fight_entity import *
 
 class Fight:
 
-    def __init__(self, game):
+    def __init__(self, game, enemy):
         self.screen = Screen(game)
         self.game = game
 
         self.is_player_action = True
         self.player_selected_object = False
 
-        #choisi un enemie aléatoirement
-        enemy_list = [EnemyA(game), EnemyB(game)]
-        self.current_enemy = random.choice(enemy_list)
+        self.current_enemy = enemy
 
     # Vérifie si il reste des entités en vie
     def entity_is_alive(self) -> bool:
@@ -74,9 +72,9 @@ class Fight:
         if self.is_player_action:
             self.is_player_action = self.game.fight_player.turn()
         elif self.current_enemy.is_alive():
-            pygame.time.delay(500)
+            pygame.time.delay(1000)
             self.is_player_action = self.current_enemy.turn(self.game)
-            pygame.time.delay(500)
+            pygame.time.delay(1000)
 
 #le combat
     def run(self):
