@@ -134,6 +134,13 @@ class MapManager:
                         enemy.enemy_player_collide = True
                         enemy.move_back()
 
+    def check_player_in_safe_zone(self):
+        for object_ in self.get_map().tmx_data.objects:
+            if object_.type == "safe_zone":
+                rect = object_.x, object_.y, object_.width, object_.height 
+                if self.player.feet.colliderect(rect):
+                    return True
+
 #verifie les collisions
     def check_collisions(self):
         self.check_enter_portal()

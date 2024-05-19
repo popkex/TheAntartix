@@ -271,7 +271,7 @@ class Enemy(Entity):
         return distance
 
     def detect_player_proximity(self) -> bool:
-        if self.calculate_dist_player_enemy() <= self.field_of_view :
+        if not self.game.map_manager.check_player_in_safe_zone() and self.calculate_dist_player_enemy() <= self.field_of_view:
             return True
         return False
 
