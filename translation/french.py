@@ -10,13 +10,13 @@ translations = {
     },
 
     "enemyA":{
-        'name': "ennemie A",
-        'lanch_fight_message': "L'énnemie A est tombé sur toi",
+        'name': "ennemi, A",
+        'lanch_fight_message': "L'ennemi A est tombé sur toi",
     },
 
     "enemyB": {
-        "name": "ennemie B",
-        'lanch_fight_message': "Un énnemie B est apparu en toute surprise",
+        "name": "ennemi B",
+        'lanch_fight_message': "Un ennemi B est apparu en toute surprise",
     },
 
     "objects": {
@@ -33,7 +33,7 @@ translations = {
 
     'michel_quest': {
         'title': 'Récupère des potions de soins pour ne pas te blesser',
-        'description': 'Récupère 10 potions de soins pour ne pas te blesser en combat comme ce pauvre Michel'
+        'description': 'Récupère 10 potions de soins pour ne pas te blesser au combat comme ce pauvre Michel'
     },
 
     'paul_quest': {
@@ -107,7 +107,7 @@ translations = {
         'fight_message_4': "Il a couru vers la gloire, mais il a trébuché sur son épée.",
         'fight_message_5': "Il a sauté dans la bataille... et directement dans un piège.",
         'fight_message_6': "Il a crié 'Pour l'honneur !', mais tout ce qu'on a entendu, c'est 'Aie !'",
-        'fight_message_7': "Il a combattu comme un lion, mais hélas, il n'était qu'un chaton.",
+        'fight_message_7': "Il a combattu comme un lion, mais hélas, il n'était qu'un châton.",
         'fight_message_8': "Il a cherché la victoire, mais a trouvé une fin pittoresque.",
         'fight_message_9': "Il a rêvé d'être invincible, il a oublié de le pratiquer.",
         'fight_message_10': "Il a voulu être le maître du jeu, mais le jeu l'a maîtrisé.",
