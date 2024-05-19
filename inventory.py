@@ -168,7 +168,7 @@ class Potion(Objet):
         if self.game.data_player.health != self.game.data_player.max_health:
             self.effect()
             self.game.inventory.remove_object(self, 1)
-            return True
+            return False
 
 class Life_Potion(Potion):
     def __init__(self, game):
