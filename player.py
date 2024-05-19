@@ -25,22 +25,22 @@ class Entity(pygame.sprite.Sprite):
         self.speed = 1
 
         self.image_animation_down = [
-            self.get_image(0, 0), # L'image numéro 1
-            self.get_image(34, 0), # L'image numéro 2
-            self.get_image(68, 0), # L'image numéro 3
+            self.get_image(2, 0), # L'image numéro 1
+            self.get_image(33, 0), # L'image numéro 2
+            self.get_image(65, 0), # L'image numéro 3
         ]
         self.image_animation_left = [
-            self.get_image(2, 32), # L'image numéro 1
-            self.get_image(34, 32), # L'image numéro 2
-            self.get_image(66, 32), # L'image numéro 3
+            self.get_image(4, 32), # L'image numéro 1
+            self.get_image(36, 32), # L'image numéro 2
+            self.get_image(68, 32), # L'image numéro 3
         ]
         self.image_animation_right = [
             self.get_image(3, 64), # L'image numéro 1
             self.get_image(35, 64), # L'image numéro 2
-            self.get_image(67, 64), # L'image numéro 3
+            self.get_image(65, 64), # L'image numéro 3
         ]
         self.image_animation_up = [
-            self.get_image(2, 96), # L'image numéro 1
+            self.get_image(1, 96), # L'image numéro 1
             self.get_image(34, 96), # L'image numéro 2
             self.get_image(66, 96), # L'image numéro 3
         ]
