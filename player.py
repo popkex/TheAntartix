@@ -1,4 +1,4 @@
-import pygame, sys, os, random
+import pygame, sys, os, random, math
 
 class Entity(pygame.sprite.Sprite):
 
@@ -216,17 +216,19 @@ class NPC(Entity):
 
 class Enemy(Entity):
 
-    def __init__(self, classe, game, path, image, name, position):
+    def __init__(self, classe, game, path, image, name, position, field_of_view=100):
         super().__init__(path, position[0], position[1])
         self.game = game
         self.classe = classe
         self.name = name
+        self.field_of_view = field_of_view # défini le champ de vision de l'enemie
         self.enemy_collide = False
         self.enemy_player_collide = False
         self.current_position = 'up'
-        self.speed = random.randint(30, 80) / 60
+        self.speed = random.randint(10, 80) / 60
 
         self.enemy_killed = False
+        self.player_proximity = False
 
         self.image = pygame.transform.scale(image, (32, 32))
         self.image_rect = self.image.get_rect(topleft=self.position)
@@ -255,6 +257,24 @@ class Enemy(Entity):
     def in_fight(self):
         return self.name
 
+    def calculate_dist_player_enemy(self):
+        # défini le x et y du joueur
+        player_pos = self.game.player.position
+        px, py = player_pos
+
+        # défini le x et y de l'enemie
+        enemy_pos = self.position
+        ex, ey = enemy_pos
+
+        # Calcul de la distance euclidienne
+        distance = math.sqrt((ex - px) ** 2 + (ey - py) ** 2)
+        return distance
+
+    def detect_player_proximity(self) -> bool:
+        if self.calculate_dist_player_enemy() <= self.field_of_view :
+            return True
+        return False
+
     def move(self):
         self.save_location()
 
@@ -263,7 +283,11 @@ class Enemy(Entity):
         self.current_direction = None
         self.moving = False  # Initialisation du drapeau de mouvement
 
-        if not self.enemy_collide:
+        # détécte si le joueur est a proximité 
+        self.player_proximity = self.detect_player_proximity()
+
+        # vérifie si le joueur est a proximité et si l'enemie ne touche pas un mur
+        if not self.enemy_collide and self.player_proximity:
             if self.position[0] > target_rect[0] and not self.enemy_collide:
                 self.move_and_animate_left()
             elif self.position[0] < target_rect[0] and not self.enemy_collide:
@@ -284,7 +308,10 @@ class EnemyA(Enemy):
         path = self.game.get_path_assets('enemy\enemyA.gif')
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (32, 32))
-        super().__init__(self, game, "enemy\enemyA.gif", image, "EnemyA", position)
+
+        field_of_view = 100 # défini le champ de vision
+
+        super().__init__(self, game, "enemy\enemyA.gif", image, "EnemyA", position, field_of_view)
 
 class EnemyB(Enemy):
 
@@ -295,4 +322,6 @@ class EnemyB(Enemy):
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (32, 32))
 
-        super().__init__(self, game, "enemy\enemyB.webp", image, "EnemyB", position)
+        field_of_view = 100 # défini le champ de vision
+
+        super().__init__(self, game, "enemy\enemyB.webp", image, "EnemyB", position, field_of_view) 
