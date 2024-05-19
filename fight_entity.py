@@ -25,10 +25,10 @@ class Enemy(Entity):
         self.action_attack()
 
     def calculate_crit_dommage(self):
-        domage = self.player.attack*self.player.crit_domage
+        domage = self.attack*self.crit_domage
 
         # vérifie si le crit a bien augmenter l'attack 
-        if domage == self.player.attack:
+        if domage == self.attack:
             domage += 1
 
         return domage
