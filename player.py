@@ -322,6 +322,6 @@ class EnemyB(Enemy):
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (32, 32))
 
-        field_of_view = 100 # défini le champ de vision
+        field_of_view = 350 # défini le champ de vision
 
         super().__init__(self, game, "enemy\enemyB.webp", image, "EnemyB", position, field_of_view) 
