@@ -4,6 +4,8 @@ translations = {
         "object_used": "Tu as utilisé",
         "damage_suffered1": "Tu as subi",
         "damage_suffered2": "de dégâts",
+        "damage_crit_suffered1": "Tu as subi",
+        "damage_crit_suffered2": " de dégàts critique !",
         "failed_escape": "Tu n'as pas réussi à t'échapper",
         'player_attack': "Tu as attaqué !",
         'player_crit': "Tu as fait un dégàt critique !",
