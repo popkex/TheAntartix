@@ -29,6 +29,7 @@ class Game():
         self.data_player = Data_Player(self)
         self.data_player.load_attributes() # charge les attrbutes du joueur
         self.player = Player()
+        self.fight = Fight(self, None)
         self.screen = Screen(self)
         self.map_manager = MapManager(self, self.screen.screen, self.player)
         self.dialog_box = DialogBox(self)
