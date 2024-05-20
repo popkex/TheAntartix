@@ -31,10 +31,30 @@ class Screen:
         self.show_inventory_asset()
         self.show_xp_player()
 
-    def show_life_player(self):
+    def get_life_color(self, life, max_life):
+        # Défini les couleurs pour la vie maximale et minimale
+        max_life_color = [50, 178, 50]  # Vert
+        min_life_color = [255, 0, 0]  # Rouge
+
+        # Calcule le ratio de la vie actuelle par rapport à la vie maximale
+        life_ratio = life / max_life
+
+        # Calcule la nouvelle couleur en fonction du ratio de la vie
+        new_color = [
+            int(max_color * life_ratio + min_color * (1 - life_ratio))
+            for max_color, min_color in zip(max_life_color, min_life_color)
+        ]
+
+        return tuple(new_color)
+
+    def show_life_player(self, position=(20, 20)):
         if self.game.data_player.health is not None and self.game.data_player.max_health is not None:
-            self.life.show_hud_life(self.game.data_player.health, self.game.data_player.max_health, (20, 20), (50, 178, 50), (50, 50, 50))
-            self.draw_txt("HP", 20, (300, 24), False, (255, 102, 0))
+            health = self.game.data_player.health
+            max_health = self.game.data_player.max_health
+            color = self.get_life_color(health, max_health)
+
+            self.life.show_hud_life(health, max_health, position, color, (50, 50, 50))
+            self.draw_txt("HP", 20, (300, position[1]), False, (255, 102, 0))
 
     def show_inventory_asset(self):
         path = self.game.get_path_assets('action_player/Item.png')
@@ -42,12 +62,13 @@ class Screen:
         image = pygame.transform.scale(image, (75, 75))
         self.blit_ressource(image, (1200, 640))
 
-    def show_xp_player(self):
+    def show_xp_player(self, position=(20, 43)):
         xp = self.game.data_player.xp
         max_xp = self.game.data_player.xp_max
-        self.show_bar(xp, max_xp, (20, 43), (37, 31, 252), (50, 50, 50), 260)
-        self.draw_txt("XP", 20, (260, 47), False, (255, 102, 0))
-        self.draw_txt(f"lvl {self.game.data_player.lvl}", 25, (282,47), False, (0, 0, 139))
+
+        self.show_bar(xp, max_xp, position, (37, 31, 252), (50, 50, 50), 260)
+        self.draw_txt("XP", 20, (260, position[1]), False, (255, 102, 0))
+        self.draw_txt(f"lvl {self.game.data_player.lvl}", 25, (282, position[1]), False, (0, 0, 139))
 
     def blit_ressource(self, ressource, position=(0,0), center=False):
         if center:
@@ -244,16 +265,10 @@ class Fight_display:
             self.append_txt_surface_rect(image_rect)
 
     def player_hud_fight(self, action):
-        player_health = self.screen.game.data_player.health
-        player_max_health = self.screen.game.data_player.max_health
-        xp = self.screen.game.data_player.xp
-        xp_max = self.screen.game.data_player.xp_max
-
-        self.screen.life.show_hud_life(player_health, player_max_health, (20, 667), (50, 178, 50), (50, 50, 50))
-        self.screen.draw_txt("HP", 20, (300, 671), False, (255, 102, 0))
-        self.screen.show_bar(xp, xp_max, (20, 690), (37, 31, 252), (50, 50, 50), 260)
-        self.screen.draw_txt("XP", 20, (260, 694), False, (255, 102, 0))
-        self.screen.draw_txt(f"lvl {self.screen.game.data_player.lvl}", 25, (282,694), False, (0, 0, 139))
+        life_position = (20, 671)
+        xp_position = (20, 694)
+        self.screen.show_life_player(life_position)
+        self.screen.show_xp_player(xp_position)
         self.draw_player_action(action)
 
     def show_hud_fight(self, action):
