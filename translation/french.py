@@ -10,6 +10,7 @@ translations = {
         'player_attack': "Tu as attaqué !",
         'player_crit': "Tu as fait un dégàt critique !",
         'exit': 'pour quitter',
+        'recovered_object': 'Tu as récupéré'
     },
 
     "enemyA":{

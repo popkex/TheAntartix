@@ -77,7 +77,15 @@ class Inventory:
         if not self.object_existing(objet):
             self.objet_inventory.append((objet, number))
         else:
-            self.update_quantity_object(objet, number)
+            number = self.update_quantity_object(objet, number)
+
+        message1 = self.game.load_txt('message_system', 'recovered_object')
+        message2 = self.game.load_txt('objects', objet.name)
+
+        # affiche un message system quand le joueur recupere x objets
+        message = f"{message1} {number} {message2}"
+        self.game.add_message(message)
+        self.game.update_screen()
 
         # vérifie si l'objet est dans une quete, si oui increment la quete du nombre d'objet obtenu
         if self.game.quest.quest_type_exist(objet.name):
