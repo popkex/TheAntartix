@@ -85,7 +85,7 @@ class Fight_Player():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_e:
-                    return self.player_choose_object()
+                    return not self.player_choose_object()
 
                 elif event.key == pygame.K_a:
                     return self.player_attack()

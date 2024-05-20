@@ -134,7 +134,7 @@ class Inventory:
                     rect = pygame.Rect((x, y, 35, 50))
 
                     if rect.collidepoint(event.pos):
-                        object_used = not objet[0].used()
+                        object_used = objet[0].used()
 
                         if object_used:
                             message = f"{self.game.load_txt('message_system', 'object_used')} 1 {self.game.load_txt('objects', objet[0].name)}"
@@ -176,7 +176,7 @@ class Potion(Objet):
         if self.game.data_player.health != self.game.data_player.max_health:
             self.effect()
             self.game.inventory.remove_object(self, 1)
-            return False
+            return True
 
 class Life_Potion(Potion):
     def __init__(self, game):
@@ -226,7 +226,7 @@ class Weapon(Objet):
         if self.game.fight.current_enemy:
             self.effect()
             self.game.inventory.remove_object(self, 1)
-            return False
+            return True
 
 class Bomb(Weapon):
     def __init__(self, game):
