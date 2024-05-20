@@ -7,7 +7,7 @@ class Entity(pygame.sprite.Sprite):
 
         #recupere les sprites du joueur si l'image n'est pas en .png 
         if not "." in name:
-            path = self.get_path_assets(f'{name}.png')
+            path = self.get_path_assets(f'npc\{name}.png')
         else:
             path = self.get_path_assets(name)
 
