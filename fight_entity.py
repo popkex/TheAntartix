@@ -43,7 +43,7 @@ class Enemy(Entity):
             txt1 = self.game.load_txt('message_system', 'damage_crit_suffered1')
             txt_dommage = domage
             txt2 = self.game.load_txt('message_system', 'damage_crit_suffered2')
-            message = f"{txt1} {txt_dommage} {txt2}"
+            message = f"{txt1} {int(txt_dommage)} {txt2}"
         else:
             txt1 = self.game.load_txt('message_system', 'damage_suffered1')
             txt_dommage = domage
