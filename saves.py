@@ -104,7 +104,7 @@ class Saves:
         path = self.game.get_path_saves('player_attribut.bin')
         try:
             with open(path, 'rb') as content:
-                health, max_health, attack, crit_luck, xp, xp_max, lvl = pickle.load(content)
+                health, max_health, attack, crit_luck, crit_domage, xp, xp_max, lvl = pickle.load(content)
         except:
             max_health = 100
             health = max_health
