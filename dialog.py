@@ -59,6 +59,11 @@ class DialogBox:
 
     def render(self, screen):
         self.can_execute = True
+
+        if self.game.map_manager.check_player_far_npc():
+            self.close_dialog()
+            self.reading = False
+
         if self.reading:
             self.letter_index += 1
 

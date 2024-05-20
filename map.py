@@ -82,6 +82,14 @@ class MapManager:
 
         self.teleport_npcs()
 
+    def check_player_far_npc(self):
+        # Vérifie pour chaque npc si il est en contacte avec lui
+        for npc in self.get_map().npcs:
+            if self.game.player.rect.colliderect(npc.rect):
+                return False
+
+        return True
+
     def check_npcs_collisions(self, dialog_box):
         for sprite in self.get_group().sprites():
             for npc in self.get_map().npcs:
