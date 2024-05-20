@@ -134,7 +134,7 @@ class Inventory:
                     rect = pygame.Rect((x, y, 35, 50))
 
                     if rect.collidepoint(event.pos):
-                        object_used = objet[0].used()
+                        object_used = not objet[0].used()
 
                         if object_used:
                             message = f"{self.game.load_txt('message_system', 'object_used')} 1 {self.game.load_txt('objects', objet[0].name)}"
