@@ -7,19 +7,20 @@ translations = {
         "damage_crit_suffered1": "You have suffered",
         "damage_crit_suffered2": " critical damage!",
         "failed_escape": "You failed to escape",
-        'player_attack': "You have attacked!",
-        'player_crit': "You have dealt a critical hit!",
+        'player_attack': "You attacked!",
+        'player_crit': "You dealt critical damage!",
         'exit': 'to exit',
+        'recovered_object': 'You have recovered',
     },
 
     "enemyA":{
-        'name': "enemy A",
-        'lanch_fight_message': "Enemy A has ambushed you",
+        'name': "enemy, A",
+        'lanch_fight_message': "Enemy A has fallen on you",
     },
 
     "enemyB": {
         "name": "enemy B",
-        'lanch_fight_message': "An enemy B has appeared out of nowhere",
+        'lanch_fight_message': "An enemy B appeared all of a sudden",
     },
 
     "objects": {
@@ -29,32 +30,38 @@ translations = {
     },
 
     'npc': {
-        'paul': ['Hello, I am Paul', 'How are you?', 'Who are you?', "I'm scared of monsters", "I would love if someone could help me get rid of \nthese monsters?", "About twenty or so?\nThank you, I will reward you handsomely"],
+        'launch_dialog': "Press Space",
+        'paul': ['Hello, I am Paul', 'How are you?', 'Who are you?', "I'm afraid of monsters", "I would love for someone to help me get rid of \nthese monsters?", "A small twenty?\nThank you, I will reward you well"],
         'michel': ['I am seriously injured because of my\nexcursion into this dungeon.', "Too bad I didn't have any more healing potions \notherwise I wouldn't be in this state", "You'd better get some believe me"],
+        'fleufleu': ["Shit", "ok"]
     },
 
     'michel_quest': {
-        'title': 'Gather healing potions to avoid getting hurt',
-        'description': 'Gather 10 healing potions to avoid getting hurt in combat like poor Michel'
+        'title': 'Recover healing potions so as not to hurt yourself',
+        'description': 'Recover 10 healing potions so as not to hurt yourself in combat like poor Michel'
     },
 
     'paul_quest': {
-        'title': "Kill monsters so Paul isn't afraid anymore",
+        'title': "Kill monsters so that Paul is no longer afraid",
         'description': "Kill 20 monsters of any type",
     },
 
     'michel': {
-        "name": 'Michel',
+        "name": 'michel',
     },
 
     'paul': {
-        "name": 'Paul',
+        "name": 'paul',
+    },
+
+    'fleufleu': {
+        "name": "fleufleu",
     },
 
     "tutorials": {
         "tutorial": "Tutorial",
-        "tuto_iv": ["Here is your inventory.", "Here (as in any inventory),\nyou can store items and use them.", "You can press 'E' to be able to \nclose it and open/close it whenever you want."],
-        "tuto_fight": ["You are in combat!", "Here, by pressing 'A', you can attack your \nopponent. But be careful, you will take \ndamage.", "If you die, your life will return to 50% of your health\nand you will lose experience/decrease in level!", "But if you manage to kill your opponent, \nyou gain experience and items.", "You can also access your inventory by pressing \n'E' and flee with 'ESCAPE'.", "I'm going to tell you a secret, you can also click \non the icons with your mouse to perform the action", "But be careful, if you flee, you might not \nsucceed and you will take damage.", "Good luck and don't get killed!"],
+        "tuto_iv": ["Here is your inventory.", "Here (as in any inventory),\nyou will be able to store objects and use them.", "You can press 'E' to be able to \nclose it and open/close it whenever you want."],
+        "tuto_fight": ["You are in combat!", "Here, by pressing 'A', you can attack your \nopponent. But be careful, you will take \ndamage.", "If you die, your life will return to 50% of your life\nand you will lose experience/level down!", "But if you manage to kill your opponent, \nyou gain experience and objects.", "You can also access your inventory by pressing \n'E' and escape with 'ECHAP'.", "I'm going to tell you a secret, you can also press \non the icons with your mouse to execute the action", "But be careful, if you run away, you may not \nmake it and you will take damage.", "Good luck and don't get killed!"],
     },
 
     "main_menu": {
@@ -69,30 +76,30 @@ translations = {
         "quest_button": 'Quests',
         "settings_button": "Settings",
         "tutorial_button": "Tutorials",
-        "back_to_the_game": "Back",
+        "back_to_the_game": "Return",
         'save_and_main_menu': 'Save and return to the main menu',
         'save_and_quit_button': "Save and quit",
     },
 
     'tutorial_menu': {
         "title": "Tutorials",
-        "back": "Back",
+        "back": "Return",
     },
 
     "quest_menu": {
         'title': "Quests",
-        "back": "Back",
+        "back": "Return",
     },
 
     "settings_menu": {
         "title": "Settings",
         "language": "Language",
-        "back": "Back",
+        "back": "Return",
     },
 
     "settings_languages_menu": {
         "title": "Language Settings",
-        "back": "Back",
+        "back": "Return",
     },
 
     "languages": {
@@ -105,13 +112,13 @@ translations = {
         'fight_message_1': 'He wanted to play the hero, but he ended up a zero.',
         'fight_message_2': "Another brave soul... crushed by the reality of 'Game Over'.",
         'fight_message_3': "He tried, he failed, and now he's part of the scenery.",
-        'fight_message_4': "He ran towards glory, but tripped over his sword.",
+        'fight_message_4': "He ran towards glory, but he tripped over his sword.",
         'fight_message_5': "He jumped into battle... and straight into a trap.",
-        'fight_message_6': "He shouted 'For honor!', but all we heard was 'Ouch!'",
+        'fight_message_6': "He cried 'For honor!', but all we heard was 'Ouch!'",
         'fight_message_7': "He fought like a lion, but alas, he was just a kitten.",
         'fight_message_8': "He sought victory, but found a picturesque end.",
         'fight_message_9': "He dreamed of being invincible, he forgot to practice it.",
-        'fight_message_10': "He wanted to be the master of the game, but the game mastered him.",
+        'fight_message_10': "He wanted to be the game master, but the game mastered him.",
     },
 
     'button_press': {
