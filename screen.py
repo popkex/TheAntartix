@@ -381,7 +381,7 @@ class Death:
     def show_txt_death(self, cause, number_image):
         txt_key = f"{cause}_{number_image}"
         txt = self.screen.game.load_txt("game_over", txt_key)
-        self.screen.draw_txt(txt, 60, (0, 200), True, (255, 255, 255), True) # affiche le txt a l'écran avec une police de 30 et en x=centre, y=200
+        self.screen.draw_txt(txt, 45, (0, 200), True, (255, 255, 255), True) # affiche le txt a l'écran avec une police de 30 et en x=centre, y=200
 
     def show_exit_txt(self):
         txt_key_button = "press_space"
