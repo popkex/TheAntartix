@@ -60,6 +60,9 @@ class DialogBox:
     def render(self, screen, origin="world"):
         self.can_execute = True
 
+        if not self.game.map_manager.check_player_far_npc():
+            self.game.screen.dialog.show_launch_dialog_txt()
+
         if self.game.map_manager.check_player_far_npc() and origin != "tutorial":
             self.close_dialog()
             self.reading = False

@@ -421,6 +421,25 @@ class Dialog:
         rect = self.txt_rect.x + 20, self.txt_rect.y + 4
         self.screen.blit_ressource(self.text, rect)
 
+    def show_launch_dialog_txt(self):
+        # Gère l'affichage du texte
+        position = (0, 675)
+        txt = self.screen.game.load_txt('npc', 'launch_dialog')
+        texte_surface, texte_position = self.screen.draw_txt(txt, police=30, position=position, color=(0, 0, 0), can_blit=False)
+
+        texte_width, texte_height = texte_surface.get_size()
+        image_size = texte_width + 20, texte_height + 5
+
+        # Gère l'affichage du fond
+        background_path = self.screen.game.get_path_assets("dialog\dialog_box.png")
+        image = pygame.image.load(background_path)
+        image = pygame.transform.scale(image, image_size)
+        image_position = texte_position[0] - 10, texte_position[1] - 5
+
+        # Affiche le texte et le fond
+        self.screen.blit_ressource(image, image_position)
+        self.screen.blit_ressource(texte_surface, texte_position)
+
 
 
 
