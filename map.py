@@ -44,8 +44,9 @@ class MapManager:
             Portal(from_world="world", origin_point="enter_donjon1", target_world="donjon1", teleport_point="player_spawn"),
         ], npcs=[
             NPC('paul', nb_points=2, key_txt=('npc', 'paul'), quest=self.paul_quest), # donne la liste pour pouvoir traduire apres*
-            NPC('michel', nb_points=2, key_txt=('npc', 'michel'), quest=self.michel_quest)
-        ], enemys=[ 
+            NPC('michel', nb_points=2, key_txt=('npc', 'michel'), quest=self.michel_quest),
+            NPC('fleufleu', nb_points=7, key_txt=('npc', 'fleufleu'), quest=None)
+        ], enemys=[
             # aucun ennemies
         ],
         )
