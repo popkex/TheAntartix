@@ -57,10 +57,10 @@ class DialogBox:
         self.txt_index = 0
         self.can_execute = True
 
-    def render(self, screen):
+    def render(self, screen, origin="world"):
         self.can_execute = True
 
-        if self.game.map_manager.check_player_far_npc():
+        if self.game.map_manager.check_player_far_npc() and origin != "tutorial":
             self.close_dialog()
             self.reading = False
 

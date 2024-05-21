@@ -15,7 +15,7 @@ class Tutorial:
 
         while running:
             # actualise l'écran
-            self.game.dialog_box.render(self.game.screen.screen)
+            self.game.dialog_box.render(self.game.screen.screen, "tutorial")
 
             pygame.display.flip()
             self.clock.tick(60)
