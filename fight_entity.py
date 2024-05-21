@@ -13,6 +13,7 @@ class Entity:
     attack: int
     crit_luck: int
     crit_domage: float
+    knock_out_luck: int
     give_xp: int
 
 class Enemy(Entity):
@@ -88,7 +89,7 @@ class EnemyA(Enemy):
 
         loot = [(Life_Potion, 3), (Big_Life_Potion, 2)] # (L'objet, le nombre d'objet au max)
 
-        super().__init__(name, lanch_fight_message, loot, image, max_health=50, health=50, attack=12, crit_luck=6, crit_domage=1.12, give_xp=4) # de base 100, 100, 10, 2
+        super().__init__(name, lanch_fight_message, loot, image, max_health=50, health=50, attack=12, crit_luck=6, crit_domage=1.12, knock_out_luck=5, give_xp=4)
 
 class EnemyB(Enemy):
     def __init__(self, game):
@@ -105,4 +106,4 @@ class EnemyB(Enemy):
         image = pygame.transform.scale(image, (250, 250))
         loot = [(Big_Life_Potion, 3), (Bomb, 1)] # (L'objet, le nombre d'objet au max)
 
-        super().__init__(name, lanch_fight_message, loot, image, max_health=60, health=60, attack=12, crit_luck=10, crit_domage=1.15, give_xp=6) # de base 120, 120, 12, 5
+        super().__init__(name, lanch_fight_message, loot, image, max_health=60, health=60, attack=12, crit_luck=10, crit_domage=1.15, knock_out_luck=10, give_xp=6) # de base 120, 120, 12, 5

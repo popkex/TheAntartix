@@ -47,12 +47,13 @@ class Saves:
         attack = self.game.data_player.attack
         crit_luck = self.game.data_player.crit_luck
         crit_domage = self.game.data_player.crit_domage
+        knock_out_luck = self.game.data_player.knock_out_luck
         xp = self.game.data_player.xp
         xp_max = self.game.data_player.xp_max
         lvl = self.game.data_player.lvl
 
         if not data_provided:
-            data = (health, max_health, attack, crit_luck, crit_domage, xp, xp_max, lvl)
+            data = (health, max_health, attack, crit_luck, crit_domage, knock_out_luck, xp, xp_max, lvl)
         else:
             data = data_provided
 
@@ -104,22 +105,23 @@ class Saves:
         path = self.game.get_path_saves('player_attribut.bin')
         try:
             with open(path, 'rb') as content:
-                health, max_health, attack, crit_luck, crit_domage, xp, xp_max, lvl = pickle.load(content)
+                health, max_health, attack, crit_luck, crit_domage, knock_out_luck, xp, xp_max, lvl = pickle.load(content)
         except:
             max_health = 100
             health = max_health
             attack = 10
             crit_luck = 5
             crit_domage = 1.12
+            knock_out_luck = 5
             xp = 0
             xp_max = 25
             lvl = 1
 
-            data = max_health, health, attack, crit_luck, crit_domage, xp, xp_max, lvl
+            data = max_health, health, attack, crit_luck, crit_domage, knock_out_luck, xp, xp_max, lvl
 
             self.save_attribut_player(data)
 
-        return health, max_health, attack, crit_luck, crit_domage, xp, xp_max ,lvl
+        return health, max_health, attack, crit_luck, crit_domage, knock_out_luck, xp, xp_max ,lvl
 
     def load_position(self):
         path = self.game.get_path_saves('player_position.bin')

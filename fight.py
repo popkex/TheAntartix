@@ -13,6 +13,8 @@ class Fight:
 
         self.current_enemy = enemy
 
+        self.first_turn = True
+
     # Vérifie si il reste des entités en vie
     def entity_is_alive(self) -> bool:
         return self.game.fight_player.is_alive() and self.current_enemy.is_alive()
@@ -66,15 +68,54 @@ class Fight:
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
 
-# Gère le système de tour par tour
-    def turn_management(self):
-        #laisse le joueur/l'ia faire le tour chaqu'un leurs tours
-        if self.is_player_action:
+    def player_turn(self):
+        if not self.entity_can_play_again('enemy'):
             self.is_player_action = self.game.fight_player.turn()
-        elif self.current_enemy.is_alive():
+        else:
+            self.is_player_action = False
+
+    def ia_turn(self):
+        if not self.entity_can_play_again('player'):
             pygame.time.delay(500)
             self.is_player_action = self.current_enemy.turn(self.game)
-            pygame.time.delay(750)
+        else:
+            self.is_player_action = True
+
+    def entity_can_play_again(self, turn_entity):
+        can_replay = random.randint(0, 100)
+        if turn_entity == 'player' and can_replay <= self.game.data_player.knock_out_luck:
+            return True
+
+        elif turn_entity == 'enemy' and can_replay <= self.current_enemy.knock_out_luck:
+            return True
+
+# Gère le système de tour par tour
+    def turn_management(self):
+        if not self.first_turn:
+            # si c'est au joueur de jouer
+            if self.is_player_action:
+                self.player_turn()
+            # si il peut rejouer
+            elif self.is_player_action:
+                self.player_turn()
+                '''
+                mettre un message disant que le joueur a assomé l'enemie
+                '''
+
+            # si c'est a l'enemie de jouer
+            elif self.current_enemy.is_alive():
+                self.ia_turn()
+            # si il peut rejouer
+            else:
+                self.ia_turn()
+                '''
+                mettre un message disant que le joueur a assomé l'enemie
+                '''
+        else:
+            self.player_turn()
+            self.first_turn = self.is_player_action
+
+            print(self.first_turn)
 
 #le combat
     def run(self):
