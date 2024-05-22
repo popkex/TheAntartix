@@ -33,7 +33,7 @@ translations = {
         'launch_dialog': "Presiona Espacio",
         'paul': ['Hola, soy Paul', '¿Cómo estás?', '¿Quién eres tú?', "Tengo miedo de los monstruos", "Me encantaría que alguien me ayudara a deshacerme \nde estos monstruos?", "¿Una pequeña veintena?\nGracias, te recompensaré bien"],
         'michel': ['Estoy gravemente herido debido a mi\nexcursión en este calabozo.', "Lástima que no tenía más pociones de curación \nde lo contrario no estaría en este estado", "Sería mejor que consiguieras algunas, créeme"],
-        'fleufleu': ["Mierda", "ok"]
+        'fleufleu': ["Los días pasan y se parecen, \npero es en las pequeñas cosas \ndonde encuentro mi felicidad.", "Una sonrisa compartida, \nel calor del sol en mi piel, \nla melodía de una canción lejana...", "Esos momentos fugaces son tesoros"]
     },
 
     'michel_quest': {

@@ -33,7 +33,7 @@ translations = {
         'launch_dialog': "Press Space",
         'paul': ['Hello, I am Paul', 'How are you?', 'Who are you?', "I'm afraid of monsters", "I would love for someone to help me get rid of \nthese monsters?", "A small twenty?\nThank you, I will reward you well"],
         'michel': ['I am seriously injured because of my\nexcursion into this dungeon.', "Too bad I didn't have any more healing potions \notherwise I wouldn't be in this state", "You'd better get some believe me"],
-        'fleufleu': ["Shit", "ok"]
+        'fleufleu': ["The days go by and look alike, \nbut it's in the little things \nthat I find my happiness.", "A shared smile, \nthe warmth of the sun on my skin, \nthe melody of a distant song...", "These fleeting moments are treasures"]
     },
 
     'michel_quest': {
