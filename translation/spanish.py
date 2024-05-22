@@ -1,26 +1,26 @@
 translations = {
 
     "message_system": {
-        "object_used": "Has utilizado",  # Spanish
+        "object_used": "Has utilizado",
         "damage_suffered1": "Has sufrido",
-        "damage_suffered2": "daño",
+        "damage_suffered2": "de daño",
         "damage_crit_suffered1": "Has sufrido",
-        "damage_crit_suffered2": " daño crítico!",
+        "damage_crit_suffered2": " de daño crítico!",
         "failed_escape": "No has logrado escapar",
         'player_attack': "¡Has atacado!",
-        'player_crit': "¡Has infligido daño crítico!",
+        'player_crit': "¡Has hecho un daño crítico!",
         'exit': 'para salir',
-        'recovered_object': 'Has recuperado',
+        'recovered_object': 'Has recuperado'
     },
 
     "enemyA":{
         'name': "enemigo, A",
-        'lanch_fight_message': "El enemigo A ha caído sobre ti",
+        'lanch_fight_message': "El enemigo A te ha caído encima",
     },
 
     "enemyB": {
         "name": "enemigo B",
-        'lanch_fight_message': "Un enemigo B apareció de repente",
+        'lanch_fight_message': "Un enemigo B ha aparecido de sorpresa",
     },
 
     "objects": {
@@ -31,14 +31,14 @@ translations = {
 
     'npc': {
         'launch_dialog': "Presiona Espacio",
-        'paul': ['Hola, soy Paul', '¿Cómo estás?', '¿Quién eres tú?', "Tengo miedo de los monstruos", "Me encantaría que alguien me ayudara a deshacerme \nde estos monstruos?", "¿Una pequeña veintena?\nGracias, te recompensaré bien"],
-        'michel': ['Estoy gravemente herido debido a mi\nexcursión en este calabozo.', "Lástima que no tenía más pociones de curación \nde lo contrario no estaría en este estado", "Sería mejor que consiguieras algunas, créeme"],
-        'fleufleu': ["Los días pasan y se parecen, \npero es en las pequeñas cosas \ndonde encuentro mi felicidad.", "Una sonrisa compartida, \nel calor del sol en mi piel, \nla melodía de una canción lejana...", "Esos momentos fugaces son tesoros"]
+        'paul': ['Hola, soy Paul', '¿Cómo estás?', '¿Quién eres?', "Tengo miedo de los monstruos", "Me encantaría que alguien me ayudara a deshacerme \nde estos monstruos", "¿Unos veinte pequeños?\nGracias, te recompensaré bien"],
+        'michel': ['Estoy gravemente herido debido a mi\nexcursión en este calabozo.', "Es una lástima que no tenía más pociones de curación \nsino no estaría en este estado", "Sería mejor que recuperaras algunas, créeme"],
+        'fleufleu': ["Los días pasan y se parecen, \npero es en las pequeñas cosas \nen las que encuentro mi felicidad.", "Una sonrisa compartida, \nel calor del sol en mi piel, \nla melodía de una canción lejana…",  "Estos momentos efímeros son tesoros"]
     },
 
     'michel_quest': {
-        'title': 'Recupera pociones de curación para no hacerte daño',
-        'description': 'Recupera 10 pociones de curación para no hacerte daño en combate como el pobre Michel'
+        'title': 'Recupera pociones de curación para no lastimarte',
+        'description': 'Recupera 10 pociones de curación para no lastimarte en combate como el pobre Michel'
     },
 
     'paul_quest': {
@@ -60,8 +60,8 @@ translations = {
 
     "tutorials": {
         "tutorial": "Tutorial",
-        "tuto_iv": ["Aquí está tu inventario.", "Aquí (como en cualquier inventario),\npodrás almacenar objetos y usarlos.", "Puedes presionar 'E' para poder \ncerrarlo y abrirlo/cerrarlo cuando quieras."],
-        "tuto_fight": ["¡Estás en combate!", "Aquí, al presionar 'A', puedes atacar a tu \noponente. Pero ten cuidado, recibirás \ndaño.", "Si mueres, tu vida volverá al 50% de tu vida\ny perderás experiencia/bajarás de nivel!", "Pero si logras matar a tu oponente, \nganas experiencia y objetos.", "También puedes acceder a tu inventario presionando \n'E' y escapar con 'ECHAP'.", "Te voy a contar un secreto, también puedes presionar \nen los iconos con tu ratón para ejecutar la acción", "Pero ten cuidado, si huyes, puede que no \nlo consigas y recibirás daño.", "¡Buena suerte y no te maten!"],
+        "tuto_iv": ["Aquí está tu inventario.", "Aquí (como en todo inventario),\npodrás almacenar objetos y usarlos.", "Puedes presionar 'E' para poder \ncerrarlo y abrirlo/cerrarlo cuando quieras."],
+        "tuto_fight": ["¡Estás en combate!", "Aquí, presionando 'A', puedes atacar a tu \nadversario. Pero cuidado, recibirás \ndaño.", "Si mueres, tu vida volverá al 50% de tu vida\ny perderás experiencia/bajarás de nivel!", "Pero si logras matar a tu adversario, \nganas experiencia y objetos.", "También puedes acceder a tu inventario presionando \n'E' y huir con 'ECHAP'.", "Te diré un secreto, también puedes presionar \nen los iconos con tu ratón para ejecutar la acción", "Pero cuidado, si huyes, puede que no lo \nconsigas y recibirás daño.", "¡Buena suerte y no te dejes matar!"],
     },
 
     "main_menu": {
@@ -69,6 +69,20 @@ translations = {
         "play_button": "Jugar",
         "settings_button": "Configuración",
         "quit_button": "Salir",
+    },
+
+    'play_chose': {
+        'title': "Jugar",
+        'load_game': "Continuar",
+        'new_game': "Nueva partida",
+        'back': "Volver"
+    },
+
+    'confirm_reset_game': {
+        'title': "¿Estás seguro de querer empezar una nueva partida?",
+        'title2': "No podrás cancelarlo",
+        'confirm': "Confirmar",
+        'cancel': "Cancelar",
     },
 
     "pause_menu": {
@@ -109,23 +123,23 @@ translations = {
     },
 
     'game_over': {
-        'fight_message_1': 'Quería jugar al héroe, pero terminó siendo un cero.',
+        'fight_message_1': 'Quiso jugar al héroe, pero terminó en cero.',
         'fight_message_2': "Otra alma valiente... aplastada por la realidad del 'Game Over'.",
-        'fight_message_3': "Lo intentó, fracasó, y ahora es parte del paisaje.",
+        'fight_message_3': "Lo intentó, falló, y ahora es parte del decorado.",
         'fight_message_4': "Corrió hacia la gloria, pero tropezó con su espada.",
         'fight_message_5': "Saltó a la batalla... y directamente a una trampa.",
-        'fight_message_6': "Gritó '¡Por honor!', pero todo lo que oímos fue '¡Ay!'",
+        'fight_message_6': "Gritó '¡Por el honor!', pero todo lo que se oyó fue '¡Ay!'",
         'fight_message_7': "Luchó como un león, pero por desgracia, sólo era un gatito.",
         'fight_message_8': "Buscó la victoria, pero encontró un final pintoresco.",
-        'fight_message_9': "Soñaba con ser invencible, se olvidó de practicarlo.",
-        'fight_message_10': "Quería ser el maestro del juego, pero el juego lo dominó.",
+        'fight_message_9': "Soñó con ser invencible, olvidó practicarlo.",
+        'fight_message_10': "Quiso ser el maestro del juego, pero el juego lo dominó.",
     },
 
     'button_press': {
         'press_a': "Presiona 'A'",
         'press_e': "Presiona 'E'",
         'press_space': "Presiona 'espacio'",
-        'press_escape': "Presiona 'escape'",
+        'press_escape': "Presiona 'esc'",
         'press_enter': "Presiona 'enter'",
     },
 }

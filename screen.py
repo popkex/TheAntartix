@@ -10,6 +10,8 @@ class Screen:
         self.game = game
 
         self.main_menu = MainMenu(self)
+        self.play_chose = PlayChose(self)
+        self.confirm_reset_game = ConfirmResetGame(self)
         self.life = Life_screen(self)
         self.fight_display = Fight_display(self)
         self.inventory_display = Inventory_display(self)
@@ -180,7 +182,7 @@ class MainMenu:
 
     def show_title(self):
         title = self.screen.game.load_txt('main_menu', 'title')
-        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+        self.screen.draw_txt(title, 70, (0, 50), True, (255, 255, 255), True)
 
     def show_buttons(self):
         self.show_button_play()
@@ -209,6 +211,100 @@ class MainMenu:
         txt = self.screen.game.load_txt('main_menu', txt_key)
         self.buttons(txt_key, txt, 11, self.dic_buttons)
 
+
+
+class PlayChose:
+
+    def __init__(self, screen):
+        self.screen = screen
+        self.dic_buttons = {}  # stock les coordonnées des bouttons
+
+    def update_screen(self):
+        self.show_background()
+        self.show_title()
+        self.show_buttons()
+
+    def show_background(self):
+        background_path = self.screen.game.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background = pygame.image.load(background_path)
+        background = self.screen.transform_img(background, self.screen.display_width)
+        self.screen.blit_ressource(background, (0, 0))
+
+    def show_title(self):
+        title = self.screen.game.load_txt('play_chose', 'title')
+        self.screen.draw_txt(title, 70, (0, 50), True, (255, 255, 255), True)
+
+    def show_buttons(self):
+        self.show_button_play()
+        self.show_button_settings()
+        self.show_button_back()
+
+    def buttons(self, txt_key, txt, button_number, dic):
+        y = 100+50*button_number
+        txt_surface, position = self.screen.draw_txt(txt, 50, (0, y), True, (255, 255, 255), True)
+        x, y, w, h = position
+        button_position = x -10, y-10, w + 10, h + 10
+        dic[txt_key] = button_position  # Stockez les coordonnées du bouton
+
+    def show_button_play(self):
+        txt_key = 'load_game'
+        txt = self.screen.game.load_txt('play_chose', txt_key)
+        self.buttons(txt_key, txt, 1, self.dic_buttons)
+
+    def show_button_settings(self):
+        txt_key = 'new_game'
+        txt = self.screen.game.load_txt('play_chose', txt_key)
+        self.buttons(txt_key, txt, 2, self.dic_buttons)
+
+    def show_button_back(self):
+        txt_key = 'back'
+        txt = self.screen.game.load_txt('play_chose', txt_key)
+        self.buttons(txt_key, txt, 11, self.dic_buttons)
+
+
+class ConfirmResetGame:
+
+    def __init__(self, screen):
+        self.screen = screen
+        self.dic_buttons = {}  # stock les coordonnées des bouttons
+
+    def update_screen(self):
+        self.show_background()
+        self.show_title()
+        self.show_buttons()
+
+    def show_background(self):
+        background_path = self.screen.game.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background = pygame.image.load(background_path)
+        background = self.screen.transform_img(background, self.screen.display_width)
+        self.screen.blit_ressource(background, (0, 0))
+
+    def show_title(self):
+        title = self.screen.game.load_txt('confirm_reset_game', 'title')
+        title2 = self.screen.game.load_txt('confirm_reset_game', 'title2')
+        self.screen.draw_txt(title, 70, (0, 50), True, (255, 255, 255), True)
+        self.screen.draw_txt(title2, 75, (0, 100), True, (255, 255, 255), True)
+
+    def show_buttons(self):
+        self.show_button_confirm_chose()
+        self.show_button_cancel_chose()
+
+    def buttons(self, txt_key, txt, button_number, dic):
+        y = 100+50*button_number
+        txt_surface, position = self.screen.draw_txt(txt, 50, (0, y), True, (255, 255, 255), True)
+        x, y, w, h = position
+        button_position = x -10, y-10, w + 10, h + 10
+        dic[txt_key] = button_position  # Stockez les coordonnées du bouton
+
+    def show_button_confirm_chose(self):
+        txt_key = 'confirm'
+        txt = self.screen.game.load_txt('confirm_reset_game', txt_key)
+        self.buttons(txt_key, txt, 5, self.dic_buttons)
+
+    def show_button_cancel_chose(self):
+        txt_key = 'cancel'
+        txt = self.screen.game.load_txt('confirm_reset_game', txt_key)
+        self.buttons(txt_key, txt, 6, self.dic_buttons)
 
 
 class Life_screen:
@@ -473,7 +569,7 @@ class Pause_menu:
 
     def show_title(self):
         title = self.screen.game.load_txt('pause_menu', 'title')
-        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+        self.screen.draw_txt(title, 70, (0, 50), True, (255, 255, 255), True)
 
     def show_buttons(self):
         self.show_quest_button()
@@ -540,7 +636,7 @@ class Tutorial_Menu:
 
     def show_title(self):
         title = self.screen.game.load_txt('tutorial_menu', 'title')
-        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+        self.screen.draw_txt(title, 70, (0, 50), True, (255, 255, 255), True)
 
     def show_buttons(self):
         self.show_button_back()
@@ -571,7 +667,7 @@ class Quest:
 
     def show_title(self):
         title = self.screen.game.load_txt('quest_menu', 'title')
-        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+        self.screen.draw_txt(title, 70, (0, 50), True, (255, 255, 255), True)
 
     def show_quests(self):
         y_offset = 100  # Décalage vertical initial pour le premier élément de quête
@@ -612,7 +708,7 @@ class Settings:
 
     def show_title(self):
         title = self.screen.game.load_txt('settings_menu', 'title')
-        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+        self.screen.draw_txt(title, 70, (0, 50), True, (255, 255, 255), True)
 
     def show_buttons(self):
         self.show_button_language()
@@ -646,7 +742,7 @@ class Settings_Languages:
 
     def show_title(self):
         title = self.screen.game.load_txt('settings_languages_menu', 'title')
-        self.screen.draw_txt(title, 100, (0, 50), True, (255, 255, 255), True)
+        self.screen.draw_txt(title, 70, (0, 50), True, (255, 255, 255), True)
 
     def show_buttons(self):
         self.show_button_language_english()

@@ -11,6 +11,9 @@ class Quest:
         self.key_description = key_description
         self.state = False # False pour non completer
 
+    def reset_all_quests(self):
+        self.game.active_quests = []
+
     def add_quest(self, name, type, objectif, rewards, rewards_quantity, key_description):
         if len(self.game.active_quests) <= 5:
             existing_quest = None

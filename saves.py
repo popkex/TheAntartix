@@ -1,4 +1,4 @@
-import pygame, pickle
+import pygame, pickle, os, shutil
 from inventory import *
 
 class Saves:
@@ -36,6 +36,31 @@ class Saves:
         self.load_inventory()
         self.load_tutorial()
         self.load_quests()
+
+    def reset_all(self):
+        self.reset_attribut_player()
+        self.reset_position()
+        self.reset_inventory()
+        self.reset_tutorial()
+        self.reset_settings()
+        self.reset_quests()
+
+    # identique a la reset_all mais ne reset pas les parametres
+    def reset_game(self):
+        self.reset_attribut_player()
+        self.reset_position()
+        self.reset_inventory()
+        self.reset_tutorial()
+        self.reset_quests()
+
+    def create_folder_saves(self):
+        if not os.path.exists(r'saves'):
+            if not os.path.exists(r'_internal'):
+                os.makedirs(r'saves')
+            elif not os.path.exists(r'_internal\saves'):
+                os.makedirs(r'_internal\saves')
+
+
 
                                             # les saves
 
@@ -105,21 +130,11 @@ class Saves:
         path = self.game.get_path_saves('player_attribut.bin')
         try:
             with open(path, 'rb') as content:
-                health, max_health, attack, crit_luck, crit_domage, knock_out_luck, xp, xp_max, lvl = pickle.load(content)
+                data = pickle.load(content)
         except:
-            max_health = 100
-            health = max_health
-            attack = 10
-            crit_luck = 5
-            crit_domage = 1.12
-            knock_out_luck = 5
-            xp = 0
-            xp_max = 25
-            lvl = 1
+            data = self.reset_attribut_player()
 
-            data = max_health, health, attack, crit_luck, crit_domage, knock_out_luck, xp, xp_max, lvl
-
-            self.save_attribut_player(data)
+        health, max_health, attack, crit_luck, crit_domage, knock_out_luck, xp, xp_max, lvl = data
 
         return health, max_health, attack, crit_luck, crit_domage, knock_out_luck, xp, xp_max ,lvl
 
@@ -155,11 +170,7 @@ class Saves:
             with open(path, 'rb') as content:
                 self.game.tutorial.dic_tutorial = pickle.load(content)
         except:
-            self.game.tutorial.dic_tutorial = {
-                'inventory': False,
-                'fight': False,
-            }
-            self.save_tutorial()
+            self.reset_tutorial()
 
     def load_settings(self):
         path = self.game.get_path_saves('settings.bin')
@@ -169,8 +180,7 @@ class Saves:
                 data_str = pickle.load(content)
                 self.game.load_language(data_str)
         except:
-            self.game.load_language("en")
-            self.save_settings()
+            self.reset_settings()
 
     def load_quests(self):
         try:
@@ -194,3 +204,43 @@ class Saves:
 
         except:
             self.save_quests()
+
+
+    def reset_attribut_player(self):
+        max_health = 100
+        health = max_health
+        attack = 10
+        crit_luck = 5
+        crit_domage = 1.12
+        knock_out_luck = 5
+        xp = 0
+        xp_max = 25
+        lvl = 1
+
+        data = max_health, health, attack, crit_luck, crit_domage, knock_out_luck, xp, xp_max, lvl
+        self.save_attribut_player(data)
+
+        return data
+
+    def reset_position(self):
+        self.game.map_manager.teleport_player_with_name('player_spawn')
+        self.save_position()
+
+    def reset_inventory(self):
+        self.game.inventory.reset_inventory()
+        self.save_inventory()
+
+    def reset_tutorial(self):
+        self.game.tutorial.dic_tutorial = {
+            'inventory': False,
+            'fight': False,
+        }
+        self.save_tutorial()
+
+    def reset_settings(self):
+        self.game.load_language("en")
+        self.save_settings()
+
+    def reset_quests(self):
+        self.game.quest.reset_all_quests()
+        self.save_quests()

@@ -15,6 +15,10 @@ class Inventory:
         self.weapon = Weapon(any, any, self.game)
         self.weapon.init_all_weapon()
 
+    def reset_inventory(self):
+        self.objet_inventory = []
+        self.objet_inventory_rects = []
+
 # Gère l'ouverture et la gestion de l'inventaire
     def open_inventory(self, game, origin) -> bool:
         is_open = True

@@ -11,6 +11,7 @@ class MainMenu:
         self.screen = Screen(self.game)
         self.settings_menu = Settings_Menu(self.game)
         self.saves = Saves(self.game)
+        self.play_chose = PlayChose(self.game, self.screen, self.saves)
         self.saves.load_settings()
 
     def show_lunch_game(self):
@@ -41,10 +42,79 @@ class MainMenu:
                 rect = pygame.Rect(button_position)
                 if rect.collidepoint(event.pos):
                     if txt == 'play_button':
-                        self.game.running()
+                        self.play_chose.running()
+                        # self.game.running()
 
                     elif txt == 'settings_button':
                         self.settings_menu.running()
 
                     elif txt == 'quit_button':
+                        self.run = False
+
+class PlayChose:
+
+    def __init__(self, game, screen, saves):
+        self.game = game
+        self.screen = screen
+        self.saves = saves
+
+        self.confirm_reset_game = ConfirmResetGame(self.game, self.screen, self.saves)
+
+    def running(self):
+        self.run = True
+
+        while self.run:
+            self.screen.play_chose.update_screen()
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                self.handle_mouse_click(event)
+
+                if event.type == pygame.QUIT:
+                    self.run = False
+
+    def handle_mouse_click(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            for txt, button_position in self.screen.play_chose.dic_buttons.items():
+                rect = pygame.Rect(button_position)
+                if rect.collidepoint(event.pos):
+                    if txt == 'load_game':
+                        self.game.running()
+
+                    elif txt == 'new_game':
+                        self.confirm_reset_game.running()
+
+                    elif txt == 'back':
+                        self.run = False
+
+class ConfirmResetGame:
+
+    def __init__(self, game, screen, saves):
+        self.game = game
+        self.screen = screen
+        self.saves = saves
+
+    def running(self):
+        self.run = True
+
+        while self.run:
+            self.screen.confirm_reset_game.update_screen()
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                self.handle_mouse_click(event)
+
+                if event.type == pygame.QUIT:
+                    self.run = False
+
+    def handle_mouse_click(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            for txt, button_position in self.screen.confirm_reset_game.dic_buttons.items():
+                rect = pygame.Rect(button_position)
+                if rect.collidepoint(event.pos):
+                    if txt == 'confirm':
+                        self.saves.reset_game()
+                        self.game.running()
+
+                    elif txt == 'cancel':
                         self.run = False

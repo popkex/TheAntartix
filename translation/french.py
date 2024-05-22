@@ -71,6 +71,20 @@ translations = {
         "quit_button": "Quitter",
     },
 
+    'play_chose': {
+        'title': "Jouer",
+        'load_game': "Continuer",
+        'new_game': "Nouvelle partie",
+        'back': "Retour"
+    },
+
+    'confirm_reset_game': {
+        'title': "Es-tu sur de recommencer une nouvelle partie ?",
+        'title2': "Tu ne pourras pas annulé",
+        'confirm': "Confirmer",
+        'cancel': "Annuler",
+    },
+
     "pause_menu": {
         "title": "Menu Pause",
         "quest_button": 'Quêtes',
