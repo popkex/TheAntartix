@@ -195,7 +195,13 @@ class NPC(Entity):
                 current_direction = 'up'
                 moving = True
 
-        if self.rect.colliderect(target_rect):
+        # permet de faire en sorte qu'un npc peut rester a son target point un certain moment
+        npc_can_move_luck = random.randint(0, 1000)
+        npc_can_move = False
+        if npc_can_move_luck <= 5:
+            npc_can_move = True
+
+        if self.rect.colliderect(target_rect) and npc_can_move:
             self.current_point = target_point
 
         self.save_location()
