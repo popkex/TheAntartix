@@ -222,8 +222,8 @@ class NPC(Entity):
 
 class Enemy(Entity):
 
-    def __init__(self, classe, game, path, image, name, position, field_of_view=100):
-        super().__init__(path, position[0], position[1])
+    def __init__(self, classe, game, path, image, name, field_of_view=100):
+        super().__init__(path, 0, 0)
         self.game = game
         self.classe = classe
         self.name = name
@@ -232,6 +232,7 @@ class Enemy(Entity):
         self.enemy_player_collide = False
         self.current_position = 'up'
         self.speed = random.randint(10, 80) / 60
+        self.point_spawn = None
 
         self.enemy_killed = False
         self.player_proximity = False
@@ -239,6 +240,16 @@ class Enemy(Entity):
         self.image = pygame.transform.scale(image, (32, 32))
         self.image_rect = self.image.get_rect(topleft=self.position)
 
+    def teleport_spawn(self):
+        location = self.point_spawn
+        self.position[0] = location.x
+        self.position[1] = location.y
+        self.save_location()
+
+    def load_point_spawn(self, tmx_data, number_enemy):
+        point = tmx_data.get_object_by_name(f"enemy_spawn_{number_enemy}")
+        rect = pygame.Rect(point.x, point.y, point.width, point.height)
+        self.point_spawn = rect
 
     def move_and_animate_up(self):
         self.move_up()  # Déplacement vers le haut effectué ici
@@ -308,7 +319,7 @@ class Enemy(Entity):
 
 class EnemyA(Enemy):
 
-    def __init__(self, game, position):
+    def __init__(self, game):
         self.game = game 
 
         path = self.game.get_path_assets('enemy\enemyA.gif')
@@ -317,11 +328,11 @@ class EnemyA(Enemy):
 
         field_of_view = 100 # défini le champ de vision
 
-        super().__init__(self, game, "enemy\enemyA.gif", image, "EnemyA", position, field_of_view)
+        super().__init__(self, game, "enemy\enemyA.gif", image, "EnemyA", field_of_view)
 
 class EnemyB(Enemy):
 
-    def __init__(self, game, position):
+    def __init__(self, game):
         self.game = game 
 
         path = self.game.get_path_assets('enemy\enemyB.webp')
@@ -330,4 +341,4 @@ class EnemyB(Enemy):
 
         field_of_view = 175 # défini le champ de vision
 
-        super().__init__(self, game, "enemy\enemyB.webp", image, "EnemyB", position, field_of_view) 
+        super().__init__(self, game, "enemy\enemyB.webp", image, "EnemyB", field_of_view) 

@@ -72,16 +72,17 @@ class MapManager:
         ], npcs=[
             # aucun npcs
         ], enemys=[
-                EnemyA(self.game, (30, 30)),
-                EnemyA(self.game, (60, 86)),
-                EnemyA(self.game, (80, 75)),
-                EnemyB(self.game, (75, 42)),
+                EnemyA(self.game),
+                # EnemyA(self.game),
+                # EnemyA(self.game),
+                EnemyB(self.game),
         ])
 
         #défini le lieu de spawn qui s'appelle 'player_spawn'
         self.teleport_player_with_name('player_spawn')
 
         self.teleport_npcs()
+        self.teleport_enemy()
 
     def check_player_far_npc(self):
         # Vérifie pour chaque npc si il est en contacte avec lui
@@ -223,6 +224,15 @@ class MapManager:
             for npc in npcs:
                 npc.load_points(map_data.tmx_data)
                 npc.teleport_spawn()
+
+    def teleport_enemy(self):
+        for map in self.maps:
+            map_data = self.maps[map]
+            enemys = map_data.enemys
+
+            for i, enemy in enumerate(enemys):
+                enemy.load_point_spawn(map_data.tmx_data, i)
+                enemy.teleport_spawn()
 
 #dessine le joueur et centre la cam
     def draw(self):
