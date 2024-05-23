@@ -231,7 +231,7 @@ class Enemy(Entity):
         self.enemy_collide = False
         self.enemy_player_collide = False
         self.current_position = 'up'
-        self.speed = random.randint(10, 80) / 60
+        self.speed = random.randint(100, 300) / 100 # permet une vitesse sous forme de : 1.31
         self.point_spawn = None
 
         self.enemy_killed = False
