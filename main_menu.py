@@ -114,7 +114,9 @@ class ConfirmResetGame:
                 if rect.collidepoint(event.pos):
                     if txt == 'confirm':
                         self.saves.reset_game()
-                        self.game.running()
+                        # creer une nouvelle instance de game pour pouvoir recharger tout le jeu
+                        game = Game(self)
+                        game.running()
 
                     elif txt == 'cancel':
                         self.run = False
