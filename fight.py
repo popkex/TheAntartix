@@ -14,6 +14,7 @@ class Fight:
         self.current_enemy = enemy
 
         self.first_turn = True
+        self.can_modifie_replay_luck = True
 
     # Vérifie si il reste des entités en vie
     def entity_is_alive(self) -> bool:
@@ -86,11 +87,18 @@ class Fight:
             self.is_player_action = True
 
     def entity_can_play_again(self, turn_entity):
-        can_replay = random.randint(0, 100)
-        if turn_entity == 'player' and can_replay <= self.game.data_player.knock_out_luck:
+        if self.can_modifie_replay_luck:
+            can_replay_luck = random.randint(0, 100)
+            self.can_modifie_replay_luck = False
+        else:
+            can_replay_luck = 101 # met la valeur au dessus du seuille possible pour empecher de rejouer (et de crash)
+
+        if turn_entity == 'player' and can_replay_luck <= self.game.data_player.knock_out_luck:
+            self.can_modifie_replay_luck = True
             return True
 
-        elif turn_entity == 'enemy' and can_replay <= self.current_enemy.knock_out_luck:
+        elif turn_entity == 'enemy' and can_replay_luck <= self.current_enemy.knock_out_luck:
+            self.can_modifie_replay_luck = True
             return True
 
         return False
