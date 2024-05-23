@@ -34,15 +34,19 @@ class Fight:
         self.game.data_player.remove_xp()
         self.player_death()
 
+    def check_all_quest(self):
+        if self.game.quest.quest_type_exist('kill_enemy'):
+            self.game.quest.progress('kill_enemy', 1)
+        if self.game.quest.quest_type_exist(f'kill_{self.current_enemy.name}'):
+            self.game.quest.progress(f'kill_{self.current_enemy.name}', 1)
+
     def who_win(self):
         self.game.player.change_animation('up')
 
         # si le joueur gagne
         if self.game.fight_player.is_alive() and not self.current_enemy.is_alive():
             self.give_enemy_loot()
-
-            if self.game.quest.quest_type_exist('kill_enemy'):
-                self.game.quest.progress('kill_enemy', 1)
+            self.check_all_quest()
 
         # si le joueur perd
         elif not self.game.fight_player.is_alive():
