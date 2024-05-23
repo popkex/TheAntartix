@@ -93,6 +93,8 @@ class Fight:
         elif turn_entity == 'enemy' and can_replay <= self.current_enemy.knock_out_luck:
             return True
 
+        return False
+
 # Gère le système de tour par tour
     def turn_management(self):
         if not self.first_turn:
@@ -118,8 +120,6 @@ class Fight:
         else:
             self.player_turn()
             self.first_turn = self.is_player_action
-
-            print(self.first_turn)
 
 #le combat
     def run(self):
