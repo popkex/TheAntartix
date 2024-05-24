@@ -78,6 +78,8 @@ class Fight:
             self.is_player_action = self.game.fight_player.turn()
         else:
             self.is_player_action = False
+            message = self.game.load_txt('message_system', 'enemy_known_out_player')
+            self.game.add_message(message)
 
     def ia_turn(self):
         if not self.entity_can_play_again('player'):
@@ -85,6 +87,8 @@ class Fight:
             self.is_player_action = self.current_enemy.turn(self.game)
         else:
             self.is_player_action = True
+            message = self.game.load_txt('message_system', 'player_known_out_enemy')
+            self.game.add_message(message)
 
     def entity_can_play_again(self, turn_entity):
         if self.can_modifie_replay_luck:
@@ -109,22 +113,10 @@ class Fight:
             # si c'est au joueur de jouer
             if self.is_player_action:
                 self.player_turn()
-            # si il peut rejouer
-            elif self.is_player_action:
-                self.player_turn()
-                '''
-                mettre un message disant que le joueur a assomé l'enemie
-                '''
-
             # si c'est a l'enemie de jouer
             elif self.current_enemy.is_alive():
                 self.ia_turn()
-            # si il peut rejouer
-            else:
-                self.ia_turn()
-                '''
-                mettre un message disant que le joueur a assomé l'enemie
-                '''
+
         else:
             self.player_turn()
             self.first_turn = self.is_player_action
