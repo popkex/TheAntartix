@@ -222,7 +222,7 @@ class NPC(Entity):
 
 class Enemy(Entity):
 
-    def __init__(self, classe, game, path, image, name, field_of_view=100):
+    def __init__(self, classe, game, path, image, name, field_of_view=150):
         super().__init__(path, 0, 0)
         self.game = game
         self.classe = classe
@@ -326,7 +326,7 @@ class EnemyA(Enemy):
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (32, 32))
 
-        field_of_view = 100 # défini le champ de vision
+        field_of_view = 150 # défini le champ de vision
 
         super().__init__(self, game, "enemy\enemyA.gif", image, "EnemyA", field_of_view)
 
