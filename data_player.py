@@ -14,7 +14,10 @@ class Data_Player:
         self.lvl = None
 
     def load_attributes(self):
-        self.health, self.max_health, self.attack, self.crit_luck, self.crit_domage, self.knock_out_luck, self.xp, self.xp_max, self.lvl = self.game.saves.load_attribut_player()
+        data_1, data_2, data_3 = self.game.saves.load_attribut_player()
+        self.health, self.max_health, self.attack = data_1
+        self.crit_luck, self.crit_domage, self.knock_out_luck = data_2
+        self.xp, self.xp_max, self.lvl = data_3
 
 # si le joueur gagne de l'exp
     def get_xp(self, give_xp):

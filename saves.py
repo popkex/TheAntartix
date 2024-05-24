@@ -136,7 +136,11 @@ class Saves:
 
         health, max_health, attack, crit_luck, crit_domage, knock_out_luck, xp, xp_max, lvl = data
 
-        return health, max_health, attack, crit_luck, crit_domage, knock_out_luck, xp, xp_max ,lvl
+        data_1 = health, max_health, attack
+        data_2 = crit_luck, crit_domage, knock_out_luck
+        data_3 = xp, xp_max, lvl
+
+        return data_1, data_2, data_3
 
     def load_position(self):
         path = self.game.get_path_saves('player_position.bin')
