@@ -72,10 +72,27 @@ class MapManager:
         ], npcs=[
             # aucun npcs
         ], enemys=[
-                EnemyA(self.game),
-                # EnemyA(self.game),
-                # EnemyA(self.game),
-                EnemyB(self.game),
+                # zone 0
+                EnemyA(self.game), EnemyA(self.game), EnemyA(self.game), EnemyA(self.game), EnemyB(self.game), EnemyB(self.game),
+
+                # zone 1
+                EnemyA(self.game), EnemyA(self.game), EnemyA(self.game), EnemyB(self.game), EnemyB(self.game), EnemyB(self.game),
+
+                # zone 2
+
+                # zone 3
+
+                # zone 4
+
+                # zone 5
+
+                # zone 6, boss
+
+                # zone 7
+
+                # zone 8
+
+                # zone 9
         ])
 
         #défini le lieu de spawn qui s'appelle 'player_spawn'
