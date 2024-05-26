@@ -22,7 +22,7 @@
             "scaleInDock": 1
         },
         "donjon.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 1.5,
             "scaleInEditor": 2
         },
         "donjon1.tmx": {
@@ -32,13 +32,16 @@
                 12
             ],
             "expandedObjectLayers": [
-                3
+                3,
+                11,
+                9,
+                7
             ],
-            "scale": 4,
-            "selectedLayer": 1,
+            "scale": 1,
+            "selectedLayer": 12,
             "viewCenter": {
-                "x": 1315.125,
-                "y": 3288
+                "x": 488,
+                "y": 2821.5
             }
         },
         "donjon1.tmx#donjon": {
@@ -141,13 +144,13 @@
     ],
     "project": "The_Antartix-map.tiled-project",
     "recentFiles": [
-        "mobilier.tsx",
-        "nature.tsx",
-        "donjon.tsx",
         "world.tmx",
         "house1.tmx",
         "house2.tmx",
         "donjon1.tmx",
+        "mobilier.tsx",
+        "nature.tsx",
+        "donjon.tsx",
         "house.tsx",
         "house.tmx",
         "house_2.tmx",
