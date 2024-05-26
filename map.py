@@ -73,10 +73,12 @@ class MapManager:
             # aucun npcs
         ], enemys=[
                 # zone 0
-                EnemyA(self.game), EnemyA(self.game), EnemyA(self.game), EnemyA(self.game), EnemyB(self.game), EnemyB(self.game),
+                *[EnemyA(self.game) for _ in range(4)],
+                *[EnemyB(self.game) for _ in range(2)],
 
                 # zone 1
-                EnemyA(self.game), EnemyA(self.game), EnemyA(self.game), EnemyB(self.game), EnemyB(self.game), EnemyB(self.game),
+                *[EnemyA(self.game) for _ in range(3)],
+                *[EnemyB(self.game) for _ in range(3)],
 
                 # zone 2
 
