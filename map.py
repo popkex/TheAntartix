@@ -43,8 +43,8 @@ class MapManager:
             Portal(from_world="world", origin_point="enter_house2", target_world="house2", teleport_point="player_spawn"),
             Portal(from_world="world", origin_point="enter_donjon1", target_world="donjon1", teleport_point="player_spawn"),
         ], npcs=[
-            NPC('paul', nb_points=2, key_txt=('npc', 'paul'), quest=self.paul_quest), # donne la liste pour pouvoir traduire apres*
-            NPC('michel', nb_points=2, key_txt=('npc', 'michel'), quest=self.michel_quest),
+            NPC('paul', nb_points=2, key_txt=('npc', 'paul'), quest=self.paul_quest, after_quest_txt= ('npc', 'paul_after_quest')), # donne la liste pour pouvoir traduire apres*
+            NPC('michel', nb_points=2, key_txt=('npc', 'michel'), quest=self.michel_quest, after_quest_txt=('npc', 'michel_after_quest')),
             NPC('fleufleu', nb_points=7, key_txt=('npc', 'fleufleu'), quest=None)
         ], enemys=[
             # aucun ennemies
@@ -116,7 +116,13 @@ class MapManager:
             for npc in self.get_map().npcs:
                 if npc.rect.colliderect(self.game.player.rect):
                     key_txt_name = (npc.name, "name")
-                    reading = dialog_box.execute(npc.key_txt, key_txt_name, npc.quest)
+                    # modifie le texte du png en fonction de si ca quete a été complété ou non
+                    if npc.quest_state:
+                        key_txt = npc.after_quest_txt
+                    else:
+                        key_txt = npc.key_txt
+
+                    reading = dialog_box.execute(key_txt, key_txt_name, npc.quest)
 
                     if npc.quest and not reading:
                         name_quest, type_quest, objectif_quest, rewards, rewards_quantity, key_description = npc.quest

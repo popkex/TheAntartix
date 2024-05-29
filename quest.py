@@ -15,7 +15,8 @@ class Quest:
         self.game.active_quests = []
 
     def add_quest(self, name, type, objectif, rewards, rewards_quantity, key_description):
-        if len(self.game.active_quests) <= 5:
+        # Si le joueur a moins de 5quests
+        if len(self.game.active_quests) <= 5 and not name in self.game.complete_quests:
             existing_quest = None
 
             # Vérifie si une quête avec le même nom est déjà active
@@ -75,6 +76,9 @@ class Quest:
         self.remove_quest(self.name)
         self.receved_rewards()
         self.state = True # True pour completer
+
+        # ajout la quests au quests faites
+        self.game.complete_quests.append(self.name)
 
     def remove_quest(self, quest_name):
         # Recherchez la quête dans la liste des quêtes actives

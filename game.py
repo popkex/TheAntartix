@@ -22,6 +22,7 @@ class Game():
 
         self.quest = Quest(self)
         self.active_quests = []
+        self.complete_quests = []
 
         self.pause_menu = Pause_Menu(self)
         self.inventory = Inventory(self)
@@ -165,6 +166,7 @@ class Game():
         while self.run:
 
             self.update_game()
+            print(self.complete_quests)
             self.update_player_animation()
             self.update_screen()
 

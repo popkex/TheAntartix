@@ -32,7 +32,9 @@ translations = {
     'npc': {
         'launch_dialog': "Appuie sur Espace",
         'paul': ['Bonjour, je suis Paul', 'Comment vas-tu ?', 'Qui es-tu ?', "J'ai peur des monstres", "J'adorerais que quelqu'un m'aide à me débarrasser \nde ces monstres ?", "Une petite vingtaine ?\nMerci, je te récompenserai bien comme il faut"],
+        "paul_after_quest": ["test, tesssssst"],
         'michel': ['Je suis grièvement blessé à cause de mon\nexcursion dans ce donjon.', "Dommage que je n'avais plus de potion de soin \nsinon je ne serais pas dans cette état", "Tu ferais mieux d'en recupérer crois moi"],
+        "michel_after_quest": ["testttttttttttttttttttttttttt"],
         'fleufleu': ["Les jours passent et se ressemblent, \nmais c’est dans les petites choses \nque je trouve mon bonheur.", "Un sourire partagé, \nla chaleur du soleil sur ma peau, \nla mélodie d’une chanson lointaine…",  "Ces moments éphémères sont des trésors"]
     },
 

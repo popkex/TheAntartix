@@ -120,7 +120,7 @@ class Saves:
 
     def save_quests(self):
         path = self.game.get_path_saves('quest.bin')
-        data = self.game.quest.all_quests_data()
+        data = self.game.quest.all_quests_data(), self.game.complete_quests
 
         with open(path, 'wb') as content:
             pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
@@ -194,7 +194,9 @@ class Saves:
 
             with open(path, 'rb') as content:
                 data = pickle.load(content)
-                for quest_data in data:
+
+                # Charge la liste des quests en cours
+                for quest_data in data[0]:
                     name, quest_type, objectif, rewards, rewards_quantity, key_description, progression = quest_data
                     self.game.quest.add_quest(name, quest_type, objectif, rewards, rewards_quantity, key_description)
 
@@ -203,6 +205,15 @@ class Saves:
                         self.game.quest.progress(quest_type, progression)
                     else:
                         type_quests_progress.append(quest_type)
+
+                for quest_data in data[1]:
+                    self.game.complete_quests.append(quest_data)
+
+                    # dit au npc de changer de dialog
+                    for npc in self.game.map_manager.get_map().npcs:
+                        if npc.quest[0] in self.game.complete_quests:
+                            npc.quest_state = True
+                            break
 
             self.game.can_modifie_quest = False
 
