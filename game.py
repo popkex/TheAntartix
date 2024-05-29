@@ -43,6 +43,7 @@ class Game():
         self.current_direction = 'up' #défini la direction par defaut
 
         self.time_auto_save = 120 # défini la save auto à 2mins
+        self.format_time = "2minutes"
         self.last_auto_save = time.time()
 
         self.saves.load_all()

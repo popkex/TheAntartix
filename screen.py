@@ -23,6 +23,8 @@ class Screen:
         self.tutorial_menu = Tutorial_Menu(self)
         self.settings = Settings(self)
         self.settings_languages = Settings_Languages(self)
+        self.game_settings_menu = GameSettingsMenu(self)
+        self.auto_save_menu = AutoSaveMenu(self)
 
         #charge le hud
         self.hud()
@@ -719,12 +721,18 @@ class Settings:
 
     def show_buttons(self):
         self.show_button_language()
+        self.show_button_game_settings()
         self.show_button_back()
 
     def show_button_language(self):
         txt_key = 'language'
         txt = self.screen.game.load_txt('settings_menu', txt_key)
         self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
+
+    def show_button_game_settings(self):
+        txt_key = 'game_settings'
+        txt = self.screen.game.load_txt('settings_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 2, self.dic_buttons)
 
     def show_button_back(self):
         txt_key = 'back'
@@ -775,4 +783,113 @@ class Settings_Languages:
     def show_button_back(self):
         txt_key = 'back'
         txt = self.screen.game.load_txt('settings_languages_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
+
+
+class GameSettingsMenu:
+
+    def __init__(self, screen):
+        self.screen = screen
+        self.dic_buttons = {}  # stock les coordonnées des bouttons
+
+    def show_elements(self):
+        self.show_background()
+        self.show_title()
+        self.show_buttons()
+
+    def show_background(self):
+        self.screen.pause_menu.show_background()
+
+    def show_title(self):
+        title = self.screen.game.load_txt('game_settings_menu', 'title')
+        self.screen.draw_txt(title, 70, (0, 50), True, (255, 255, 255), True)
+
+    def show_buttons(self):
+        self.show_button_auto_save()
+        self.show_button_back()
+
+    def show_button_auto_save(self):
+        txt_key = 'auto_save'
+        txt = self.screen.game.load_txt('game_settings_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
+
+    def show_button_back(self):
+        txt_key = 'back'
+        txt = self.screen.game.load_txt('game_settings_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
+
+
+class AutoSaveMenu:
+
+    def __init__(self, screen):
+        self.screen = screen
+        self.dic_buttons = {}  # stock les coordonnées des bouttons
+
+    def show_elements(self):
+        self.show_background()
+        self.show_title()
+        self.show_buttons()
+
+    def show_background(self):
+        self.screen.pause_menu.show_background()
+
+    def show_title(self):
+        title = self.screen.game.load_txt('auto_save_menu', 'title')
+        self.screen.draw_txt(title, 70, (0, 50), True, (255, 255, 255), True)
+
+    def show_buttons(self):
+        self.show_button_2min()
+        self.show_button_5min()
+        self.show_button_10min()
+        self.show_button_15min()
+        self.show_button_30min()
+        self.show_button_1h()
+        self.show_button_desactivated()
+        self.show_actualy_time()
+        self.show_button_back()
+
+    def show_button_2min(self):
+        txt_key = '2min'
+        txt = self.screen.game.load_txt('auto_save_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
+
+    def show_button_5min(self):
+        txt_key = '5min'
+        txt = self.screen.game.load_txt('auto_save_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 2, self.dic_buttons)
+
+    def show_button_10min(self):
+        txt_key = '10min'
+        txt = self.screen.game.load_txt('auto_save_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 3, self.dic_buttons)
+
+    def show_button_15min(self):
+        txt_key = '15min'
+        txt = self.screen.game.load_txt('auto_save_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 4, self.dic_buttons)
+
+    def show_button_30min(self):
+        txt_key = '30min'
+        txt = self.screen.game.load_txt('auto_save_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 5, self.dic_buttons)
+
+    def show_button_1h(self):
+        txt_key = '1h'
+        txt = self.screen.game.load_txt('auto_save_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 6, self.dic_buttons)
+
+    def show_button_desactivated(self):
+        txt_key = 'desactivated'
+        txt = self.screen.game.load_txt('auto_save_menu', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 7, self.dic_buttons)
+
+    def show_actualy_time(self):
+        txt_key = "actualy_time"
+        txt = self.screen.game.load_txt('auto_save_menu', txt_key)
+        txt = f"{txt} {self.screen.game.format_time}"
+        self.screen.pause_menu.buttons(txt_key, txt, 9, self.dic_buttons)
+
+    def show_button_back(self):
+        txt_key = 'back'
+        txt = self.screen.game.load_txt('auto_save_menu', txt_key)
         self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)

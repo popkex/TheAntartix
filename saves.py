@@ -17,18 +17,20 @@ class Saves:
         return class_dict.get(class_name)
 
     def auto_saves(self):
-        # Obtient l'heure actuelle
-        now = time.time()
+        # vérifie si la save auto a été désactivé
+        if self.game.time_auto_save:
+            # Obtient l'heure actuelle
+            now = time.time()
 
-        # vérifie si la save auto peut se lancer
-        if now - self.game.last_auto_save > self.game.time_auto_save:
-            self.save_all()
-            self.game.last_auto_save = now
-            self.can_blit_image = True
+            # vérifie si la save auto peu se lancé
+            if now - self.game.last_auto_save > self.game.time_auto_save:
+                self.save_all()
+                self.game.last_auto_save = now
+                self.can_blit_image = True
 
-        # désactive la save auto apres Xtemps
-        if now - self.game.last_auto_save > self.time_blit_save_auto:
-            self.can_blit_image = False
+            # désactive la save auto apres Xtemps
+            if now - self.game.last_auto_save > self.time_blit_save_auto:
+                self.can_blit_image = False
 
     def blit_auto_save(self):
         if self.can_blit_image:
@@ -133,7 +135,9 @@ class Saves:
 
     def save_settings(self):
         path = self.game.get_path_saves('settings.bin')
-        data = self.game.str_language
+        data_language = self.game.str_language
+        data_auto_save_time = self.game.time_auto_save, self.game.format_time
+        data = data_language, data_auto_save_time
 
         with open(path, 'wb') as content:
             pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
@@ -201,8 +205,14 @@ class Saves:
 
         try:
             with open(path, 'rb') as content:
-                data_str = pickle.load(content)
-                self.game.load_language(data_str)
+                data = pickle.load(content)
+
+                data_language_str = data[0]
+                self.game.load_language(data_language_str)
+
+                data_auto_save_time = data[1]
+                self.game.time_auto_save = data_auto_save_time[0]
+                self.game.format_time = data_auto_save_time[1]
         except:
             self.reset_settings()
 
