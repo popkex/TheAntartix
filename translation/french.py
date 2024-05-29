@@ -9,8 +9,8 @@ translations = {
         "failed_escape": "Tu n'as pas réussi à t'échapper",
         'player_attack': "Tu as attaqué !",
         'player_crit': "Tu as fait un dégàt critique !",
+        'recovered_object': 'Tu as récupéré',
         'exit': 'pour quitter',
-        'recovered_object': 'Tu as récupéré'
     },
 
     "enemyA":{
