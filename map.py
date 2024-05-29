@@ -72,11 +72,11 @@ class MapManager:
         ], npcs=[
             # aucun npcs
         ], enemys=[
-                # zone 0
+                # zone 0 (spawn) (total de 6enemies)
                 *[EnemyA(self.game) for _ in range(4)],
                 *[EnemyB(self.game) for _ in range(2)],
 
-                # zone 1
+                # zone 1 (total de 6enemies)
                 *[EnemyA(self.game) for _ in range(3)],
                 *[EnemyB(self.game) for _ in range(3)],
 
