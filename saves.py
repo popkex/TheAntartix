@@ -1,10 +1,12 @@
-import pygame, pickle, os, shutil
+import pygame, pickle, os, time
 from inventory import *
 
 class Saves:
 
     def __init__(self, game):
         self.game = game
+        self.can_blit_image = False
+        self.time_blit_save_auto = 5
 
     def class_in_str(self, class_name):
         class_dict = {
@@ -13,6 +15,24 @@ class Saves:
             'Bomb': Bomb,
         }
         return class_dict.get(class_name)
+
+    def auto_saves(self):
+        # Obtient l'heure actuelle
+        now = time.time()
+
+        # vérifie si la save auto peut se lancer
+        if now - self.game.last_auto_save > self.game.time_auto_save:
+            self.save_all()
+            self.game.last_auto_save = now
+            self.can_blit_image = True
+
+        # désactive la save auto apres Xtemps
+        if now - self.game.last_auto_save > self.time_blit_save_auto:
+            self.can_blit_image = False
+
+    def blit_auto_save(self):
+        if self.can_blit_image:
+            self.game.screen.auto_save_message()
 
     def save_and_quit(self):
         self.save_all()

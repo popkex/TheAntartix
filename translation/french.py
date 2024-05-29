@@ -10,6 +10,7 @@ translations = {
         'player_attack': "Tu as attaqué !",
         'player_crit': "Tu as fait un dégàt critique !",
         'recovered_object': 'Tu as récupéré',
+        'auto_save': "Sauvegarde automatique",
         'exit': 'pour quitter',
     },
 

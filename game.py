@@ -42,6 +42,9 @@ class Game():
         self.messages_system = [] # met aucun message systeme
         self.current_direction = 'up' #défini la direction par defaut
 
+        self.time_auto_save = 120 # défini la save auto à 2mins
+        self.last_auto_save = time.time()
+
         self.saves.load_all()
 
         self.can_modifie_quest = True
@@ -90,6 +93,7 @@ class Game():
 
     def update_screen(self):
         self.screen.display_messages()
+        self.saves.blit_auto_save()
         self.dialog_box.render(self.screen.screen)
         self.clock.tick(60)
         pygame.display.flip()
@@ -133,6 +137,8 @@ class Game():
     def update_game(self):
         #sauvegarde la position du joueur
         self.player.save_location()
+        # sauvegarde auto le jeu
+        self.saves.auto_saves()
         #deplace le joueur
         self.handle_input()
         #met a jour l'emplacement du joueur
@@ -164,7 +170,6 @@ class Game():
         pygame.display.flip()
 
         while self.run:
-
             self.update_game()
             self.update_player_animation()
             self.update_screen()

@@ -97,7 +97,6 @@ class Screen:
     def transform_img(self, image, scale):
         return pygame.transform.scale(image, scale)
 
-
     def show_bar(self, valur, max_valur, position, color_bar, back_color_bar, max_w=300):
         x, y = position
         int_health = valur*max_w/max_valur
@@ -142,6 +141,14 @@ class Screen:
                 # Puis dessine le texte
                 self.blit_ressource(text, (x, y))
 
+    def auto_save_message(self):
+        # affiche le logo de la save auto
+        position = (1220, 0)
+        path = self.game.get_path_assets("logos\\auto_save.png")
+        image = pygame.image.load(path)
+        image = pygame.transform.scale(image, (50, 50))
+        self.blit_ressource(image, position)
+
 
 
 class MainMenu:
@@ -158,7 +165,7 @@ class MainMenu:
 # affiche le logo du jeu au demarrage du jeu (possibilité de skip si la personne appuie sur une touche)
     def show_logo(self):
         stop = False
-        img = pygame.image.load(self.screen.game.get_path_assets("studio_logo.png"))
+        img = pygame.image.load(self.screen.game.get_path_assets("logos\\studio_logo.png"))
         self.clock = pygame.time.Clock()
         for alpha in range(0, (180)): # affiche pendant 3s (60*seconds)
             img.set_alpha(alpha/2)
