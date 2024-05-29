@@ -43,7 +43,6 @@ class MainMenu:
                 if rect.collidepoint(event.pos):
                     if txt == 'play_button':
                         self.play_chose.running()
-                        # self.game.running()
 
                     elif txt == 'settings_button':
                         self.settings_menu.running()
@@ -105,7 +104,7 @@ class ConfirmResetGame:
                 self.handle_mouse_click(event)
 
                 if event.type == pygame.QUIT:
-                    self.run = False
+                    self.saves.save_and_quit()
 
     def handle_mouse_click(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:

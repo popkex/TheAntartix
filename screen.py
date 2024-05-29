@@ -585,7 +585,6 @@ class Pause_menu:
         self.show_button_settings()
         self.show_button_tutorial()
         self.show_button_back_to_the_game()
-        self.show_button_save_and_main_menu()
         self.show_button_save_and_quit()
 
     def buttons(self, txt_key, txt, button_number, dic):
@@ -614,11 +613,6 @@ class Pause_menu:
         txt_key = 'back_to_the_game'
         txt = self.screen.game.load_txt('pause_menu', txt_key)
         self.screen.pause_menu.buttons(txt_key, txt, 9, self.dic_buttons)
-
-    def show_button_save_and_main_menu(self):
-        txt_key = 'save_and_main_menu'
-        txt = self.screen.game.load_txt('pause_menu', txt_key)
-        self.buttons(txt_key, txt, 10, self.dic_buttons)
 
     def show_button_save_and_quit(self):
         txt_key = 'save_and_quit_button'

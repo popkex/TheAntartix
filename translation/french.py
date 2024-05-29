@@ -94,7 +94,6 @@ translations = {
         "settings_button": "Paramètres",
         "tutorial_button": "Tutoriels",
         "back_to_the_game": "Retour",
-        'save_and_main_menu': "Sauvegarder et retourner au menu principal",
         'save_and_quit_button': "Sauvegarder et quitter",
     },
 

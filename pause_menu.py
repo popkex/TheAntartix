@@ -46,9 +46,6 @@ class Pause_Menu:
                     elif txt == 'back_to_the_game':
                         self.run = False
 
-                    elif txt == 'save_and_main_menu':
-                        self.game.saves.save_and_main_menu()
-
                     elif txt == 'save_and_quit_button':
                         self.game.saves.save_and_quit()
 
