@@ -166,7 +166,6 @@ class Game():
         while self.run:
 
             self.update_game()
-            print(self.complete_quests)
             self.update_player_animation()
             self.update_screen()
 
