@@ -507,6 +507,8 @@ class VictoryScreen:
         self.enemy_fight = self.screen.game.load_txt(enemy_fight.key_name, 'name')
         self.xp_won = xp_won
 
+        self.random_victory_txt = random.randint(0, 9) # génère un nombre pour choisir aléatoirement quel texte choisir
+
     def buttons(self, txt_key, txt, button_number, dic):
         y = 100+50*button_number
         txt_surface, position = self.screen.draw_txt(txt, 50, (0, y), True, (255, 255, 255), True)
@@ -534,8 +536,7 @@ class VictoryScreen:
         self.screen.draw_txt(title, 70, (0, 50), True, (255, 255, 255), True)
 
     def random_victory(self):
-        random_victory_txt = random.randint(0, 9) # génère un nombre pour choisir aléatoirement quel texte choisir
-        txt_key = f"victory{random_victory_txt}"
+        txt_key = f"victory{self.random_victory_txt}"
         txt = self.screen.game.load_txt('victory', txt_key)
         self.screen.pause_menu.buttons(txt_key, txt, 2, self.dic_buttons)
 

@@ -30,8 +30,7 @@ class Victory:
                 self.handle_mouse_click(event)
                 
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        self.run = False
+                    self.run = False
 
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
