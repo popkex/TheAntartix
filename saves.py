@@ -235,11 +235,11 @@ class Saves:
                 for quest_data in data[1]:
                     self.game.complete_quests.append(quest_data)
 
-                    # dit au npc de changer de dialog
-                    for npc in self.game.map_manager.get_map().npcs:
-                        if npc.quest[0] in self.game.complete_quests:
-                            npc.quest_state = True
-                            break
+                # dit au npc de changer de dialog
+                for npc in self.game.map_manager.get_map().npcs:
+                    if npc.quest[0] in self.game.complete_quests:
+                        npc.quest_state = True
+                        break
 
             self.game.can_modifie_quest = False
 
@@ -281,8 +281,11 @@ class Saves:
 
     def reset_settings(self):
         self.game.load_language("en")
+        self.game.time_auto_save = 120
+        self.game.format_time = "2 minutes"
         self.save_settings()
 
     def reset_quests(self):
         self.game.quest.reset_all_quests()
+        self.game.complete_quests = []
         self.save_quests()
