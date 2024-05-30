@@ -25,6 +25,7 @@ class Data_Player:
         while self.xp >= self.xp_max:
             self.xp = self.xp - self.xp_max 
             self.lvl_up()
+        return give_xp
 
     def lvl_up(self):
         self.lvl += 1

@@ -9,6 +9,7 @@ translations = {
         "failed_escape": "Tu n'as pas réussi à t'échapper",
         'player_attack': "Tu as attaqué !",
         'player_crit': "Tu as fait un dégât critique !",
+        "enemy_known_out_player": "Tu as assomé ton enemie !",
         'recovered_object': "Tu as récupéré",
         'auto_save': "Sauvegarde automatique",
         'exit': "pour quitter",
@@ -25,9 +26,9 @@ translations = {
     },
 
     "objects": {
-        "Life_Potion": "une potion de soin",
-        "Big_Life_Potion": "une grosse potion de soin",
-        "Bomb": "une bombe",
+        "Life_Potion": "potion de soins",
+        "Big_Life_Potion": "grosse potion de soins",
+        "Bomb": "bombes",
     },
 
     'npc': {
@@ -59,6 +60,25 @@ translations = {
 
     'fleufleu': {
         "name": "fleufleu",
+    },
+
+    "victory": {
+        "title": "Victoire !",
+        "victory0": "Victoire !",
+        "victory1": "Victoire !",
+        "victory2": "Victoire !",
+        "victory3": "Victoire !",
+        "victory4": "Victoire !",
+        "victory5": "Victoire !",
+        "victory6": "Victoire !",
+        "victory7": "Victoire !",
+        "victory8": "Victoire !",
+        "victory9": "Victoire !",
+
+        "enemy_death": "Tu as vaincu :",
+        "object_won": "Tu as gagné",
+        "xp_won": "Tu as gangé",
+        "exit": "Retour",
     },
 
     "tutorials": {

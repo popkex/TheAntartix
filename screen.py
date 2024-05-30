@@ -1,4 +1,4 @@
-import pygame, time
+import pygame, time, random
 
 class Screen:
 
@@ -494,6 +494,75 @@ class Death:
         txt = f"{self.screen.game.load_txt('button_press', txt_key_button)} {self.screen.game.load_txt('message_system', txt_key_exit)}"
         self.screen.draw_txt(txt, 50, (0, 650), True, (255, 255, 255), True) # affiche le txt a l'écran avec une police de 50 et en x=centre, y=650
 
+
+
+class VictoryScreen:
+
+    def __init__(self, screen, object_won=None, number_object=None, enemy_fight=None, xp_won=None):
+        self.screen = screen
+        self.dic_buttons = {} 
+
+        self.object_won = object_won
+        self.number_object = number_object
+        self.enemy_fight = self.screen.game.load_txt(enemy_fight.key_name, 'name')
+        print(enemy_fight)
+        self.xp_won = xp_won
+
+    def buttons(self, txt_key, txt, button_number, dic):
+        y = 100+50*button_number
+        txt_surface, position = self.screen.draw_txt(txt, 50, (0, y), True, (255, 255, 255), True)
+        x, y, w, h = position
+        button_position = x -10, y-10, w + 10, h + 10
+        dic[txt_key] = button_position  # Stockez les coordonnées du bouton
+
+    def show_elements(self):
+        self.show_background()
+        self.show_title()
+        self.random_victory()
+        self.show_enemy_death()
+        self.show_object_won()
+        self.show_xp_won()
+        self.show_exit()
+
+    def show_background(self):
+        background_path = self.screen.game.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background = pygame.image.load(background_path)
+        background = self.screen.transform_img(background, self.screen.display_width)
+        self.screen.blit_ressource(background, (0, 0))
+
+    def show_title(self):
+        title = self.screen.game.load_txt('victory', 'title')
+        self.screen.draw_txt(title, 70, (0, 50), True, (255, 255, 255), True)
+
+    def random_victory(self):
+        random_victory_txt = random.randint(0, 9) # génère un nombre pour choisir aléatoirement quel texte choisir
+        txt_key = f"victory{random_victory_txt}"
+        txt = self.screen.game.load_txt('victory', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 2, self.dic_buttons)
+
+    def show_enemy_death(self):
+        txt_key = f"enemy_death"
+        txt = self.screen.game.load_txt('victory', txt_key)
+        txt = f"{txt} {self.enemy_fight}"
+        self.screen.pause_menu.buttons(txt_key, txt, 4, self.dic_buttons)
+
+    def show_object_won(self):
+        txt_key = "object_won"
+        txt = self.screen.game.load_txt('victory', txt_key)
+        txt_object = self.screen.game.load_txt("objects", self.object_won)
+        txt = f"{txt} {self.number_object} {txt_object}"
+        self.screen.pause_menu.buttons(txt_key, txt, 5, self.dic_buttons)
+
+    def show_xp_won(self):
+        txt_key = "xp_won"
+        txt = self.screen.game.load_txt('victory', txt_key)
+        txt = f"{txt} {self.xp_won}xp"
+        self.screen.pause_menu.buttons(txt_key, txt, 6, self.dic_buttons)
+
+    def show_exit(self):
+        txt_key = "exit"
+        txt = self.screen.game.load_txt('victory', txt_key)
+        self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
 
 
 

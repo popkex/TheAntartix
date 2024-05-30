@@ -1,5 +1,6 @@
 import pygame, random
 from screen import Screen
+from victory_fight import Victory
 from fight_entity import *
 
 class Fight:
@@ -23,13 +24,6 @@ class Fight:
     def reset_life(self):
         self.game.data_player.health = self.game.data_player.max_health / 2
 
-    def give_enemy_loot(self):
-        self.game.data_player.get_xp(self.current_enemy.give_xp)
-        loots = self.current_enemy.loot_enemy()
-        object_loot = loots[0](self.game)
-        number_loot = loots[1]
-        self.game.inventory.append_object(object_loot, number_loot)
-
     def kill_player(self):
         self.reset_life()
         self.game.data_player.remove_xp()
@@ -46,8 +40,9 @@ class Fight:
 
         # si le joueur gagne
         if self.game.fight_player.is_alive() and not self.current_enemy.is_alive():
-            self.give_enemy_loot()
             self.check_all_quest()
+
+            Victory(self.game, self.current_enemy).running()
 
         # si le joueur perd
         elif not self.game.fight_player.is_alive():
