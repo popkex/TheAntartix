@@ -32,16 +32,16 @@
                 12
             ],
             "expandedObjectLayers": [
-                7,
                 9,
+                7,
                 11,
                 3
             ],
             "scale": 1,
             "selectedLayer": 9,
             "viewCenter": {
-                "x": 808,
-                "y": 2559.5
+                "x": 1346,
+                "y": 2689.5
             }
         },
         "donjon1.tmx#donjon": {
@@ -72,8 +72,8 @@
             "scale": 1.5,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 119.66666666666666,
-                "y": 119.66666666666667
+                "x": 119.99999999999999,
+                "y": 120
             }
         },
         "house2.tmx": {
@@ -83,8 +83,8 @@
             "scale": 2,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 119.75,
-                "y": 119.75
+                "x": 120,
+                "y": 120
             }
         },
         "house_1.tmx": {
@@ -122,8 +122,8 @@
             "scale": 1.5,
             "selectedLayer": 9,
             "viewCenter": {
-                "x": 319.66666666666663,
-                "y": 319.66666666666663
+                "x": 342,
+                "y": 506
             }
         }
     },

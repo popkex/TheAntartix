@@ -505,7 +505,6 @@ class VictoryScreen:
         self.object_won = object_won
         self.number_object = number_object
         self.enemy_fight = self.screen.game.load_txt(enemy_fight.key_name, 'name')
-        print(enemy_fight)
         self.xp_won = xp_won
 
     def buttons(self, txt_key, txt, button_number, dic):
