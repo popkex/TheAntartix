@@ -45,7 +45,7 @@ class MapManager:
         ], npcs=[
             NPC('paul', nb_points=2, key_txt=('npc', 'paul'), quest=self.paul_quest, after_quest_txt= ('npc', 'paul_after_quest')), # donne la liste pour pouvoir traduire apres*
             NPC('michel', nb_points=2, key_txt=('npc', 'michel'), quest=self.michel_quest, after_quest_txt=('npc', 'michel_after_quest')),
-            NPC('fleufleu', nb_points=7, key_txt=('npc', 'fleufleu'), quest=None)
+            NPC('fleufleu', nb_points=7, key_txt=('npc', 'fleufleu'), quest=None),
         ], enemys=[
             # aucun ennemies
         ],
@@ -63,7 +63,7 @@ class MapManager:
         self.register_map("house2", portals=[
             Portal(from_world="house2", origin_point="exit_house", target_world="world", teleport_point="exit_house2")
         ], npcs=[
-            # aucun npcs
+            NPC('gupy', nb_points=3, key_txt=('npc', 'fleufleu'), quest=None),
         ], enemys=[
             # aucun ennemies
         ])
