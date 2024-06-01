@@ -5,6 +5,7 @@ class Saves:
 
     def __init__(self, game):
         self.game = game
+        self.language_manager = self.game.language_manager
         self.can_blit_image = False
         self.time_blit_save_auto = 5
 
@@ -131,7 +132,11 @@ class Saves:
 
     def save_settings(self):
         path = self.game.get_path_saves('settings.bin')
-        data_language = self.game.str_language
+
+        # save la langue
+        data_language = self.language_manager.str_language
+
+        # save le temps de l'auto_save
         data_auto_save_time = self.game.time_auto_save, self.game.format_time
         data = data_language, data_auto_save_time
 
@@ -204,7 +209,7 @@ class Saves:
                 data = pickle.load(content)
 
                 data_language_str = data[0]
-                self.game.load_language(data_language_str)
+                self.language_manager.load_language(data_language_str)
 
                 data_auto_save_time = data[1]
                 self.game.time_auto_save = data_auto_save_time[0]
@@ -280,7 +285,7 @@ class Saves:
         self.save_tutorial()
 
     def reset_settings(self):
-        self.game.load_language("en")
+        self.language_manager.load_language("en")
         self.game.time_auto_save = 120
         self.game.format_time = "2 minutes"
         self.save_settings()

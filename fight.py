@@ -2,12 +2,15 @@ import pygame, random
 from screen import Screen
 from victory_fight import Victory
 from fight_entity import *
+from language_manager import LanguageManager
 
 class Fight:
 
     def __init__(self, game, enemy):
         self.screen = Screen(game)
         self.game = game
+
+        self.language_manager = LanguageManager()
 
         self.is_player_action = True
         self.player_selected_object = False
@@ -73,7 +76,7 @@ class Fight:
             self.is_player_action = self.game.fight_player.turn()
         else:
             self.is_player_action = False
-            message = self.game.load_txt('message_system', 'enemy_known_out_player')
+            message = self.language_manager.load_txt('message_system', 'enemy_known_out_player')
             self.game.add_message(message)
 
     def ia_turn(self):
@@ -82,7 +85,7 @@ class Fight:
             self.is_player_action = self.current_enemy.turn(self.game)
         else:
             self.is_player_action = True
-            message = self.game.load_txt('message_system', 'player_known_out_enemy')
+            message = self.language_manager.load_txt('message_system', 'player_known_out_enemy')
             self.game.add_message(message)
 
     def entity_can_play_again(self, turn_entity):

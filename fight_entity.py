@@ -1,5 +1,6 @@
 import pygame, random
 from dataclasses import dataclass
+from language_manager import LanguageManager
 from inventory import *
 
 @dataclass
@@ -42,14 +43,14 @@ class Enemy(Entity):
 
         if crit_luck <= self.crit_luck:
             domage =  self.calculate_crit_dommage()
-            txt1 = self.game.load_txt('message_system', 'damage_crit_suffered1')
+            txt1 = self.LanguageManager().load_txt('message_system', 'damage_crit_suffered1')
             txt_dommage = domage
-            txt2 = self.game.load_txt('message_system', 'damage_crit_suffered2')
+            txt2 = self.LanguageManager().load_txt('message_system', 'damage_crit_suffered2')
             message = f"{txt1} {int(txt_dommage)} {txt2}"
         else:
-            txt1 = self.game.load_txt('message_system', 'damage_suffered1')
+            txt1 = self.LanguageManager().load_txt('message_system', 'damage_suffered1')
             txt_dommage = domage
-            txt2 = self.game.load_txt('message_system', 'damage_suffered2')
+            txt2 = self.LanguageManager().load_txt('message_system', 'damage_suffered2')
             message = f"{txt1} {txt_dommage} {txt2}"
 
         return domage, message
@@ -78,10 +79,10 @@ class EnemyA(Enemy):
     def __init__(self, game):
         key_name = "enemyA"
         key_txt = 'name'
-        name = game.load_txt(key_name, key_txt)
+        name = LanguageManager().load_txt(key_name, key_txt)
 
         key_txt = 'lanch_fight_message'
-        lanch_fight_message = game.load_txt(key_name, key_txt)
+        lanch_fight_message = LanguageManager().load_txt(key_name, key_txt)
 
         path = game.get_path_assets('enemy\enemyA.gif')
         image = pygame.image.load(path)
@@ -95,10 +96,10 @@ class EnemyB(Enemy):
     def __init__(self, game):
         key_name = "enemyB"
         key_txt = 'name'
-        name = game.load_txt(key_name, key_txt)
+        name = LanguageManager().load_txt(key_name, key_txt)
 
         key_txt = 'lanch_fight_message'
-        lanch_fight_message = game.load_txt(key_name, key_txt)
+        lanch_fight_message = LanguageManager().load_txt(key_name, key_txt)
 
         path = game.get_path_assets('enemy\enemyB.webp')
         image = pygame.image.load(path)

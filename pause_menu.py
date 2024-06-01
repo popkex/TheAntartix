@@ -1,4 +1,5 @@
 import pygame
+from language_manager import LanguageManager
 
 class Pause_Menu:
 
@@ -121,6 +122,7 @@ class Settings_Menu():
 class Settings_language:
     def __init__(self, game):
         self.game = game
+        self.language_manager = self.game.language_manager
 
     def running(self):
         self.run = True
@@ -146,13 +148,13 @@ class Settings_language:
                 rect = pygame.Rect(button_position)
                 if rect.collidepoint(event.pos):
                     if txt == 'english':
-                        self.game.load_language('en')
+                        self.language_manager.load_language('en')
 
                     elif txt == 'french':
-                        self.game.load_language('fr')
+                        self.language_manager.load_language('fr')
 
                     elif txt == 'spanish':
-                        self.game.load_language('es')
+                        self.language_manager.load_language('es')
 
                     elif txt == 'back':
                         self.run = False

@@ -1,5 +1,6 @@
 import pygame, sys, os, time
 import fight_entity
+from language_manager import LanguageManager
 from inventory import *
 from quest import Quest
 from map import MapManager
@@ -24,6 +25,7 @@ class Game():
         self.active_quests = []
         self.complete_quests = []
 
+        self.language_manager = LanguageManager()
         self.pause_menu = Pause_Menu(self)
         self.inventory = Inventory(self)
         self.saves = Saves(self)
@@ -49,22 +51,6 @@ class Game():
         self.saves.load_all()
 
         self.can_modifie_quest = True
-
-    def load_txt(self, page, txt):
-        return self.current_language.translations[page][txt]
-
-    def load_language(self, lang):
-        if lang == 'en':
-            import translation.english as new_language
-            str_new_language = "en"
-        elif lang == 'fr':
-            import translation.french as new_language
-            str_new_language = "fr"
-        elif lang == 'es':
-            import translation.spanish as new_language
-            str_new_language = "es"
-
-        self.current_language, self.str_language = new_language, str_new_language
 
     def check_quest_completion(self):
         # Vérifier si une quête est terminée

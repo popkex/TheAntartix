@@ -1,4 +1,5 @@
 import pygame, sys, os
+from language_manager import LanguageManager
 
 class DialogBox:
 
@@ -7,6 +8,7 @@ class DialogBox:
 
     def __init__(self, game):
         self.game = game
+        self.language_manager = LanguageManager()
         self.name = "???"
         self.box = pygame.image.load(self.get_path_assets('dialog/dialog_box.png'))
         self.box = pygame.transform.scale(self.box, (700, 100))
@@ -30,12 +32,12 @@ class DialogBox:
     def execute(self, key_txt, name=None, quest=None) -> bool:
         self.name = name
         page, txt = key_txt
-        dialog = self.game.load_txt(page, txt)
+        dialog = self.language_manager.load_txt(page, txt)
 
         # regarde si un nom est donner 
         if name:
             page, txt = name
-            self.name = self.game.load_txt(page, txt)
+            self.name = self.language_manager.load_txt(page, txt)
         else:
             self.name = "???"
 

@@ -1,8 +1,10 @@
 from dataclasses import dataclass
+from language_manager import LanguageManager
 import pygame
 
 class Inventory:
     def __init__(self, game):
+        self.language_manager = LanguageManager()
         self.objet_inventory = []
         self.objet_inventory_rects = []
         self.max_quantity = 99
@@ -83,8 +85,8 @@ class Inventory:
         else:
             number = self.update_quantity_object(objet, number)
 
-        message1 = self.game.load_txt('message_system', 'recovered_object')
-        message2 = self.game.load_txt('objects', objet.name)
+        message1 = self.language_manager.load_txt('message_system', 'recovered_object')
+        message2 = self.language_manager.load_txt('objects', objet.name)
 
         # affiche un message system quand le joueur recupere x objets
         message = f"{message1} {number} {message2}"
@@ -141,7 +143,7 @@ class Inventory:
                         object_used = objet[0].used()
 
                         if object_used:
-                            message = f"{self.game.load_txt('message_system', 'object_used')} 1 {self.game.load_txt('objects', objet[0].name)}"
+                            message = f"{self.language_manager.load_txt('message_system', 'object_used')} 1 {self.language_manager.load_txt('objects', objet[0].name)}"
                             self.game.add_message(message)
                             self.game.update_screen()
 
