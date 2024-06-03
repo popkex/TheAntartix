@@ -21,6 +21,7 @@ class Entity:
 class Enemy(Entity):
     def turn(self, game):
         self.game = game
+        self.language_manager = game.language_manager
         self.choose_action()
         return True
 
@@ -43,14 +44,14 @@ class Enemy(Entity):
 
         if crit_luck <= self.crit_luck:
             domage =  self.calculate_crit_dommage()
-            txt1 = self.LanguageManager().load_txt('message_system', 'damage_crit_suffered1')
+            txt1 = self.language_manager.load_txt('message_system', 'damage_crit_suffered1')
             txt_dommage = domage
-            txt2 = self.LanguageManager().load_txt('message_system', 'damage_crit_suffered2')
+            txt2 = self.language_manager.load_txt('message_system', 'damage_crit_suffered2')
             message = f"{txt1} {int(txt_dommage)} {txt2}"
         else:
-            txt1 = self.LanguageManager().load_txt('message_system', 'damage_suffered1')
+            txt1 = self.language_manager.load_txt('message_system', 'damage_suffered1')
             txt_dommage = domage
-            txt2 = self.LanguageManager().load_txt('message_system', 'damage_suffered2')
+            txt2 = self.language_manager.load_txt('message_system', 'damage_suffered2')
             message = f"{txt1} {txt_dommage} {txt2}"
 
         return domage, message
@@ -69,11 +70,7 @@ class Enemy(Entity):
         return self.health != 0
 
     def loot_enemy(self):
-        random_loot = random.choice(self.loot) # recupere un objet aléatoire
-        obj = random_loot[0]
-        max_quantity = random_loot[1]
-        number_loot = random.randint(1, max_quantity)
-        return obj, number_loot # return la classe (non initer) de l'objet puis le nombre d'objet
+        return self.loot
 
 class EnemyA(Enemy):
     def __init__(self, game):

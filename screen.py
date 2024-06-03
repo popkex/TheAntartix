@@ -500,12 +500,11 @@ class Death:
 
 class VictoryScreen:
 
-    def __init__(self, screen, object_won=None, number_object=None, enemy_fight=None, xp_won=None):
+    def __init__(self, screen, loots=None, enemy_fight=None, xp_won=None):
         self.screen = screen
         self.dic_buttons = {} 
 
-        self.object_won = object_won
-        self.number_object = number_object
+        self.loots = loots
         self.enemy_fight = self.screen.language_manager.load_txt(enemy_fight.key_name, 'name')
         self.xp_won = xp_won
 
@@ -549,10 +548,18 @@ class VictoryScreen:
         self.screen.pause_menu.buttons(txt_key, txt, 4, self.dic_buttons)
 
     def show_object_won(self):
-        txt_key = "object_won"
+        if self.loots: # vérifie si la liste est vide
+            txt_key = "object_won"
+        else:
+            txt_key = 'not_object_won'
+
         txt = self.screen.language_manager.load_txt('victory', txt_key)
-        txt_object = self.screen.language_manager.load_txt("objects", self.object_won)
-        txt = f"{txt} {self.number_object} {txt_object}"
+
+        for loot in self.loots:
+            txt_object = self.screen.language_manager.load_txt("objects", loot[0].name)
+
+            txt = f"{txt} {loot[1]} {txt_object}"
+
         self.screen.pause_menu.buttons(txt_key, txt, 5, self.dic_buttons)
 
     def show_xp_won(self):

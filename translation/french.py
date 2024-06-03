@@ -77,6 +77,7 @@ translations = {
 
         "enemy_death": "Tu as vaincu :",
         "object_won": "Tu as gagné",
+        "not_object_won": "Tu n'as pas réussi a récupéré un objet",
         "xp_won": "Tu as gagné",
         "exit": "Appuie sur n'importe qu'elle touche pour quitter",
     },

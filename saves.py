@@ -255,7 +255,7 @@ class Saves:
     def reset_attribut_player(self):
         max_health = 100
         health = max_health
-        attack = 10
+        attack = 100
         crit_luck = 5
         crit_domage = 1.12
         knock_out_luck = 5
