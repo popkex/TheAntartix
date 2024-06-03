@@ -3,6 +3,7 @@ import pygame, random
 class Fight_Player():
     def __init__(self, game):
         self.game = game
+        self.language_manager = game.language_manager
         self.enemy = game.fight.current_enemy
         self.player = game.data_player
         self.player_action_rects = []
@@ -35,9 +36,9 @@ class Fight_Player():
 
         if crit_luck <= self.player.crit_luck:
             domage =  self.calculate_crit_dommage()
-            message = self.game.load_txt('message_system', 'player_crit')
+            message = self.language_manager.load_txt('message_system', 'player_crit')
         else:
-            message = self.game.load_txt('message_system', 'player_attack')
+            message = self.language_manager.load_txt('message_system', 'player_attack')
 
         return domage, message
 
