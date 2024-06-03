@@ -1,5 +1,4 @@
 import pygame, sys, os
-from language_manager import LanguageManager
 
 class DialogBox:
 
@@ -8,7 +7,7 @@ class DialogBox:
 
     def __init__(self, game):
         self.game = game
-        self.language_manager = LanguageManager()
+        self.language_manager = self.game.language_manager
         self.name = "???"
         self.box = pygame.image.load(self.get_path_assets('dialog/dialog_box.png'))
         self.box = pygame.transform.scale(self.box, (700, 100))
