@@ -1,10 +1,9 @@
 from dataclasses import dataclass
-from language_manager import LanguageManager
 import pygame
 
 class Inventory:
     def __init__(self, game):
-        self.language_manager = LanguageManager()
+        self.language_manager = game.language_manager
         self.objet_inventory = []
         self.objet_inventory_rects = []
         self.max_quantity = 99
