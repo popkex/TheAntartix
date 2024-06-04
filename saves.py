@@ -79,25 +79,26 @@ class Saves:
             elif not os.path.exists(r'_internal\saves'):
                 os.makedirs(r'_internal\saves')
 
-
-
                                             # les saves
 
     def save_attribut_player(self, data_provided=None):
         path = self.game.get_path_saves('player_attribut.bin')
 
-        health = self.game.data_player.health
-        max_health = self.game.data_player.max_health
-        attack = self.game.data_player.attack
-        crit_luck = self.game.data_player.crit_luck
-        crit_domage = self.game.data_player.crit_domage
-        knock_out_luck = self.game.data_player.knock_out_luck
-        xp = self.game.data_player.xp
-        xp_max = self.game.data_player.xp_max
-        lvl = self.game.data_player.lvl
+        data_player = self.game.data_player
+
+        health = data_player.health
+        max_health = data_player.max_health
+        attack = data_player.attack
+        crit_luck = data_player.crit_luck
+        crit_domage = data_player.crit_domage
+        knock_out_luck = data_player.knock_out_luck
+        luck_fail_attack = data_player.luck_fail_attack
+        xp = data_player.xp
+        xp_max = data_player.xp_max
+        lvl = data_player.lvl
 
         if not data_provided:
-            data = (health, max_health, attack, crit_luck, crit_domage, knock_out_luck, xp, xp_max, lvl)
+            data = (health, max_health, attack, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, xp, xp_max, lvl)
         else:
             data = data_provided
 
@@ -159,10 +160,10 @@ class Saves:
         except:
             data = self.reset_attribut_player()
 
-        health, max_health, attack, crit_luck, crit_domage, knock_out_luck, xp, xp_max, lvl = data
+        health, max_health, attack, crit_luck, crit_domage, knock_out_luck, data_player, xp, xp_max, lvl = data
 
         data_1 = health, max_health, attack
-        data_2 = crit_luck, crit_domage, knock_out_luck
+        data_2 = crit_luck, crit_domage, knock_out_luck, data_player
         data_3 = xp, xp_max, lvl
 
         return data_1, data_2, data_3
@@ -255,15 +256,16 @@ class Saves:
     def reset_attribut_player(self):
         max_health = 100
         health = max_health
-        attack = 100
+        attack = 10
         crit_luck = 5
         crit_domage = 1.12
         knock_out_luck = 5
+        luck_fail_attack = 15
         xp = 0
         xp_max = 25
         lvl = 1
 
-        data = max_health, health, attack, crit_luck, crit_domage, knock_out_luck, xp, xp_max, lvl
+        data = max_health, health, attack, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, xp, xp_max, lvl
         self.save_attribut_player(data)
 
         return data

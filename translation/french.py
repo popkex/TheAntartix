@@ -9,6 +9,7 @@ translations = {
         "failed_escape": "Tu n'as pas réussi à t'échapper",
         'player_attack': "Tu as attaqué !",
         'player_crit': "Tu as fait un dégât critique !",
+        'player_fail_attack': 'Tu as loupé ton attaque',
         "enemy_known_out_player": "Tu as assomé ton enemie !",
         'recovered_object': "Tu as récupéré",
         'auto_save': "Sauvegarde automatique",

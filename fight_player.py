@@ -42,13 +42,22 @@ class Fight_Player():
 
         return domage, message
 
-    def player_attack(self):
-        domage, message = self.player_crit()
+    def player_fail_attack(self):
+        luck_fail = random.randint(0, 100)
 
-        if self.enemy.health > domage:
-            self.enemy.health -= domage
-        else: 
-            self.enemy.health = 0
+        if self.player.luck_fail_attack < luck_fail:
+            return True
+
+    def player_attack(self):
+        if self.player_fail_attack(): 
+            domage, message = self.player_crit()
+
+            if self.enemy.health > domage:
+                self.enemy.health -= domage
+            else: 
+                self.enemy.health = 0
+        else:
+            message = self.language_manager.load_txt('message_system', 'player_fail_attack')
 
         self.game.add_message(message)
         self.game.update_screen()
