@@ -16,6 +16,7 @@ class Entity:
     crit_luck: int
     crit_domage: float
     knock_out_luck: int
+    enemy_fail_attack: int
     give_xp: int
 
 class Enemy(Entity):
@@ -55,16 +56,23 @@ class Enemy(Entity):
             message = f"{txt1} {txt_dommage} {txt2}"
 
         return domage, message
+    
+    def fail_attack(self):
+        pass
 
     def action_attack(self):
-        domage, message = self.enemy_crit()
+        if not self.fail_attack(): 
+            domage, message = self.enemy_crit()
 
-        if self.game.data_player.health > domage:
-            self.game.data_player.health -= domage
-        else: 
-            self.game.data_player.health = 0
+            if self.game.data_player.health > domage:
+                self.game.data_player.health -= domage
+            else: 
+                self.game.data_player.health = 0
+        else:
+            message = self.language_manager.load_txt('message_system', 'enemy_fail_attack')
 
         self.game.add_message(message)
+        self.game.update_screen()
 
     def is_alive(self):
         return self.health != 0
@@ -87,7 +95,7 @@ class EnemyA(Enemy):
 
         loot = [(Life_Potion, 3), (Big_Life_Potion, 2)] # (L'objet, le nombre d'objet au max)
 
-        super().__init__(key_name, name, lanch_fight_message, loot, image, max_health=50, health=50, attack=12, crit_luck=6, crit_domage=1.12, knock_out_luck=5, give_xp=4)
+        super().__init__(key_name, name, lanch_fight_message, loot, image, max_health=50, health=50, attack=12, crit_luck=6, crit_domage=1.12, knock_out_luck=5, give_xp=4, enemy_fail_attack=15)
 
 class EnemyB(Enemy):
     def __init__(self, game):
@@ -103,4 +111,4 @@ class EnemyB(Enemy):
         image = pygame.transform.scale(image, (250, 250))
         loot = [(Big_Life_Potion, 3), (Bomb, 1)] # (L'objet, le nombre d'objet au max)
 
-        super().__init__(key_name, name, lanch_fight_message, loot, image, max_health=60, health=60, attack=12, crit_luck=10, crit_domage=1.15, knock_out_luck=10, give_xp=6) # de base 120, 120, 12, 5
+        super().__init__(key_name, name, lanch_fight_message, loot, image, max_health=60, health=60, attack=12, crit_luck=10, crit_domage=1.15, knock_out_luck=10, give_xp=6, enemy_fail_attack=10) # de base 120, 120, 12, 5

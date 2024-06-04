@@ -46,10 +46,11 @@ class Fight_Player():
         luck_fail = random.randint(0, 100)
 
         if self.player.luck_fail_attack < luck_fail:
-            return True
+            return False
+        return True
 
     def player_attack(self):
-        if self.player_fail_attack(): 
+        if not self.player_fail_attack(): 
             domage, message = self.player_crit()
 
             if self.enemy.health > domage:
