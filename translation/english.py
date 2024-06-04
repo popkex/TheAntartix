@@ -174,7 +174,7 @@ translations = {
         'fight_message_6': "He yelled 'For honor!', but all we heard was 'Ouch!'",
         'fight_message_7': "He fought like a lion, but alas, he was just a kitten.",
         'fight_message_8': "He sought victory, but found a picturesque end.",
-        'fight_message_9': "He dreamed of being invincible, he forgot to practice.",
+        'fight_message_9': "aaw, why don't you buy a better aimbot",
         'fight_message_10': "He wanted to master the game, but the game mastered him.",
     },
 

@@ -85,7 +85,7 @@ translations = {
     "tutorials": {
         "tutorial": "Tutoriel",
         "tuto_iv": ["Voici ton inventaire.", "Ici (comme dans tout inventaire),\ntu vas pouvoir stocker des objets et les utiliser.", "Tu peux appuyer sur 'E' pour le fermer et l'ouvrir/fermer quand tu veux."],
-        "tuto_fight": ["Te voilà en combat !", "Ici, en appuyant sur 'A', tu peux attaquer ton \nadversaire. Mais attention, tu te prendras des \ndégâts.", "Si tu meurs, ta vie reviendra à 50% de ta vie\net tu perdras de l'expérience/diminueras de niveau !", "Mais si tu arrives à tuer ton adversaire, \ntu gagnes de l'expérience et des objets.", "Tu peux aussi accéder à ton inventaire en appuyant \nsur 'E' et fuir avec 'ECHAP'.", "Je vais te dire un secret, tu peux aussi appuyer \nsur les icônes avec ta souris pour exécuter l'action", "Mais attention, si tu fuis, il se peut que tu n'y \narrives pas et tu te prendras des dégâts.", "Bonne chance et ne te fais pas tuer !"],
+        "tuto_fight": ["Te voilà en combat !", "Ici, en appuyant sur 'A', tu peux attaquer ton \nadversaire. Mais attention, tu te prendras des \ndégâts.", "Si tu meurs, ta vie reviendra à 50% de ta vie max\net tu perdras de l'expérience/diminueras de niveau !", "Mais si tu arrives à tuer ton adversaire, \ntu gagnes de l'expérience et des objets.", "Tu peux aussi accéder à ton inventaire en appuyant \nsur 'E' et fuir avec 'ECHAP'.", "Je vais te dire un secret, tu peux aussi appuyer \nsur les icônes avec ta souris pour exécuter l'action", "Mais attention, si tu fuis, il se peut que tu n'y \narrives pas et tu te prendras des dégâts.", "Bonne chance et ne te fais pas tuer !"],
     },
 
     "main_menu": {
@@ -175,7 +175,7 @@ translations = {
         'fight_message_6': "Il a crié 'Pour l'honneur !', mais tout ce qu'on a entendu, c'est 'Aie !'",
         'fight_message_7': "Il a combattu comme un lion, mais hélas, il n'était qu'un chaton.",
         'fight_message_8': "Il a cherché la victoire, mais a trouvé une fin pittoresque.",
-        'fight_message_9': "Il a rêvé d'être invincible, il a oublié de le pratiquer.",
+        'fight_message_9': "hum tu aurais du acheté un meilleur aimbot.",
         'fight_message_10': "Il a voulu être le maître du jeu, mais le jeu l'a maîtrisé.",
     },
 
