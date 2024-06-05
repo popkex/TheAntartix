@@ -64,6 +64,8 @@ class Game():
     def handle_input(self):
         pressed = pygame.key.get_pressed()
 
+        self.player.reset_move()
+
         if pressed[pygame.K_LEFT] or pressed[pygame.K_q]:
             self.player.move_left()
             self.current_direction = 'left'
@@ -76,6 +78,8 @@ class Game():
         if pressed[pygame.K_DOWN] or pressed[pygame.K_s]:
             self.player.move_down()
             self.current_direction = 'down'
+
+        self.player.update_move()
         return self.current_direction
 
     def update_screen(self):

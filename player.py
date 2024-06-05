@@ -23,6 +23,7 @@ class Entity(pygame.sprite.Sprite):
         self.feet = pygame.Rect(0, 0, self.rect.width / 2, 1)
         self.old_position = self.position.copy()
         self.speed = 1
+        self.velocity = [0, 0]
 
         self.image_animation_down = [
             self.get_image(2, 0), # L'image numéro 1
@@ -111,13 +112,19 @@ class Entity(pygame.sprite.Sprite):
 
 #permet les deplacement du joueur
     def move_right(self):
-        self.position[0] += self.speed #le 0 correspond au x (de la liste self.position)
+        self.velocity[0] = 1
     def move_left(self):
-        self.position[0] -= self.speed
+        self.velocity[0] = -1
     def move_up(self):
-        self.position[1] -= self.speed #le 1 correspond au y (de la liste self.position)
+        self.velocity[1] = -1
     def move_down(self):
-        self.position[1] += self.speed
+        self.velocity[1] = 1
+    def reset_move(self):
+        self.velocity = [0, 0]
+
+    def update_move(self):
+        self.position[0] += self.velocity[0] * self.speed
+        self.position[1] += self.velocity[1] * self.speed
 
 #actualise la position du joeuur
     def update(self):
@@ -178,6 +185,8 @@ class NPC(Entity):
         current_direction = None
         moving = False  # Initialisation du drapeau de mouvement
 
+        self.reset_move()
+
         if not self.npc_collide:
             if self.position[0] > target_rect.x:
                 self.move_left()
@@ -196,6 +205,8 @@ class NPC(Entity):
                 self.move_up()  # Déplacement vers le haut effectué ici
                 current_direction = 'up'
                 moving = True
+
+        self.update_move()
 
         # permet de faire en sorte qu'un npc peut rester a son target point un certain moment
         npc_can_move_luck = random.randint(0, 1000)
@@ -302,6 +313,8 @@ class Enemy(Entity):
         self.current_direction = None
         self.moving = False  # Initialisation du drapeau de mouvement
 
+        self.reset_move()
+
         # détécte si le joueur est a proximité 
         self.player_proximity = self.detect_player_proximity()
 
@@ -316,6 +329,8 @@ class Enemy(Entity):
                 self.move_and_animate_down()
             elif self.position[1] > target_rect[1] and not self.enemy_collide:
                 self.move_and_animate_up()
+
+        self.update_move()
 
         return self.current_direction, self.moving
 
