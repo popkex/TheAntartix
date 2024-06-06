@@ -43,6 +43,7 @@ class Game():
         self.active_fight = False   # n'active pas de combat
         self.messages_system = [] # met aucun message systeme
         self.current_direction = 'up' #défini la direction par defaut
+        self.gravity = 1
 
         self.time_auto_save = 120 # défini la save auto à 2mins
         self.format_time = "2minutes"
@@ -79,7 +80,8 @@ class Game():
             self.player.move_down()
             self.current_direction = 'down'
 
-        self.player.update_move()
+        self.player.update_move(self.gravity)
+
         return self.current_direction
 
     def update_screen(self):

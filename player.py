@@ -122,7 +122,13 @@ class Entity(pygame.sprite.Sprite):
     def reset_move(self):
         self.velocity = [0, 0]
 
-    def update_move(self):
+    def calculate_gravity(self, gravity):
+        self.velocity[0] *= gravity
+        self.velocity[1] *= gravity
+        return self.velocity
+
+    def update_move(self, gravity):
+        self.calculate_gravity(gravity) # permet de modifier la vitesse de tout les perso en fonction de la "gravité"
         self.position[0] += self.velocity[0] * self.speed
         self.position[1] += self.velocity[1] * self.speed
 
