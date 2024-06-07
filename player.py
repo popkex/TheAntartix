@@ -1,6 +1,8 @@
 import pygame, sys, os, random, math
 
 gravity = 1
+delta_time = 0.0
+fps_limite = 60
 
 class Entity(pygame.sprite.Sprite):
 
@@ -24,7 +26,8 @@ class Entity(pygame.sprite.Sprite):
         self.position = [x, y]
         self.feet = pygame.Rect(0, 0, self.rect.width / 2, 1)
         self.old_position = self.position.copy()
-        self.speed = 1
+        self.frame_speed = 1 # défini la vitesse a 1px par frame
+        self.calculate_speed()
         self.velocity = [0, 0]
         self.actualy_move_back = False
         self.dic_collide_walls = {
@@ -137,16 +140,15 @@ class Entity(pygame.sprite.Sprite):
         self.velocity[1] *= gravity
         return self.velocity
 
-    ## a faire au moment de corrige le beug du deltatime
-    # def calculate_deltatime_velocity(self):
-    #     self.velocity[0] *= deltatime
-    #     self.velocity[1] *= deltatime
-    #     return self.velocity
+    def calculate_speed(self):
+        self.speed = (self.frame_speed * fps_limite) / 2
+        return self.speed
 
     def update_move(self):
         self.calculate_gravity() # permet de modifier la vitesse de tout les perso en fonction de la "gravité"
-        self.position[0] += self.velocity[0] * self.speed
-        self.position[1] += self.velocity[1] * self.speed
+        self.calculate_speed()
+        self.position[0] += self.velocity[0] * self.speed * delta_time
+        self.position[1] += self.velocity[1] * self.speed * delta_time
 
     def reset_dic_collide_walls(self):
         self.dic_collide_walls = {
