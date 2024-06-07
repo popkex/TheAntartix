@@ -72,7 +72,7 @@ class Fight_Player():
         if luck <= 85: #de base 85
             self.game.active_fight = False
         else:
-            message = self.game.load_txt('message_system', 'failed_escape')
+            message = self.language_manager.load_txt('message_system', 'failed_escape')
             self.game.add_message(message)
             self.game.update_screen()
 

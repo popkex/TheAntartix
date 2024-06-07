@@ -1,6 +1,5 @@
 import pygame, random
 from dataclasses import dataclass
-from language_manager import LanguageManager
 from inventory import *
 
 @dataclass
@@ -84,10 +83,10 @@ class EnemyA(Enemy):
     def __init__(self, game):
         key_name = "enemyA"
         key_txt = 'name'
-        name = LanguageManager().load_txt(key_name, key_txt)
+        name = self.language_manager.load_txt(key_name, key_txt)
 
         key_txt = 'lanch_fight_message'
-        lanch_fight_message = LanguageManager().load_txt(key_name, key_txt)
+        lanch_fight_message = self.language_manager.load_txt(key_name, key_txt)
 
         path = game.get_path_assets('enemy\enemyA.gif')
         image = pygame.image.load(path)
@@ -101,10 +100,10 @@ class EnemyB(Enemy):
     def __init__(self, game):
         key_name = "enemyB"
         key_txt = 'name'
-        name = LanguageManager().load_txt(key_name, key_txt)
+        name = self.language_manager.load_txt(key_name, key_txt)
 
         key_txt = 'lanch_fight_message'
-        lanch_fight_message = LanguageManager().load_txt(key_name, key_txt)
+        lanch_fight_message = self.language_manager.load_txt(key_name, key_txt)
 
         path = game.get_path_assets('enemy\enemyB.webp')
         image = pygame.image.load(path)
