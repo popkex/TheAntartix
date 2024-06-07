@@ -1,5 +1,7 @@
 import pygame, sys, os, random, math
 
+gravity = 1
+
 class Entity(pygame.sprite.Sprite):
 
     def __init__(self, name, x, y):
@@ -24,6 +26,14 @@ class Entity(pygame.sprite.Sprite):
         self.old_position = self.position.copy()
         self.speed = 1
         self.velocity = [0, 0]
+        self.actualy_move_back = False
+        self.dic_collide_walls = {
+            "top": False,
+            'bottom': False,
+            "left": False,
+            "right": False,
+            "stop": False,
+        }
 
         self.image_animation_down = [
             self.get_image(2, 0), # L'image numéro 1
@@ -122,15 +132,24 @@ class Entity(pygame.sprite.Sprite):
     def reset_move(self):
         self.velocity = [0, 0]
 
-    def calculate_gravity(self, gravity):
+    def calculate_gravity(self):
         self.velocity[0] *= gravity
         self.velocity[1] *= gravity
         return self.velocity
 
-    def update_move(self, gravity):
-        self.calculate_gravity(gravity) # permet de modifier la vitesse de tout les perso en fonction de la "gravité"
+    def update_move(self):
+        self.calculate_gravity() # permet de modifier la vitesse de tout les perso en fonction de la "gravité"
         self.position[0] += self.velocity[0] * self.speed
         self.position[1] += self.velocity[1] * self.speed
+
+    def reset_dic_collide_walls(self):
+        self.dic_collide_walls = {
+            "top": False,
+            'bottom': False,
+            "left": False,
+            "right": False,
+            "stop": False,
+        }
 
 #actualise la position du joeuur
     def update(self):
@@ -138,10 +157,29 @@ class Entity(pygame.sprite.Sprite):
         self.feet.midbottom = self.rect.midbottom
 
 #redonne lancienne position au joueur si jamais il entre en collision
-    def move_back(self):
-        self.position = self.old_position
-        self.rect.topleft = self.position
-        self.feet.midbottom = self.rect.midbottom
+    def move_back(self, direction):
+        if direction:
+            if direction["top"]:
+                self.position[1] = self.old_position[1]
+                self.velocity[1] -= 1
+
+            if direction["bottom"]:
+                self.position[1] = self.old_position[1]
+                self.velocity[1] += 1
+
+            if direction["left"]:
+                self.position[0] = self.old_position[0]
+                self.velocity[0] -= 1
+
+            if direction["right"]:
+                self.position[0] = self.old_position[0]
+                self.velocity[0] += 1
+
+            if direction["stop"]:
+                self.velocity = [0, 0]
+
+            self.update_move()
+            self.actualy_move_back = True
 
 #permet de recuperer l'image du joueur dans le sprite sheet
     def get_image(self, x, y):
@@ -326,14 +364,14 @@ class Enemy(Entity):
 
         # vérifie si le joueur est a proximité et si l'enemie ne touche pas un mur
         if not self.enemy_collide and self.player_proximity:
-            if self.position[0] > target_rect[0] and not self.enemy_collide:
+            if self.position[0] > target_rect[0]:
                 self.move_and_animate_left()
-            elif self.position[0] < target_rect[0] and not self.enemy_collide:
+            elif self.position[0] < target_rect[0]:
                 self.move_and_animate_right()
 
-            if self.position[1] < target_rect[1] and not self.enemy_collide:
+            if self.position[1] < target_rect[1]:
                 self.move_and_animate_down()
-            elif self.position[1] > target_rect[1] and not self.enemy_collide:
+            elif self.position[1] > target_rect[1]:
                 self.move_and_animate_up()
 
         self.update_move()

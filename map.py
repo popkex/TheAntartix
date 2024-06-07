@@ -140,13 +140,46 @@ class MapManager:
                     self.current_map = portal.target_world
                     self.teleport_player_with_name(copy_portal.teleport_point)
 
+    def detect_wall_collision_side(self, entity, wall):
+        dx = (entity.feet.right - wall.left, wall.right - entity.feet.left)
+        dy = (entity.feet.bottom - wall.top, wall.bottom - entity.feet.top)
+        min_dx = min(dx)
+        min_dy = min(dy)
+
+        entity.reset_dic_collide_walls()
+
+        if min_dx < min_dy:
+            if dx[0] < dx[1]:
+                entity.dic_collide_walls['left'] = True
+            if dx[0] > dx[1]:
+                entity.dic_collide_walls['right'] = True
+
+        if min_dx > min_dy:
+            if dy[0] < dy[1]:
+                entity.dic_collide_walls['top'] = True
+            if dy[0] > dy[1]:
+                entity.dic_collide_walls['bottom'] = True
+
+        return entity.dic_collide_walls
+
     def check_collisions_walls(self):
         # Détecte la collision avec les murs
         for sprite in self.get_group().sprites():
-            # Vérifie la collision avec les murs
-            if sprite.feet.collidelist(self.get_walls()) > -1:
-                sprite.move_back()
+            side = None
+            collided_walls = []
+            for wall in self.get_walls():
+                if sprite.feet.colliderect(wall):
+                    collided_walls.append(wall)
 
+            sprite.reset_dic_collide_walls()
+
+            for wall in collided_walls:
+                side = self.detect_wall_collision_side(sprite, wall)
+                sprite.move_back(side)
+            '''
+            if sprite.__class__ == self.game.player.__class__:
+                print(f"v:{sprite.velocity}, d:{side}")
+            '''
             for npc in self.get_map().npcs:
                 npc.npc_collide = False
 
@@ -157,17 +190,10 @@ class MapManager:
 
             for enemy in self.get_map().enemys:
                 enemy.enemy_collide = False
-
-                for wall in self.get_walls():
-                    # si l'enemy touche un mur
-                    if enemy.feet.colliderect(wall):
-                        enemy.enemy_collide = True
-                        enemy.move_back()
-
-                    # si l'ennemie touche le joueur
-                    elif enemy.rect.colliderect(self.game.player.rect):
-                        enemy.enemy_player_collide = True
-                        enemy.move_back()
+                # si l'ennemie touche le joueur
+                if enemy.rect.colliderect(self.game.player.rect):
+                    enemy.enemy_player_collide = True
+                    enemy.dic_collide_walls['stop'] = True
 
     def check_player_in_safe_zone(self):
         for object_ in self.get_map().tmx_data.objects:
@@ -211,7 +237,7 @@ class MapManager:
                 walls.append(pygame.Rect(object_.x, object_.y, object_.width, object_.height))
 
         #dessine le groupe de calques
-        group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=6)
+        group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=7)
         group.add(self.player)
 
         # recupere les npc au groupe

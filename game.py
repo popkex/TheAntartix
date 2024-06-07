@@ -1,5 +1,6 @@
 import pygame, sys, os, time
 import fight_entity
+import player
 from language_manager import LanguageManager
 from inventory import *
 from quest import Quest
@@ -7,7 +8,6 @@ from map import MapManager
 from dialog import DialogBox
 from screen import Screen
 from data_player import Data_Player
-from player import Player
 from fight import Fight
 from fight_player import Fight_Player
 from tutorial import Tutorial
@@ -18,6 +18,9 @@ class Game():
 
     def __init__(self, main_menu):
         self.main_menu = main_menu
+
+        #ajout d'une clock au jeu
+        self.clock = pygame.time.Clock()
 
         self.can_modifie_quest = False
 
@@ -31,7 +34,7 @@ class Game():
         self.saves = Saves(self)
         self.data_player = Data_Player(self)
         self.data_player.load_attributes() # charge les attrbutes du joueur
-        self.player = Player()
+        self.player = player.Player()
         self.fight = Fight(self, None)
         self.screen = Screen(self)
         self.map_manager = MapManager(self, self.screen.screen, self.player)
@@ -67,20 +70,22 @@ class Game():
 
         self.player.reset_move()
 
-        if pressed[pygame.K_LEFT] or pressed[pygame.K_q]:
-            self.player.move_left()
-            self.current_direction = 'left'
-        if pressed[pygame.K_RIGHT] or pressed[pygame.K_d]:
-            self.player.move_right()
-            self.current_direction = 'right'
-        if pressed[pygame.K_UP] or pressed[pygame.K_z]:
-            self.player.move_up()
-            self.current_direction = 'up'
-        if pressed[pygame.K_DOWN] or pressed[pygame.K_s]:
-            self.player.move_down()
-            self.current_direction = 'down'
+        if not self.player.actualy_move_back:
+            if pressed[pygame.K_LEFT] or pressed[pygame.K_q]:
+                self.player.move_left()
+                self.current_direction = 'left'
+            if pressed[pygame.K_RIGHT] or pressed[pygame.K_d]:
+                self.player.move_right()
+                self.current_direction = 'right'
+            if pressed[pygame.K_UP] or pressed[pygame.K_z]:
+                self.player.move_up()
+                self.current_direction = 'up'
+            if pressed[pygame.K_DOWN] or pressed[pygame.K_s]:
+                self.player.move_down()
+                self.current_direction = 'down'
 
-        self.player.update_move(self.gravity)
+        self.player.update_move()
+        self.player.actualy_move_back = False
 
         return self.current_direction
 
@@ -156,7 +161,6 @@ class Game():
             self.player.change_image(self.current_direction)
 
     def running(self):
-        self.clock = pygame.time.Clock()
         self.run = True
 
         self.player.change_image('up')

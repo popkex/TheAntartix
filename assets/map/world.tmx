@@ -371,7 +371,7 @@
   <object id="68" type="collision" x="58.5" y="242.75" width="18.5" height="29.1902"/>
   <object id="69" type="collision" x="26.75" y="242.8" width="18.3125" height="29.3261"/>
   <object id="80" type="collision" x="368" y="16" width="80" height="260.667"/>
-  <object id="81" type="collision" x="368" y="320.96" width="80" height="303.042"/>
+  <object id="81" type="collision" x="368" y="320.96" width="80" height="312.417"/>
   <object id="93" name="exit_house2" x="51.2727" y="269.64">
    <point/>
   </object>
