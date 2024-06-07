@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "world.tmx",
+    "activeFile": "donjon1.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -37,11 +37,11 @@
                 3,
                 9
             ],
-            "scale": 0.75,
+            "scale": 16,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 971.9999999999999,
-                "y": 3334
+                "x": 1261.1875,
+                "y": 3224.15625
             }
         },
         "donjon1.tmx#donjon": {
@@ -145,10 +145,10 @@
     ],
     "project": "The_Antartix-map.tiled-project",
     "recentFiles": [
-        "donjon1.tmx",
-        "house2.tmx",
-        "house1.tmx",
         "world.tmx",
+        "house1.tmx",
+        "house2.tmx",
+        "donjon1.tmx",
         "mobilier.tsx",
         "nature.tsx",
         "donjon.tsx",
