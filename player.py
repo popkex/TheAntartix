@@ -1,7 +1,6 @@
 import pygame, sys, os, random, math
 
 gravity = 1
-deltatime = 0.0
 
 class Entity(pygame.sprite.Sprite):
 
@@ -138,14 +137,14 @@ class Entity(pygame.sprite.Sprite):
         self.velocity[1] *= gravity
         return self.velocity
 
-    def calculate_deltatime_velocity(self):
-        self.velocity[0] *= deltatime
-        self.velocity[1] *= deltatime
-        return self.velocity
+    ## a faire au moment de corrige le beug du deltatime
+    # def calculate_deltatime_velocity(self):
+    #     self.velocity[0] *= deltatime
+    #     self.velocity[1] *= deltatime
+    #     return self.velocity
 
     def update_move(self):
         self.calculate_gravity() # permet de modifier la vitesse de tout les perso en fonction de la "gravité"
-        self.calculate_deltatime_velocity() # permet de modifier la vitesse en fonction du temps 
         self.position[0] += self.velocity[0] * self.speed
         self.position[1] += self.velocity[1] * self.speed
 
