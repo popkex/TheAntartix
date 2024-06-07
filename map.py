@@ -176,10 +176,7 @@ class MapManager:
             for wall in collided_walls:
                 side = self.detect_wall_collision_side(sprite, wall)
                 sprite.move_back(side)
-            '''
-            if sprite.__class__ == self.game.player.__class__:
-                print(f"v:{sprite.velocity}, d:{side}")
-            '''
+
             for npc in self.get_map().npcs:
                 npc.npc_collide = False
 
