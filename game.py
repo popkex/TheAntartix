@@ -93,7 +93,7 @@ class Game():
         self.screen.display_messages()
         self.saves.blit_auto_save()
         self.dialog_box.render(self.screen.screen)
-        self.clock.tick(60)
+        self.delta_time = player.deltatime = self.clock.tick(self.fps_limite) /1000 # remplacer 60 par une var pour pouvoir modifier les fps dans les parametres
         pygame.display.flip()
 
     def update(self):
