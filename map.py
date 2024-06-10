@@ -219,7 +219,7 @@ class MapManager:
 #enregistre les maps
     def register_map(self, name, portals=[], npcs=[], enemys=[]):
         #charge la carte 
-        path = self.game.get_path_assets(f'map\{name}.tmx')
+        path = self.game.utils.get_path_assets(f'map\{name}.tmx')
         tmx_data = pytmx.util_pygame.load_pygame(path)
         map_data = pyscroll.data.TiledMapData(tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())

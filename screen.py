@@ -10,6 +10,7 @@ class Screen:
         self.language_manager = game.language_manager
 
         self.game = game
+        self.utils = self.game.utils
 
         self.main_menu = MainMenu(self)
         self.play_chose = PlayChose(self)
@@ -63,7 +64,7 @@ class Screen:
             self.draw_txt("HP", 20, (300, position[1]), False, (255, 102, 0))
 
     def show_inventory_asset(self):
-        path = self.game.get_path_assets('action_player/Item.png')
+        path = self.utils.get_path_assets('action_player/Item.png')
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (75, 75))
         self.blit_ressource(image, (1200, 640))
@@ -86,7 +87,7 @@ class Screen:
         pygame.draw.rect(surface, color, position)
 
     def draw_txt(self, txt, police=50, position=(0, 0), center=False, color=(255, 255, 255), render=False, can_blit=True):
-        path = self.game.get_path_assets('font\Arialic Hollow.ttf')
+        path = self.utils.get_path_assets('font\Arialic Hollow.ttf')
         font = pygame.font.SysFont(path, police, True)
         txt_surface = font.render(txt, render, color)
 
@@ -148,7 +149,7 @@ class Screen:
     def auto_save_message(self):
         # affiche le logo de la save auto
         position = (1220, 0)
-        path = self.game.get_path_assets("logos\\auto_save.png")
+        path = self.utils.get_path_assets("logos\\auto_save.png")
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (50, 50))
         self.blit_ressource(image, position)
@@ -169,7 +170,7 @@ class MainMenu:
 # affiche le logo du jeu au demarrage du jeu (possibilité de skip si la personne appuie sur une touche)
     def show_logo(self):
         stop = False
-        img = pygame.image.load(self.screen.game.get_path_assets("logos\\studio_logo.png"))
+        img = pygame.image.load(self.screen.utils.get_path_assets("logos\\studio_logo.png"))
         self.clock = pygame.time.Clock()
         for alpha in range(0, (180)): # affiche pendant 3s (60*seconds)
             img.set_alpha(alpha/2)
@@ -186,7 +187,7 @@ class MainMenu:
 
 
     def show_background(self):
-        background_path = self.screen.game.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -236,7 +237,7 @@ class PlayChose:
         self.show_buttons()
 
     def show_background(self):
-        background_path = self.screen.game.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -285,7 +286,7 @@ class ConfirmResetGame:
         self.show_buttons()
 
     def show_background(self):
-        background_path = self.screen.game.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -339,7 +340,7 @@ class Fight_display:
 
 # regroupe tout se qui a à afficher durant un combat (normalement)
     def screen_fight(self, action):
-        path = self.screen.game.get_path_assets('bg_fight.jpeg')
+        path = self.screen.utils.get_path_assets('bg_fight.jpeg')
         background = pygame.image.load(path)
         self.screen.blit_ressource(background)
         self.show_entity()
@@ -360,7 +361,7 @@ class Fight_display:
     def draw_player_action(self, action):
         x, y = 1040, 640
         for txt in action:
-            path = self.screen.game.get_path_assets(f'action_player/{txt}.png')
+            path = self.screen.utils.get_path_assets(f'action_player/{txt}.png')
             image = pygame.image.load(path)
             image = pygame.transform.scale(image, (75, 75))
             image_rect = image.get_rect()
@@ -415,7 +416,7 @@ class Inventory_display:
         self.draw_object(position)
 
     def draw_inventory_background(self, origin):
-        path = self.screen.game.get_path_assets('inventory\inventory_background.png')
+        path = self.screen.utils.get_path_assets('inventory\inventory_background.png')
         img = pygame.image.load(path)
 
         # Défini ou le background de l'inventaire s'arrete (en hauteur)
@@ -477,7 +478,7 @@ class Death:
         self.show_txt(cause, number_image)
 
     def blit_background(self):
-        path = self.screen.game.get_path_assets(f"Game_Over.png")
+        path = self.screen.utils.get_path_assets(f"Game_Over.png")
         image = pygame.image.load(path)
         self.screen.blit_ressource(image)
 
@@ -527,7 +528,7 @@ class VictoryScreen:
         self.show_exit()
 
     def show_background(self):
-        background_path = self.screen.game.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -588,7 +589,7 @@ class Dialog:
     def show_background(self):
         # affiche la box avec la bonne dimention 
         self.txt_rect, self.text = self.calculate_weight()
-        box_img = pygame.image.load(self.screen.game.get_path_assets('dialog/dialog_box.png'))
+        box_img = pygame.image.load(self.screen.utils.get_path_assets('dialog/dialog_box.png'))
         box_img = pygame.transform.scale(box_img, (self.txt_rect.width + 40, 35))
         self.screen.blit_ressource(box_img, (self.txt_rect.x, self.txt_rect.y))
 
@@ -614,7 +615,7 @@ class Dialog:
         image_size = texte_width + 20, texte_height + 5
 
         # Gère l'affichage du fond
-        background_path = self.screen.game.get_path_assets("dialog\dialog_box.png")
+        background_path = self.screen.utils.get_path_assets("dialog\dialog_box.png")
         image = pygame.image.load(background_path)
         image = pygame.transform.scale(image, image_size)
         image_position = texte_position[0] - 10, texte_position[1] - 5
@@ -649,7 +650,7 @@ class Pause_menu:
         self.show_buttons()
 
     def show_background(self):
-        background_path = self.screen.game.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))

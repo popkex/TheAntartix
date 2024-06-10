@@ -81,6 +81,8 @@ class Enemy(Entity):
 
 class EnemyA(Enemy):
     def __init__(self, game):
+        utils = game.utils
+
         key_name = "enemyA"
         key_txt = 'name'
         name = self.language_manager.load_txt(key_name, key_txt)
@@ -88,7 +90,7 @@ class EnemyA(Enemy):
         key_txt = 'lanch_fight_message'
         lanch_fight_message = self.language_manager.load_txt(key_name, key_txt)
 
-        path = game.get_path_assets('enemy\enemyA.gif')
+        path = utils.get_path_assets('enemy\enemyA.gif')
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (250, 250))
 
@@ -98,6 +100,8 @@ class EnemyA(Enemy):
 
 class EnemyB(Enemy):
     def __init__(self, game):
+        utils = game.utils
+
         key_name = "enemyB"
         key_txt = 'name'
         name = self.language_manager.load_txt(key_name, key_txt)
@@ -105,7 +109,7 @@ class EnemyB(Enemy):
         key_txt = 'lanch_fight_message'
         lanch_fight_message = self.language_manager.load_txt(key_name, key_txt)
 
-        path = game.get_path_assets('enemy\enemyB.webp')
+        path = utils.get_path_assets('enemy\enemyB.webp')
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (250, 250))
         loot = [(Big_Life_Potion, 3), (Bomb, 1)] # (L'objet, le nombre d'objet au max)

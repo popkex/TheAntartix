@@ -149,7 +149,6 @@ class Entity(pygame.sprite.Sprite):
         self.calculate_speed()
         self.position[0] += self.velocity[0] * self.speed * utils.delta_time
         self.position[1] += self.velocity[1] * self.speed * utils.delta_time
-        print(utils.delta_time)
 
     def reset_dic_collide_walls(self):
         self.dic_collide_walls = {
@@ -392,7 +391,7 @@ class EnemyA(Enemy):
     def __init__(self, game):
         self.game = game 
 
-        path = self.game.get_path_assets('enemy\enemyA.gif')
+        path = self.game.utils.get_path_assets('enemy\enemyA.gif')
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (32, 32))
 
@@ -405,7 +404,7 @@ class EnemyB(Enemy):
     def __init__(self, game):
         self.game = game 
 
-        path = self.game.get_path_assets('enemy\enemyB.webp')
+        path = self.game.utils.get_path_assets('enemy\enemyB.webp')
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (32, 32))
 

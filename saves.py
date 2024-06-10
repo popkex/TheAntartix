@@ -5,6 +5,7 @@ class Saves:
 
     def __init__(self, game):
         self.game = game
+        self.utils = game.utils
         self.language_manager = self.game.language_manager
         self.can_blit_image = False
         self.time_blit_save_auto = 5
@@ -82,7 +83,7 @@ class Saves:
                                             # les saves
 
     def save_attribut_player(self, data_provided=None):
-        path = self.game.get_path_saves('player_attribut.bin')
+        path = self.utils.get_path_saves('player_attribut.bin')
 
         data_player = self.game.data_player
 
@@ -106,7 +107,7 @@ class Saves:
             pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
 
     def save_position(self):
-        path = self.game.get_path_saves('player_position.bin')
+        path = self.utils.get_path_saves('player_position.bin')
         coordonates = self.game.player.get_coordonnes()
         map = self.game.map_manager.current_map
         data = (coordonates, map)
@@ -115,7 +116,7 @@ class Saves:
             pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
 
     def save_inventory(self):
-        path = self.game.get_path_saves('inventory.bin')
+        path = self.utils.get_path_saves('inventory.bin')
 
         # Sauvegarder les noms des classes des objets
         self.game.object_name_inventory = [(type(objet[0]).__name__, objet[1]) for objet in self.game.inventory.objet_inventory]
@@ -125,14 +126,14 @@ class Saves:
             pickle.dump(objects, content, pickle.HIGHEST_PROTOCOL)
 
     def save_tutorial(self):
-        path = self.game.get_path_saves('tutorials.bin')
+        path = self.utils.get_path_saves('tutorials.bin')
         data = self.game.tutorial.dic_tutorial
 
         with open(path, 'wb') as content:
             pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
 
     def save_settings(self):
-        path = self.game.get_path_saves('settings.bin')
+        path = self.utils.get_path_saves('settings.bin')
 
         # save la langue
         data_language = self.language_manager.str_language
@@ -145,7 +146,7 @@ class Saves:
             pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
 
     def save_quests(self):
-        path = self.game.get_path_saves('quest.bin')
+        path = self.utils.get_path_saves('quest.bin')
         data = self.game.quest.all_quests_data(), self.game.complete_quests
 
         with open(path, 'wb') as content:
@@ -153,7 +154,7 @@ class Saves:
 
                                             # les loads
     def load_attribut_player(self):
-        path = self.game.get_path_saves('player_attribut.bin')
+        path = self.utils.get_path_saves('player_attribut.bin')
         try:
             with open(path, 'rb') as content:
                 data = pickle.load(content)
@@ -169,7 +170,7 @@ class Saves:
         return data_1, data_2, data_3
 
     def load_position(self):
-        path = self.game.get_path_saves('player_position.bin')
+        path = self.utils.get_path_saves('player_position.bin')
 
         try:
             with open(path, 'rb') as content:
@@ -180,7 +181,7 @@ class Saves:
             pass
 
     def load_inventory(self):
-        path = self.game.get_path_saves('inventory.bin')
+        path = self.utils.get_path_saves('inventory.bin')
         objects = []
 
         try:
@@ -194,7 +195,7 @@ class Saves:
             self.save_inventory()
 
     def load_tutorial(self):
-        path = self.game.get_path_saves('tutorials.bin')
+        path = self.utils.get_path_saves('tutorials.bin')
 
         try:
             with open(path, 'rb') as content:
@@ -203,7 +204,8 @@ class Saves:
             self.reset_tutorial()
 
     def load_settings(self):
-        path = self.game.get_path_saves('settings.bin')
+        path = self.utils.get_path_saves('settings.bin')
+        print(f"\n\n\npath : {path}\n\n\n")
 
         try:
             with open(path, 'rb') as content:
@@ -222,7 +224,7 @@ class Saves:
         try:
             self.game.can_modifie_quest = True
             type_quests_progress = []
-            path = self.game.get_path_saves('quest.bin')
+            path = self.utils.get_path_saves('quest.bin')
 
             with open(path, 'rb') as content:
                 data = pickle.load(content)
