@@ -205,7 +205,6 @@ class Saves:
 
     def load_settings(self):
         path = self.utils.get_path_saves('settings.bin')
-        print(f"\n\n\npath : {path}\n\n\n")
 
         try:
             with open(path, 'rb') as content:
