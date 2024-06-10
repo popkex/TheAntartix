@@ -78,7 +78,8 @@ class PlayChose:
                 rect = pygame.Rect(button_position)
                 if rect.collidepoint(event.pos):
                     if txt == 'load_game':
-                        self.game.running()
+                        game = Game(self)
+                        game.running()
 
                     elif txt == 'new_game':
                         self.confirm_reset_game.running()
