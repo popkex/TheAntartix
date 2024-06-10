@@ -19,6 +19,8 @@ class Game():
     def __init__(self, main_menu):
         self.main_menu = main_menu
 
+        self.utils = player.utils
+
         #ajout d'une clock au jeu
         self.clock = pygame.time.Clock()
 
@@ -51,8 +53,6 @@ class Game():
         self.time_auto_save = 120 # défini la save auto à 2mins
         self.format_time = "2minutes"
         self.last_auto_save = time.time()
-        self.fps_limite = player.fps_limite
-        self.delta_time = player.delta_time
 
         self.saves.load_all()
 
@@ -95,8 +95,7 @@ class Game():
         self.screen.display_messages()
         self.saves.blit_auto_save()
         self.dialog_box.render(self.screen.screen)
-        self.delta_time = self.clock.tick(self.fps_limite) /1000 # remplacer 60 par une var pour pouvoir modifier les fps dans les parametres
-        player.delta_time = self.delta_time
+        self.utils.delta_time = self.clock.tick(self.utils.fps_limite) /1000 # remplacer 60 par une var pour pouvoir modifier les fps dans les parametres
         pygame.display.flip()
 
     def update(self):

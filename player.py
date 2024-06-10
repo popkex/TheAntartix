@@ -1,8 +1,8 @@
 import pygame, sys, os, random, math
+from utils import Utils
 
-gravity = 1
-delta_time = 0.0
-fps_limite = 60
+
+utils = Utils()
 
 class Entity(pygame.sprite.Sprite):
 
@@ -136,19 +136,20 @@ class Entity(pygame.sprite.Sprite):
         self.velocity = [0, 0]
 
     def calculate_gravity(self):
-        self.velocity[0] *= gravity
-        self.velocity[1] *= gravity
+        self.velocity[0] *= utils.gravity
+        self.velocity[1] *= utils.gravity
         return self.velocity
 
     def calculate_speed(self):
-        self.speed = (self.frame_speed * fps_limite) / 2
+        self.speed = (self.frame_speed * utils.fps_limite) / 2
         return self.speed
 
     def update_move(self):
         self.calculate_gravity() # permet de modifier la vitesse de tout les perso en fonction de la "gravité"
         self.calculate_speed()
-        self.position[0] += self.velocity[0] * self.speed * delta_time
-        self.position[1] += self.velocity[1] * self.speed * delta_time
+        self.position[0] += self.velocity[0] * self.speed * utils.delta_time
+        self.position[1] += self.velocity[1] * self.speed * utils.delta_time
+        print(utils.delta_time)
 
     def reset_dic_collide_walls(self):
         self.dic_collide_walls = {
