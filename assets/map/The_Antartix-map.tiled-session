@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "donjon1.tmx",
+    "activeFile": "world.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -27,21 +27,21 @@
         },
         "donjon1.tmx": {
             "expandedGroupLayers": [
-                11,
                 13,
+                11,
                 12
             ],
             "expandedObjectLayers": [
-                11,
+                9,
                 7,
-                3,
-                9
+                11,
+                3
             ],
             "scale": 16,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 1261.1875,
-                "y": 3224.15625
+                "x": 1246.21875,
+                "y": 3219.5625
             }
         },
         "donjon1.tmx#donjon": {
@@ -72,8 +72,8 @@
             "scale": 1.5,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 119.33333333333331,
-                "y": 120
+                "x": 113.66666666666666,
+                "y": 120.33333333333331
             }
         },
         "house2.tmx": {
@@ -83,8 +83,8 @@
             "scale": 1,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": -45,
-                "y": 123.5
+                "x": 119.5,
+                "y": 120.5
             }
         },
         "house_1.tmx": {
@@ -120,11 +120,11 @@
                 5,
                 12
             ],
-            "scale": 8,
-            "selectedLayer": 8,
+            "scale": 0.75,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 400.375,
-                "y": 602.6875
+                "x": 179.33333333333331,
+                "y": 316
             }
         }
     },
@@ -145,10 +145,10 @@
     ],
     "project": "The_Antartix-map.tiled-project",
     "recentFiles": [
-        "world.tmx",
-        "house1.tmx",
-        "house2.tmx",
         "donjon1.tmx",
+        "house2.tmx",
+        "house1.tmx",
+        "world.tmx",
         "mobilier.tsx",
         "nature.tsx",
         "donjon.tsx",
