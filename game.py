@@ -16,47 +16,99 @@ from pause_menu import Pause_Menu
 
 class Game():
 
-    def __init__(self, main_menu):
+    def __init__(self, main_menu, loading=None):
         self.main_menu = main_menu
+        self.loading = loading
 
+        if loading:
+            self.load_components_with_screen()
+            self.loading.loading_screen.complete()
+        else:
+            self.load_components()
+
+        self.saves.load_all()
+        self.can_modifie_quest = True
+
+    def load_components(self):
+        self.load_settings()
+        self.load_utils()
+        self.load_saves()
+        self.load_quests()
+        self.load_player()
+        self.load_screen()
+        self.load_fight()
+        self.load_map()
+        self.load_tutorials_and_dialog()
+        self.load_system()
+
+    def load_components_with_screen(self):
+        self.loading.loading_screen.show_element('Loading settings...')
+        self.load_settings()
+        self.loading.loading_screen.show_element("Loading utils...")
+        self.load_utils()
+        self.loading.loading_screen.show_element('Loading saves...')
+        self.load_saves()
+        self.loading.loading_screen.show_element("Loading quests...")
+        self.load_quests()
+        self.loading.loading_screen.show_element('Loading player...')
+        self.load_player()
+        self.loading.loading_screen.show_element('Loading screen...')
+        self.load_screen()
+        self.loading.loading_screen.show_element('Loading fight...')
+        self.load_fight()
+        self.loading.loading_screen.show_element('Loading maps...')
+        self.load_map()
+        self.loading.loading_screen.show_element('Loading tutorials...')
+        self.load_tutorials_and_dialog()
+        self.loading.loading_screen.show_element('Loading system...')
+        self.load_system()
+
+    def load_settings(self):
+        self.language_manager = LanguageManager()
+        self.time_auto_save = 120 # défini la save auto à 2mins
+        self.format_time = "2minutes"
+        self.last_auto_save = time.time()
+
+    def load_saves(self):
+        self.saves = Saves(self)
+
+    def load_utils(self):
         self.utils = player.utils
-
-        #ajout d'une clock au jeu
         self.clock = pygame.time.Clock()
 
+    def load_quests(self):
         self.can_modifie_quest = False
-
         self.quest = Quest(self)
         self.active_quests = []
         self.complete_quests = []
 
-        self.language_manager = LanguageManager()
+    def load_screen(self):
+        self.screen = Screen(self)
         self.pause_menu = Pause_Menu(self)
+
+    def load_player(self):
         self.inventory = Inventory(self)
-        self.saves = Saves(self)
         self.data_player = Data_Player(self)
         self.data_player.load_attributes() # charge les attrbutes du joueur
         self.player = player.Player()
+
+    def load_fight(self):
         self.fight = Fight(self, None)
-        self.screen = Screen(self)
-        self.map_manager = MapManager(self, self.screen.screen, self.player)
-        self.dialog_box = DialogBox(self)
-        self.tutorial = Tutorial(self)
         self.fight_entity = fight_entity
 
+    def load_map(self):
+        self.map_manager = MapManager(self, self.screen.screen, self.player)
+
+    def load_tutorials_and_dialog(self):
+        self.dialog_box = DialogBox(self)
+        self.tutorial = Tutorial(self)
+
+    def load_system(self):
         self.object_name_inventory = [] # met l'inventaire vide (avant de le charger et de le remplir)
         self.active_fight = False   # n'active pas de combat
         self.messages_system = [] # met aucun message systeme
         self.current_direction = 'up' #défini la direction par defaut
         self.gravity = 1
-
-        self.time_auto_save = 120 # défini la save auto à 2mins
-        self.format_time = "2minutes"
-        self.last_auto_save = time.time()
-
-        self.saves.load_all()
-
-        self.can_modifie_quest = True
 
     def check_quest_completion(self):
         # Vérifier si une quête est terminée

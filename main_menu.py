@@ -3,6 +3,14 @@ from game import Game
 from screen import Screen
 from saves import Saves
 from pause_menu import Settings_Menu
+from loading import Loading
+
+def start_game_loading(self):
+    paths_img_list = ["assets\enemy\enemyA.gif", "assets\mobilier.png", "assets\player.png"]
+    loading = Loading(self, paths_img_list)
+    loading.execut()
+    self.game = Game(self, loading)
+    self.game.running()
 
 class MainMenu:
 
@@ -78,8 +86,7 @@ class PlayChose:
                 rect = pygame.Rect(button_position)
                 if rect.collidepoint(event.pos):
                     if txt == 'load_game':
-                        game = Game(self)
-                        game.running()
+                        start_game_loading(self)
 
                     elif txt == 'new_game':
                         self.confirm_reset_game.running()
@@ -114,9 +121,7 @@ class ConfirmResetGame:
                 if rect.collidepoint(event.pos):
                     if txt == 'confirm':
                         self.saves.reset_game()
-                        # creer une nouvelle instance de game pour pouvoir recharger tout le jeu
-                        game = Game(self)
-                        game.running()
+                        start_game_loading(self)
 
                     elif txt == 'cancel':
                         self.run = False

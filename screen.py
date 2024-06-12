@@ -156,6 +156,33 @@ class Screen:
 
 
 
+class LoadingScreen:
+
+    def __init__(self, screen, paths_img_list):
+        self.screen = screen
+        self.current_image = 0
+        self.dic_img = {} # stock toute les images chargées du chargement
+        self.load_imgs(paths_img_list)
+
+    def show_element(self):
+        self.show_video()
+
+    def load_imgs(self, paths_img_list):
+        # récupére tous les chemins d'acces et charge les images
+        for i, path_img in enumerate(paths_img_list):
+            self.dic_img[i] = pygame.image.load(path_img)
+            self.max_image = i # permet de définir le nombre d'image max
+
+    def show_video(self):
+        position = (0, 0)
+        self.screen.blit_ressource(self.dic_img[self.current_image], position)
+
+        if self.current_image + 1 <= self.max_image:
+            self.current_image += 1
+        else:
+            self.current_image = 0
+
+
 class MainMenu:
 
     def __init__(self, screen):
