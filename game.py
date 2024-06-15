@@ -222,6 +222,10 @@ class Game():
                     if event.key == pygame.K_ESCAPE:
                         self.pause_menu.running()
 
+                    if event.key == pygame.K_SPACE:
+                        self.map_manager.remove_wall("test")
+                        self.map_manager.change_tuile(33, 20, 2)
+
                 if event.type == pygame.QUIT:
                     self.run = False
 

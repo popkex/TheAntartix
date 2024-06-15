@@ -14,6 +14,7 @@ class Portal:
 class Map:
     name: str
     walls: list[pygame.Rect]
+    walls_name: dict
     portals: list[Portal]
     group: pyscroll.PyscrollGroup
     tmx_data: pytmx.TiledMap
@@ -227,11 +228,14 @@ class MapManager:
 
         #définie la liste des collisions
         walls = []
+        walls_name = {}
 
         #ajoute les positions de chaque objets de la classe collision dans la liste walls
         for object_ in tmx_data.objects:
             if object_.type == "collision":
-                walls.append(pygame.Rect(object_.x, object_.y, object_.width, object_.height))
+                rect = pygame.Rect(object_.x, object_.y, object_.width, object_.height)
+                walls.append(rect)
+                walls_name[object_.name] = rect
 
         #dessine le groupe de calques
         group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=7)
@@ -246,7 +250,7 @@ class MapManager:
             group.add(enemy)
 
         #creer un objet map
-        self.maps[name] = Map(name, walls, portals, group, tmx_data, npcs, enemys)
+        self.maps[name] = Map(name, walls, walls_name, portals, group, tmx_data, npcs, enemys)
 
 #recupere les maps 
     def get_map(self):
@@ -259,10 +263,69 @@ class MapManager:
 #recupere tout les murs de la map
     def get_walls(self):
         return self.get_map().walls
+    def get_wall_name(self):
+        return self.get_map().walls_name
+    def get_wall_rect_in_name(self, name):
+        return self.get_map().walls_name[name]
 
 #recupere tout les obstacles de la map
     def get_obstect(self, name):
         return self.get_map().tmx_data.get_object_by_name(name)
+
+#supprime un mur choisi
+    def remove_wall(self, wall_name):
+        if wall_name in self.get_wall_name():
+            self.get_walls().remove(self.get_wall_rect_in_name(wall_name))
+            del self.get_wall_name()[wall_name]
+
+        '''exemple d'utilisation : 
+            if event.key == pygame.K_SPACE:
+                self.map_manager.remove_wall("test")'''
+
+#supprime une tuile choisi
+    def change_tuile(self, tuile_position_x, tuile_position_y, gid):
+        #obtiens les données actuelles de la map
+        tmx_data = self.get_map().tmx_data
+
+        #accède a la couche de la tuile (le calque)
+        layer = None
+        for l in tmx_data.visible_layers:
+            if isinstance(l, pytmx.TiledTileLayer):
+                layer = l
+                break
+        if layer is None:
+            raise ValueError("Aucune couche de tuiles trouvée")
+
+        #modifie la tuile
+        layer.data[tuile_position_y][tuile_position_x] = gid
+
+        #recharge la map
+        self.reload_map()
+
+#actualise la map (les enemies ne réaparaisse pas et les status des npcs ne changent pas)
+    def reload_map(self):
+        # Recharge le layer de la carte actuelle
+        current_map = self.get_map()
+        map_data = pyscroll.data.TiledMapData(current_map.tmx_data)
+        map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
+        map_layer.zoom = 2
+
+        # Mettez à jour le groupe de calques
+        group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=7)
+        group.add(self.player)
+
+        # Ajouter les NPCs et ennemis
+        for npc in current_map.npcs:
+            group.add(npc)
+        for enemy in current_map.enemys:
+            group.add(enemy)
+
+        # Mettez à jour la carte actuelle avec le nouveau groupe de calques
+        current_map.group = group
+
+    '''Exemple d'utilisation :
+    Suppose que gid = 1 est l'identifiant de la nouvelle tuile.
+    self.map_manager.change_tuile(5, 10, 1)'''
 
     def teleport_npcs(self):
         for map in self.maps:
