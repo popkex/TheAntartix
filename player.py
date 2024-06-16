@@ -26,7 +26,7 @@ class Entity(pygame.sprite.Sprite):
         self.position = [x, y]
         self.feet = pygame.Rect(0, 0, self.rect.width / 2, 1)
         self.old_position = self.position.copy()
-        self.frame_speed = 1 # défini la vitesse a 1px par frame
+        self.frame_speed = 1.5 # défini la vitesse a 1.5px par frame
         self.calculate_speed()
         self.velocity = [0, 0]
         self.actualy_move_back = False
