@@ -272,7 +272,7 @@ class Saves:
         return data
 
     def reset_position(self):
-        self.game.map_manager.current_map = "world"
+        self.game.map_manager.current_map = "artixs-temple-first"
         self.game.map_manager.teleport_player_with_name('player_spawn')
         self.save_position()
 

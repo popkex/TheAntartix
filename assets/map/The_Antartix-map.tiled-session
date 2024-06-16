@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "world.tmx",
+    "activeFile": "artixs-temple-first.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -21,27 +21,43 @@
         "C:/Users/cleme/OneDrive/dev/TheAntartix/assets/map/nature.tsx": {
             "scaleInDock": 1
         },
+        "artixs-temple-first.tmx": {
+            "scale": 1,
+            "selectedLayer": 10,
+            "viewCenter": {
+                "x": 148.5,
+                "y": 412
+            }
+        },
+        "artixs-temple-first.tmx#assets": {
+            "scaleInDock": 4,
+            "scaleInEditor": 1
+        },
+        "artixs-temple-first.tmx#donjon1": {
+            "scaleInDock": 16,
+            "scaleInEditor": 1
+        },
         "donjon.tsx": {
-            "scaleInDock": 1.5,
+            "scaleInDock": 0.75,
             "scaleInEditor": 2
         },
         "donjon1.tmx": {
             "expandedGroupLayers": [
-                13,
+                12,
                 11,
-                12
+                13
             ],
             "expandedObjectLayers": [
+                3,
                 9,
                 7,
-                11,
-                3
+                11
             ],
-            "scale": 16,
+            "scale": 1,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 1246.21875,
-                "y": 3219.5625
+                "x": 1136,
+                "y": 1703.5
             }
         },
         "donjon1.tmx#donjon": {
@@ -62,18 +78,18 @@
         },
         "house.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 11,
+            "scaleInDock": 5.5,
             "scaleInEditor": 1
         },
         "house1.tmx": {
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 1.5,
+            "scale": 4,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 113.66666666666666,
-                "y": 120.33333333333331
+                "x": 126.75,
+                "y": 119.875
             }
         },
         "house2.tmx": {
@@ -83,7 +99,7 @@
             "scale": 1,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 119.5,
+                "x": 120,
                 "y": 120.5
             }
         },
@@ -108,47 +124,51 @@
         },
         "mobilier.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1,
+            "scaleInDock": 3,
             "scaleInEditor": 1
         },
         "nature.tsx": {
-            "scaleInDock": 0.75,
+            "scaleInDock": 1.5,
             "scaleInEditor": 1
         },
         "world.tmx": {
             "expandedObjectLayers": [
-                5,
-                12
+                12,
+                5
             ],
-            "scale": 0.75,
-            "selectedLayer": 7,
+            "scale": 8,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 179.33333333333331,
-                "y": 316
+                "x": 316.3125,
+                "y": 319.9375
             }
         }
     },
     "frame.defaultDuration": 90,
     "last.externalTilesetPath": "C:/Users/cleme/OneDrive/dev/python/TheAntartix/assets/map",
-    "last.imagePath": "C:/Users/Eleve/OneDrive/dev/python/TheAntartix/assets/map/assets/Dungeon Gathering Free Version",
+    "last.imagePath": "C:/Users/Eleve/OneDrive/dev/python/TheAntartix/assets/map/assets",
     "map.fixedSize": true,
     "map.height": 5,
     "map.lastUsedFormat": "tmx",
+    "map.orientation": null,
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "map.width": 25,
     "openFiles": [
+        "artixs-temple-first.tmx",
         "world.tmx",
         "house1.tmx",
         "house2.tmx",
         "donjon1.tmx"
     ],
     "project": "The_Antartix-map.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
         "donjon1.tmx",
         "house2.tmx",
         "house1.tmx",
         "world.tmx",
+        "artixs-temple-first.tmx",
         "mobilier.tsx",
         "nature.tsx",
         "donjon.tsx",

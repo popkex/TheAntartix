@@ -28,7 +28,7 @@ class MapManager:
         self.screen = screen
         self.player = player
         self.game = game
-        self.current_map = "world"
+        self.current_map = "artixs-temple-first"
         
         self.paul_quest = ('paul_quest', 'kill_enemy', 20, self.game.inventory.potion.life_potion, 10, 'descr')
         self.michel_quest = ('michel_quest', 'Life_Potion', 10, self.game.inventory.weapon.bomb, 10, 'descr')
@@ -37,6 +37,14 @@ class MapManager:
         self.battle_running = False
 
 #défini les maps
+#premiere map ou le joueur spawn
+        self.register_map('artixs-temple-first', portals=[
+            Portal(from_world="artixs-temple-first", origin_point='exit_temple', target_world='world', teleport_point='player_spawn')
+        ], npcs=[
+
+        ], enemys=[
+
+        ])
 #dans le monde normal
         #défini : le monde d'origine (le monde normal), le point d'entrée, le monde d'entrée, le lieu de spawn dans le monde d'entrée
         self.register_map("world", portals=[
@@ -49,8 +57,7 @@ class MapManager:
             NPC('fleufleu', nb_points=7, key_txt=('npc', 'fleufleu'), quest=None),
         ], enemys=[
             # aucun ennemies
-        ],
-        )
+        ])
 
 #depuis les maisons
         #defini le monde d'origine (la maison), le point de sortie, le monde de sortie, l'endroit du spawn dans le monde de sortie
