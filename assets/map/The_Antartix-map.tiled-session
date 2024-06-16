@@ -28,8 +28,8 @@
             "scale": 1,
             "selectedLayer": 10,
             "viewCenter": {
-                "x": 148.5,
-                "y": 412
+                "x": 227,
+                "y": 215.5
             }
         },
         "artixs-temple-first.tmx#assets": {
@@ -46,15 +46,15 @@
         },
         "donjon1.tmx": {
             "expandedGroupLayers": [
-                12,
                 11,
+                12,
                 13
             ],
             "expandedObjectLayers": [
-                3,
-                9,
+                11,
                 7,
-                11
+                3,
+                9
             ],
             "scale": 1,
             "selectedLayer": 4,
@@ -136,14 +136,14 @@
         },
         "world.tmx": {
             "expandedObjectLayers": [
-                12,
-                5
+                5,
+                12
             ],
             "scale": 8,
             "selectedLayer": 10,
             "viewCenter": {
-                "x": 321.0625,
-                "y": 319.625
+                "x": 316.3125,
+                "y": 319.9375
             }
         }
     },

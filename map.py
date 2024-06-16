@@ -143,10 +143,11 @@ class MapManager:
                 point = self.get_obstect(portal.origin_point)
                 rect = pygame.Rect(point.x, point.y, point.width, point.height)
 
-                if self.player.feet.colliderect(rect):
-                    copy_portal = portal
-                    self.current_map = portal.target_world
-                    self.teleport_player_with_name(copy_portal.teleport_point)
+                for entity in self.get_group():
+                    if entity.feet.colliderect(rect):
+                        copy_portal = portal
+                        self.current_map = portal.target_world
+                        self.teleport_entity_with_name(copy_portal.teleport_point, entity)
 
     def detect_wall_collision_side(self, entity, wall):
         dx = (entity.feet.right - wall.left, wall.right - entity.feet.left)
@@ -223,6 +224,18 @@ class MapManager:
         self.player.position[0] = x
         self.player.position[1] = y
         self.player.save_location()
+
+#teleport nimporte qu'elle entity
+    def teleport_entity_with_name(self, name, entity):
+        point = self.get_obstect(name)
+        entity.position[0] = point.x
+        entity.position[1] = point.y
+        entity.save_location()
+
+    def teleport_entity_with_position(self, x, y, entity):
+        entity.position[0] = x
+        entity.position[1] = y
+        entity.save_location()
 
 #enregistre les maps
     def register_map(self, name, portals=[], npcs=[], enemys=[]):
