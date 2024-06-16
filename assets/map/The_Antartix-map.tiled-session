@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "artixs-temple-first.tmx",
+    "activeFile": "world.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -22,6 +22,9 @@
             "scaleInDock": 1
         },
         "artixs-temple-first.tmx": {
+            "expandedObjectLayers": [
+                8
+            ],
             "scale": 1,
             "selectedLayer": 10,
             "viewCenter": {
@@ -137,10 +140,10 @@
                 5
             ],
             "scale": 8,
-            "selectedLayer": 0,
+            "selectedLayer": 10,
             "viewCenter": {
-                "x": 316.3125,
-                "y": 319.9375
+                "x": 321.0625,
+                "y": 319.625
             }
         }
     },
@@ -164,11 +167,11 @@
     "project": "The_Antartix-map.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "artixs-temple-first.tmx",
         "donjon1.tmx",
         "house2.tmx",
         "house1.tmx",
         "world.tmx",
-        "artixs-temple-first.tmx",
         "mobilier.tsx",
         "nature.tsx",
         "donjon.tsx",
