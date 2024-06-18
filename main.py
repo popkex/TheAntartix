@@ -1,5 +1,6 @@
 import pygame, os
 from main_menu import MainMenu
+from data_maps import DataMap
 
 pygame.init()
 

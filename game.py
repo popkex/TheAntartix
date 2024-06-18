@@ -207,6 +207,7 @@ class Game():
 
         while self.run:
             self.updates()
+            # print(self.player.position)
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:

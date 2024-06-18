@@ -1,6 +1,7 @@
 import pygame, pytmx, pyscroll
 from player import *
 from inventory import *
+from data_maps import DataMap
 from dataclasses import dataclass
 
 @dataclass
@@ -28,82 +29,32 @@ class MapManager:
         self.screen = screen
         self.player = player
         self.game = game
-        self.current_map = "artixs-temple-first"
-        
+        self.current_map = "artixs_temple_first"
+
         self.paul_quest = ('paul_quest', 'kill_enemy', 20, self.game.inventory.potion.life_potion, 10, 'descr')
         self.michel_quest = ('michel_quest', 'Life_Potion', 10, self.game.inventory.weapon.bomb, 10, 'descr')
 
         #permet le lancement des combats
         self.battle_running = False
 
+        #map les enemys
+        self.enemy_classes = {
+            'EnemyA': EnemyA,
+            'EnemyB': EnemyB,
+        }
+
 #défini les maps
 #premiere map ou le joueur spawn
-        self.register_map('artixs-temple-first', portals=[
-            Portal(from_world="artixs-temple-first", origin_point='exit_temple', target_world='world', teleport_point='player_spawn')
-        ], npcs=[
-
-        ], enemys=[
-
-        ])
+        self.register_map('artixs_temple_first')
 #dans le monde normal
         #défini : le monde d'origine (le monde normal), le point d'entrée, le monde d'entrée, le lieu de spawn dans le monde d'entrée
-        self.register_map("world", portals=[
-            Portal(from_world="world", origin_point="enter_house1", target_world="house1", teleport_point="player_spawn"),
-            Portal(from_world="world", origin_point="enter_house2", target_world="house2", teleport_point="player_spawn"),
-            Portal(from_world="world", origin_point="enter_donjon1", target_world="donjon1", teleport_point="player_spawn"),
-        ], npcs=[
-            NPC('paul', nb_points=2, key_txt=('npc', 'paul'), quest=self.paul_quest, after_quest_txt= ('npc', 'paul_after_quest')), # donne la liste pour pouvoir traduire apres*
-            NPC('michel', nb_points=2, key_txt=('npc', 'michel'), quest=self.michel_quest, after_quest_txt=('npc', 'michel_after_quest')),
-            NPC('fleufleu', nb_points=7, key_txt=('npc', 'fleufleu'), quest=None),
-        ], enemys=[
-            # aucun ennemies
-        ])
+        self.register_map("world")
 
 #depuis les maisons
         #defini le monde d'origine (la maison), le point de sortie, le monde de sortie, l'endroit du spawn dans le monde de sortie
-        self.register_map("house1", portals=[
-            Portal(from_world="house1", origin_point="exit_house", target_world="world", teleport_point="exit_house1")
-        ], npcs=[
-            # aucun npcs
-        ], enemys=[
-            # aucun ennemies
-        ])
-        self.register_map("house2", portals=[
-            Portal(from_world="house2", origin_point="exit_house", target_world="world", teleport_point="exit_house2")
-        ], npcs=[
-            NPC('gupy', nb_points=3, key_txt=('npc', 'fleufleu'), quest=None),
-        ], enemys=[
-            # aucun ennemies
-        ])
-        self.register_map("donjon1", portals=[ 
-            Portal(from_world="donjon1", origin_point="exit_donjon", target_world="world", teleport_point="exit_donjon1"),
-        ], npcs=[
-            # aucun npcs
-        ], enemys=[
-                # zone 0 (spawn) (total de 6enemies)
-                *[EnemyA(self.game) for _ in range(4)],
-                *[EnemyB(self.game) for _ in range(2)],
-
-                # zone 1 (total de 6enemies)
-                *[EnemyA(self.game) for _ in range(3)],
-                *[EnemyB(self.game) for _ in range(3)],
-
-                # zone 2
-
-                # zone 3
-
-                # zone 4
-
-                # zone 5
-
-                # zone 6, boss
-
-                # zone 7
-
-                # zone 8
-
-                # zone 9
-        ])
+        self.register_map("house1")
+        self.register_map("house2")
+        self.register_map("donjon1")
 
         #défini le lieu de spawn qui s'appelle 'player_spawn'
         self.teleport_player_with_name('player_spawn')
@@ -238,7 +189,7 @@ class MapManager:
         entity.save_location()
 
 #enregistre les maps
-    def register_map(self, name, portals=[], npcs=[], enemys=[]):
+    def register_map(self, name):
         #charge la carte 
         path = self.game.utils.get_path_assets(f'map\{name}.tmx')
         tmx_data = pytmx.util_pygame.load_pygame(path)
@@ -260,6 +211,19 @@ class MapManager:
         #dessine le groupe de calques
         group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=7)
         group.add(self.player)
+
+        data_map = DataMap(name)
+        data_map = data_map.data
+
+        portals = [Portal(**portal) for portal in data_map.get('portals', [])]
+        npcs = [NPC(**npc) for npc in data_map.get('npcs', [])]
+        enemys = []
+        for enemy_data in data_map.get('enemys', []):
+            quantity = enemy_data.get('quantity', 0)
+            enemy_type = enemy_data.get('type', 0)
+            enemy_type = self.enemy_classes[enemy_type]
+            for _ in range(quantity):
+                enemys.append(enemy_type(self.game))
 
         # recupere les npc au groupe
         for npc in npcs:

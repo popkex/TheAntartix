@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "donjon1.tmx",
+    "activeFile": "artixs_temple_first.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -28,8 +28,8 @@
             "scale": 1,
             "selectedLayer": 11,
             "viewCenter": {
-                "x": 200.5,
-                "y": 147
+                "x": 199.5,
+                "y": 146
             }
         },
         "artixs-temple-first.tmx#assets": {
@@ -40,27 +40,41 @@
             "scaleInDock": 16,
             "scaleInEditor": 1
         },
+        "artixs_temple_first.tmx": {
+            "scale": 1.5657407407407407,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 215.55292726197516,
+                "y": 216.51094027202842
+            }
+        },
+        "artixs_temple_first.tmx#assets": {
+            "scaleInDock": 1
+        },
+        "artixs_temple_first.tmx#donjon1": {
+            "scaleInDock": 1
+        },
         "donjon.tsx": {
             "scaleInDock": 0.75,
             "scaleInEditor": 2
         },
         "donjon1.tmx": {
             "expandedGroupLayers": [
-                11,
                 12,
-                13
+                13,
+                11
             ],
             "expandedObjectLayers": [
                 11,
-                7,
+                9,
                 3,
-                9
+                7
             ],
             "scale": 1.5,
             "selectedLayer": 12,
             "viewCenter": {
-                "x": 1355.6666666666665,
-                "y": 3096
+                "x": 1136,
+                "y": 1703.6666666666665
             }
         },
         "donjon1.tmx#donjon": {
@@ -91,8 +105,8 @@
             "scale": 4,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 126.375,
-                "y": 119.5
+                "x": 126.75,
+                "y": 119.875
             }
         },
         "house2.tmx": {
@@ -102,8 +116,8 @@
             "scale": 1,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 119.5,
-                "y": 119
+                "x": 120,
+                "y": 120.5
             }
         },
         "house_1.tmx": {
@@ -136,14 +150,14 @@
         },
         "world.tmx": {
             "expandedObjectLayers": [
-                5,
-                12
+                12,
+                5
             ],
             "scale": 1,
             "selectedLayer": 9,
             "viewCenter": {
-                "x": 196.5,
-                "y": 94
+                "x": 290.5,
+                "y": 319.5
             }
         }
     },
@@ -158,7 +172,7 @@
     "map.tileWidth": 16,
     "map.width": 25,
     "openFiles": [
-        "artixs-temple-first.tmx",
+        "artixs_temple_first.tmx",
         "world.tmx",
         "house1.tmx",
         "house2.tmx",
@@ -167,18 +181,18 @@
     "project": "The_Antartix-map.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "artixs-temple-first.tmx",
-        "world.tmx",
-        "house1.tmx",
-        "house2.tmx",
         "donjon1.tmx",
+        "house2.tmx",
+        "house1.tmx",
+        "world.tmx",
+        "artixs_temple_first.tmx",
+        "artixs-temple-first.tmx",
         "mobilier.tsx",
         "nature.tsx",
         "donjon.tsx",
         "house.tsx",
         "house.tmx",
-        "house_2.tmx",
-        "house_1.tmx"
+        "house_2.tmx"
     ],
     "resizeMap.removeObjects": false,
     "tileset.embedInMap": true,
