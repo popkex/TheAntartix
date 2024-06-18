@@ -28,6 +28,7 @@
         "npcs": [],
         "enemys": []
     },
+
     "house2": {
         "portals": [
             {"from_world": "house2", "origin_point": "exit_house", "target_world": "world", "teleport_point": "exit_house2"}

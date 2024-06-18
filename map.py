@@ -31,9 +31,6 @@ class MapManager:
         self.game = game
         self.current_map = "artixs_temple_first"
 
-        self.paul_quest = ('paul_quest', 'kill_enemy', 20, self.game.inventory.potion.life_potion, 10, 'descr')
-        self.michel_quest = ('michel_quest', 'Life_Potion', 10, self.game.inventory.weapon.bomb, 10, 'descr')
-
         #permet le lancement des combats
         self.battle_running = False
 
@@ -43,22 +40,15 @@ class MapManager:
             'EnemyB': EnemyB,
         }
 
-#défini les maps
-#premiere map ou le joueur spawn
-        self.register_map('artixs_temple_first')
-#dans le monde normal
-        #défini : le monde d'origine (le monde normal), le point d'entrée, le monde d'entrée, le lieu de spawn dans le monde d'entrée
-        self.register_map("world")
+        self.init_all_maps()
 
-#depuis les maisons
-        #defini le monde d'origine (la maison), le point de sortie, le monde de sortie, l'endroit du spawn dans le monde de sortie
+    def init_all_maps(self):
+        self.register_map('artixs_temple_first')
+        self.register_map("world")
         self.register_map("house1")
         self.register_map("house2")
         self.register_map("donjon1")
-
-        #défini le lieu de spawn qui s'appelle 'player_spawn'
         self.teleport_player_with_name('player_spawn')
-
         self.teleport_npcs()
         self.teleport_enemy()
 
