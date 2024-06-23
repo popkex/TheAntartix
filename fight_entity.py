@@ -82,6 +82,7 @@ class Enemy(Entity):
 class EnemyA(Enemy):
     def __init__(self, game):
         utils = game.utils
+        self.language_manager = game.language_manager
 
         key_name = "enemyA"
         key_txt = 'name'
@@ -101,6 +102,7 @@ class EnemyA(Enemy):
 class EnemyB(Enemy):
     def __init__(self, game):
         utils = game.utils
+        self.language_manager = game.language_manager
 
         key_name = "enemyB"
         key_txt = 'name'
