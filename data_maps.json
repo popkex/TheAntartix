@@ -1,0 +1,55 @@
+{
+    "artixs_temple_first": {
+        "portals": [
+            {"from_world": "artixs_temple_first", "origin_point": "exit_temple", "target_world": "world", "teleport_point": "player_spawn"}
+        ],
+        "npcs": [],
+        "enemys": []
+    },
+
+    "world": {
+        "portals": [
+            {"from_world": "world", "origin_point": "enter_house1", "target_world": "house1", "teleport_point": "player_spawn"},
+            {"from_world": "world", "origin_point": "enter_house2", "target_world": "house2", "teleport_point": "player_spawn"},
+            {"from_world": "world", "origin_point": "enter_donjon1", "target_world": "donjon1", "teleport_point": "player_spawn"}
+        ],
+        "npcs": [
+            {"name": "paul", "nb_points": 2, "key_txt": ["npc", "paul"], "quest": ["paul_quest", "kill_enemy", 20, "potion.life_potion", 10, "descr"], "after_quest_txt": ["npc", "paul_after_quest"]},
+            {"name": "michel", "nb_points": 2, "key_txt": ["npc", "michel"], "quest": ["michel_quest", "Life_Potion", 10, "weapon.bomb", 10, "descr"], "after_quest_txt": ["npc", "michel_after_quest"]},
+            {"name": "fleufleu", "nb_points": 7, "key_txt": ["npc", "fleufleu"], "quest": null}
+    ],
+        "enemys": []
+    },
+
+    "house1": {
+        "portals": [
+        {"from_world": "house1", "origin_point": "exit_house", "target_world": "world", "teleport_point": "exit_house1"}
+    ],
+        "npcs": [],
+        "enemys": []
+    },
+
+    "house2": {
+        "portals": [
+            {"from_world": "house2", "origin_point": "exit_house", "target_world": "world", "teleport_point": "exit_house2"}
+        ],
+        "npcs": [
+            {"name": "gupy", "nb_points": 3, "key_txt": ["npc", "fleufleu"], "quest": null}
+        ],
+        "enemys": []
+    },
+
+    "donjon1": {
+        "portals": [
+            {"from_world": "donjon1", "origin_point": "exit_donjon", "target_world": "world", "teleport_point": "exit_donjon1"}
+        ],
+        "npcs": [],
+        "enemys": [
+            {"type": "EnemyA", "quantity": 4},
+            {"type": "EnemyB", "quantity": 2},
+
+            {"type": "EnemyA", "quantity": 3},
+            {"type": "EnemyB", "quantity": 3}
+        ]
+    }
+}

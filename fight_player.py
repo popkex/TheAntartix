@@ -3,6 +3,7 @@ import pygame, random
 class Fight_Player():
     def __init__(self, game):
         self.game = game
+        self.language_manager = game.language_manager
         self.enemy = game.fight.current_enemy
         self.player = game.data_player
         self.player_action_rects = []
@@ -19,34 +20,72 @@ class Fight_Player():
     def is_alive(self):
         return self.player.health != 0
 
+    def calculate_crit_dommage(self):
+        domage = self.player.attack*self.player.crit_domage
+
+        # vérifie si le crit a bien augmenter l'attack 
+        if domage == self.player.attack:
+            domage += 1
+
+        return domage
+
+    def player_crit(self):
+        crit_luck = random.randint(0, 100)
+
+        domage = self.player.attack
+
+        if crit_luck <= self.player.crit_luck:
+            domage =  self.calculate_crit_dommage()
+            message = self.language_manager.load_txt('message_system', 'player_crit')
+        else:
+            message = self.language_manager.load_txt('message_system', 'player_attack')
+
+        return domage, message
+
+    def player_fail_attack(self):
+        luck_fail = random.randint(0, 100)
+
+        if self.player.luck_fail_attack < luck_fail:
+            return False
+        return True
+
     def player_attack(self):
-        if self.enemy.health > self.player.attack:
-            self.enemy.health -= self.player.attack
-        else: 
-            self.enemy.health = 0
-        message = self.game.load_txt('message_system', 'player_attack')
+        if not self.player_fail_attack(): 
+            domage, message = self.player_crit()
+
+            if self.enemy.health > domage:
+                self.enemy.health -= domage
+            else: 
+                self.enemy.health = 0
+        else:
+            message = self.language_manager.load_txt('message_system', 'player_fail_attack')
+
         self.game.add_message(message)
         self.game.update_screen()
+
         return False
 
     def player_escape(self):
         luck = random.randint(0, 100)
+
         # Le joueur a 15% de chance d'échouer à la fuite du combat 
         if luck <= 85: #de base 85
             self.game.active_fight = False
         else:
-            message = self.game.load_txt('message_system', 'failed escape')
+            message = self.language_manager.load_txt('message_system', 'failed_escape')
             self.game.add_message(message)
             self.game.update_screen()
+
         return False
 
     def player_choose_object(self) -> bool:
         if not self.game.fight.player_selected_object:
-            return not self.game.inventory.open_inventory(self.game, "fight")
+            return self.game.inventory.open_inventory(self.game, "fight")
 
 # Détécte sur quoi le joueur clique et lance l'action séléctionné
     def turn(self) -> bool:
         self.game.update_screen()
+
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 index = 0
@@ -57,7 +96,7 @@ class Fight_Player():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_e:
-                    return self.player_choose_object()
+                    return not self.player_choose_object()
 
                 elif event.key == pygame.K_a:
                     return self.player_attack()

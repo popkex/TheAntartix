@@ -3,14 +3,22 @@ import pygame
 
 class Inventory:
     def __init__(self, game):
+        self.language_manager = game.language_manager
         self.objet_inventory = []
         self.objet_inventory_rects = []
-        self.max_quantity = 999
+        self.max_quantity = 99
         self.game = game
-        self.potion = Potion(any, any, game)
+        self.init_all_objects()
+
+    def init_all_objects(self):
+        self.potion = Potion(any, any, self.game)
         self.potion.init_all_potion()
-        self.weapon = Weapon(any, any, game)
+        self.weapon = Weapon(any, any, self.game)
         self.weapon.init_all_weapon()
+
+    def reset_inventory(self):
+        self.objet_inventory = []
+        self.objet_inventory_rects = []
 
 # Gère l'ouverture et la gestion de l'inventaire
     def open_inventory(self, game, origin) -> bool:
@@ -20,7 +28,7 @@ class Inventory:
         while is_open:
             game.screen.inventory_display.draw_inventory_display(origin)
 
-            is_open, object_used = game.inventory.detect_object_selectionned()
+            is_open, object_used = self.detect_object_selectionned()
 
             pygame.display.flip()
 
@@ -56,8 +64,10 @@ class Inventory:
                     new_number_object = self.add_quantity(number_object, new_quantity)
                     self.objet_inventory[i] = (current_objet, new_number_object)
                 else:
+                    new_number_object = self.max_quantity
                     self.objet_inventory[i] = (current_objet, self.max_quantity)
-                break
+
+                return new_number_object
 
 # Vérifie si la limite d'objet est atteinte ou non et agis en conséquent
     def add_quantity(self, quantity, add_quantity):
@@ -68,10 +78,24 @@ class Inventory:
 
 # Ajoute un objet a l'inventaire
     def append_object(self, objet, number=1):
+        # vérifie si l'objet existe ou non et l'ajoute
         if not self.object_existing(objet):
             self.objet_inventory.append((objet, number))
         else:
-            self.update_quantity_object(objet, number)
+            number = self.update_quantity_object(objet, number)
+
+        message1 = self.language_manager.load_txt('message_system', 'recovered_object')
+        message2 = self.language_manager.load_txt('objects', objet.name)
+
+        # affiche un message system quand le joueur recupere x objets
+        message = f"{message1} {number} {message2}"
+        self.game.add_message(message)
+        self.game.update_screen()
+
+        # vérifie si l'objet est dans une quete, si oui increment la quete du nombre d'objet obtenu
+        if self.game.quest.quest_type_exist(objet.name):
+            self.game.quest.progress(objet.name, number)
+
 
 # Retire un objet de l'inventaire
     def delete_object(self, objet):
@@ -116,20 +140,22 @@ class Inventory:
 
                     if rect.collidepoint(event.pos):
                         object_used = objet[0].used()
-                        print(object_used)
 
                         if object_used:
-                            message = f"{self.game.load_txt('message_system', 'object_used')} {self.game.load_txt('objects', objet[0].name)}"
+                            message = f"{self.language_manager.load_txt('message_system', 'object_used')} 1 {self.language_manager.load_txt('objects', objet[0].name)}"
                             self.game.add_message(message)
                             self.game.update_screen()
+
                         return False, object_used
 
                 rect = self.game.screen.inventory_display.enter_zone_inventory()
+
                 if not rect.collidepoint(event.pos):
                     return False, True
 
             if event.type == pygame.QUIT:
                 self.game.saves.save_and_quit()
+
         return True, True
 
 
@@ -148,8 +174,8 @@ class Potion(Objet):
         super().__init__(name, image)
 
     def init_all_potion(self):
-        Life_Potion(self.game)
-        Big_Life_Potion(self.game)
+        self.life_potion = Life_Potion(self.game)
+        self.big_life_potion = Big_Life_Potion(self.game)
 
     def used(self):
         if self.game.data_player.health != self.game.data_player.max_health:
@@ -160,8 +186,8 @@ class Potion(Objet):
 class Life_Potion(Potion):
     def __init__(self, game):
         self.game = game
-        path = self.game.get_path_assets("inventory\objects\potions\heal_potion.png")
         name = "Life_Potion"
+        path = self.game.utils.get_path_assets("inventory\objects\potions\heal_potion.png")
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (48, 48))
         super().__init__(name, image, game, self.effect)
@@ -177,8 +203,8 @@ class Life_Potion(Potion):
 class Big_Life_Potion(Potion):
     def __init__(self, game):
         self.game = game
-        path = self.game.get_path_assets(r"inventory\objects\potions\big_heal_potion.png")
         name = "Big_Life_Potion"
+        path = self.game.utils.get_path_assets(r"inventory\objects\potions\big_heal_potion.png")
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (48, 48))
         super().__init__(name, image, game, self.effect)
@@ -199,21 +225,19 @@ class Weapon(Objet):
         super().__init__(name, image)
 
     def init_all_weapon(self):
-        Bomb(self.game)
+        self.bomb = Bomb(self.game)
 
     def used(self):
-        try:
+        if self.game.fight.current_enemy:
             self.effect()
             self.game.inventory.remove_object(self, 1)
             return True
-        except:
-            pass
 
 class Bomb(Weapon):
     def __init__(self, game):
         self.game = game
-        path = self.game.get_path_assets(r"inventory\objects\weapons\Bomb.png")
         name = "Bomb"
+        path = self.game.utils.get_path_assets(r"inventory\objects\weapons\Bomb.png")
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (48, 48))
         super().__init__(name, image, game, self.effect)
@@ -222,6 +246,7 @@ class Bomb(Weapon):
 
     def effect(self):
         current_enemy = self.game.fight.current_enemy
+
         if current_enemy.health - self.dommage > 0:
             current_enemy.health -= self.dommage
         else:

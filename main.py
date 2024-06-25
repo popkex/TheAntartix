@@ -1,13 +1,8 @@
 import pygame, os
-from game import Game
+from main_menu import MainMenu
+from data_maps import DataMap
 
 pygame.init()
-'''
-idées : 
-    dans le dj ajouter un téléporteur vers une salle de boss et y mettre le pnj du boss
-'''
-
-game = Game()
 
 # vérifie si le dossier 'saves' existe (si le jeu est pas compiler)
 if not os.path.exists(r'saves'):
@@ -16,9 +11,9 @@ if not os.path.exists(r'saves'):
     elif not os.path.exists(r'_internal\saves'):
         os.makedirs(r'_internal\saves')
 
-game = Game()
+main_menu = MainMenu()
 
 try:
-    game.run()
+    main_menu.running()
 except pygame.error:
-    print('le joueur a quitter le jeu')
+    pass

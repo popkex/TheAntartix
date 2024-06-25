@@ -6,12 +6,19 @@ class Data_Player:
         self.health = None
         self.max_health = None
         self.attack = None
+        self.crit_luck = None
+        self.crit_domage = None
+        self.knock_out_luck = None
+        self.luck_fail_attack = None
         self.xp = None
         self.xp_max = None
         self.lvl = None
 
     def load_attributes(self):
-        self.health, self.max_health, self.attack, self.xp, self.xp_max, self.lvl = self.game.saves.load_attribut_player()
+        data_1, data_2, data_3 = self.game.saves.load_attribut_player()
+        self.health, self.max_health, self.attack = data_1
+        self.crit_luck, self.crit_domage, self.knock_out_luck, self.luck_fail_attack = data_2
+        self.xp, self.xp_max, self.lvl = data_3
 
 # si le joueur gagne de l'exp
     def get_xp(self, give_xp):
@@ -19,6 +26,7 @@ class Data_Player:
         while self.xp >= self.xp_max:
             self.xp = self.xp - self.xp_max 
             self.lvl_up()
+        return give_xp
 
     def lvl_up(self):
         self.lvl += 1
@@ -37,12 +45,12 @@ class Data_Player:
     def remove_xp(self):
         if self.lvl > 1:
             if int(self.xp_max/1.5) < 1:
-                self.xp = int(self.xp_max/1.5)
+                self.xp = int(self.xp_max/1.1)
             else:
                 self.lvl_down()
         else:
             if int(self.xp_max/1.5) < 1:
-                self.xp = int(self.xp_max/1.5)
+                self.xp = int(self.xp_max/1.1)
             else:
                 self.xp = 0
 

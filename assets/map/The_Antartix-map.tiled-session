@@ -3,12 +3,15 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "world.tmx",
+    "activeFile": "donjon1.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
     "fileStates": {
+        "": {
+            "scaleInDock": 2
+        },
         "C:/Users/cleme/Downloads/gentle animations (48x48 resize) v01.tsx": {
             "scaleInDock": 1
         },
@@ -18,19 +21,66 @@
         "C:/Users/cleme/OneDrive/dev/TheAntartix/assets/map/nature.tsx": {
             "scaleInDock": 1
         },
-        "donjon.tsx": {
+        "artixs-temple-first.tmx": {
+            "expandedObjectLayers": [
+                8
+            ],
+            "scale": 1,
+            "selectedLayer": 11,
+            "viewCenter": {
+                "x": 199.5,
+                "y": 146
+            }
+        },
+        "artixs-temple-first.tmx#assets": {
+            "scaleInDock": 4,
+            "scaleInEditor": 1
+        },
+        "artixs-temple-first.tmx#donjon1": {
+            "scaleInDock": 16,
+            "scaleInEditor": 1
+        },
+        "artixs_temple_first.tmx": {
+            "scale": 1.5657407407407407,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 222.8976936723832,
+                "y": 215.55292726197519
+            }
+        },
+        "artixs_temple_first.tmx#assets": {
             "scaleInDock": 1
         },
+        "artixs_temple_first.tmx#donjon1": {
+            "scaleInDock": 1
+        },
+        "donjon.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 2
+        },
         "donjon1.tmx": {
+            "expandedGroupLayers": [
+                13,
+                11,
+                12
+            ],
             "expandedObjectLayers": [
-                3
+                7,
+                3,
+                11,
+                9
             ],
             "scale": 1.5,
-            "selectedLayer": 5,
+            "selectedLayer": 12,
             "viewCenter": {
-                "x": 269.33333333333337,
-                "y": 114.66666666666664
+                "x": 1407,
+                "y": 3396.6666666666665
             }
+        },
+        "donjon1.tmx#donjon": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "house.tmx": {
             "expandedObjectLayers": [
@@ -44,29 +94,30 @@
             }
         },
         "house.tsx": {
-            "scaleInDock": 11,
+            "dynamicWrapping": false,
+            "scaleInDock": 5.5,
             "scaleInEditor": 1
         },
         "house1.tmx": {
             "expandedObjectLayers": [
                 4
             ],
-            "scale": 1.5,
+            "scale": 4,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 119.99999999999997,
-                "y": 120
+                "x": 126.75,
+                "y": 119.875
             }
         },
         "house2.tmx": {
             "expandedObjectLayers": [
                 3
             ],
-            "scale": 2,
-            "selectedLayer": 3,
+            "scale": 1,
+            "selectedLayer": 4,
             "viewCenter": {
                 "x": 120,
-                "y": 120
+                "y": 120.5
             }
         },
         "house_1.tmx": {
@@ -89,56 +140,68 @@
             }
         },
         "mobilier.tsx": {
-            "scaleInDock": 1,
+            "dynamicWrapping": false,
+            "scaleInDock": 3,
             "scaleInEditor": 1
         },
         "nature.tsx": {
-            "scaleInDock": 3
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
         },
         "world.tmx": {
             "expandedObjectLayers": [
-                5
+                5,
+                12
             ],
-            "scale": 1.5,
-            "selectedLayer": 8,
+            "scale": 1,
+            "selectedLayer": 9,
             "viewCenter": {
-                "x": 53.333333333333314,
-                "y": 374
+                "x": 290.5,
+                "y": 319.5
             }
         }
     },
+    "frame.defaultDuration": 90,
     "last.externalTilesetPath": "C:/Users/cleme/OneDrive/dev/python/TheAntartix/assets/map",
-    "last.imagePath": "C:/Users/cleme/OneDrive/dev/python/TheAntartix/assets/map/assets",
+    "last.imagePath": "C:/Users/Eleve/OneDrive/dev/python/TheAntartix/assets/map/assets",
     "map.fixedSize": true,
     "map.height": 5,
     "map.lastUsedFormat": "tmx",
+    "map.orientation": null,
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "map.width": 25,
     "openFiles": [
+        "artixs_temple_first.tmx",
         "world.tmx",
         "house1.tmx",
         "house2.tmx",
         "donjon1.tmx"
     ],
     "project": "The_Antartix-map.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
-        "donjon1.tmx",
-        "house2.tmx",
-        "house1.tmx",
+        "artixs_temple_first.tmx",
         "world.tmx",
-        "house.tsx",
+        "house1.tmx",
+        "house2.tmx",
+        "donjon1.tmx",
+        "artixs-temple-first.tmx",
         "mobilier.tsx",
+        "nature.tsx",
+        "donjon.tsx",
+        "house.tsx",
         "house.tmx",
-        "house_2.tmx",
-        "house_1.tmx"
+        "house_2.tmx"
     ],
     "resizeMap.removeObjects": false,
+    "tileset.embedInMap": true,
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
         "height": 16,
         "width": 16
     },
     "tileset.transparentColor": "#000000",
+    "tileset.type": 0,
     "tileset.useTransparentColor": true
 }

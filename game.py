@@ -1,10 +1,13 @@
 import pygame, sys, os, time
+import fight_entity
+import player
+from language_manager import LanguageManager
 from inventory import *
+from quest import Quest
 from map import MapManager
 from dialog import DialogBox
 from screen import Screen
 from data_player import Data_Player
-from player import Player
 from fight import Fight
 from fight_player import Fight_Player
 from tutorial import Tutorial
@@ -13,96 +16,161 @@ from pause_menu import Pause_Menu
 
 class Game():
 
-    def __init__(self):
-        self.defaut_language = "en"
-        self.load_language(self.defaut_language)
+    def __init__(self, main_menu, loading=None):
+        self.main_menu = main_menu
+        self.loading = loading
 
-        self.pause_menu = Pause_Menu(self)
-        self.inventory = Inventory(self)
+        if loading:
+            self.load_components_with_screen()
+            self.loading.loading_screen.complete()
+        else:
+            self.load_components()
+
+        self.saves.load_all()
+        self.can_modifie_quest = True
+
+    def load_components(self):
+        self.load_settings()
+        self.load_utils()
+        self.load_saves()
+        self.load_quests()
+        self.load_player()
+        self.load_screen()
+        self.load_fight()
+        self.load_map()
+        self.load_tutorials_and_dialog()
+        self.load_system()
+
+    def load_components_with_screen(self):
+        self.loading.loading_screen.show_element('Loading settings...')
+        self.load_settings()
+        self.loading.loading_screen.show_element("Loading utils...")
+        self.load_utils()
+        self.loading.loading_screen.show_element('Loading saves...')
+        self.load_saves()
+        self.loading.loading_screen.show_element("Loading quests...")
+        self.load_quests()
+        self.loading.loading_screen.show_element('Loading player...')
+        self.load_player()
+        self.loading.loading_screen.show_element('Loading screen...')
+        self.load_screen()
+        self.loading.loading_screen.show_element('Loading fight...')
+        self.load_fight()
+        self.loading.loading_screen.show_element('Loading maps...')
+        self.load_map()
+        self.loading.loading_screen.show_element('Loading tutorials...')
+        self.load_tutorials_and_dialog()
+        self.loading.loading_screen.show_element('Loading system...')
+        self.load_system()
+
+    def load_settings(self):
+        self.language_manager = LanguageManager()
+        self.time_auto_save = 120 # défini la save auto à 2mins
+        self.format_time = "2minutes"
+        self.last_auto_save = time.time()
+
+    def load_saves(self):
         self.saves = Saves(self)
+
+    def load_utils(self):
+        self.utils = player.utils
+        self.clock = pygame.time.Clock()
+
+    def load_quests(self):
+        self.can_modifie_quest = False
+        self.quest = Quest(self)
+        self.active_quests = []
+        self.complete_quests = []
+
+    def load_screen(self):
+        self.screen = Screen(self)
+        self.pause_menu = Pause_Menu(self)
+
+    def load_player(self):
+        self.inventory = Inventory(self)
         self.data_player = Data_Player(self)
         self.data_player.load_attributes() # charge les attrbutes du joueur
-        self.player = Player()
-        self.screen = Screen(self)
+        self.player = player.Player()
+
+    def load_fight(self):
+        self.fight = Fight(self, None)
+        self.fight_entity = fight_entity
+
+    def load_map(self):
         self.map_manager = MapManager(self, self.screen.screen, self.player)
-        self.dialog_box = DialogBox()
+
+    def load_tutorials_and_dialog(self):
+        self.dialog_box = DialogBox(self)
         self.tutorial = Tutorial(self)
 
+    def load_system(self):
         self.object_name_inventory = [] # met l'inventaire vide (avant de le charger et de le remplir)
         self.active_fight = False   # n'active pas de combat
         self.messages_system = [] # met aucun message systeme
         self.current_direction = 'up' #défini la direction par defaut
+        self.gravity = 1
 
-        self.saves.load_all()
-
-    def load_txt(self, page, txt):
-        return self.current_language.translations[page][txt]
-
-    def load_language(self, lang):
-        if lang == 'en':
-            import translation.english as new_language
-            str_new_language = "en"
-        elif lang == 'fr':
-            import translation.french as new_language
-            str_new_language = "fr"
-        elif lang == 'es':
-            import translation.spanish as new_language
-            str_new_language = "es"
-
-        self.current_language, self.str_language = new_language, str_new_language
+    def check_quest_completion(self):
+        # Vérifier si une quête est terminée
+        for quest in self.active_quests:
+            if quest.is_completed():
+                # Récompenser le joueur
+                self.player.receive_rewards(quest.rewards)
+                # Marquer la quête comme terminée
+                quest.complete()
 
     def handle_input(self):
         pressed = pygame.key.get_pressed()
 
-        if pressed[pygame.K_LEFT] or pressed[pygame.K_q]:
-            self.player.move_left()
-            self.current_direction = 'left'
-        if pressed[pygame.K_RIGHT] or pressed[pygame.K_d]:
-            self.player.move_right()
-            self.current_direction = 'right'
-        if pressed[pygame.K_UP] or pressed[pygame.K_z]:
-            self.player.move_up()
-            self.current_direction = 'up'
-        if pressed[pygame.K_DOWN] or pressed[pygame.K_s]:
-            self.player.move_down()
-            self.current_direction = 'down'
+        self.player.reset_move()
+
+        if not self.player.actualy_move_back:
+            if pressed[pygame.K_LEFT] or pressed[pygame.K_q]:
+                self.player.move_left()
+                self.current_direction = 'left'
+            if pressed[pygame.K_RIGHT] or pressed[pygame.K_d]:
+                self.player.move_right()
+                self.current_direction = 'right'
+            if pressed[pygame.K_UP] or pressed[pygame.K_z]:
+                self.player.move_up()
+                self.current_direction = 'up'
+            if pressed[pygame.K_DOWN] or pressed[pygame.K_s]:
+                self.player.move_down()
+                self.current_direction = 'down'
+
+        self.player.update_move()
+        self.player.actualy_move_back = False
+
         return self.current_direction
 
     def update_screen(self):
         self.screen.display_messages()
+        self.saves.blit_auto_save()
         self.dialog_box.render(self.screen.screen)
-        self.clock.tick(60)
+        self.utils.delta_time = self.clock.tick(self.utils.fps_limite) /1000 # remplacer 60 par une var pour pouvoir modifier les fps dans les parametres
         pygame.display.flip()
 
     def update(self):
         self.map_manager.update()
 
-# permet de retrouver le chemin d'acces vers les assets lors de la compilation du jeu
-    def get_path_assets(self, ressource):
-        try:
-            base_path = sys._MEIPASS
-        except Exception:
-            base_path = os.path.abspath(".")
-        return os.path.join(base_path, "assets") + "\\" + ressource
+    def launch_fight(self, enemy_in_fight, enemy):
+        if enemy_in_fight:
+            self.map_manager.remove_enemy(enemy)
+            enemy_class = getattr(self.fight_entity, enemy_in_fight)
+            enemy_instance = enemy_class(self)  # Crée une instance de la classe ennemi
 
-# permet de retrouver le chemin d'acces vers les saves lors de la compilation du jeu
-    def get_path_saves(self, ressource):
-        try:
-            base_path = sys._MEIPASS
-        except Exception:
-            base_path = os.path.abspath(".")
-        return os.path.join(base_path, "saves") + "\\" + ressource
-
-    def launch_fight(self):
-        if self.active_fight and self.player.is_moving():
-            self.fight = Fight(self)
-            self.fight_player = Fight_Player(self)
-            self.fight.run()
-            self.active_fight = False
+            if enemy_instance.health != 0:
+                self.active_fight = True
+                self.fight = Fight(self, enemy_instance)
+                self.fight_player = Fight_Player(self)
+                self.fight.run()
+                self.active_fight = False
 
     def update_game(self):
         #sauvegarde la position du joueur
         self.player.save_location()
+        # sauvegarde auto le jeu
+        self.saves.auto_saves()
         #deplace le joueur
         self.handle_input()
         #met a jour l'emplacement du joueur
@@ -112,31 +180,34 @@ class Game():
         #affiche le hud
         self.screen.hud()
         #detecte si un combat peut se lancer
-        self.active_fight = self.map_manager.active_fight()
+        for enemy in self.map_manager.get_map().enemys:
+            if enemy.enemy_player_collide:
+                self.launch_fight(enemy.in_fight(), enemy)
 
-    def add_message(self, message):
+    def add_message(self, message, max_time=2):
         # Ajoute un message à la file d'attente
-        self.messages_system.append((message, time.time()))
+        self.messages_system.append((message, time.time(), max_time))
 
-    def run(self):
-        self.clock = pygame.time.Clock()
-        self.running = True
+    def update_player_animation(self):
+        if self.player.is_moving():
+            self.player.change_animation(self.handle_input(), self.player.is_moving())
+        else:
+            self.player.change_image(self.current_direction)
+
+    def updates(self):
+        self.update_game()
+        self.update_player_animation()
+        self.update_screen()
+
+    def running(self):
+        self.run = True
 
         self.player.change_image('up')
         pygame.display.flip()
 
-        while self.running:
-
-            self.launch_fight()
-            self.update_game()
-
-            # Mettre à jour l'animation du joueur en fonction de la touche pressée
-            if self.player.is_moving():
-                self.player.change_animation(self.handle_input(), self.player.is_moving())
-            else:
-                self.player.change_image(self.current_direction)
-
-            self.update_screen()
+        while self.run:
+            self.updates()
+            # print(self.player.position)
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
@@ -146,11 +217,17 @@ class Game():
                     if event.key == pygame.K_SPACE:
                         self.map_manager.check_npcs_collisions(self.dialog_box)
 
+                    if event.key == pygame.K_RETURN:
+                        self.dialog_box.close_dialog()
 
                     if event.key == pygame.K_ESCAPE:
                         self.pause_menu.running()
 
+                    if event.key == pygame.K_SPACE:
+                        self.map_manager.remove_wall("test")
+                        self.map_manager.change_tuile(33, 20, 2)
+
                 if event.type == pygame.QUIT:
-                    self.running = False
+                    self.run = False
 
         self.saves.save_and_quit()
