@@ -11,6 +11,7 @@ class Entity:
     image: pygame.Surface
     max_health: int
     health: int
+    old_attack: int
     attack: int
     crit_luck: int
     crit_domage: float
@@ -55,7 +56,7 @@ class Enemy(Entity):
             message = f"{txt1} {txt_dommage} {txt2}"
 
         return domage, message
-    
+
     def fail_attack(self):
         pass
 
@@ -73,6 +74,9 @@ class Enemy(Entity):
         self.game.add_message(message)
         self.game.update_screen()
 
+        # reset la stat de l'attack au cas ou le joueur a modifier cela 
+        self.attack = self.old_attack
+
     def is_alive(self):
         return self.health != 0
 
@@ -83,6 +87,16 @@ class EnemyA(Enemy):
     def __init__(self, game):
         utils = game.utils
         self.language_manager = game.language_manager
+
+        max_health = 50
+        health = 50
+        old_attack = 10
+        attack = old_attack
+        crit_luck = 6
+        crit_domage = 1.12
+        knock_out_luck = 5
+        enemy_fail_attack = 15
+        give_xp = 4
 
         key_name = "enemyA"
         key_txt = 'name'
@@ -97,12 +111,23 @@ class EnemyA(Enemy):
 
         loot = [(Life_Potion, 3), (Big_Life_Potion, 2)] # (L'objet, le nombre d'objet au max)
 
-        super().__init__(key_name, name, lanch_fight_message, loot, image, max_health=50, health=50, attack=12, crit_luck=6, crit_domage=1.12, knock_out_luck=5, give_xp=4, enemy_fail_attack=15)
+        super().__init__(key_name, name, lanch_fight_message, loot, image, max_health, health, old_attack, attack, crit_luck, crit_domage, knock_out_luck, enemy_fail_attack, give_xp)
 
 class EnemyB(Enemy):
     def __init__(self, game):
         utils = game.utils
         self.language_manager = game.language_manager
+
+        old_domage = None
+        max_health = 60
+        health = 60
+        old_attack = 15
+        attack = old_attack
+        crit_luck = 10
+        crit_domage = 1.15
+        knock_out_luck = 10
+        enemy_fail_attack = 10
+        give_xp = 6
 
         key_name = "enemyB"
         key_txt = 'name'
@@ -116,4 +141,4 @@ class EnemyB(Enemy):
         image = pygame.transform.scale(image, (250, 250))
         loot = [(Big_Life_Potion, 3), (Bomb, 1)] # (L'objet, le nombre d'objet au max)
 
-        super().__init__(key_name, name, lanch_fight_message, loot, image, max_health=60, health=60, attack=12, crit_luck=10, crit_domage=1.15, knock_out_luck=10, give_xp=6, enemy_fail_attack=10) # de base 120, 120, 12, 5
+        super().__init__(key_name, name, lanch_fight_message, loot, image, max_health, health, old_attack, attack, crit_luck, crit_domage, knock_out_luck, enemy_fail_attack, give_xp) # de base 120, 120, 12, 5

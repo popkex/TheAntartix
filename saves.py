@@ -90,16 +90,20 @@ class Saves:
         health = data_player.health
         max_health = data_player.max_health
         attack = data_player.attack
+        defense = data_player.defense
+        energy = data_player.energy
+        total_energy = data_player.total_energy
         crit_luck = data_player.crit_luck
         crit_domage = data_player.crit_domage
         knock_out_luck = data_player.knock_out_luck
         luck_fail_attack = data_player.luck_fail_attack
+        luck_fail_defense = data_player.luck_fail_defense
         xp = data_player.xp
         xp_max = data_player.xp_max
         lvl = data_player.lvl
 
         if not data_provided:
-            data = (health, max_health, attack, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, xp, xp_max, lvl)
+            data = (health, max_health, attack, defense, energy, total_energy, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, luck_fail_defense, xp, xp_max, lvl)
         else:
             data = data_provided
 
@@ -161,10 +165,10 @@ class Saves:
         except:
             data = self.reset_attribut_player()
 
-        health, max_health, attack, crit_luck, crit_domage, knock_out_luck, data_player, xp, xp_max, lvl = data
+        health, max_health, attack, defense, energy, total_energy, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, luck_fail_defense, xp, xp_max, lvl = data
 
-        data_1 = health, max_health, attack
-        data_2 = crit_luck, crit_domage, knock_out_luck, data_player
+        data_1 = health, max_health, attack, defense, energy, total_energy
+        data_2 = crit_luck, crit_domage, knock_out_luck, luck_fail_attack, luck_fail_defense
         data_3 = xp, xp_max, lvl
 
         return data_1, data_2, data_3
@@ -258,17 +262,20 @@ class Saves:
         max_health = 100
         health = max_health
         attack = 10
+        defense = 15 # 2% de l'attack bloquer
+        energy = 20
+        total_energy = 20
         crit_luck = 5
         crit_domage = 1.12
         knock_out_luck = 5
         luck_fail_attack = 15
+        luck_fail_defense = 25 # 25% de chance de fail la defense
         xp = 0
         xp_max = 25
         lvl = 1
 
-        data = max_health, health, attack, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, xp, xp_max, lvl
+        data = max_health, health, attack, defense, energy, total_energy, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, luck_fail_defense, xp, xp_max, lvl
         self.save_attribut_player(data)
-
         return data
 
     def reset_position(self):

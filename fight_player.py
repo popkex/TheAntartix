@@ -7,9 +7,10 @@ class Fight_Player():
         self.enemy = game.fight.current_enemy
         self.player = game.data_player
         self.player_action_rects = []
-        self.txt_player_action = ["sword", "item", "escape"]
+        self.txt_player_action = ["sword", 'shield', "item", "escape"]
         self.player_action_fonction = [
             self.player_attack,
+            self.player_defense,
             self.player_choose_object, 
             self.player_escape,
         ]
@@ -63,6 +64,38 @@ class Fight_Player():
         self.game.add_message(message)
         self.game.update_screen()
 
+        return False
+
+    def player_fail_defense(self):
+        luck_fail = random.randint(0, 100)
+
+        # si le joueur ne loupe pas ca défense
+        if self.player.luck_fail_defense < luck_fail:
+            return False
+        # si le joueur loupe ca défense
+        return True
+
+    def calculate_sudden_domage(self):
+        # calcule des dommage subbit par le joueur en pourcent
+        percent_damage = self.enemy.attack*100/self.player.max_health
+        new_percent_damage = percent_damage - self.player.defense
+
+        # vérifie que le chiffre est pas négatif
+        if new_percent_damage < 0:
+            new_percent_damage = 0
+
+        # reconvertie en les pourcents en int (comme avant)
+        return percent_damage*self.player.max_health/100
+
+    def player_defense(self):
+        if not self.player_fail_defense():
+            self.enemy.attack = self.calculate_sudden_domage()
+            message = self.language_manager.load_txt('message_system', 'defense')
+        else:
+            message = self.language_manager.load_txt('message_system', 'fail_defense')
+
+        self.game.add_message(message)
+        self.game.update_screen()
         return False
 
     def player_escape(self):
