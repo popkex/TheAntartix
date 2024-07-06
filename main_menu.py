@@ -1,25 +1,27 @@
 import pygame
+from language_manager import LanguageManager
 from game import Game
 from screen import Screen
 from saves import Saves
 from pause_menu import Settings_Menu
 from loading import Loading
 
-def start_game_loading(self):
+def start_game_loading(main_menu):
     paths_img_list = ["assets\enemy\enemyA.gif", "assets\mobilier.png", "assets\player.png"]
-    loading = Loading(self, paths_img_list)
+    loading = Loading(main_menu.game, paths_img_list)
     loading.execut()
-    self.game = Game(self, loading)
-    self.game.running()
+    game = Game(main_menu, loading)
+    game.running()
 
 class MainMenu:
 
     def __init__(self):
+        self.language_manager = LanguageManager()
         self.game = Game(self)
         self.screen = Screen(self.game)
         self.settings_menu = Settings_Menu(self.game)
         self.saves = Saves(self.game)
-        self.play_chose = PlayChose(self.game, self.screen, self.saves)
+        self.play_chose = PlayChose(self, self.game, self.screen, self.saves)
         self.saves.load_settings()
 
     def show_lunch_game(self):
@@ -54,18 +56,20 @@ class MainMenu:
 
                     elif txt == 'settings_button':
                         self.settings_menu.running()
+                        self.saves.save_settings()
 
                     elif txt == 'quit_button':
                         self.run = False
 
 class PlayChose:
 
-    def __init__(self, game, screen, saves):
+    def __init__(self, main_menu, game, screen, saves):
+        self.main_menu = main_menu
         self.game = game
         self.screen = screen
         self.saves = saves
 
-        self.confirm_reset_game = ConfirmResetGame(self.game, self.screen, self.saves)
+        self.confirm_reset_game = ConfirmResetGame(self.main_menu, self.game, self.screen, self.saves)
 
     def running(self):
         self.run = True
@@ -86,7 +90,7 @@ class PlayChose:
                 rect = pygame.Rect(button_position)
                 if rect.collidepoint(event.pos):
                     if txt == 'load_game':
-                        start_game_loading(self)
+                        start_game_loading(self.main_menu)
 
                     elif txt == 'new_game':
                         self.confirm_reset_game.running()
@@ -96,7 +100,8 @@ class PlayChose:
 
 class ConfirmResetGame:
 
-    def __init__(self, game, screen, saves):
+    def __init__(self, main_menu, game, screen, saves):
+        self.main_menu = main_menu
         self.game = game
         self.screen = screen
         self.saves = saves
@@ -121,7 +126,7 @@ class ConfirmResetGame:
                 if rect.collidepoint(event.pos):
                     if txt == 'confirm':
                         self.saves.reset_game()
-                        start_game_loading(self)
+                        start_game_loading(self.main_menu)
 
                     elif txt == 'cancel':
                         self.run = False

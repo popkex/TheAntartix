@@ -1,7 +1,6 @@
 import pygame, sys, os, time
 import fight_entity
 import player
-from language_manager import LanguageManager
 from inventory import *
 from quest import Quest
 from map import MapManager
@@ -30,7 +29,7 @@ class Game():
         self.can_modifie_quest = True
 
     def load_components(self):
-        self.load_settings()
+        self.language_manager = self.main_menu.language_manager
         self.load_utils()
         self.load_saves()
         self.load_quests()
@@ -64,7 +63,7 @@ class Game():
         self.load_system()
 
     def load_settings(self):
-        self.language_manager = LanguageManager()
+        self.language_manager = self.main_menu.saves.language_manager
         self.time_auto_save = 120 # défini la save auto à 2mins
         self.format_time = "2minutes"
         self.last_auto_save = time.time()
