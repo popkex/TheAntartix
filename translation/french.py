@@ -7,6 +7,8 @@ translations = {
         "damage_crit_suffered1": "Tu as subi",
         "damage_crit_suffered2": "de dégâts critiques !",
         "failed_escape": "Tu n'as pas réussi à t'échapper",
+        'defense': 'Tu as réussi a sortir ton bouclier à temps !',
+        'fail_defense': "Tu n'as malheuresement pas réussi à paré cette attaque",
         'player_attack': "Tu as attaqué !",
         'player_crit': "Tu as fait un dégât critique !",
         'player_fail_attack': 'Tu as loupé ton attaque',

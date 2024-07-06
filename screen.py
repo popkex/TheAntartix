@@ -386,7 +386,7 @@ class Fight_display:
                 self.screen.game.fight_player.player_action_rects.append(txt_surface_rect)
 
     def draw_player_action(self, action):
-        x, y = 1040, 640
+        x, y = 960, 640
         for txt in action:
             path = self.screen.utils.get_path_assets(f'action_player/{txt}.png')
             image = pygame.image.load(path)
