@@ -121,6 +121,7 @@ class Fight:
 
 #le combat
     def run(self):
+        self.game.fight_player.reset_energy()
         message = self.current_enemy.lanch_fight_message
         self.game.add_message(message, 15)
 

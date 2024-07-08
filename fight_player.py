@@ -15,6 +15,25 @@ class Fight_Player():
             self.player_escape,
         ]
 
+    def remove_energy(self, quantity_removed):
+        new_quantity = self.game.data_player.energy - quantity_removed
+
+        if new_quantity >= 1:
+            self.game.data_player.energy = new_quantity
+        else:
+            self.game.data_player.energy = 0
+
+    def add_energy(self, quantity_add):
+        new_quantity = self.game.data_player.energy + quantity_add
+
+        if new_quantity > self.game.data_player.energy_max:
+            self.game.data_player.energy = self.game.data_player.energy_max
+        else:
+            self.game.data_player.energy = new_quantity
+
+    def reset_energy(self):
+        self.game.data_player.energy = self.game.data_player.energy_max
+
     def select_action_player(self, index):
         return self.player_action_fonction[index]()
 
@@ -64,6 +83,9 @@ class Fight_Player():
         self.game.add_message(message)
         self.game.update_screen()
 
+        self.remove_energy(15)
+        print(self.game.data_player.energy)
+
         return False
 
     def player_fail_defense(self):
@@ -96,6 +118,10 @@ class Fight_Player():
 
         self.game.add_message(message)
         self.game.update_screen()
+
+        self.add_energy(10)
+        print(self.game.data_player.energy)
+
         return False
 
     def player_escape(self):
