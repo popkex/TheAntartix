@@ -66,7 +66,7 @@ class Fight:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
                         running = False
-                        self.game.map_manager.teleport_player_with_name('player_spawn')
+                        self.game.map_manager.reload_map()
 
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()

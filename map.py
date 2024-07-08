@@ -289,7 +289,7 @@ class MapManager:
     self.map_manager.change_tuile(5, 10, 1)'''
 
 #actualise la map (les enemies ne réaparaisse pas et les status des npcs ne changent pas)
-    def reload_map(self, reload_group=True, reload_layer=True, reload_npcs=True, reload_npcs_position=True, reload_enemys=True, reload_enemys_position=True):
+    def reload_map(self, reload_player_position=True, reload_group=True, reload_npcs=True, reload_npcs_position=True, reload_enemys=True, reload_enemys_position=True):
         # recupere les données actuelles
         walls = self.get_walls()
         walls_name = self.get_wall_name()
@@ -299,16 +299,19 @@ class MapManager:
         npcs = self.get_map().npcs
         enemys = self.get_map().enemys
 
-        if reload_layer:
-            current_map = self.get_map()
-            map_data = pyscroll.data.TiledMapData(current_map.tmx_data)
-            map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
-            map_layer.zoom = 2
+        current_map = self.get_map()
+        map_data = pyscroll.data.TiledMapData(current_map.tmx_data)
+        map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
+        map_layer.zoom = 2
 
         if reload_group:
             # Mettez à jour le groupe de calques
             group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=7)
             group.add(self.player)
+
+        if reload_player_position:
+            # téléporte le joueur au spawn de la map
+            self.teleport_player_with_name('player_spawn')
 
         data_map = DataMap(self.current_map)
         data_map = data_map.data
