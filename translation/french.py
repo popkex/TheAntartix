@@ -15,6 +15,7 @@ translations = {
         'enemy_fail_attack': "ton enemie n'as pas reussi a te visé !",
         "enemy_known_out_player": "Tu as assomé ton enemie !",
         'recovered_object': "Tu as récupéré",
+        'player_dont_have_enough_energy_for_attack': "Tu n'as plus suffisament d'énergie pour attaquer",
         'auto_save': "Sauvegarde automatique",
         'exit': "pour quitter",
     },

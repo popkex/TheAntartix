@@ -15,6 +15,11 @@ class Fight_Player():
             self.player_escape,
         ]
 
+    def can_remove_energy(self, quantity_removed):
+        if self.game.data_player.energy - quantity_removed >= 0: # si la quantité restante est en gros de plus de 0
+            return True
+        return False
+
     def remove_energy(self, quantity_removed):
         new_quantity = self.game.data_player.energy - quantity_removed
 
@@ -70,23 +75,29 @@ class Fight_Player():
         return True
 
     def player_attack(self):
-        if not self.player_fail_attack(): 
-            domage, message = self.player_crit()
+        # si le joueur a encore suffisament d'énergie 
+        if self.can_remove_energy(self.game.data_player.energy_consumed_attack):
+            if not self.player_fail_attack(): 
+                domage, message = self.player_crit()
 
-            if self.enemy.health > domage:
-                self.enemy.health -= domage
-            else: 
-                self.enemy.health = 0
+                if self.enemy.health > domage:
+                    self.enemy.health -= domage
+                else: 
+                    self.enemy.health = 0
+            else:
+                message = self.language_manager.load_txt('message_system', 'player_fail_attack')
+
+            # retire de l'energie, affiche le message et passe le tour du joueur
+            self.remove_energy(self.game.data_player.energy_consumed_attack)
+            self.game.add_message(message)
+            self.game.update_screen()
+            return False
         else:
-            message = self.language_manager.load_txt('message_system', 'player_fail_attack')
-
-        self.game.add_message(message)
-        self.game.update_screen()
-
-        self.remove_energy(15)
-        print(self.game.data_player.energy)
-
-        return False
+            # affiche le message et ne passe pas le tour du joueur
+            message = self.language_manager.load_txt('message_system', 'player_dont_have_enough_energy_for_attack')
+            self.game.add_message(message)
+            self.game.update_screen()
+            return True
 
     def player_fail_defense(self):
         luck_fail = random.randint(0, 100)
@@ -118,9 +129,7 @@ class Fight_Player():
 
         self.game.add_message(message)
         self.game.update_screen()
-
-        self.add_energy(10)
-        print(self.game.data_player.energy)
+        self.add_energy(self.game.data_player.energy_regain_defense)
 
         return False
 

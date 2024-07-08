@@ -10,6 +10,8 @@ class Data_Player:
         self.defense = None
         self.energy = None
         self.energy_max = None
+        self.energy_consumed_attack = None # energie consommé quand tu attaque
+        self.energy_regain_defense = None # energie regagner quand tu te defend
         self.crit_luck = None
         self.crit_domage = None
         self.knock_out_luck = None
@@ -21,7 +23,7 @@ class Data_Player:
 
     def load_attributes(self):
         data_1, data_2, data_3 = self.game.saves.load_attribut_player()
-        self.health, self.max_health, self.attack, self.defense, self.energy, self.energy_max = data_1
+        self.health, self.max_health, self.attack, self.defense, self.energy, self.energy_max, self.energy_consumed_attack, self.energy_regain_defense = data_1
         self.crit_luck, self.crit_domage, self.knock_out_luck, self.luck_fail_attack, self.luck_fail_defense = data_2
         self.xp, self.xp_max, self.lvl = data_3
 
