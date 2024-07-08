@@ -289,7 +289,7 @@ class MapManager:
     self.map_manager.change_tuile(5, 10, 1)'''
 
 #actualise la map (les enemies ne réaparaisse pas et les status des npcs ne changent pas)
-    def reload_map(self, reload_group=True, reload_layer=True, reload_npcs=True, reload_npcs_position=True, reload_enemys=True):
+    def reload_map(self, reload_group=True, reload_layer=True, reload_npcs=True, reload_npcs_position=True, reload_enemys=True, reload_enemys_position=True):
         # recupere les données actuelles
         walls = self.get_walls()
         walls_name = self.get_wall_name()
@@ -315,10 +315,9 @@ class MapManager:
 
         if reload_npcs:
             npcs = self.load_npcs(data_map)
-            # recupere les npc au groupe
+            # recupere les npc au groupef
             for npc in npcs:
                 group.add(npc)
-
         elif reload_group:
             for npc in npcs:
                 group.add(npc)
@@ -336,6 +335,8 @@ class MapManager:
 
         if reload_npcs_position:
             self.teleport_npcs(current_map=True)
+        if reload_enemys_position:
+            self.teleport_enemy(current_map=True)
 
         self.game.stop_update = True
 
@@ -354,14 +355,24 @@ class MapManager:
                     npc.load_points(map_data.tmx_data)
                     npc.teleport_spawn()
 
-    def teleport_enemy(self):
-        for map in self.maps:
-            map_data = self.maps[map]
+    def teleport_enemy(self, current_map=False):
+        # uniquement pour la map ou ce trouve le joueur
+        if current_map:
+            map_data = self.get_map()
             enemys = map_data.enemys
 
             for i, enemy in enumerate(enemys):
                 enemy.load_point_spawn(map_data.tmx_data, i)
                 enemy.teleport_spawn()
+        # pour toute les maps
+        else:
+            for map in self.maps:
+                map_data = self.maps[map]
+                enemys = map_data.enemys
+
+                for i, enemy in enumerate(enemys):
+                    enemy.load_point_spawn(map_data.tmx_data, i)
+                    enemy.teleport_spawn()
 
 #dessine le joueur et centre la cam
     def draw(self):
