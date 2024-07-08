@@ -231,7 +231,12 @@ class NPC(Entity):
 
         if target_point >= self.nb_points:
             target_point = 0
-
+        print('==================================================================================================================================================================')
+        print(f'npc name:{self.name}')
+        print(f'target_point:{target_point}')
+        print(f'len points:{len(self.points)}')
+        print(f'current_point:{self.current_point}')
+        print("==================================================================================================================================================================")
         target_rect = self.points[target_point]
 
         current_direction = None
@@ -274,12 +279,14 @@ class NPC(Entity):
         return current_direction, moving
 
     def teleport_spawn(self):
+        self.current_point = 0
         location = self.points[self.current_point]
         self.position[0] = location.x
         self.position[1] = location.y
         self.save_location()
 
     def load_points(self, tmx_data):
+        self.points = []
         for num in range(1, self.nb_points + 1):
             point = tmx_data.get_object_by_name(f"{self.name}_path{num}")
             rect = pygame.Rect(point.x, point.y, point.width, point.height)

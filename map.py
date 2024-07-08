@@ -206,14 +206,8 @@ class MapManager:
         data_map = data_map.data
 
         portals = [Portal(**portal) for portal in data_map.get('portals', [])]
-        npcs = [NPC(**npc) for npc in data_map.get('npcs', [])]
-        enemys = []
-        for enemy_data in data_map.get('enemys', []):
-            quantity = enemy_data.get('quantity', 0)
-            enemy_type = enemy_data.get('type', 0)
-            enemy_type = self.enemy_classes[enemy_type]
-            for _ in range(quantity):
-                enemys.append(enemy_type(self.game))
+        npcs = self.load_npcs(data_map)
+        enemys = self.load_enemy(data_map)
 
         # recupere les npc au groupe
         for npc in npcs:
@@ -225,6 +219,20 @@ class MapManager:
 
         #creer un objet map
         self.maps[name] = Map(name, walls, walls_name, portals, group, tmx_data, npcs, enemys)
+
+    def load_npcs(self, data_map):
+        npcs = [NPC(**npc) for npc in data_map.get('npcs', [])]
+        return npcs
+
+    def load_enemy(self, data_map):
+        enemys = []
+        for enemy_data in data_map.get('enemys', []):
+            quantity = enemy_data.get('quantity', 0)
+            enemy_type = enemy_data.get('type', 0)
+            enemy_type = self.enemy_classes[enemy_type]
+            for _ in range(quantity):
+                enemys.append(enemy_type(self.game))
+        return enemys
 
 #recupere les maps 
     def get_map(self):
@@ -274,41 +282,77 @@ class MapManager:
         layer.data[tuile_position_y][tuile_position_x] = gid
 
         #recharge la map
-        self.reload_map()
-
-#actualise la map (les enemies ne réaparaisse pas et les status des npcs ne changent pas)
-    def reload_map(self):
-        # Recharge le layer de la carte actuelle
-        current_map = self.get_map()
-        map_data = pyscroll.data.TiledMapData(current_map.tmx_data)
-        map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
-        map_layer.zoom = 2
-
-        # Mettez à jour le groupe de calques
-        group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=7)
-        group.add(self.player)
-
-        # Ajouter les NPCs et ennemis
-        for npc in current_map.npcs:
-            group.add(npc)
-        for enemy in current_map.enemys:
-            group.add(enemy)
-
-        # Mettez à jour la carte actuelle avec le nouveau groupe de calques
-        current_map.group = group
+        self.reload_map(reload_npcs=False, reload_enemys=False, reload_npcs_position=False)
 
     '''Exemple d'utilisation :
     Suppose que gid = 1 est l'identifiant de la nouvelle tuile.
     self.map_manager.change_tuile(5, 10, 1)'''
 
-    def teleport_npcs(self):
-        for map in self.maps:
-            map_data = self.maps[map]
-            npcs = map_data.npcs
+#actualise la map (les enemies ne réaparaisse pas et les status des npcs ne changent pas)
+    def reload_map(self, reload_group=True, reload_layer=True, reload_npcs=True, reload_npcs_position=True, reload_enemys=True):
+        # recupere les données actuelles
+        walls = self.get_walls()
+        walls_name = self.get_wall_name()
+        portals = self.get_map().portals
+        group = self.get_group()
+        tmx_data = self.get_map().tmx_data
+        npcs = self.get_map().npcs
+        enemys = self.get_map().enemys
 
+        if reload_layer:
+            current_map = self.get_map()
+            map_data = pyscroll.data.TiledMapData(current_map.tmx_data)
+            map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
+            map_layer.zoom = 2
+
+        if reload_group:
+            # Mettez à jour le groupe de calques
+            group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=7)
+            group.add(self.player)
+
+        data_map = DataMap(self.current_map)
+        data_map = data_map.data
+
+        if reload_npcs:
+            npcs = self.load_npcs(data_map)
+            # recupere les npc au groupe
             for npc in npcs:
+                group.add(npc)
+
+        elif reload_group:
+            for npc in npcs:
+                group.add(npc)
+
+        if reload_enemys:
+            enemys = self.load_enemy(data_map) 
+            # recupere les enemys au groupe
+            for enemy in enemys:
+                group.add(enemy)
+        elif reload_group:
+            for enemy in enemys:
+                group.add_enemys
+
+        self.maps[self.current_map] = Map(self.current_map, walls, walls_name, portals, group, tmx_data, npcs, enemys)
+
+        if reload_npcs_position:
+            self.teleport_npcs(current_map=True)
+
+        self.game.stop_update = True
+
+    def teleport_npcs(self, current_map=False):
+        if current_map:
+            map_data = self.get_map()
+            for npc in self.get_map().npcs:
                 npc.load_points(map_data.tmx_data)
                 npc.teleport_spawn()
+        else:
+            for map in self.maps:
+                map_data = self.maps[map]
+                npcs = map_data.npcs
+
+                for npc in npcs:
+                    npc.load_points(map_data.tmx_data)
+                    npc.teleport_spawn()
 
     def teleport_enemy(self):
         for map in self.maps:
