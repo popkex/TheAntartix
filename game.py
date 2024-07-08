@@ -18,6 +18,7 @@ class Game():
     def __init__(self, main_menu, loading=None):
         self.main_menu = main_menu
         self.loading = loading
+        self.stop_update = False
 
         if loading:
             self.load_components_with_screen()
@@ -147,7 +148,10 @@ class Game():
         self.saves.blit_auto_save()
         self.dialog_box.render(self.screen.screen)
         self.utils.delta_time = self.clock.tick(self.utils.fps_limite) /1000 # remplacer 60 par une var pour pouvoir modifier les fps dans les parametres
-        pygame.display.flip()
+        if not self.stop_update:
+            pygame.display.flip()
+        else:
+            self.stop_update = False
 
     def update(self):
         self.map_manager.update()
@@ -225,6 +229,9 @@ class Game():
                     if event.key == pygame.K_SPACE:
                         self.map_manager.remove_wall("test")
                         self.map_manager.change_tuile(33, 20, 2)
+
+                    if event.key == pygame.K_RETURN:
+                        self.map_manager.reload_map()
 
                 if event.type == pygame.QUIT:
                     self.run = False
