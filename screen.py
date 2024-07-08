@@ -63,19 +63,26 @@ class Screen:
             self.life.show_hud_life(health, max_health, position, color, (50, 50, 50))
             self.draw_txt("HP", 20, (300, position[1]), False, (255, 102, 0))
 
+    def show_xp_player(self, position=(20, 66)):
+        xp = self.game.data_player.xp
+        max_xp = self.game.data_player.xp_max
+
+        self.show_bar(xp, max_xp, position, color_bar=(37, 31, 252), back_color_bar=(50, 50, 50), max_w=260)
+        self.draw_txt("XP", 20, (260, position[1]), False, (255, 102, 0))
+        self.draw_txt(f"lvl {self.game.data_player.lvl}", 25, (282, position[1]), False, (0, 0, 139))
+
+    def show_energy_player(self, position=(20, 43)):
+        energy = self.game.data_player.energy
+        energy_max = self.game.data_player.energy_max
+
+        self.show_bar(energy, energy_max, position, color_bar=(37, 31, 252), back_color_bar=(50, 50, 50))
+        self.draw_txt("energy", 20, (274, position[1]), False, color=(255, 102, 0))
+
     def show_inventory_asset(self):
         path = self.utils.get_path_assets('action_player/Item.png')
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (75, 75))
         self.blit_ressource(image, (1200, 640))
-
-    def show_xp_player(self, position=(20, 43)):
-        xp = self.game.data_player.xp
-        max_xp = self.game.data_player.xp_max
-
-        self.show_bar(xp, max_xp, position, (37, 31, 252), (50, 50, 50), 260)
-        self.draw_txt("XP", 20, (260, position[1]), False, (255, 102, 0))
-        self.draw_txt(f"lvl {self.game.data_player.lvl}", 25, (282, position[1]), False, (0, 0, 139))
 
     def blit_ressource(self, ressource, position=(0,0), center=False):
         if center:
@@ -400,10 +407,12 @@ class Fight_display:
             self.append_txt_surface_rect(image_rect)
 
     def player_hud_fight(self, action):
+        energy_position = (20, 648)
         life_position = (20, 671)
         xp_position = (20, 694)
         self.screen.show_life_player(life_position)
         self.screen.show_xp_player(xp_position)
+        self.screen.show_energy_player(energy_position)
         self.draw_player_action(action)
 
     def show_hud_fight(self, action):
