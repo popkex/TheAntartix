@@ -263,7 +263,7 @@ class Saves:
         health = max_health
         attack = 10
         defense = 15 # 2% de l'attack bloquer
-        energy = 20
+        energy = 40
         energy_max = 20
         crit_luck = 5
         crit_domage = 1.12
