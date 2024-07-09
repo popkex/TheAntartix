@@ -231,12 +231,6 @@ class NPC(Entity):
 
         if target_point >= self.nb_points:
             target_point = 0
-        print('==================================================================================================================================================================')
-        print(f'npc name:{self.name}')
-        print(f'target_point:{target_point}')
-        print(f'len points:{len(self.points)}')
-        print(f'current_point:{self.current_point}')
-        print("==================================================================================================================================================================")
         target_rect = self.points[target_point]
 
         current_direction = None
