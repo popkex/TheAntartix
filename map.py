@@ -335,6 +335,7 @@ class MapManager:
             npcs = self.get_map().npcs
             enemys = self.get_map().enemys
             current_map = self.get_map()
+            map_name = self.current_map
         else:
             data_map = self.maps[map_name]
             walls = data_map.walls
@@ -359,10 +360,7 @@ class MapManager:
             # téléporte le joueur au spawn de la map
             self.teleport_player_with_name('player_spawn')
 
-        if not map_name:
-            data_map = DataMap(self.current_map)
-        else:
-            data_map = DataMap(map_name)
+        data_map = DataMap(map_name)
         data_map = data_map.data
 
         if reload_npcs:
@@ -383,10 +381,7 @@ class MapManager:
             for enemy in enemys:
                 group.add_enemys
 
-        if not map_name:
-            self.maps[self.current_map] = Map(self.current_map, walls, walls_name, portals, group, tmx_data, npcs, enemys)
-        else:
-            self.maps[map_name] = Map(map_name, walls, walls_name, portals, group, tmx_data, npcs, enemys)
+        self.maps[map_name] = Map(map_name, walls, walls_name, portals, group, tmx_data, npcs, enemys)
 
         if reload_npcs_position:
             self.teleport_npcs(current_map=True)
