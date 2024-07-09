@@ -49,6 +49,7 @@ class Saves:
         self.save_tutorial()
         self.save_settings()
         self.save_quests()
+        self.save_tiles()
 
     def load_all(self):
         self.load_settings()
@@ -64,6 +65,7 @@ class Saves:
         self.reset_tutorial()
         self.reset_settings()
         self.reset_quests()
+        self.reset_modified_map()
 
     # identique a la reset_all mais ne reset pas les parametres
     def reset_game(self):
@@ -72,6 +74,7 @@ class Saves:
         self.reset_inventory()
         self.reset_tutorial()
         self.reset_quests()
+        self.reset_modified_map()
 
     def create_folder_saves(self):
         if not os.path.exists(r'saves'):
@@ -157,6 +160,17 @@ class Saves:
 
         with open(path, 'wb') as content:
             pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
+
+    def save_tiles(self):
+        path = self.utils.get_path_saves('modified_map.bin')
+        # si la self.game.map_manager.tile_modified a bien été initier
+        try:
+            data = self.game.map_manager.tile_modified
+
+            with open(path, 'wb') as content:
+                pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
+        except:
+            pass
 
                                             # les loads
     def load_attribut_player(self):
@@ -258,6 +272,16 @@ class Saves:
         except:
             self.save_quests()
 
+    def load_modified_map(self):
+        try:
+            path = self.utils.get_path_saves('modified_map.bin')
+            with open(path, 'rb') as content:
+                data = pickle.load(content)
+                print(f'data:{data}')
+                return data
+        except:
+            self.reset_modified_map()
+            return {}
 
     def reset_attribut_player(self):
         max_health = 100
@@ -307,3 +331,9 @@ class Saves:
         self.game.quest.reset_all_quests()
         self.game.complete_quests = []
         self.save_quests()
+
+    def reset_modified_map(self):
+        '''
+        ne fais rien car pour reset il faut juste 
+        reload le jeu et cela ce fera tout seul
+        '''

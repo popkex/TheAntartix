@@ -18,7 +18,7 @@ class Game():
     def __init__(self, main_menu, loading=None):
         self.main_menu = main_menu
         self.loading = loading
-        self.stop_update = False
+        self.stop_update = True # désactive l'actualisation de l'écran a la premiere frame
 
         if loading:
             self.load_components_with_screen()
@@ -37,7 +37,6 @@ class Game():
         self.load_player()
         self.load_screen()
         self.load_fight()
-        self.load_map()
         self.load_tutorials_and_dialog()
         self.load_system()
 
@@ -58,7 +57,7 @@ class Game():
         self.load_fight()
         self.loading.loading_screen.show_element('Loading maps...')
         self.load_map()
-        self.loading.loading_screen.show_element('Loading tutorials...')
+        self.loading.loading_screen.show_element('Loading tutorials/dialogs...')
         self.load_tutorials_and_dialog()
         self.loading.loading_screen.show_element('Loading system...')
         self.load_system()

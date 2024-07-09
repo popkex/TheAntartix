@@ -30,6 +30,20 @@ class MapManager:
         self.player = player
         self.game = game
         self.current_map = "artixs_temple_first"
+        self.tile_modified = {}
+        self.tile_modified = self.game.saves.load_modified_map()
+        print(self.tile_modified)
+        '''
+        {'word': {
+            (x, y): gid,
+            (x, y): gid,
+        },
+        'oser_map:{
+            (x, y): gid,
+            ...
+        }
+        }
+        '''
 
         #permet le lancement des combats
         self.battle_running = False
@@ -41,6 +55,7 @@ class MapManager:
         }
 
         self.init_all_maps()
+        self.load_tiles()
 
     def init_all_maps(self):
         self.register_map('artixs_temple_first')
@@ -51,6 +66,14 @@ class MapManager:
         self.teleport_player_with_name('player_spawn')
         self.teleport_npcs()
         self.teleport_enemy()
+
+    def save_tiles(self):
+        self.game.saves.save_tiles()
+
+    def load_tiles(self):
+        for map_name, modifications in self.tile_modified.items():
+            for (x, y), gid in modifications.items():
+                self.change_tuile(x, y, gid, map_name=map_name)
 
     def check_player_far_npc(self):
         # Vérifie pour chaque npc si il est en contacte avec lui
@@ -265,9 +288,19 @@ class MapManager:
                 self.map_manager.remove_wall("test")'''
 
 #supprime une tuile choisi
-    def change_tuile(self, tuile_position_x, tuile_position_y, gid):
-        #obtiens les données actuelles de la map
-        tmx_data = self.get_map().tmx_data
+    def change_tuile(self, tuile_position_x, tuile_position_y, gid, map_name=None):
+        # si une map n'a pas été founis
+        if not map_name:
+            #obtiens les données actuelles de la map
+            tmx_data = self.get_map().tmx_data
+            map_name = self.current_map
+
+            '''Exemple d'utilisation :
+            Suppose que gid = 1 est l'identifiant de la nouvelle tuile.
+            self.map_manager.change_tuile(5, 10, 1)'''
+        # si une map a été fournis
+        else:
+            tmx_data = self.maps[map_name].tmx_data
 
         #accède a la couche de la tuile (le calque)
         layer = None
@@ -281,25 +314,38 @@ class MapManager:
         #modifie la tuile
         layer.data[tuile_position_y][tuile_position_x] = gid
 
-        #recharge la map
+        if map_name not in self.tile_modified:
+            self.tile_modified[map_name] = {}
+        self.tile_modified[map_name][(tuile_position_x, tuile_position_y)] = gid
+        self.save_tiles()
+
+        #reload la map si le joueur a fournis une map
         self.reload_map(reload_npcs=False, reload_enemys=False, reload_npcs_position=False)
 
-    '''Exemple d'utilisation :
-    Suppose que gid = 1 est l'identifiant de la nouvelle tuile.
-    self.map_manager.change_tuile(5, 10, 1)'''
-
 #actualise la map (les enemies ne réaparaisse pas et les status des npcs ne changent pas)
-    def reload_map(self, reload_player_position=True, reload_group=True, reload_npcs=True, reload_npcs_position=True, reload_enemys=True, reload_enemys_position=True):
-        # recupere les données actuelles
-        walls = self.get_walls()
-        walls_name = self.get_wall_name()
-        portals = self.get_map().portals
-        group = self.get_group()
-        tmx_data = self.get_map().tmx_data
-        npcs = self.get_map().npcs
-        enemys = self.get_map().enemys
+    def reload_map(self, reload_player_position=True, reload_group=True, reload_npcs=True, reload_npcs_position=True, reload_enemys=True, reload_enemys_position=True, map_name=None):
+        # si le joueur n'a pas fournis de map, prendre la map en cours
+        if not map_name:
+            # recupere les données actuelles
+            walls = self.get_walls()
+            walls_name = self.get_wall_name()
+            portals = self.get_map().portals
+            group = self.get_group()
+            tmx_data = self.get_map().tmx_data
+            npcs = self.get_map().npcs
+            enemys = self.get_map().enemys
+            current_map = self.get_map()
+        else:
+            data_map = self.maps[map_name]
+            walls = data_map.walls
+            walls_name = data_map.walls_name
+            portals = data_map.portals
+            group = data_map.group
+            tmx_data = data_map.tmx_data
+            npcs = data_map.npcs
+            enemys = data_map.enemys
+            current_map = data_map
 
-        current_map = self.get_map()
         map_data = pyscroll.data.TiledMapData(current_map.tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
         map_layer.zoom = 2
@@ -313,7 +359,10 @@ class MapManager:
             # téléporte le joueur au spawn de la map
             self.teleport_player_with_name('player_spawn')
 
-        data_map = DataMap(self.current_map)
+        if not map_name:
+            data_map = DataMap(self.current_map)
+        else:
+            data_map = DataMap(map_name)
         data_map = data_map.data
 
         if reload_npcs:
@@ -334,7 +383,10 @@ class MapManager:
             for enemy in enemys:
                 group.add_enemys
 
-        self.maps[self.current_map] = Map(self.current_map, walls, walls_name, portals, group, tmx_data, npcs, enemys)
+        if not map_name:
+            self.maps[self.current_map] = Map(self.current_map, walls, walls_name, portals, group, tmx_data, npcs, enemys)
+        else:
+            self.maps[map_name] = Map(map_name, walls, walls_name, portals, group, tmx_data, npcs, enemys)
 
         if reload_npcs_position:
             self.teleport_npcs(current_map=True)
