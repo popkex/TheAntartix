@@ -89,8 +89,8 @@ translations = {
 
     "tutorials": {
         "tutorial": "Tutorial",
-        "tuto_iv": ["Aquí está tu inventario.", "Aquí (como en cualquier inventario), \npuedes almacenar objetos y usarlos.", "Puedes pulsar 'E' para cerrarlo y abrirlo/cerrarlo cuando quieras."],
-        "tuto_fight": ["¡Aquí estás en combate!", "Aquí, al pulsar 'A', puedes atacar a tu \nadversario. A cambio, recibirás daño.", "Si mueres, tu vida volverá al 50% de tu vida máxima, \nperderás experiencia/bajarás de nivel.", "Y sobre todo, ¡comenzarás de nuevo desde el \nprincipio del nivel! Aunque todas las interacciones \ncon el mapa permanecerán.", "Pero si logras matar a tu adversario, \nganarás experiencia y objetos.", "También puedes defenderte con 'Z', reducirás el \ndaño recibido en un % que puede variar con el tiempo", "abre tu inventario pulsando 'E' \ny huye con 'ESC'.", "Te voy a decir un secreto, también puedes \npulsar los íconos con tu ratón para ejecutar la acción", "Pero ten cuidado, si huyes, puede que no lo \nlogres y recibirás daño.", "¡Buena suerte y no te dejes matar!"],
+        "tuto_iv": ["Aquí está tu inventario.", "Aquí (como en cualquier inventario), \npuedes almacenar objetos y usarlos.", "Puedes pulsar 'E' para cerrarlo y abrirlo/cerrarlo\ncuando quieras."],
+        "tuto_fight": ["¡Aquí estás en combate!", "Aquí, al pulsar 'A', puedes atacar a tu \nadversario. A cambio, recibirás daño.", "Si mueres, tu vida volverá al 50% de tu vida máxima, \nperderás experiencia/bajarás de nivel.", "Y sobre todo, ¡comenzarás de nuevo desde el \nprincipio del nivel! Aunque todas las interacciones \ncon el mapa permanecerán.", "Pero si logras matar a tu adversario, \nganarás experiencia y objetos.", "También puedes defenderte con 'Z', reducirás el \ndaño recibido en un % que puede variar con el tiempo", "abre tu inventario pulsando 'E' \ny huye con 'ESC'.", "Te voy a decir un secreto, también puedes \npulsar los íconos con tu ratón para ejecutar la\nacción", "Pero ten cuidado, si huyes, puede que no lo \nlogres y recibirás daño.", "¡Buena suerte y no te dejes matar!"],
     },
 
     "main_menu": {
