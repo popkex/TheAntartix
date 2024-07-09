@@ -320,7 +320,7 @@ class MapManager:
         self.save_tiles()
 
         #reload la map si le joueur a fournis une map
-        self.reload_map(reload_npcs=False, reload_enemys=False, reload_npcs_position=False)
+        self.reload_map(reload_npcs=False, reload_enemys=False, reload_npcs_position=False, reload_player_position=False)
 
 #actualise la map (les enemies ne réaparaisse pas et les status des npcs ne changent pas)
     def reload_map(self, reload_player_position=True, reload_group=True, reload_npcs=True, reload_npcs_position=True, reload_enemys=True, reload_enemys_position=True, map_name=None):
