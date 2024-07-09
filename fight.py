@@ -125,14 +125,15 @@ class Fight:
         message = self.current_enemy.lanch_fight_message
         self.game.add_message(message, 15)
 
-        # lance le tuto et le désactive une fois que l'utilisateur le quitte
-        if not self.game.tutorial.dic_tutorial['fight']:
-            self.game.tutorial.running('tuto_fight')
-            self.game.tutorial.dic_tutorial['fight'] = True
-
         while self.game.active_fight:
             #affiche l'écran de fight
             self.screen.fight_display.screen_fight(self.game.fight_player.txt_player_action)
+
+            # lance le tuto et le désactive une fois que l'utilisateur le quitte
+            ## le laisser dans la boucle meme si c'est mal opti sinon l'écran reste noir lors du tuto
+            if not self.game.tutorial.dic_tutorial['fight']:
+                self.game.tutorial.running('tuto_fight')
+                self.game.tutorial.dic_tutorial['fight'] = True
 
             self.game.update_screen()
 

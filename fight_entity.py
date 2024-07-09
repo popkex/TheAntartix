@@ -16,7 +16,7 @@ class Entity:
     crit_luck: int
     crit_domage: float
     knock_out_luck: int
-    enemy_fail_attack: int
+    luck_fail_attack: int
     give_xp: int
 
 class Enemy(Entity):
@@ -58,7 +58,13 @@ class Enemy(Entity):
         return domage, message
 
     def fail_attack(self):
-        pass
+        luck_fail = random.randint(0, 100)
+
+        # si le joueur ne loupe pas ca défense
+        if self.luck_fail_attack < luck_fail:
+            return False
+        # si le joueur loupe ca défense
+        return True
 
     def action_attack(self):
         if not self.fail_attack(): 
@@ -95,7 +101,7 @@ class EnemyA(Enemy):
         crit_luck = 6
         crit_domage = 1.12
         knock_out_luck = 5
-        enemy_fail_attack = 15
+        luck_fail_attack = 15
         give_xp = 4
 
         key_name = "enemyA"
@@ -111,7 +117,7 @@ class EnemyA(Enemy):
 
         loot = [(Life_Potion, 3), (Big_Life_Potion, 2)] # (L'objet, le nombre d'objet au max)
 
-        super().__init__(key_name, name, lanch_fight_message, loot, image, max_health, health, old_attack, attack, crit_luck, crit_domage, knock_out_luck, enemy_fail_attack, give_xp)
+        super().__init__(key_name, name, lanch_fight_message, loot, image, max_health, health, old_attack, attack, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, give_xp)
 
 class EnemyB(Enemy):
     def __init__(self, game):
@@ -126,7 +132,7 @@ class EnemyB(Enemy):
         crit_luck = 10
         crit_domage = 1.15
         knock_out_luck = 10
-        enemy_fail_attack = 10
+        luck_fail_attack = 10
         give_xp = 6
 
         key_name = "enemyB"
@@ -141,4 +147,4 @@ class EnemyB(Enemy):
         image = pygame.transform.scale(image, (250, 250))
         loot = [(Big_Life_Potion, 3), (Bomb, 1)] # (L'objet, le nombre d'objet au max)
 
-        super().__init__(key_name, name, lanch_fight_message, loot, image, max_health, health, old_attack, attack, crit_luck, crit_domage, knock_out_luck, enemy_fail_attack, give_xp) # de base 120, 120, 12, 5
+        super().__init__(key_name, name, lanch_fight_message, loot, image, max_health, health, old_attack, attack, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, give_xp) # de base 120, 120, 12, 5
