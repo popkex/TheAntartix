@@ -32,7 +32,6 @@ class MapManager:
         self.current_map = "artixs_temple_first"
         self.tile_modified = {}
         self.tile_modified = self.game.saves.load_modified_map()
-        print(self.tile_modified)
         '''
         {'word': {
             (x, y): gid,

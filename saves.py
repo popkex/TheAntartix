@@ -277,7 +277,6 @@ class Saves:
             path = self.utils.get_path_saves('modified_map.bin')
             with open(path, 'rb') as content:
                 data = pickle.load(content)
-                print(f'data:{data}')
                 return data
         except:
             self.reset_modified_map()

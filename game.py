@@ -37,6 +37,7 @@ class Game():
         self.load_player()
         self.load_screen()
         self.load_fight()
+        self.load_map()
         self.load_tutorials_and_dialog()
         self.load_system()
 
@@ -209,7 +210,6 @@ class Game():
 
         while self.run:
             self.updates()
-            # print(self.player.position)
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
