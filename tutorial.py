@@ -23,10 +23,10 @@ class Tutorial:
             for event in pygame.event.get():
 
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
+                    if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
                         running = self.game.dialog_box.execute(key_txt, key_name_txt)
 
-                    if event.key == pygame.K_RETURN:
+                    if event.key == pygame.K_ESCAPE:
                         self.game.dialog_box.close_dialog()
                         running = False
 
