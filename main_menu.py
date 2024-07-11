@@ -84,8 +84,11 @@ class PlayChose:
                     if event.key == pygame.K_F11:
                         pygame.display.toggle_fullscreen()
 
+                    elif event.key == pygame.K_ESCAPE:
+                        self.run = False
+
                 if event.type == pygame.QUIT:
-                    self.run = False
+                    self.saves.save_and_quit()
 
     def handle_mouse_click(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -121,6 +124,9 @@ class ConfirmResetGame:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_F11:
                         pygame.display.toggle_fullscreen()
+
+                    elif event.key == pygame.K_ESCAPE:
+                        self.run = False
 
                 if event.type == pygame.QUIT:
                     self.saves.save_and_quit()
