@@ -229,7 +229,7 @@ class MainMenu:
 
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -279,7 +279,7 @@ class PlayChose:
         self.show_buttons()
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -328,7 +328,7 @@ class ConfirmResetGame:
         self.show_buttons()
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -572,7 +572,7 @@ class VictoryScreen:
         self.show_exit()
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -694,7 +694,7 @@ class Pause_menu:
         self.show_buttons()
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
