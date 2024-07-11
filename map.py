@@ -66,6 +66,10 @@ class MapManager:
         self.teleport_npcs()
         self.teleport_enemy()
 
+        for map in self.maps:
+            data_map = self.get_map(map)
+            self.load_entity(data_map.npcs, data_map.enemys)
+
     def save_tiles(self):
         self.game.saves.save_tiles()
 
@@ -228,6 +232,7 @@ class MapManager:
         data_map = data_map.data
 
         portals = [Portal(**portal) for portal in data_map.get('portals', [])]
+
         npcs = self.load_npcs(data_map)
         enemys = self.load_enemy(data_map)
 
@@ -256,9 +261,36 @@ class MapManager:
                 enemys.append(enemy_type(self.game))
         return enemys
 
+#permet de charger apres une save les emplacements des enemies
+    def load_entity(self, npcs, enemys):
+        # charge les données existantes
+        data = self.game.saves.load_npcs_enemys_position()
+        if data:
+            npcs_data, enemys_data = data[0], data[1]
+
+            for npc_datas in npcs_data:
+                npc_name = npc_datas[0]
+                npc_position = npc_datas[1]
+                npc_current_point = npc_datas[2]
+                for npc in npcs:
+                    if npc.name == npc_name:
+                        npc.position = npc_position
+                        npc.current_point = npc_current_point
+
+            for enemy_datas in enemys_data:
+                number_enemy = enemy_datas[0]
+                enemy_position = enemy_datas[1]
+                for enemy in enemys:
+                    if enemy.number_enemy == number_enemy:
+                        enemy.position = enemy_position
+
+
 #recupere les maps 
-    def get_map(self):
-        return self.maps[self.current_map]
+    def get_map(self, map=None):
+        if map:
+            return self.maps[map]
+        else:
+            return self.maps[self.current_map]
 
 #recupere tout les groupes de la map
     def get_group(self):

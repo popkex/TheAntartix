@@ -313,6 +313,7 @@ class Enemy(Entity):
         self.save_location()
 
     def load_point_spawn(self, tmx_data, number_enemy):
+        self.number_enemy = number_enemy
         point = tmx_data.get_object_by_name(f"enemy_spawn_{number_enemy}")
         rect = pygame.Rect(point.x, point.y, point.width, point.height)
         self.point_spawn = rect

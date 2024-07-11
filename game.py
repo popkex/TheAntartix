@@ -28,6 +28,7 @@ class Game():
         self.load_utils()
         self.load_screen()
         self.load_saves()
+        self.load_system()
 
     def load_game(self, reset_game=False):
         paths_img_list = ["assets\enemy\enemyA.gif", "assets\mobilier.png", "assets\player.png"]
@@ -47,8 +48,6 @@ class Game():
         self.load_map()
         self.loading.loading_screen.show_element('Loading saves...')
         self.saves.load_game()
-        self.loading.loading_screen.show_element('Loading system...')
-        self.load_system()
 
         if reset_game:
             self.loading.loading_screen.show_element('Resetting the game...')
@@ -220,13 +219,6 @@ class Game():
 
                     if event.key == pygame.K_F11:
                         pygame.display.toggle_fullscreen()
-
-                    # if event.key == pygame.K_SPACE:
-                    #     self.map_manager.remove_wall("test")
-                    #     self.map_manager.change_tuile(33, 20, 2)
-
-                    # if event.key == pygame.K_RETURN:
-                    #     self.map_manager.reload_map()
 
                 if event.type == pygame.QUIT:
                     self.run = False

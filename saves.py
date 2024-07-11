@@ -50,6 +50,7 @@ class Saves:
         self.save_settings()
         self.save_quests()
         self.save_tiles()
+        self.save_npcs_enemys_position()
 
     def load_game(self):
         self.load_position()
@@ -169,7 +170,37 @@ class Saves:
             with open(path, 'wb') as content:
                 pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
         except:
-            pass
+            self.reset_modified_map()
+
+    def save_npcs_enemys_position(self):
+        path = self.utils.get_path_saves('npcs_enemys_position.bin')
+        map_manager = self.game.map_manager
+        npcs_data = []
+        enemys_data = []
+        data = []
+
+        for map in map_manager.maps:
+            map = map_manager.get_map(map)
+            for npc in map.npcs:
+                npcs_data.append((npc.name, npc.position, npc.current_point))
+
+            for enemy in map.enemys:
+                enemys_data.append((enemy.number_enemy, enemy.position))
+
+        data.append(npcs_data)
+        data.append(enemys_data)
+
+        with open(path, 'wb') as content:
+            pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
+
+    def load_npcs_enemys_position(self):
+        path = self.utils.get_path_saves('npcs_enemys_position.bin')
+        try:
+            with open(path, 'rb') as content:
+                data = pickle.load(content)
+            return data
+        except:
+            return []
 
                                             # les loads
     def load_attribut_player(self):
@@ -278,13 +309,12 @@ class Saves:
                 data = pickle.load(content)
                 return data
         except:
-            self.reset_modified_map()
             return {}
 
     def reset_attribut_player(self):
         max_health = 100
         health = max_health
-        attack = 10
+        attack = 100
         defense = 15 # 2% de l'attack bloquer
         energy = 40
         energy_max = 20
