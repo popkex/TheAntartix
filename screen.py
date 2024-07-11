@@ -3,21 +3,14 @@ import pygame, time, random
 class Screen:
 
     def __init__(self, game):
-        print(1)
         self.display_width = [1280, 720]
-        print(2)
         self.screen = pygame.display.set_mode(self.display_width, pygame.RESIZABLE + pygame.SCALED)
-        print(3)
         pygame.display.set_caption('The Antartix')
-        print(4)
 
         self.language_manager = game.language_manager
-        print(5)
 
         self.game = game
-        print(6)
         self.utils = self.game.utils
-        print(7)
 
         self.main_menu = MainMenu(self)
         self.play_chose = PlayChose(self)
@@ -37,9 +30,7 @@ class Screen:
         self.auto_save_menu = AutoSaveMenu(self)
 
         #charge le hud
-        print(8)
         self.hud()
-        print('---------------------------------')
 
 # Affiche l'hud du joueur dans la partie open word du jeu
     def hud(self):
