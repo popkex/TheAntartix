@@ -5,8 +5,8 @@ from saves import Saves
 from pause_menu import Settings_Menu
 from loading import Loading
 
-def start_game_loading(main_menu):
-    main_menu.game.load_game()
+def start_game_loading(main_menu, reset_game=False):
+    main_menu.game.load_game(reset_game)
     main_menu.game.running()
 
 class MainMenu:
@@ -131,8 +131,7 @@ class ConfirmResetGame:
                 rect = pygame.Rect(button_position)
                 if rect.collidepoint(event.pos):
                     if txt == 'confirm':
-                        self.saves.reset_game()
-                        start_game_loading(self.main_menu)
+                        start_game_loading(self.main_menu, reset_game=True)
 
                     elif txt == 'cancel':
                         self.run = False

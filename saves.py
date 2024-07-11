@@ -331,7 +331,5 @@ class Saves:
         self.save_quests()
 
     def reset_modified_map(self):
-        '''
-        ne fais rien car pour reset il faut juste 
-        reload le jeu et cela ce fera tout seul
-        '''
+        from map import MapManager
+        self.game.map_manager = MapManager(self.game, self.game.screen.screen, self.game.player)

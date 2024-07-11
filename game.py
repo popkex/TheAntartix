@@ -29,7 +29,7 @@ class Game():
         self.load_screen()
         self.load_saves()
 
-    def load_game(self):
+    def load_game(self, reset_game=False):
         paths_img_list = ["assets\enemy\enemyA.gif", "assets\mobilier.png", "assets\player.png"]
         self.loading = Loading(self, paths_img_list)
         self.loading.execut()
@@ -49,6 +49,11 @@ class Game():
         self.saves.load_game()
         self.loading.loading_screen.show_element('Loading system...')
         self.load_system()
+
+        if reset_game:
+            self.loading.loading_screen.show_element('Resetting the game...')
+            self.saves.reset_game()
+
         self.loading.loading_screen.complete()
 
     def load_settings(self):
