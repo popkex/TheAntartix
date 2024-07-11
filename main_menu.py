@@ -1,5 +1,4 @@
 import pygame
-from language_manager import LanguageManager
 from game import Game
 from screen import Screen
 from saves import Saves
@@ -10,18 +9,17 @@ def start_game_loading(main_menu):
     paths_img_list = ["assets\enemy\enemyA.gif", "assets\mobilier.png", "assets\player.png"]
     loading = Loading(main_menu.game, paths_img_list)
     loading.execut()
-    game = Game(main_menu, loading)
-    game.running()
+    main_menu.game.running()
 
 class MainMenu:
 
     def __init__(self):
-        self.language_manager = LanguageManager()
         self.game = Game(self)
+        self.language_mananger = self.game.language_manager
         self.screen = self.game.screen
-        self.settings_menu = Settings_Menu(self.game)
-        self.saves = Saves(self.game)
-        self.play_chose = PlayChose(self, self.game, self.screen, self.saves)
+        self.settings_menu = self.game.pause_menu
+        self.saves = self.game.saves
+        self.play_chose = PlayChose(self, self.screen, self.saves)
         self.saves.load_settings()
 
     def show_lunch_game(self):
@@ -67,13 +65,12 @@ class MainMenu:
 
 class PlayChose:
 
-    def __init__(self, main_menu, game, screen, saves):
+    def __init__(self, main_menu, screen, saves):
         self.main_menu = main_menu
-        self.game = game
         self.screen = screen
         self.saves = saves
 
-        self.confirm_reset_game = ConfirmResetGame(self.main_menu, self.game, self.screen, self.saves)
+        self.confirm_reset_game = ConfirmResetGame(self.main_menu, self.screen, self.saves)
 
     def running(self):
         self.run = True
@@ -108,9 +105,8 @@ class PlayChose:
 
 class ConfirmResetGame:
 
-    def __init__(self, main_menu, game, screen, saves):
+    def __init__(self, main_menu, screen, saves):
         self.main_menu = main_menu
-        self.game = game
         self.screen = screen
         self.saves = saves
 

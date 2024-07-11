@@ -1,6 +1,7 @@
 import pygame, sys, os, time
 import fight_entity
 import player
+from language_manager import LanguageManager
 from inventory import *
 from quest import Quest
 from map import MapManager
@@ -30,7 +31,7 @@ class Game():
         self.can_modifie_quest = True
 
     def load_components(self):
-        self.language_manager = self.main_menu.language_manager
+        self.load_settings()
         self.load_utils()
         self.load_saves()
         self.load_quests()
@@ -53,7 +54,7 @@ class Game():
         self.loading.loading_screen.show_element('Loading player...')
         self.load_player()
         self.loading.loading_screen.show_element('Loading screen...')
-        self.load_screen(already_load=True)
+        self.load_screen()
         self.loading.loading_screen.show_element('Loading fight...')
         self.load_fight()
         self.loading.loading_screen.show_element('Loading maps...')
@@ -64,7 +65,7 @@ class Game():
         self.load_system()
 
     def load_settings(self):
-        self.language_manager = self.main_menu.saves.language_manager
+        self.language_manager = LanguageManager()
         self.time_auto_save = 120 # défini la save auto à 2mins
         self.format_time = "2minutes"
         self.last_auto_save = time.time()
@@ -82,11 +83,8 @@ class Game():
         self.active_quests = []
         self.complete_quests = []
 
-    def load_screen(self, already_load=False):
-        if not already_load:
-            self.screen = Screen(self)
-        else:
-            self.screen = self.main_menu.screen
+    def load_screen(self):
+        self.screen = Screen(self)
         self.pause_menu = Pause_Menu(self)
 
     def load_player(self):
