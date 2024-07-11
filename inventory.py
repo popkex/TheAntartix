@@ -41,8 +41,9 @@ class Inventory:
                 if event.type == pygame.QUIT:
                     game.saves.save_and_quit()
 
-                if event.key == pygame.K_F11:
-                    pygame.display.toggle_fullscreen()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
 
         return object_used
 
