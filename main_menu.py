@@ -6,9 +6,7 @@ from pause_menu import Settings_Menu
 from loading import Loading
 
 def start_game_loading(main_menu):
-    paths_img_list = ["assets\enemy\enemyA.gif", "assets\mobilier.png", "assets\player.png"]
-    loading = Loading(main_menu.game, paths_img_list)
-    loading.execut()
+    main_menu.game.load_game()
     main_menu.game.running()
 
 class MainMenu:

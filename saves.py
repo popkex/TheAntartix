@@ -51,8 +51,7 @@ class Saves:
         self.save_quests()
         self.save_tiles()
 
-    def load_all(self):
-        self.load_settings()
+    def load_game(self):
         self.load_position()
         self.load_inventory()
         self.load_tutorial()

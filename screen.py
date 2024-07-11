@@ -15,20 +15,22 @@ class Screen:
         self.main_menu = MainMenu(self)
         self.play_chose = PlayChose(self)
         self.confirm_reset_game = ConfirmResetGame(self)
-        self.life = Life_screen(self)
-        self.fight_display = Fight_display(self)
-        self.inventory_display = Inventory_display(self)
-        self.death_display = Death(self)
-        self.dialog = Dialog(self)
-        self.tutorial = Tutorial(self)
         self.pause_menu = Pause_menu(self)
-        self.quest = Quest(self)
-        self.tutorial_menu = Tutorial_Menu(self)
         self.settings = Settings(self)
         self.settings_languages = Settings_Languages(self)
         self.game_settings_menu = GameSettingsMenu(self)
         self.auto_save_menu = AutoSaveMenu(self)
 
+
+    def load_game(self):
+        self.life = Life_screen(self)
+        self.fight_display = Fight_display(self)
+        self.death_display = Death(self)
+        self.dialog = Dialog(self)
+        self.tutorial = Tutorial(self)
+        self.tutorial_menu = Tutorial_Menu(self)
+        self.quest = Quest(self)
+        self.inventory_display = Inventory_display(self)
         #charge le hud
         self.hud()
 

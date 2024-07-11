@@ -1,6 +1,7 @@
-import pygame, sys, os, time
+import pygame, time
 import fight_entity
 import player
+from loading import Loading
 from language_manager import LanguageManager
 from inventory import *
 from quest import Quest
@@ -16,53 +17,39 @@ from pause_menu import Pause_Menu
 
 class Game():
 
-    def __init__(self, main_menu, loading=None):
+    def __init__(self, main_menu):
         self.main_menu = main_menu
-        self.loading = loading
         self.stop_update = True # désactive l'actualisation de l'écran a la premiere frame
-
-        if loading:
-            self.load_components_with_screen()
-            self.loading.loading_screen.complete()
-        else:
-            self.load_components()
-
-        self.saves.load_all()
+        self.load_components()
         self.can_modifie_quest = True
 
     def load_components(self):
         self.load_settings()
         self.load_utils()
-        self.load_saves()
-        self.load_quests()
-        self.load_player()
         self.load_screen()
-        self.load_fight()
-        self.load_map()
-        self.load_tutorials_and_dialog()
-        self.load_system()
-
-    def load_components_with_screen(self):
-        self.loading.loading_screen.show_element('Loading settings...')
-        self.load_settings()
-        self.loading.loading_screen.show_element("Loading utils...")
-        self.load_utils()
-        self.loading.loading_screen.show_element('Loading saves...')
         self.load_saves()
-        self.loading.loading_screen.show_element("Loading quests...")
-        self.load_quests()
+
+    def load_game(self):
+        paths_img_list = ["assets\enemy\enemyA.gif", "assets\mobilier.png", "assets\player.png"]
+        self.loading = Loading(self, paths_img_list)
+        self.loading.execut()
         self.loading.loading_screen.show_element('Loading player...')
         self.load_player()
+        self.loading.loading_screen.show_element('Loading quest...')
+        self.load_quests()
         self.loading.loading_screen.show_element('Loading screen...')
-        self.load_screen()
-        self.loading.loading_screen.show_element('Loading fight...')
+        self.screen.load_game()
+        self.loading.loading_screen.show_element('Loading fight_settings...')
         self.load_fight()
-        self.loading.loading_screen.show_element('Loading maps...')
-        self.load_map()
         self.loading.loading_screen.show_element('Loading tutorials/dialogs...')
         self.load_tutorials_and_dialog()
+        self.loading.loading_screen.show_element('Loading map...')
+        self.load_map()
+        self.loading.loading_screen.show_element('Loading saves...')
+        self.saves.load_game()
         self.loading.loading_screen.show_element('Loading system...')
         self.load_system()
+        self.loading.loading_screen.complete()
 
     def load_settings(self):
         self.language_manager = LanguageManager()
