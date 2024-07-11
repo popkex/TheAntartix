@@ -169,8 +169,11 @@ class Fight_Player():
                 elif event.key == pygame.K_a:
                     return self.player_attack()
 
-                elif event.key == pygame.K_ESCAPE:
+                elif event.key == pygame.K_r:
                     return self.player_escape()
+
+                elif event.key == pygame.K_z:
+                    return self.player_defense()
 
             if event.type == pygame.QUIT:
                 self.game.saves.save_and_quit()

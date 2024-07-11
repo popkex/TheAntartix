@@ -155,4 +155,7 @@ class Fight:
                     if event.key == pygame.K_F11:
                         pygame.display.toggle_fullscreen()
 
+                    elif event.key == pygame.K_ESCAPE:
+                        self.game.pause_menu.running()
+
         self.who_win()
