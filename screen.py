@@ -65,7 +65,7 @@ class Screen:
             self.life.show_hud_life(health, max_health, position, color, (50, 50, 50))
             self.draw_txt("HP", 20, (300, position[1]), False, (255, 102, 0))
 
-    def show_xp_player(self, position=(20, 66)):
+    def show_xp_player(self, position=(20, 43)):
         xp = self.game.data_player.xp
         max_xp = self.game.data_player.xp_max
 
