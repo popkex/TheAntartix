@@ -53,7 +53,7 @@ class Game():
         self.loading.loading_screen.show_element('Loading player...')
         self.load_player()
         self.loading.loading_screen.show_element('Loading screen...')
-        self.load_screen()
+        self.load_screen(already_load=True)
         self.loading.loading_screen.show_element('Loading fight...')
         self.load_fight()
         self.loading.loading_screen.show_element('Loading maps...')
@@ -82,8 +82,11 @@ class Game():
         self.active_quests = []
         self.complete_quests = []
 
-    def load_screen(self):
-        self.screen = Screen(self)
+    def load_screen(self, already_load=False):
+        if not already_load:
+            self.screen = Screen(self)
+        else:
+            self.screen = self.main_menu.screen
         self.pause_menu = Pause_Menu(self)
 
     def load_player(self):
@@ -216,21 +219,24 @@ class Game():
                     if event.key == pygame.K_e:
                         self.inventory.open_inventory(self, "game")
 
-                    if event.key == pygame.K_SPACE:
+                    if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
                         self.map_manager.check_npcs_collisions(self.dialog_box)
 
-                    if event.key == pygame.K_RETURN:
+                    if event.key == pygame.K_ESCAPE:
                         self.dialog_box.close_dialog()
 
                     if event.key == pygame.K_ESCAPE:
                         self.pause_menu.running()
 
-                    if event.key == pygame.K_SPACE:
-                        self.map_manager.remove_wall("test")
-                        self.map_manager.change_tuile(33, 20, 2)
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
 
-                    if event.key == pygame.K_RETURN:
-                        self.map_manager.reload_map()
+                    # if event.key == pygame.K_SPACE:
+                    #     self.map_manager.remove_wall("test")
+                    #     self.map_manager.change_tuile(33, 20, 2)
+
+                    # if event.key == pygame.K_RETURN:
+                    #     self.map_manager.reload_map()
 
                 if event.type == pygame.QUIT:
                     self.run = False

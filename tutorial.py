@@ -30,6 +30,9 @@ class Tutorial:
                         self.game.dialog_box.close_dialog()
                         running = False
 
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()  
+
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
 

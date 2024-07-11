@@ -7,7 +7,7 @@ from language_manager import LanguageManager
 class Fight:
 
     def __init__(self, game, enemy):
-        self.screen = Screen(game)
+        self.screen = game.screen
         self.game = game
 
         self.language_manager = LanguageManager()
@@ -67,6 +67,9 @@ class Fight:
                     if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
                         running = False
                         self.game.map_manager.reload_map()
+
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
 
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
@@ -147,5 +150,8 @@ class Fight:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
+
+                if event.key == pygame.K_F11:
+                    pygame.display.toggle_fullscreen()
 
         self.who_win()

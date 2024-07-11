@@ -18,7 +18,7 @@ class MainMenu:
     def __init__(self):
         self.language_manager = LanguageManager()
         self.game = Game(self)
-        self.screen = Screen(self.game)
+        self.screen = self.game.screen
         self.settings_menu = Settings_Menu(self.game)
         self.saves = Saves(self.game)
         self.play_chose = PlayChose(self, self.game, self.screen, self.saves)
@@ -39,6 +39,10 @@ class MainMenu:
 
             for event in pygame.event.get():
                 self.handle_mouse_click(event)
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
 
                 if event.type == pygame.QUIT:
                     self.saves.save_settings()
@@ -81,6 +85,10 @@ class PlayChose:
             for event in pygame.event.get():
                 self.handle_mouse_click(event)
 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
+
                 if event.type == pygame.QUIT:
                     self.run = False
 
@@ -115,6 +123,10 @@ class ConfirmResetGame:
 
             for event in pygame.event.get():
                 self.handle_mouse_click(event)
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
 
                 if event.type == pygame.QUIT:
                     self.saves.save_and_quit()

@@ -27,6 +27,9 @@ class Pause_Menu:
                     if event.key == pygame.K_ESCAPE:
                         self.run = False
 
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
+
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
 
@@ -70,6 +73,9 @@ class Quest:
                     if event.key == pygame.K_ESCAPE:
                         self.run = False
 
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
+
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
 
@@ -101,6 +107,9 @@ class Settings_Menu():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.run = False
+
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
 
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
@@ -138,6 +147,9 @@ class Settings_language:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.run = False
+
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
 
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
@@ -179,6 +191,9 @@ class Tutorial_Menu():
                     if event.key == pygame.K_ESCAPE:
                         self.run = False
 
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
+
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
 
@@ -211,6 +226,9 @@ class GameSettings:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.run = False
+
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
 
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
@@ -246,6 +264,9 @@ class AutoSave:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.run = False
+
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
 
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
