@@ -1,9 +1,6 @@
 import pygame
 from game import Game
-from screen import Screen
-from saves import Saves
 from pause_menu import Settings_Menu
-from loading import Loading
 
 def start_game_loading(main_menu, reset_game=False):
     main_menu.game.load_game(reset_game)
@@ -15,7 +12,7 @@ class MainMenu:
         self.game = Game(self)
         self.language_mananger = self.game.language_manager
         self.screen = self.game.screen
-        self.settings_menu = self.game.pause_menu
+        self.settings_menu = Settings_Menu(self.game)
         self.saves = self.game.saves
         self.play_chose = PlayChose(self, self.screen, self.saves)
         self.saves.load_settings()
