@@ -39,8 +39,7 @@ class MainMenu:
 
                 if event.type == pygame.QUIT:
                     self.saves.save_settings()
-                    self.run = False
-
+                    pygame.quit()
         pygame.quit()
 
     def handle_mouse_click(self, event):
@@ -53,7 +52,6 @@ class MainMenu:
 
                     elif txt == 'settings_button':
                         self.settings_menu.running()
-                        self.saves.save_settings()
 
                     elif txt == 'quit_button':
                         self.run = False
@@ -85,7 +83,8 @@ class PlayChose:
                         self.run = False
 
                 if event.type == pygame.QUIT:
-                    self.saves.save_and_quit()
+                        self.saves.save_settings()
+                        pygame.quit()
 
     def handle_mouse_click(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -126,7 +125,8 @@ class ConfirmResetGame:
                         self.run = False
 
                 if event.type == pygame.QUIT:
-                    self.saves.save_and_quit()
+                    self.saves.save_settings()
+                    pygame.quit()
 
     def handle_mouse_click(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
