@@ -24,25 +24,26 @@ class Map:
 
 class MapManager:
 
-    def __init__(self, game, screen, player):
+    def __init__(self, game, screen, player, reset_tile=False, reset_entity=False):
         self.maps = dict()
         self.screen = screen
         self.player = player
         self.game = game
         self.current_map = "artixs_temple_first"
         self.tile_modified = {}
-        self.tile_modified = self.game.saves.load_modified_map()
-        '''
-        {'word': {
-            (x, y): gid,
-            (x, y): gid,
-        },
-        'oser_map:{
-            (x, y): gid,
-            ...
-        }
-        }
-        '''
+        if not reset_tile:
+            self.tile_modified = self.game.saves.load_modified_map()
+            '''
+            {'word': {
+                (x, y): gid,
+                (x, y): gid,
+            },
+            'oser_map:{
+                (x, y): gid,
+                ...
+            }
+            }
+            '''
 
         #permet le lancement des combats
         self.battle_running = False
@@ -53,10 +54,10 @@ class MapManager:
             'EnemyB': EnemyB,
         }
 
-        self.init_all_maps()
+        self.init_all_maps(reset_entity)
         self.load_tiles()
 
-    def init_all_maps(self):
+    def init_all_maps(self, reset_entity):
         self.register_map('artixs_temple_first')
         self.register_map("world")
         self.register_map("house1")
@@ -66,9 +67,10 @@ class MapManager:
         self.teleport_npcs()
         self.teleport_enemy()
 
-        for map in self.maps:
-            data_map = self.get_map(map)
-            self.load_entity(data_map.npcs, data_map.enemys)
+        if not reset_entity:
+            for map in self.maps:
+                data_map = self.get_map(map)
+                self.load_entity(data_map.npcs, data_map.enemys)
 
     def save_tiles(self):
         self.game.saves.save_tiles()

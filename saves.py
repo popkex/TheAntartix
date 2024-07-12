@@ -65,7 +65,7 @@ class Saves:
         self.reset_tutorial()
         self.reset_settings()
         self.reset_quests()
-        self.reset_modified_map()
+        self.reset_map()
 
     # identique a la reset_all mais ne reset pas les parametres
     def reset_game(self):
@@ -74,7 +74,7 @@ class Saves:
         self.reset_inventory()
         self.reset_tutorial()
         self.reset_quests()
-        self.reset_modified_map()
+        self.reset_map()
 
     def create_folder_saves(self):
         if not os.path.exists(r'saves'):
@@ -170,7 +170,7 @@ class Saves:
             with open(path, 'wb') as content:
                 pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
         except:
-            self.reset_modified_map()
+            self.reset_map(reset_entity=False)
 
     def save_npcs_enemys_position(self):
         path = self.utils.get_path_saves('npcs_enemys_position.bin')
@@ -360,6 +360,6 @@ class Saves:
         self.game.complete_quests = []
         self.save_quests()
 
-    def reset_modified_map(self):
+    def reset_map(self, reset_map=True, reset_entity=True):
         from map import MapManager
-        self.game.map_manager = MapManager(self.game, self.game.screen.screen, self.game.player)
+        self.game.map_manager = MapManager(self.game, self.game.screen.screen, self.game.player, reset_tile=reset_map, reset_entity=reset_entity)
