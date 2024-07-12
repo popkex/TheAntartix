@@ -277,12 +277,18 @@ class MapManager:
                         npc.position = npc_position
                         npc.current_point = npc_current_point
 
+            all_enemys = enemys.copy()
+
             for enemy_datas in enemys_data:
                 number_enemy = enemy_datas[0]
                 enemy_position = enemy_datas[1]
                 for enemy in enemys:
                     if enemy.number_enemy == number_enemy:
                         enemy.position = enemy_position
+                        all_enemys.remove(enemy)
+
+            for enemy in all_enemys:
+                self.remove_enemy(enemy)
 
 
 #recupere les maps 
@@ -473,6 +479,9 @@ class MapManager:
             enemy.move()
 
     def remove_enemy(self, enemy):
-            current_map = self.get_map()  # Récupérer la carte actuelle
-            current_map.group.remove(enemy)  # Supprimer l'ennemi du groupe de sprites
-            current_map.enemys.remove(enemy)  # Supprimer l'ennemi de la liste des ennemis actifs
+            for map in self.maps:
+                map = self.get_map(map)
+                if enemy in map.enemys:
+                    map.group.remove(enemy)  # Supprimer l'ennemi du groupe de sprites
+                    map.enemys.remove(enemy)  # Supprimer l'ennemi de la liste des ennemis actifs
+                    break
