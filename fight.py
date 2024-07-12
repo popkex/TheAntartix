@@ -158,4 +158,7 @@ class Fight:
                     elif event.key == pygame.K_ESCAPE:
                         self.game.pause_menu.running()
 
+
+        #supprime l'enemie a la fin du combat
+        self.game.map_manager.remove_enemy(self.current_enemy)
         self.who_win()

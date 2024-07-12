@@ -150,11 +150,11 @@ class Game():
 
     def launch_fight(self, enemy_in_fight, enemy):
         if enemy_in_fight:
-            self.map_manager.remove_enemy(enemy)
             enemy_class = getattr(self.fight_entity, enemy_in_fight)
             enemy_instance = enemy_class(self)  # Crée une instance de la classe ennemi
 
-            if enemy_instance.health != 0:
+            #si le joueur est encore en vie
+            if enemy_instance.health >= 1:
                 self.active_fight = True
                 self.fight = Fight(self, enemy_instance)
                 self.fight_player = Fight_Player(self)
