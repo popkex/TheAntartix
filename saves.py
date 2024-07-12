@@ -314,8 +314,8 @@ class Saves:
     def reset_attribut_player(self):
         max_health = 100
         health = max_health
-        attack = 100
-        defense = 15 # 2% de l'attack bloquer
+        attack = 10
+        defense = 15 # 15% de l'attack bloquer
         energy = 40
         energy_max = 20
         energy_consumed_attack = 15
