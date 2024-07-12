@@ -27,8 +27,15 @@ class Pause_Menu:
                     if event.key == pygame.K_ESCAPE:
                         self.run = False
 
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
+
                 if event.type == pygame.QUIT:
-                    self.game.saves.save_and_quit()
+                    try:
+                        self.game.saves.save_and_quit()
+                    except AttributeError:
+                        self.saves.save_settings()
+                        pygame.quit()
 
     def handle_mouse_click(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -70,8 +77,15 @@ class Quest:
                     if event.key == pygame.K_ESCAPE:
                         self.run = False
 
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
+
                 if event.type == pygame.QUIT:
-                    self.game.saves.save_and_quit()
+                    try:
+                        self.game.saves.save_and_quit()
+                    except AttributeError:
+                        self.saves.save_settings()
+                        pygame.quit()
 
     def handle_mouse_click(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -102,8 +116,15 @@ class Settings_Menu():
                     if event.key == pygame.K_ESCAPE:
                         self.run = False
 
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
+
                 if event.type == pygame.QUIT:
-                    self.game.saves.save_and_quit()
+                    try:
+                        self.game.saves.save_and_quit()
+                    except AttributeError:
+                        self.saves.save_settings()
+                        pygame.quit()
 
     def handle_mouse_click(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -139,8 +160,15 @@ class Settings_language:
                     if event.key == pygame.K_ESCAPE:
                         self.run = False
 
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
+
                 if event.type == pygame.QUIT:
-                    self.game.saves.save_and_quit()
+                    try:
+                        self.game.saves.save_and_quit()
+                    except AttributeError:
+                        self.saves.save_settings()
+                        pygame.quit()
 
     def handle_mouse_click(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -179,8 +207,15 @@ class Tutorial_Menu():
                     if event.key == pygame.K_ESCAPE:
                         self.run = False
 
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
+
                 if event.type == pygame.QUIT:
-                    self.game.saves.save_and_quit()
+                    try:
+                        self.game.saves.save_and_quit()
+                    except AttributeError:
+                        self.saves.save_settings()
+                        pygame.quit()
 
     def handle_mouse_click(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -212,8 +247,15 @@ class GameSettings:
                     if event.key == pygame.K_ESCAPE:
                         self.run = False
 
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
+
                 if event.type == pygame.QUIT:
-                    self.game.saves.save_and_quit()
+                    try:
+                        self.game.saves.save_and_quit()
+                    except AttributeError:
+                        self.saves.save_settings()
+                        pygame.quit()
 
     def handle_mouse_click(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -247,8 +289,15 @@ class AutoSave:
                     if event.key == pygame.K_ESCAPE:
                         self.run = False
 
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
+
                 if event.type == pygame.QUIT:
-                    self.game.saves.save_and_quit()
+                    try:
+                        self.game.saves.save_and_quit()
+                    except AttributeError:
+                        self.saves.save_settings()
+                        pygame.quit()
 
     def handle_mouse_click(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:

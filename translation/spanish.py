@@ -1,120 +1,126 @@
 translations = {
+
     "message_system": {
         "object_used": "Has usado",
         "damage_suffered1": "Has sufrido",
-        "damage_suffered2": "daño",
+        "damage_suffered2": "de daño",
         "damage_crit_suffered1": "Has sufrido",
-        "damage_crit_suffered2": "¡daño crítico!",
+        "damage_crit_suffered2": "de daño crítico!",
         "failed_escape": "No has logrado escapar",
+        'defense': '¡Has conseguido levantar tu escudo a tiempo!',
+        'fail_defense': "Desafortunadamente, no has conseguido bloquear este ataque",
         'player_attack': "¡Has atacado!",
-        'player_crit': "¡Has hecho un golpe crítico!",
+        'player_crit': "¡Has hecho un daño crítico!",
+        'player_fail_attack': 'Has fallado tu ataque',
+        'enemy_fail_attack': "¡Tu enemigo no ha logrado acertar!",
         "enemy_known_out_player": "¡Has noqueado a tu enemigo!",
         'recovered_object': "Has recuperado",
+        'player_dont_have_enough_energy_for_attack': "No tienes suficiente energía para atacar",
         'auto_save': "Guardado automático",
         'exit': "para salir",
     },
 
     "enemyA": {
-        'name': "Enemigo A",
-        'lanch_fight_message': "El Enemigo A se topó contigo",
+        'name': "enemigo A",
+        'lanch_fight_message': "El enemigo A te ha encontrado",
     },
 
     "enemyB": {
-        "name": "Enemigo B",
-        'lanch_fight_message': "Un Enemigo B apareció por sorpresa",
+        "name": "enemigo B",
+        'lanch_fight_message': "Un enemigo B ha aparecido por sorpresa",
     },
 
     "objects": {
-        "Life_Potion": "poción de curación",
-        "Big_Life_Potion": "poción de curación grande",
+        "Life_Potion": "poción de vida",
+        "Big_Life_Potion": "poción de vida grande",
         "Bomb": "bombas",
     },
 
     'npc': {
-        'launch_dialog': "Presiona Espacio",
-        'paul': ["Hola, soy Paul", "¿Cómo estás?", "¿Quién eres?", "Tengo miedo de los monstruos", "Me encantaría que alguien me ayudara a deshacerme de estos monstruos.", "¿Unos veinte? Gracias, te recompensaré bien"],
+        'launch_dialog': "Pulsa Espacio",
+        'paul': ["Hola, soy Paul", "¿Cómo estás?", "¿Quién eres?", "Tengo miedo de los monstruos", "Me encantaría que alguien me ayudara a deshacerme \nde estos monstruos.", "¿Unos veinte?\nGracias, te recompensaré bien"],
         "paul_after_quest": ["prueba, prueba"],
-        'michel': ["Estoy gravemente herido por mi excursión en esta mazmorra.", "Lástima que no tenía ninguna poción de curación, de lo contrario no estaría en este estado", "Es mejor que consigas algunas, créeme"],
+        'michel': ["Estoy gravemente herido por mi \nexcursión en este calabozo.", "Lástima que no tenía más poción de vida \nsino no estaría en este estado", "Deberías recuperar algunas, créeme"],
         "michel_after_quest": ["prueba"],
-        'fleufleu': ["Los días pasan y se parecen, pero es en las pequeñas cosas donde encuentro mi felicidad.", "Una sonrisa compartida, el calor del sol en mi piel, la melodía de una canción lejana...", "Estos momentos efímeros son tesoros"]
+        'fleufleu': ["Los días pasan y se parecen, \npero es en las pequeñas cosas \ndonde encuentro mi felicidad.", "Una sonrisa compartida, \nel calor del sol en mi piel, \nla melodía de una canción lejana…", "Estos momentos efímeros son tesoros"]
     },
 
     'michel_quest': {
-        'title': "Recoge pociones de curación para no lastimarte",
-        'description': "Recoge 10 pociones de curación para no lastimarte en la batalla como el pobre Michel"
+        'title': "Recupera pociones de vida para no herirte",
+        'description': "Recupera 10 pociones de vida para no herirte en combate como el pobre Michel"
     },
 
     'paul_quest': {
-        'title': "Mata monstruos para que Paul ya no tenga miedo",
+        'title': "Mata monstruos para que Paul no tenga miedo",
         'description': "Mata 20 monstruos de cualquier tipo",
     },
 
     'michel': {
-        "name": "Michel",
+        "name": "michel",
     },
 
     'paul': {
-        "name": "Paul",
+        "name": "paul",
     },
 
     'fleufleu': {
-        "name": "Fleufleu",
+        "name": "fleufleu",
     },
 
     "victory": {
         "title": "¡Victoria!",
         "victory0": "¡Felicidades! ¡Has triunfado brillantemente!",
-        "victory1": "¡Victoria impresionante! Dominaste el juego con estilo.",
+        "victory1": "¡Victoria espléndida! Has dominado el juego con estilo.",
         "victory2": "¡Misión cumplida! Eres el héroe del día.",
-        "victory3": "¡Éxito total! Tu estrategia dio frutos.",
-        "victory4": "¡Gloria a ti! Aplastaste a tus oponentes.",
+        "victory3": "¡Éxito total! Tu estrategia ha dado resultado.",
+        "victory4": "¡Gloria a ti! Has aplastado a tus adversarios.",
         "victory5": "¡Triunfo legendario! Entras en la historia.",
-        "victory6": "¡Campeones! Superaste todos los obstáculos.",
-        "victory7": "¡Bravo! Tu maestría es innegable.",
-        "victory8": "¡Victoria asegurada! Mostraste coraje y tenacidad.",
-        "victory9": "¡Hazaña notable! Ganaste con brillantez.",
+        "victory6": "¡Campeones! Han superado todos los obstáculos.",
+        "victory7": "¡Bravísimo! Tu maestría es indudable.",
+        "victory8": "¡Victoria asegurada! Has demostrado coraje y tenacidad.",
+        "victory9": "¡Hazaña notable! Has ganado con brillo.",
 
-        "enemy_death": "Has derrotado a:",
+        "enemy_death": "Has vencido:",
         "object_won": "Has ganado",
-        "not_object_won": "No has logrado recuperar un objeto",
+        "not_object_won": "No has conseguido recuperar un objeto",
         "xp_won": "Has ganado",
-        "exit": "Presiona cualquier tecla para salir",
+        "exit": "Pulsa cualquier tecla para salir",
     },
 
     "tutorials": {
         "tutorial": "Tutorial",
-        "tuto_iv": ["Aquí está tu inventario.", "Aquí (como en cualquier inventario), podrás almacenar objetos y usarlos.", "Puedes presionar 'E' para abrirlo y cerrarlo en cualquier momento."],
-        "tuto_fight": ["¡Aquí estás en combate!", "Aquí, presionando 'A', puedes atacar a tu oponente. Pero cuidado, recibirás daño.", "Si mueres, tu vida volverá al 50% y perderás experiencia/nivel.", "Pero si logras matar a tu oponente, ganarás experiencia y objetos.", "También puedes acceder a tu inventario presionando 'E' y huir con 'ESC'.", "Te diré un secreto, también puedes hacer clic en los íconos con el ratón para ejecutar la acción.", "Pero cuidado, si huyes, puede que no lo consigas y recibirás daño.", "¡Buena suerte y no te dejes matar!"],
+        "tuto_iv": ["Aquí está tu inventario.", "Aquí (como en cualquier inventario), \npuedes almacenar objetos y usarlos.", "Puedes pulsar 'E' para cerrarlo y abrirlo/cerrarlo\ncuando quieras."],
+        "tuto_fight": ["¡Aquí estás en combate!", "Aquí, al pulsar 'A', puedes atacar a tu \nadversario. A cambio, recibirás daño.", "Si mueres, tu vida volverá al 50% de tu vida máxima, \nperderás experiencia/bajarás de nivel.", "Y sobre todo, ¡comenzarás de nuevo desde el \nprincipio del nivel! Aunque todas las interacciones \ncon el mapa permanecerán.", "Pero si logras matar a tu adversario, \nganarás experiencia y objetos.", "También puedes defenderte con 'Z', reducirás el \ndaño recibido en un % que puede variar con el tiempo", "abre tu inventario pulsando 'E' \ny huye con 'ESC'.", "Te voy a decir un secreto, también puedes \npulsar los íconos con tu ratón para ejecutar la\nacción", "Pero ten cuidado, si huyes, puede que no lo \nlogres y recibirás daño.", "¡Buena suerte y no te dejes matar!"],
     },
 
     "main_menu": {
         'title': "The Antartix",
         "play_button": "Jugar",
-        "settings_button": "Configuración",
+        "settings_button": "Ajustes",
         "quit_button": "Salir",
     },
 
     'play_chose': {
         'title': "Jugar",
         'load_game': "Continuar",
-        'new_game': "Nuevo Juego",
+        'new_game': "Nueva partida",
         'back': "Atrás"
     },
 
     'confirm_reset_game': {
-        'title': "¿Estás seguro de que quieres empezar un nuevo juego?",
-        'title2': "No podrás deshacer esto",
+        'title': "¿Estás seguro de empezar una nueva partida?",
+        'title2': "No podrás deshacerlo",
         'confirm': "Confirmar",
         'cancel': "Cancelar",
     },
 
     "pause_menu": {
-        "title": "Menú de Pausa",
+        "title": "Menú Pausa",
         "quest_button": "Misiones",
-        "settings_button": "Configuración",
+        "settings_button": "Ajustes",
         "tutorial_button": "Tutoriales",
-        "back_to_the_game": "Volver al Juego",
-        'save_and_quit_button': "Guardar y Salir",
+        "back_to_the_game": "Volver",
+        'save_and_quit_button': "Guardar y salir",
     },
 
     'tutorial_menu': {
@@ -128,25 +134,25 @@ translations = {
     },
 
     "settings_menu": {
-        "title": "Configuración",
+        "title": "Ajustes",
         "language": "Idioma",
-        "game_settings": "Configuración del Juego",
+        "game_settings": "Ajustes del juego",
         "back": "Atrás",
     },
 
     "settings_languages_menu": {
-        "title": "Configuración de Idioma",
+        "title": "Ajustes de idioma",
         "back": "Atrás",
     },
 
     "game_settings_menu": {
-        "title": "Configuración del Juego",
-        "auto_save": "Guardado Automático",
+        "title": "Ajustes del juego",
+        "auto_save": "Guardado automático",
         "back": "Atrás",
     },
 
     'auto_save_menu': {
-        'title': "Guardado Automático",
+        'title': "Guardado automático",
         "1min": "1 minuto",
         "2min": "2 minutos",
         "5min": "5 minutos",
@@ -155,7 +161,7 @@ translations = {
         "30min": "30 minutos",
         "1h": "1 hora",
         "desactivated": "Desactivar",
-        "actualy_time": "actualmente configurado a:",
+        "actualy_time": "actualmente en:",
         "back": "Atrás",
     },
 
@@ -166,23 +172,23 @@ translations = {
     },
 
     'game_over': {
-        'fight_message_1': "Quiso ser el héroe, pero terminó como un cero.",
+        'fight_message_1': "Quiso ser un héroe, pero terminó en cero.",
         'fight_message_2': "Otra alma valiente... aplastada por la realidad del 'Game Over'.",
         'fight_message_3': "Lo intentó, falló, y ahora es parte del decorado.",
         'fight_message_4': "Corrió hacia la gloria, pero tropezó con su espada.",
-        'fight_message_5': "Saltó a la batalla... y directamente a una trampa.",
-        'fight_message_6': "Gritó '¡Por el honor!', pero todo lo que escuchamos fue '¡Ay!'",
-        'fight_message_7': "Luchó como un león, pero por desgracia, era solo un gatito.",
+        'fight_message_5': "Saltó a la batalla... y directamente en una trampa.",
+        'fight_message_6': "Gritó '¡Por el honor!', pero lo único que se escuchó fue '¡Ay!'.",
+        'fight_message_7': "Luchó como un león, pero lamentablemente, solo era un gatito.",
         'fight_message_8': "Buscó la victoria, pero encontró un final pintoresco.",
-        'fight_message_9': "Soñó con ser invencible, se olvidó de practicarlo.",
-        'fight_message_10': "Quiso ser el maestro del juego, pero el juego lo dominó.",
+        'fight_message_9': "hum, deberías haber comprado un mejor aimbot.",
+        'fight_message_10': "Quiso ser el maestro del juego, pero el juego lo dominó a él.",
     },
 
     'button_press': {
-        'press_a': "Presiona 'A'",
-        'press_e': "Presiona 'E'",
-        'press_space': "Presiona 'Espacio'",
-        'press_escape': "Presiona 'ESC'",
-        'press_enter': "Presiona 'Enter'",
+        'press_a': "Pulsa 'A'",
+        'press_e': "Pulsa 'E'",
+        'press_space': "Pulsa 'Espacio'",
+        'press_escape': "Pulsa 'ESC'",
+        'press_enter': "Pulsa 'Enter'",
     },
 }

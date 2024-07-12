@@ -49,9 +49,10 @@ class Saves:
         self.save_tutorial()
         self.save_settings()
         self.save_quests()
+        self.save_tiles()
+        self.save_npcs_enemys_position()
 
-    def load_all(self):
-        self.load_settings()
+    def load_game(self):
         self.load_position()
         self.load_inventory()
         self.load_tutorial()
@@ -64,6 +65,7 @@ class Saves:
         self.reset_tutorial()
         self.reset_settings()
         self.reset_quests()
+        self.reset_map()
 
     # identique a la reset_all mais ne reset pas les parametres
     def reset_game(self):
@@ -72,6 +74,7 @@ class Saves:
         self.reset_inventory()
         self.reset_tutorial()
         self.reset_quests()
+        self.reset_map()
 
     def create_folder_saves(self):
         if not os.path.exists(r'saves'):
@@ -85,25 +88,27 @@ class Saves:
     def save_attribut_player(self, data_provided=None):
         path = self.utils.get_path_saves('player_attribut.bin')
 
-        data_player = self.game.data_player
-
-        health = data_player.health
-        max_health = data_player.max_health
-        attack = data_player.attack
-        defense = data_player.defense
-        energy = data_player.energy
-        total_energy = data_player.total_energy
-        crit_luck = data_player.crit_luck
-        crit_domage = data_player.crit_domage
-        knock_out_luck = data_player.knock_out_luck
-        luck_fail_attack = data_player.luck_fail_attack
-        luck_fail_defense = data_player.luck_fail_defense
-        xp = data_player.xp
-        xp_max = data_player.xp_max
-        lvl = data_player.lvl
-
         if not data_provided:
-            data = (health, max_health, attack, defense, energy, total_energy, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, luck_fail_defense, xp, xp_max, lvl)
+            data_player = self.game.data_player
+
+            health = data_player.health
+            max_health = data_player.max_health
+            attack = data_player.attack
+            defense = data_player.defense
+            energy = data_player.energy
+            energy_max = data_player.energy_max
+            energy_consumed_attack = data_player.energy_consumed_attack
+            energy_regain_defense = data_player.energy_regain_defense
+            crit_luck = data_player.crit_luck
+            crit_domage = data_player.crit_domage
+            knock_out_luck = data_player.knock_out_luck
+            luck_fail_attack = data_player.luck_fail_attack
+            luck_fail_defense = data_player.luck_fail_defense
+            xp = data_player.xp
+            xp_max = data_player.xp_max
+            lvl = data_player.lvl
+
+            data = (health, max_health, attack, defense, energy, energy_max, energy_consumed_attack, energy_regain_defense, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, luck_fail_defense, xp, xp_max, lvl)
         else:
             data = data_provided
 
@@ -156,6 +161,47 @@ class Saves:
         with open(path, 'wb') as content:
             pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
 
+    def save_tiles(self):
+        path = self.utils.get_path_saves('modified_map.bin')
+        # si la self.game.map_manager.tile_modified a bien été initier
+        try:
+            data = self.game.map_manager.tile_modified
+
+            with open(path, 'wb') as content:
+                pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
+        except:
+            self.reset_map(reset_entity=False)
+
+    def save_npcs_enemys_position(self):
+        path = self.utils.get_path_saves('npcs_enemys_position.bin')
+        map_manager = self.game.map_manager
+        npcs_data = []
+        enemys_data = []
+        data = []
+
+        for map in map_manager.maps:
+            map = map_manager.get_map(map)
+            for npc in map.npcs:
+                npcs_data.append((npc.name, npc.position, npc.current_point))
+
+            for enemy in map.enemys:
+                enemys_data.append((enemy.number_enemy, enemy.position))
+
+        data.append(npcs_data)
+        data.append(enemys_data)
+
+        with open(path, 'wb') as content:
+            pickle.dump(data, content, pickle.HIGHEST_PROTOCOL)
+
+    def load_npcs_enemys_position(self):
+        path = self.utils.get_path_saves('npcs_enemys_position.bin')
+        try:
+            with open(path, 'rb') as content:
+                data = pickle.load(content)
+            return data
+        except:
+            return []
+
                                             # les loads
     def load_attribut_player(self):
         path = self.utils.get_path_saves('player_attribut.bin')
@@ -165,9 +211,8 @@ class Saves:
         except:
             data = self.reset_attribut_player()
 
-        health, max_health, attack, defense, energy, total_energy, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, luck_fail_defense, xp, xp_max, lvl = data
-
-        data_1 = health, max_health, attack, defense, energy, total_energy
+        health, max_health, attack, defense, energy, energy_max, energy_consumed_attack, energy_regain_defense, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, luck_fail_defense, xp, xp_max, lvl = data
+        data_1 = health, max_health, attack, defense, energy, energy_max, energy_consumed_attack, energy_regain_defense
         data_2 = crit_luck, crit_domage, knock_out_luck, luck_fail_attack, luck_fail_defense
         data_3 = xp, xp_max, lvl
 
@@ -257,14 +302,24 @@ class Saves:
         except:
             self.save_quests()
 
+    def load_modified_map(self):
+        try:
+            path = self.utils.get_path_saves('modified_map.bin')
+            with open(path, 'rb') as content:
+                data = pickle.load(content)
+                return data
+        except:
+            return {}
 
     def reset_attribut_player(self):
         max_health = 100
         health = max_health
         attack = 10
-        defense = 15 # 2% de l'attack bloquer
-        energy = 20
-        total_energy = 20
+        defense = 15 # 15% de l'attack bloquer
+        energy = 40
+        energy_max = 20
+        energy_consumed_attack = 15
+        energy_regain_defense = 10
         crit_luck = 5
         crit_domage = 1.12
         knock_out_luck = 5
@@ -274,7 +329,7 @@ class Saves:
         xp_max = 25
         lvl = 1
 
-        data = max_health, health, attack, defense, energy, total_energy, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, luck_fail_defense, xp, xp_max, lvl
+        data = max_health, health, attack, defense, energy, energy_max, energy_consumed_attack, energy_regain_defense, crit_luck, crit_domage, knock_out_luck, luck_fail_attack, luck_fail_defense, xp, xp_max, lvl
         self.save_attribut_player(data)
         return data
 
@@ -304,3 +359,7 @@ class Saves:
         self.game.quest.reset_all_quests()
         self.game.complete_quests = []
         self.save_quests()
+
+    def reset_map(self, reset_map=True, reset_entity=True):
+        from map import MapManager
+        self.game.map_manager = MapManager(self.game, self.game.screen.screen, self.game.player, reset_tile=reset_map, reset_entity=reset_entity)

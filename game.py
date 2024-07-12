@@ -1,6 +1,8 @@
-import pygame, sys, os, time
+import pygame, time
 import fight_entity
 import player
+from loading import Loading
+from language_manager import LanguageManager
 from inventory import *
 from quest import Quest
 from map import MapManager
@@ -15,55 +17,46 @@ from pause_menu import Pause_Menu
 
 class Game():
 
-    def __init__(self, main_menu, loading=None):
+    def __init__(self, main_menu):
         self.main_menu = main_menu
-        self.loading = loading
-
-        if loading:
-            self.load_components_with_screen()
-            self.loading.loading_screen.complete()
-        else:
-            self.load_components()
-
-        self.saves.load_all()
+        self.stop_update = True # désactive l'actualisation de l'écran a la premiere frame
+        self.load_components()
         self.can_modifie_quest = True
 
     def load_components(self):
-        self.language_manager = self.main_menu.language_manager
+        self.load_settings()
         self.load_utils()
-        self.load_saves()
-        self.load_quests()
-        self.load_player()
         self.load_screen()
-        self.load_fight()
-        self.load_map()
-        self.load_tutorials_and_dialog()
+        self.load_saves()
         self.load_system()
 
-    def load_components_with_screen(self):
-        self.loading.loading_screen.show_element('Loading settings...')
-        self.load_settings()
-        self.loading.loading_screen.show_element("Loading utils...")
-        self.load_utils()
-        self.loading.loading_screen.show_element('Loading saves...')
-        self.load_saves()
-        self.loading.loading_screen.show_element("Loading quests...")
-        self.load_quests()
+    def load_game(self, reset_game=False):
+        paths_img_list = ["assets\enemy\enemyA.gif", "assets\mobilier.png", "assets\player.png"]
+        self.loading = Loading(self, paths_img_list)
+        self.loading.execut()
         self.loading.loading_screen.show_element('Loading player...')
         self.load_player()
+        self.loading.loading_screen.show_element('Loading quest...')
+        self.load_quests()
         self.loading.loading_screen.show_element('Loading screen...')
-        self.load_screen()
-        self.loading.loading_screen.show_element('Loading fight...')
+        self.screen.load_game()
+        self.loading.loading_screen.show_element('Loading fight_settings...')
         self.load_fight()
-        self.loading.loading_screen.show_element('Loading maps...')
-        self.load_map()
-        self.loading.loading_screen.show_element('Loading tutorials...')
+        self.loading.loading_screen.show_element('Loading tutorials/dialogs...')
         self.load_tutorials_and_dialog()
-        self.loading.loading_screen.show_element('Loading system...')
-        self.load_system()
+        self.loading.loading_screen.show_element('Loading map...')
+        self.load_map()
+        self.loading.loading_screen.show_element('Loading saves...')
+        self.saves.load_game()
+
+        if reset_game:
+            self.loading.loading_screen.show_element('Resetting the game...')
+            self.saves.reset_game()
+
+        self.loading.loading_screen.complete()
 
     def load_settings(self):
-        self.language_manager = self.main_menu.saves.language_manager
+        self.language_manager = LanguageManager()
         self.time_auto_save = 120 # défini la save auto à 2mins
         self.format_time = "2minutes"
         self.last_auto_save = time.time()
@@ -147,18 +140,21 @@ class Game():
         self.saves.blit_auto_save()
         self.dialog_box.render(self.screen.screen)
         self.utils.delta_time = self.clock.tick(self.utils.fps_limite) /1000 # remplacer 60 par une var pour pouvoir modifier les fps dans les parametres
-        pygame.display.flip()
+        if not self.stop_update:
+            pygame.display.flip()
+        else:
+            self.stop_update = False
 
     def update(self):
         self.map_manager.update()
 
     def launch_fight(self, enemy_in_fight, enemy):
         if enemy_in_fight:
-            self.map_manager.remove_enemy(enemy)
             enemy_class = getattr(self.fight_entity, enemy_in_fight)
             enemy_instance = enemy_class(self)  # Crée une instance de la classe ennemi
 
-            if enemy_instance.health != 0:
+            #si le joueur est encore en vie
+            if enemy_instance.health >= 1:
                 self.active_fight = True
                 self.fight = Fight(self, enemy_instance)
                 self.fight_player = Fight_Player(self)
@@ -206,25 +202,23 @@ class Game():
 
         while self.run:
             self.updates()
-            # print(self.player.position)
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_e:
                         self.inventory.open_inventory(self, "game")
 
-                    if event.key == pygame.K_SPACE:
+                    if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
                         self.map_manager.check_npcs_collisions(self.dialog_box)
 
-                    if event.key == pygame.K_RETURN:
+                    if event.key == pygame.K_ESCAPE:
                         self.dialog_box.close_dialog()
 
                     if event.key == pygame.K_ESCAPE:
                         self.pause_menu.running()
 
-                    if event.key == pygame.K_SPACE:
-                        self.map_manager.remove_wall("test")
-                        self.map_manager.change_tuile(33, 20, 2)
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
 
                 if event.type == pygame.QUIT:
                     self.run = False

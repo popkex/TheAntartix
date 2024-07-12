@@ -15,6 +15,30 @@ class Fight_Player():
             self.player_escape,
         ]
 
+    def can_remove_energy(self, quantity_removed):
+        if self.game.data_player.energy - quantity_removed >= 0: # si la quantité restante est en gros de plus de 0
+            return True
+        return False
+
+    def remove_energy(self, quantity_removed):
+        new_quantity = self.game.data_player.energy - quantity_removed
+
+        if new_quantity >= 1:
+            self.game.data_player.energy = new_quantity
+        else:
+            self.game.data_player.energy = 0
+
+    def add_energy(self, quantity_add):
+        new_quantity = self.game.data_player.energy + quantity_add
+
+        if new_quantity > self.game.data_player.energy_max:
+            self.game.data_player.energy = self.game.data_player.energy_max
+        else:
+            self.game.data_player.energy = new_quantity
+
+    def reset_energy(self):
+        self.game.data_player.energy = self.game.data_player.energy_max
+
     def select_action_player(self, index):
         return self.player_action_fonction[index]()
 
@@ -51,20 +75,29 @@ class Fight_Player():
         return True
 
     def player_attack(self):
-        if not self.player_fail_attack(): 
-            domage, message = self.player_crit()
+        # si le joueur a encore suffisament d'énergie 
+        if self.can_remove_energy(self.game.data_player.energy_consumed_attack):
+            if not self.player_fail_attack(): 
+                domage, message = self.player_crit()
 
-            if self.enemy.health > domage:
-                self.enemy.health -= domage
-            else: 
-                self.enemy.health = 0
+                if self.enemy.health > domage:
+                    self.enemy.health -= domage
+                else: 
+                    self.enemy.health = 0
+            else:
+                message = self.language_manager.load_txt('message_system', 'player_fail_attack')
+
+            # retire de l'energie, affiche le message et passe le tour du joueur
+            self.remove_energy(self.game.data_player.energy_consumed_attack)
+            self.game.add_message(message)
+            self.game.update_screen()
+            return False
         else:
-            message = self.language_manager.load_txt('message_system', 'player_fail_attack')
-
-        self.game.add_message(message)
-        self.game.update_screen()
-
-        return False
+            # affiche le message et ne passe pas le tour du joueur
+            message = self.language_manager.load_txt('message_system', 'player_dont_have_enough_energy_for_attack')
+            self.game.add_message(message)
+            self.game.update_screen()
+            return True
 
     def player_fail_defense(self):
         luck_fail = random.randint(0, 100)
@@ -96,6 +129,8 @@ class Fight_Player():
 
         self.game.add_message(message)
         self.game.update_screen()
+        self.add_energy(self.game.data_player.energy_regain_defense)
+
         return False
 
     def player_escape(self):
@@ -134,8 +169,11 @@ class Fight_Player():
                 elif event.key == pygame.K_a:
                     return self.player_attack()
 
-                elif event.key == pygame.K_ESCAPE:
+                elif event.key == pygame.K_r:
                     return self.player_escape()
+
+                elif event.key == pygame.K_z:
+                    return self.player_defense()
 
             if event.type == pygame.QUIT:
                 self.game.saves.save_and_quit()

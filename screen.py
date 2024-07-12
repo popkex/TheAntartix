@@ -4,7 +4,7 @@ class Screen:
 
     def __init__(self, game):
         self.display_width = [1280, 720]
-        self.screen = pygame.display.set_mode(self.display_width)
+        self.screen = pygame.display.set_mode(self.display_width, pygame.RESIZABLE + pygame.SCALED)
         pygame.display.set_caption('The Antartix')
 
         self.language_manager = game.language_manager
@@ -15,20 +15,22 @@ class Screen:
         self.main_menu = MainMenu(self)
         self.play_chose = PlayChose(self)
         self.confirm_reset_game = ConfirmResetGame(self)
-        self.life = Life_screen(self)
-        self.fight_display = Fight_display(self)
-        self.inventory_display = Inventory_display(self)
-        self.death_display = Death(self)
-        self.dialog = Dialog(self)
-        self.tutorial = Tutorial(self)
         self.pause_menu = Pause_menu(self)
-        self.quest = Quest(self)
-        self.tutorial_menu = Tutorial_Menu(self)
         self.settings = Settings(self)
         self.settings_languages = Settings_Languages(self)
         self.game_settings_menu = GameSettingsMenu(self)
         self.auto_save_menu = AutoSaveMenu(self)
 
+
+    def load_game(self):
+        self.life = Life_screen(self)
+        self.fight_display = Fight_display(self)
+        self.death_display = Death(self)
+        self.dialog = Dialog(self)
+        self.tutorial = Tutorial(self)
+        self.tutorial_menu = Tutorial_Menu(self)
+        self.quest = Quest(self)
+        self.inventory_display = Inventory_display(self)
         #charge le hud
         self.hud()
 
@@ -63,19 +65,26 @@ class Screen:
             self.life.show_hud_life(health, max_health, position, color, (50, 50, 50))
             self.draw_txt("HP", 20, (300, position[1]), False, (255, 102, 0))
 
+    def show_xp_player(self, position=(20, 43)):
+        xp = self.game.data_player.xp
+        max_xp = self.game.data_player.xp_max
+
+        self.show_bar(xp, max_xp, position, color_bar=(37, 31, 252), back_color_bar=(50, 50, 50), max_w=260)
+        self.draw_txt("XP", 20, (260, position[1]), False, (255, 102, 0))
+        self.draw_txt(f"lvl {self.game.data_player.lvl}", 25, (282, position[1]), False, (0, 0, 139))
+
+    def show_energy_player(self, position=(20, 43)):
+        energy = self.game.data_player.energy
+        energy_max = self.game.data_player.energy_max
+
+        self.show_bar(energy, energy_max, position, color_bar=(37, 31, 252), back_color_bar=(50, 50, 50))
+        self.draw_txt("energy", 20, (274, position[1]), False, color=(255, 102, 0))
+
     def show_inventory_asset(self):
         path = self.utils.get_path_assets('action_player/Item.png')
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (75, 75))
         self.blit_ressource(image, (1200, 640))
-
-    def show_xp_player(self, position=(20, 43)):
-        xp = self.game.data_player.xp
-        max_xp = self.game.data_player.xp_max
-
-        self.show_bar(xp, max_xp, position, (37, 31, 252), (50, 50, 50), 260)
-        self.draw_txt("XP", 20, (260, position[1]), False, (255, 102, 0))
-        self.draw_txt(f"lvl {self.game.data_player.lvl}", 25, (282, position[1]), False, (0, 0, 139))
 
     def blit_ressource(self, ressource, position=(0,0), center=False):
         if center:
@@ -207,14 +216,20 @@ class MainMenu:
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
-                    stop = True
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
+                    else:
+                        stop = True
+
+                if event.type == pygame.QUIT:
+                    pygame.quit()
 
             if stop:
                 break
 
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -264,7 +279,7 @@ class PlayChose:
         self.show_buttons()
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -313,7 +328,7 @@ class ConfirmResetGame:
         self.show_buttons()
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -400,10 +415,12 @@ class Fight_display:
             self.append_txt_surface_rect(image_rect)
 
     def player_hud_fight(self, action):
+        energy_position = (20, 648)
         life_position = (20, 671)
         xp_position = (20, 694)
         self.screen.show_life_player(life_position)
         self.screen.show_xp_player(xp_position)
+        self.screen.show_energy_player(energy_position)
         self.draw_player_action(action)
 
     def show_hud_fight(self, action):
@@ -555,7 +572,7 @@ class VictoryScreen:
         self.show_exit()
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -659,7 +676,10 @@ class Tutorial:
         self.screen = screen
 
     def clear_tutorial(self):
-        self.screen.game.map_manager.draw()
+        # self.screen.game.map_manager.draw()
+        self.screen.screen.fill((0, 0, 0))
+        #empeche une reset de l'écran pour évité un clignottement
+        self.screen.game.stop_update = True
 
 
 
@@ -677,7 +697,7 @@ class Pause_menu:
         self.show_buttons()
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.jpg")
+        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))

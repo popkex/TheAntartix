@@ -231,7 +231,6 @@ class NPC(Entity):
 
         if target_point >= self.nb_points:
             target_point = 0
-
         target_rect = self.points[target_point]
 
         current_direction = None
@@ -274,12 +273,14 @@ class NPC(Entity):
         return current_direction, moving
 
     def teleport_spawn(self):
+        self.current_point = 0
         location = self.points[self.current_point]
         self.position[0] = location.x
         self.position[1] = location.y
         self.save_location()
 
     def load_points(self, tmx_data):
+        self.points = []
         for num in range(1, self.nb_points + 1):
             point = tmx_data.get_object_by_name(f"{self.name}_path{num}")
             rect = pygame.Rect(point.x, point.y, point.width, point.height)
@@ -312,6 +313,7 @@ class Enemy(Entity):
         self.save_location()
 
     def load_point_spawn(self, tmx_data, number_enemy):
+        self.number_enemy = number_enemy
         point = tmx_data.get_object_by_name(f"enemy_spawn_{number_enemy}")
         rect = pygame.Rect(point.x, point.y, point.width, point.height)
         self.point_spawn = rect

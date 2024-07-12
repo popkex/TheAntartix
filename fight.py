@@ -7,7 +7,7 @@ from language_manager import LanguageManager
 class Fight:
 
     def __init__(self, game, enemy):
-        self.screen = Screen(game)
+        self.screen = game.screen
         self.game = game
 
         self.language_manager = LanguageManager()
@@ -66,7 +66,10 @@ class Fight:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
                         running = False
-                        self.game.map_manager.teleport_player_with_name('player_spawn')
+                        self.game.map_manager.reload_map()
+
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
 
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
@@ -121,6 +124,7 @@ class Fight:
 
 #le combat
     def run(self):
+        self.game.fight_player.reset_energy()
         message = self.current_enemy.lanch_fight_message
         self.game.add_message(message, 15)
 
@@ -129,6 +133,7 @@ class Fight:
             self.screen.fight_display.screen_fight(self.game.fight_player.txt_player_action)
 
             # lance le tuto et le désactive une fois que l'utilisateur le quitte
+            ## le laisser dans la boucle meme si c'est mal opti sinon l'écran reste noir lors du tuto
             if not self.game.tutorial.dic_tutorial['fight']:
                 self.game.tutorial.running('tuto_fight')
                 self.game.tutorial.dic_tutorial['fight'] = True
@@ -146,4 +151,14 @@ class Fight:
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
+
+                    elif event.key == pygame.K_ESCAPE:
+                        self.game.pause_menu.running()
+
+
+        #supprime l'enemie a la fin du combat
+        self.game.map_manager.remove_enemy(self.current_enemy)
         self.who_win()
