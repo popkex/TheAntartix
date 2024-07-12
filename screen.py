@@ -676,7 +676,10 @@ class Tutorial:
         self.screen = screen
 
     def clear_tutorial(self):
-        self.screen.game.map_manager.draw()
+        # self.screen.game.map_manager.draw()
+        self.screen.screen.fill((0, 0, 0))
+        #empeche une reset de l'écran pour évité un clignottement
+        self.screen.game.stop_update = True
 
 
 
