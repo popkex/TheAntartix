@@ -265,7 +265,7 @@ class Saves:
                 data_auto_save_time = data[1]
                 self.game.time_auto_save = data_auto_save_time[0]
                 self.game.format_time = data_auto_save_time[1]
-        except:
+        except FileNotFoundError:
             self.reset_settings()
 
     def load_quests(self):
