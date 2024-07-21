@@ -163,6 +163,21 @@ class Screen:
         image = pygame.transform.scale(image, (50, 50))
         self.blit_ressource(image, position)
 
+    def buttons(self, txt_key, txt, button_number, dic):
+        y = 100+50*button_number
+        txt_surface, position = self.draw_txt(txt, police=50, position=(0, y), center=True, color=(255, 255, 255), render=True, can_blit=False)
+        x, y, w, h = position
+        button_position = x-5, y-5, w+10, h+10
+        dic[txt_key] = button_position  # Stockez les coordonnées du bouton
+
+        # si la souris se trouve dans la zone cliquable du bouton mettre le fond en noir
+        rect = pygame.Rect(x, y, w, h)
+        if rect.collidepoint(pygame.mouse.get_pos()):
+            self.draw_color(surface=self.screen, color=(0, 0, 0), position=button_position)
+
+        # affiche le texte apres le bg si il est mis
+        self.blit_ressource(txt_surface, position)
+
 
 
 class LoadingScreen:
@@ -243,27 +258,20 @@ class MainMenu:
         self.show_button_settings()
         self.show_button_quit()
 
-    def buttons(self, txt_key, txt, button_number, dic):
-        y = 100+50*button_number
-        txt_surface, position = self.screen.draw_txt(txt, 50, (0, y), True, (255, 255, 255), True)
-        x, y, w, h = position
-        button_position = x -10, y-10, w + 10, h + 10
-        dic[txt_key] = button_position  # Stockez les coordonnées du bouton
-
     def show_button_play(self):
         txt_key = 'play_button'
         txt = self.screen.language_manager.load_txt('main_menu', txt_key)
-        self.buttons(txt_key, txt, 1, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 1, self.dic_buttons)
 
     def show_button_settings(self):
         txt_key = 'settings_button'
         txt = self.screen.language_manager.load_txt('main_menu', txt_key)
-        self.buttons(txt_key, txt, 2, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 2, self.dic_buttons)
 
     def show_button_quit(self):
         txt_key = 'quit_button'
         txt = self.screen.language_manager.load_txt('main_menu', txt_key)
-        self.buttons(txt_key, txt, 11, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 11, self.dic_buttons)
 
 
 
@@ -293,27 +301,20 @@ class PlayChose:
         self.show_button_settings()
         self.show_button_back()
 
-    def buttons(self, txt_key, txt, button_number, dic):
-        y = 100+50*button_number
-        txt_surface, position = self.screen.draw_txt(txt, 50, (0, y), True, (255, 255, 255), True)
-        x, y, w, h = position
-        button_position = x -10, y-10, w + 10, h + 10
-        dic[txt_key] = button_position  # Stockez les coordonnées du bouton
-
     def show_button_play(self):
         txt_key = 'load_game'
         txt = self.screen.language_manager.load_txt('play_chose', txt_key)
-        self.buttons(txt_key, txt, 1, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 1, self.dic_buttons)
 
     def show_button_settings(self):
         txt_key = 'new_game'
         txt = self.screen.language_manager.load_txt('play_chose', txt_key)
-        self.buttons(txt_key, txt, 2, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 2, self.dic_buttons)
 
     def show_button_back(self):
         txt_key = 'back'
         txt = self.screen.language_manager.load_txt('play_chose', txt_key)
-        self.buttons(txt_key, txt, 11, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 11, self.dic_buttons)
 
 
 class ConfirmResetGame:
@@ -343,22 +344,15 @@ class ConfirmResetGame:
         self.show_button_confirm_chose()
         self.show_button_cancel_chose()
 
-    def buttons(self, txt_key, txt, button_number, dic):
-        y = 100+50*button_number
-        txt_surface, position = self.screen.draw_txt(txt, 50, (0, y), True, (255, 255, 255), True)
-        x, y, w, h = position
-        button_position = x -10, y-10, w + 10, h + 10
-        dic[txt_key] = button_position  # Stockez les coordonnées du bouton
-
     def show_button_confirm_chose(self):
         txt_key = 'confirm'
         txt = self.screen.language_manager.load_txt('confirm_reset_game', txt_key)
-        self.buttons(txt_key, txt, 5, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 5, self.dic_buttons)
 
     def show_button_cancel_chose(self):
         txt_key = 'cancel'
         txt = self.screen.language_manager.load_txt('confirm_reset_game', txt_key)
-        self.buttons(txt_key, txt, 6, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 6, self.dic_buttons)
 
 
 class Life_screen:
@@ -555,13 +549,6 @@ class VictoryScreen:
 
         self.random_victory_txt = random.randint(0, 9) # génère un nombre pour choisir aléatoirement quel texte choisir
 
-    def buttons(self, txt_key, txt, button_number, dic):
-        y = 100+50*button_number
-        txt_surface, position = self.screen.draw_txt(txt, 50, (0, y), True, (255, 255, 255), True)
-        x, y, w, h = position
-        button_position = x -10, y-10, w + 10, h + 10
-        dic[txt_key] = button_position  # Stockez les coordonnées du bouton
-
     def show_elements(self):
         self.show_background()
         self.show_title()
@@ -584,13 +571,13 @@ class VictoryScreen:
     def random_victory(self):
         txt_key = f"victory{self.random_victory_txt}"
         txt = self.screen.language_manager.load_txt('victory', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 2, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 2, self.dic_buttons)
 
     def show_enemy_death(self):
         txt_key = f"enemy_death"
         txt = self.screen.language_manager.load_txt('victory', txt_key)
         txt = f"{txt} {self.enemy_fight}"
-        self.screen.pause_menu.buttons(txt_key, txt, 4, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 4, self.dic_buttons)
 
     def show_object_won(self):
         if self.loots: # vérifie si la liste est vide
@@ -605,18 +592,18 @@ class VictoryScreen:
 
             txt = f"{txt} {loot[1]} {txt_object}"
 
-        self.screen.pause_menu.buttons(txt_key, txt, 5, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 5, self.dic_buttons)
 
     def show_xp_won(self):
         txt_key = "xp_won"
         txt = self.screen.language_manager.load_txt('victory', txt_key)
         txt = f"{txt} {self.xp_won}xp"
-        self.screen.pause_menu.buttons(txt_key, txt, 6, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 6, self.dic_buttons)
 
     def show_exit(self):
         txt_key = "exit"
         txt = self.screen.language_manager.load_txt('victory', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 11, self.dic_buttons)
 
 
 
@@ -713,37 +700,30 @@ class Pause_menu:
         self.show_button_back_to_the_game()
         self.show_button_save_and_quit()
 
-    def buttons(self, txt_key, txt, button_number, dic):
-        y = 100+50*button_number
-        txt_surface, position = self.screen.draw_txt(txt, 50, (0, y), True, (255, 255, 255), True)
-        x, y, w, h = position
-        button_position = x -10, y-10, w + 10, h + 10
-        dic[txt_key] = button_position  # Stockez les coordonnées du bouton
-
     def show_quest_button(self):
         txt_key = 'quest_button'
         txt = self.screen.language_manager.load_txt('pause_menu', txt_key)
-        self.buttons(txt_key, txt, 1, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 1, self.dic_buttons)
 
     def show_button_settings(self):
         txt_key = 'settings_button'
         txt = self.screen.language_manager.load_txt('pause_menu', txt_key)
-        self.buttons(txt_key, txt, 2, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 2, self.dic_buttons)
 
     def show_button_tutorial(self):
         txt_key = 'tutorial_button'
         txt = self.screen.language_manager.load_txt('pause_menu', txt_key)
-        self.buttons(txt_key, txt, 3, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 3, self.dic_buttons)
 
     def show_button_back_to_the_game(self):
         txt_key = 'back_to_the_game'
         txt = self.screen.language_manager.load_txt('pause_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 9, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 9, self.dic_buttons)
 
     def show_button_save_and_quit(self):
         txt_key = 'save_and_quit_button'
         txt = self.screen.language_manager.load_txt('pause_menu', txt_key)
-        self.buttons(txt_key, txt, 11, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 11, self.dic_buttons)
 
 
 
@@ -773,7 +753,7 @@ class Tutorial_Menu:
     def show_button_back(self):
         txt_key = 'back'
         txt = self.screen.language_manager.load_txt('tutorial_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 11, self.dic_buttons)
 
 
 
@@ -812,7 +792,7 @@ class Quest:
     def show_button_back(self):
         txt_key = 'back'
         txt = self.screen.language_manager.load_txt('quest_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 11, self.dic_buttons)
 
 
 
@@ -847,17 +827,17 @@ class Settings:
     def show_button_language(self):
         txt_key = 'language'
         txt = self.screen.language_manager.load_txt('settings_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 1, self.dic_buttons)
 
     def show_button_game_settings(self):
         txt_key = 'game_settings'
         txt = self.screen.language_manager.load_txt('settings_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 2, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 2, self.dic_buttons)
 
     def show_button_back(self):
         txt_key = 'back'
         txt = self.screen.language_manager.load_txt('settings_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 11, self.dic_buttons)
 
 
 
@@ -888,22 +868,22 @@ class Settings_Languages:
     def show_button_language_english(self):
         txt_key = 'english'
         txt = self.screen.language_manager.load_txt('languages', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 1, self.dic_buttons)
 
     def show_button_language_french(self):
         txt_key = 'french'
         txt = self.screen.language_manager.load_txt('languages', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 2, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 2, self.dic_buttons)
 
     def show_button_language_spanish(self):
         txt_key = 'spanish'
         txt = self.screen.language_manager.load_txt('languages', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 3, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 3, self.dic_buttons)
 
     def show_button_back(self):
         txt_key = 'back'
         txt = self.screen.language_manager.load_txt('settings_languages_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 11, self.dic_buttons)
 
 
 class GameSettingsMenu:
@@ -931,12 +911,12 @@ class GameSettingsMenu:
     def show_button_auto_save(self):
         txt_key = 'auto_save'
         txt = self.screen.language_manager.load_txt('game_settings_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 1, self.dic_buttons)
 
     def show_button_back(self):
         txt_key = 'back'
         txt = self.screen.language_manager.load_txt('game_settings_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 11, self.dic_buttons)
 
 
 class AutoSaveMenu:
@@ -971,45 +951,45 @@ class AutoSaveMenu:
     def show_button_2min(self):
         txt_key = '2min'
         txt = self.screen.language_manager.load_txt('auto_save_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 1, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 1, self.dic_buttons)
 
     def show_button_5min(self):
         txt_key = '5min'
         txt = self.screen.language_manager.load_txt('auto_save_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 2, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 2, self.dic_buttons)
 
     def show_button_10min(self):
         txt_key = '10min'
         txt = self.screen.language_manager.load_txt('auto_save_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 3, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 3, self.dic_buttons)
 
     def show_button_15min(self):
         txt_key = '15min'
         txt = self.screen.language_manager.load_txt('auto_save_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 4, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 4, self.dic_buttons)
 
     def show_button_30min(self):
         txt_key = '30min'
         txt = self.screen.language_manager.load_txt('auto_save_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 5, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 5, self.dic_buttons)
 
     def show_button_1h(self):
         txt_key = '1h'
         txt = self.screen.language_manager.load_txt('auto_save_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 6, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 6, self.dic_buttons)
 
     def show_button_desactivated(self):
         txt_key = 'desactivated'
         txt = self.screen.language_manager.load_txt('auto_save_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 7, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 7, self.dic_buttons)
 
     def show_actualy_time(self):
         txt_key = "actualy_time"
         txt = self.screen.language_manager.load_txt('auto_save_menu', txt_key)
         txt = f"{txt} {self.screen.game.format_time}"
-        self.screen.pause_menu.buttons(txt_key, txt, 9, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 9, self.dic_buttons)
 
     def show_button_back(self):
         txt_key = 'back'
         txt = self.screen.language_manager.load_txt('auto_save_menu', txt_key)
-        self.screen.pause_menu.buttons(txt_key, txt, 11, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 11, self.dic_buttons)
