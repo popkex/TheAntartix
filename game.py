@@ -31,7 +31,7 @@ class Game():
         self.load_system()
 
     def load_game(self, reset_game=False):
-        paths_img_list = ["assets\enemy\enemyA.gif", "assets\mobilier.png", "assets\player.png"]
+        paths_img_list = [r"assets\enemy\enemyA.gif", r"assets\mobilier.png", r"assets\player.png"]
         self.loading = Loading(self, paths_img_list)
         self.loading.execut()
         self.loading.loading_screen.show_element('Loading player...')

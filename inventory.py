@@ -191,7 +191,7 @@ class Life_Potion(Potion):
     def __init__(self, game):
         self.game = game
         name = "Life_Potion"
-        path = self.game.utils.get_path_assets("inventory\objects\potions\heal_potion.png")
+        path = self.game.utils.get_path_assets(r"inventory\objects\potions\heal_potion.png")
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (48, 48))
         super().__init__(name, image, game, self.effect)

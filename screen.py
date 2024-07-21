@@ -96,7 +96,7 @@ class Screen:
         pygame.draw.rect(surface, color, position)
 
     def draw_txt(self, txt, police=50, position=(0, 0), center=False, color=(255, 255, 255), render=False, can_blit=True):
-        path = self.utils.get_path_assets('font\Arialic Hollow.ttf')
+        path = self.utils.get_path_assets(r'font\Arialic Hollow.ttf')
         font = pygame.font.SysFont(path, police, True)
         txt_surface = font.render(txt, render, color)
 
@@ -244,7 +244,7 @@ class MainMenu:
 
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
+        background_path = self.screen.utils.get_path_assets(r"pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -287,7 +287,7 @@ class PlayChose:
         self.show_buttons()
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
+        background_path = self.screen.utils.get_path_assets(r"pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -329,7 +329,7 @@ class ConfirmResetGame:
         self.show_buttons()
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
+        background_path = self.screen.utils.get_path_assets(r"pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -454,7 +454,7 @@ class Inventory_display:
         self.draw_object(position)
 
     def draw_inventory_background(self, origin):
-        path = self.screen.utils.get_path_assets('inventory\inventory_background.png')
+        path = self.screen.utils.get_path_assets(r'inventory\inventory_background.png')
         img = pygame.image.load(path)
 
         # Défini ou le background de l'inventaire s'arrete (en hauteur)
@@ -559,7 +559,7 @@ class VictoryScreen:
         self.show_exit()
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
+        background_path = self.screen.utils.get_path_assets(r"pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
@@ -646,7 +646,7 @@ class Dialog:
         image_size = texte_width + 20, texte_height + 5
 
         # Gère l'affichage du fond
-        background_path = self.screen.utils.get_path_assets("dialog\dialog_box.png")
+        background_path = self.screen.utils.get_path_assets(r"dialog\dialog_box.png")
         image = pygame.image.load(background_path)
         image = pygame.transform.scale(image, image_size)
         image_position = texte_position[0] - 10, texte_position[1] - 5
@@ -684,7 +684,7 @@ class Pause_menu:
         self.show_buttons()
 
     def show_background(self):
-        background_path = self.screen.utils.get_path_assets("pause_menu\pause_menu_bg.png")
+        background_path = self.screen.utils.get_path_assets(r"pause_menu\pause_menu_bg.png")
         background = pygame.image.load(background_path)
         background = self.screen.transform_img(background, self.screen.display_width)
         self.screen.blit_ressource(background, (0, 0))
