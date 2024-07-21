@@ -26,3 +26,14 @@ class Utils:
             return os.path.join(base_path, "saves") + "\\" + ressource
         else:
             return os.path.join(base_path, "saves")
+
+    def get_path_utils(self, ressource=any, folder_path=False):
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+
+        if not folder_path:
+            return os.path.join(base_path, "dir_utils") + "\\" + ressource
+        else:
+            return os.path.join(base_path, "dir_utils")

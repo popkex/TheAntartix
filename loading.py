@@ -4,6 +4,13 @@ class LoadingScreen:
 
     def __init__(self, screen, paths_img_list):
         self.screen = screen.screen
+        paths_list = []
+        for path in paths_img_list:
+            img = screen.utils.get_path_assets(path)
+            paths_list.append(img)
+
+        paths_img_list = paths_list
+
         self.images = [pygame.image.load(path) for path in paths_img_list]
         self.current_image = 0
         self.last_update_time = 0

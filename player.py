@@ -6,14 +6,11 @@ utils = Utils()
 
 class Entity(pygame.sprite.Sprite):
 
-    def __init__(self, name, x, y):
+    def __init__(self, path, x, y):
         super().__init__()
 
         #recupere les sprites du joueur si l'image n'est pas en .png 
-        if not "." in name:
-            path = self.get_path_assets(fr'npc\{name}.png')
-        else:
-            path = self.get_path_assets(name)
+        path = self.get_path_assets(path)
 
         self.sprite_sheet = pygame.image.load(path)
 
@@ -206,14 +203,15 @@ class Entity(pygame.sprite.Sprite):
 class Player(Entity):
 
     def __init__(self):
-        super().__init__('player', 0, 0)
+        super().__init__(r'npc\player.png', 0, 0)
 
 
 
 class NPC(Entity):
 
     def __init__(self, name, nb_points, key_txt, quest=None, quest_state=False, after_quest_txt=None):
-        super().__init__(name, 0, 0)
+        path = fr'npc\{name}.png'
+        super().__init__(path, 0, 0)
         self.nb_points = nb_points
         self.name = name
         self.key_txt = key_txt
@@ -393,13 +391,13 @@ class EnemyA(Enemy):
     def __init__(self, game):
         self.game = game 
 
-        path = self.game.utils.get_path_assets(r'enemy\enemyA.gif')
+        path = self.game.utils.get_path_assets(r'enemy\enemyA\enemyA.png')
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (32, 32))
 
         field_of_view = 150 # défini le champ de vision
 
-        super().__init__(self, game, r"enemy\enemyA.gif", image, "EnemyA", field_of_view)
+        super().__init__(self, game, "enemy\\enemyA\\enemyA.png", image, "EnemyA", field_of_view)
 
 class EnemyB(Enemy):
 
@@ -412,4 +410,4 @@ class EnemyB(Enemy):
 
         field_of_view = 175 # défini le champ de vision
 
-        super().__init__(self, game, r"enemy\enemyB.webp", image, "EnemyB", field_of_view) 
+        super().__init__(self, game, "enemy\\enemyB.webp", image, "EnemyB", field_of_view) 

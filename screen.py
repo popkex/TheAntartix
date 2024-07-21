@@ -163,7 +163,7 @@ class Screen:
         image = pygame.transform.scale(image, (50, 50))
         self.blit_ressource(image, position)
 
-    def buttons(self, txt_key, txt, button_number, dic):
+    def buttons(self, txt_key, txt, button_number, dic, bg=True):
         y = 100+50*button_number
         txt_surface, position = self.draw_txt(txt, police=50, position=(0, y), center=True, color=(255, 255, 255), render=True, can_blit=False)
         x, y, w, h = position
@@ -171,8 +171,9 @@ class Screen:
         dic[txt_key] = button_position  # Stockez les coordonnées du bouton
 
         # si la souris se trouve dans la zone cliquable du bouton mettre le fond en noir
+        # et si le bouton accepte de mettre un bg
         rect = pygame.Rect(x, y, w, h)
-        if rect.collidepoint(pygame.mouse.get_pos()):
+        if bg and rect.collidepoint(pygame.mouse.get_pos()):
             self.draw_color(surface=self.screen, color=(0, 0, 0), position=button_position)
 
         # affiche le texte apres le bg si il est mis
@@ -981,7 +982,7 @@ class AutoSaveMenu:
     def show_button_desactivated(self):
         txt_key = 'desactivated'
         txt = self.screen.language_manager.load_txt('auto_save_menu', txt_key)
-        self.screen.buttons(txt_key, txt, 7, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 7, self.dic_buttons, bg=False)
 
     def show_actualy_time(self):
         txt_key = "actualy_time"
