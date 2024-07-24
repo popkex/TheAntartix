@@ -212,9 +212,6 @@ class Game():
                         self.map_manager.check_npcs_collisions(self.dialog_box)
 
                     if event.key == pygame.K_ESCAPE:
-                        self.dialog_box.close_dialog()
-
-                    if event.key == pygame.K_ESCAPE:
                         self.pause_menu.running()
 
                     if event.key == pygame.K_F11:
