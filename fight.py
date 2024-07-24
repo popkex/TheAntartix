@@ -61,24 +61,35 @@ class Fight:
         self.current_enemy = None
 
     def player_death(self):
-        running = True
+        self.death_running = True
         number_image = random.randint(1, 10)
-        while running:
+        while self.death_running:
             self.game.screen.death_display.show_death("fight_message", number_image)
 
             pygame.display.flip()
 
             for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE or event.key == pygame.K_RETURN:
-                        running = False
-                        self.game.map_manager.reload_map()
+                self.handle_mouse_click(event)
 
-                    if event.key == pygame.K_F11:
+                if event.type == pygame.KEYDOWN:
+                    # si la touche appuyer n'est pas f11
+                    if event.key != pygame.K_F11:
+                        self.death_running = False
+                        self.game.map_manager.reload_map()
+                    else:
                         pygame.display.toggle_fullscreen()
 
                 if event.type == pygame.QUIT:
                     self.game.saves.save_and_quit()
+
+    def handle_mouse_click(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            for txt, button_position in self.game.screen.death_display.dic_buttons.items():
+                rect = pygame.Rect(button_position)
+                if rect.collidepoint(event.pos):
+                    if txt == 'respawn':
+                        self.death_running = False
+                        self.game.map_manager.reload_map()
 
     def player_turn(self):
         if not self.entity_can_play_again('enemy'):

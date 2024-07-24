@@ -511,6 +511,7 @@ class Death:
 
     def __init__(self, screen):
         self.screen = screen
+        self.dic_buttons = {}
 
     def show_death(self, cause, number_image):
         self.blit_background()
@@ -531,11 +532,9 @@ class Death:
         self.screen.draw_txt(txt, 45, (0, 200), True, (255, 255, 255), True) # affiche le txt a l'écran avec une police de 30 et en x=centre, y=200
 
     def show_exit_txt(self):
-        txt_key_button = "press_space"
-        txt_key_exit = 'exit'
-        txt = f"{self.screen.language_manager.load_txt('button_press', txt_key_button)} {self.screen.language_manager.load_txt('message_system', txt_key_exit)}"
-        self.screen.draw_txt(txt, 50, (0, 650), True, (255, 255, 255), True) # affiche le txt a l'écran avec une police de 50 et en x=centre, y=650
-
+        txt_key = 'respawn'
+        txt = self.screen.language_manager.load_txt('message_system', txt_key)
+        self.screen.buttons(txt_key, txt, 10, self.dic_buttons)
 
 
 class VictoryScreen:
@@ -572,13 +571,13 @@ class VictoryScreen:
     def random_victory(self):
         txt_key = f"victory{self.random_victory_txt}"
         txt = self.screen.language_manager.load_txt('victory', txt_key)
-        self.screen.buttons(txt_key, txt, 2, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 2, self.dic_buttons, bg=False)
 
     def show_enemy_death(self):
         txt_key = f"enemy_death"
         txt = self.screen.language_manager.load_txt('victory', txt_key)
         txt = f"{txt} {self.enemy_fight}"
-        self.screen.buttons(txt_key, txt, 4, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 4, self.dic_buttons, bg=False)
 
     def show_object_won(self):
         if self.loots: # vérifie si la liste est vide
@@ -593,13 +592,13 @@ class VictoryScreen:
 
             txt = f"{txt} {loot[1]} {txt_object}"
 
-        self.screen.buttons(txt_key, txt, 5, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 5, self.dic_buttons, bg=False)
 
     def show_xp_won(self):
         txt_key = "xp_won"
         txt = self.screen.language_manager.load_txt('victory', txt_key)
         txt = f"{txt} {self.xp_won}xp"
-        self.screen.buttons(txt_key, txt, 6, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 6, self.dic_buttons, bg=False)
 
     def show_exit(self):
         txt_key = "exit"
@@ -982,13 +981,13 @@ class AutoSaveMenu:
     def show_button_desactivated(self):
         txt_key = 'desactivated'
         txt = self.screen.language_manager.load_txt('auto_save_menu', txt_key)
-        self.screen.buttons(txt_key, txt, 7, self.dic_buttons, bg=False)
+        self.screen.buttons(txt_key, txt, 7, self.dic_buttons)
 
     def show_actualy_time(self):
         txt_key = "actualy_time"
         txt = self.screen.language_manager.load_txt('auto_save_menu', txt_key)
         txt = f"{txt} {self.screen.game.format_time}"
-        self.screen.buttons(txt_key, txt, 9, self.dic_buttons)
+        self.screen.buttons(txt_key, txt, 9, self.dic_buttons, bg=False)
 
     def show_button_back(self):
         txt_key = 'back'
