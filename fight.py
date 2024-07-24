@@ -39,6 +39,9 @@ class Fight:
         if self.game.quest.quest_type_exist(f'kill_{self.current_enemy.name}'):
             self.game.quest.progress(f'kill_{self.current_enemy.name}', 1)
 
+    def remove_enemy(self):
+        self.game.map_manager.remove_enemy(self.enemy_removed)
+
     def who_win(self):
         self.game.player.change_animation('up')
 
@@ -47,7 +50,7 @@ class Fight:
             # met a jour les quest, retire l'enemie, met l'écran de victoire
             self.check_all_quest()
             if self.enemy_removed:
-                self.game.map_manager.remove_enemy(self.enemy_removed)
+                self.remove_enemy()
             Victory(self.game, self.current_enemy).running()
 
         # si le joueur perd

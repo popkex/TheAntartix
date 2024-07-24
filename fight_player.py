@@ -139,6 +139,7 @@ class Fight_Player():
         # Le joueur a 15% de chance d'échouer à la fuite du combat 
         if luck <= 85: #de base 85
             self.game.active_fight = False
+            self.game.fight.remove_enemy()
         else:
             message = self.language_manager.load_txt('message_system', 'failed_escape')
             self.game.add_message(message)

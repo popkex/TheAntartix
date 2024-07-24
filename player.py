@@ -392,13 +392,13 @@ class EnemyA(Enemy):
     def __init__(self, game):
         self.game = game 
 
-        path = self.game.utils.get_path_assets(r'enemy\enemyA\enemyA.png')
+        path = self.game.utils.get_path_assets(r'enemy\enemyA.gif')
         image = pygame.image.load(path)
         image = pygame.transform.scale(image, (32, 32))
 
         field_of_view = 150 # défini le champ de vision
 
-        super().__init__(self, game, "enemy\\enemyA\\enemyA.png", image, "EnemyA", field_of_view)
+        super().__init__(self, game, "enemy\\enemyA.gif", image, "EnemyA", field_of_view)
 
 class EnemyB(Enemy):
 
