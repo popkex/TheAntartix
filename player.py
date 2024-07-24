@@ -1,5 +1,5 @@
 import pygame, sys, os, random, math
-from utils import Utils
+from util import Utils
 
 
 utils = Utils()
