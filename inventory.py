@@ -45,7 +45,7 @@ class Inventory:
                     if event.key == pygame.K_F11:
                         pygame.display.toggle_fullscreen()
 
-        return object_used
+        return not object_used
 
 # Vérifie si l'objet existe
     def object_existing(self, objet) -> bool:
@@ -135,7 +135,7 @@ class Inventory:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_e:
-                    return False, True
+                    return False, False
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for rect, objet in self.objet_inventory_rects:
@@ -155,12 +155,12 @@ class Inventory:
                 rect = self.game.screen.inventory_display.enter_zone_inventory()
 
                 if not rect.collidepoint(event.pos):
-                    return False, True
+                    return False, False
 
             if event.type == pygame.QUIT:
                 self.game.saves.save_and_quit()
 
-        return True, True
+        return True, False
 
 
 
