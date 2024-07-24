@@ -18,6 +18,7 @@ translations = {
         'player_dont_have_enough_energy_for_attack': "Tu n'as plus suffisament d'énergie pour attaquer",
         'auto_save': "Sauvegarde automatique",
         'exit': "pour quitter",
+        'respawn': 'réapparaître',
     },
 
     "enemyA": {
