@@ -6,9 +6,10 @@ from language_manager import LanguageManager
 
 class Fight:
 
-    def __init__(self, game, enemy):
+    def __init__(self, game, enemy, enemy_removed=None):
         self.screen = game.screen
         self.game = game
+        self.enemy_removed = enemy_removed
 
         self.language_manager = LanguageManager()
 
@@ -43,7 +44,10 @@ class Fight:
 
         # si le joueur gagne
         if self.game.fight_player.is_alive() and not self.current_enemy.is_alive():
+            # met a jour les quest, retire l'enemie, met l'écran de victoire
             self.check_all_quest()
+            if self.enemy_removed:
+                self.game.map_manager.remove_enemy(self.enemy_removed)
             Victory(self.game, self.current_enemy).running()
 
         # si le joueur perd
