@@ -81,11 +81,12 @@ class Entity(pygame.sprite.Sprite):
 
 # permet de retrouver le chemin d'acces vers les assets lors de la compilation du jeu
     def get_path_assets(self, ressource):
-        try:
-            base_path = sys._MEIPASS
-        except Exception:
-            base_path = os.path.abspath(".")
-        return os.path.join(base_path, "assets") + "\\" + ressource
+        exe_assets_path = r'TA-datas\\assets'
+
+        if os.path.exists(exe_assets_path):
+            return f'{exe_assets_path}\\{ressource}'
+        else:
+            return f'assets\\{ressource}'
 
 #sauvegarde lancienne position du joueur
     def save_location(self):

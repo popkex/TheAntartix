@@ -9,23 +9,15 @@ class DialogBox:
         self.game = game
         self.language_manager = self.game.language_manager
         self.name = "???"
-        self.box = pygame.image.load(self.get_path_assets('dialog/dialog_box.png'))
+        self.box = pygame.image.load(self.game.utils.get_path_assets('dialog/dialog_box.png'))
         self.box = pygame.transform.scale(self.box, (700, 100))
         self.txts = ['salut', 'oki', 'ok']
         self.txt_index = 0
         self.letter_index = 0
-        font_path = self.get_path_assets('font/dialog_font.ttf')
+        font_path = self.game.utils.get_path_assets('font/dialog_font.ttf')
         self.font = pygame.font.Font(font_path, 18)
         self.reading = False
         self.can_execute = True
-
-    def get_path_assets(self, ressource):
-        try:
-            base_path = sys._MEIPASS
-        except Exception:
-            base_path = os.path.abspath(".")
-        return os.path.join(base_path, "assets") + "\\" + ressource
-
 
     # traduire l'erreur
     def execute(self, key_txt, name=None, quest=None) -> bool:
