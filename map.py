@@ -481,9 +481,10 @@ class MapManager:
             enemy.move()
 
     def remove_enemy(self, enemy):
-            for map in self.maps:
-                map = self.get_map(map)
-                if enemy in map.enemys:
-                    map.group.remove(enemy)  # Supprimer l'ennemi du groupe de sprites
-                    map.enemys.remove(enemy)  # Supprimer l'ennemi de la liste des ennemis actifs
-                    break
+        for map in self.maps:
+            map = self.get_map(map)
+            print(f'enemy:{enemy}\nenemys:{map.enemys}\n\n')
+            if enemy in map.enemys:
+                map.group.remove(enemy)  # Supprimer l'ennemi du groupe de sprites
+                map.enemys.remove(enemy)  # Supprimer l'ennemi de la liste des ennemis actifs
+                break
