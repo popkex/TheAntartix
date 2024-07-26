@@ -19,6 +19,7 @@ translations = {
         'auto_save': "Sauvegarde automatique",
         'exit': "pour quitter",
         'respawn': 'réapparaître',
+        'many_active_quests': 'vous avez récupéré trop de quetes'
     },
 
     "enemyA": {

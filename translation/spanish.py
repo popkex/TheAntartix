@@ -18,6 +18,7 @@ translations = {
         "auto_save": "Guardado automático",
         "exit": "para salir",
         "respawn": "reaparecer",
+        'many_active_quests': "/!\ faire la traduction /!\ ",
     },
     
     "enemyA": {

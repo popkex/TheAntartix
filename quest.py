@@ -36,6 +36,11 @@ class Quest:
                 # Ajouter une nouvelle quête
                 new_quest = Quest(self.game, name, type, objectif, rewards, rewards_quantity, key_description)
                 self.game.active_quests.append(new_quest)
+        # si le joueur a pris trop de quete, mettre un message system
+        elif len(self.game.active_quests) > 5:
+            key_txt = 'many_active_quests'
+            txt = self.game.language_manager.load_txt('message_system', key_txt)
+            self.game.add_message(txt)
 
     def check_quest_progress(self, type, number=1):
         for quest in self.game.active_quests:

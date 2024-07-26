@@ -19,6 +19,7 @@ translations = {
         'auto_save': "Auto save",
         'exit': "to quit",
         'respawn': 'respawn',
+        'many_active_quests': "/!\ faire la traduction /!\ ",
     },
 
     "enemyA": {
