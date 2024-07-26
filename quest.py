@@ -16,7 +16,7 @@ class Quest:
 
     def add_quest(self, name, type, objectif, rewards, rewards_quantity, key_description):
         # Si le joueur a moins de 5quests
-        if len(self.game.active_quests) <= 5 and not name in self.game.complete_quests:
+        if len(self.game.active_quests) <= 8 and not name in self.game.complete_quests:
             existing_quest = None
 
             # Vérifie si une quête avec le même nom est déjà active
@@ -37,7 +37,7 @@ class Quest:
                 new_quest = Quest(self.game, name, type, objectif, rewards, rewards_quantity, key_description)
                 self.game.active_quests.append(new_quest)
         # si le joueur a pris trop de quete, mettre un message system
-        elif len(self.game.active_quests) > 5:
+        elif len(self.game.active_quests) > 8:
             key_txt = 'many_active_quests'
             txt = self.game.language_manager.load_txt('message_system', key_txt)
             self.game.add_message(txt)
