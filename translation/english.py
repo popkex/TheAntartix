@@ -2,7 +2,7 @@ translations = {
 
     "message_system": {
         "object_used": "You have used",
-        "damage_suffered1": "You suffered",
+        "damage_suffered1": "You took",
         "damage_suffered2": "damage",
         "damage_crit_suffered1": "You suffered",
         "damage_crit_suffered2": "critical damage!",
@@ -39,7 +39,7 @@ translations = {
 
     'npc': {
         'launch_dialog': "Press Space",
-        'paul': ["Hello, I am Paul", "How are you?", "Who are you?", "I am scared of monsters", "I would love someone to help me get rid of \nthese monsters.", "Around twenty? \nThank you, I will reward you well"],
+        'paul': ["Hello, I am Paul", "How are you?", "Who are you?", "I am scared of monsters", "I would like someone to help me get rid of \nthese monsters.", "Around twenty? \nThank you, I will reward you well"],
         "paul_after_quest": ["test, test"],
         'michel': ["I am badly injured from my \nexcursion into this dungeon.", "Too bad I didn't have any healing potions, \notherwise I wouldn't be in this state", "You better get some, believe me"],
         "michel_after_quest": ["test"],
