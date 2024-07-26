@@ -133,18 +133,23 @@ class Inventory:
 # détecte l'objet est sékéctionner
     def detect_object_selectionned(self):
         for event in pygame.event.get():
+            # si la touche e est appuyer fermer l'inventaire sans passer le tour du joueur
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_e:
                     return False, False
 
             if event.type == pygame.MOUSEBUTTONDOWN:
+                # pour tout les objets dans la liste des objets
+                # recupere ses coordonées et créer un rect
                 for rect, objet in self.objet_inventory_rects:
                     x, y = rect
                     rect = pygame.Rect((x, y, 35, 50))
 
+                    # si le clique souris se trouve sur cette objet l'utilisé
                     if rect.collidepoint(event.pos):
                         object_used = objet[0].used()
 
+                        # ajouter un message system
                         if object_used:
                             message = f"{self.language_manager.load_txt('message_system', 'object_used')} 1 {self.language_manager.load_txt('objects', objet[0].name)}"
                             self.game.add_message(message)
@@ -152,8 +157,8 @@ class Inventory:
 
                         return False, object_used
 
+                # si le clique est en dehors de la zone de l'inventaire
                 rect = self.game.screen.inventory_display.enter_zone_inventory()
-
                 if not rect.collidepoint(event.pos):
                     return False, False
 
