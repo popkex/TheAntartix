@@ -487,6 +487,13 @@ class Inventory_display:
     def draw_object(self, position):
         for i, objet in enumerate(self.screen.game.inventory.objet_inventory):
             position = self.determinate_img_object_postion(i, position)
+
+            rect_clic = pygame.Rect(position[0], position[1], 50, 52)
+            rect = pygame.Rect(position[0], position[1], 48, 48)
+
+            if rect.collidepoint(pygame.mouse.get_pos()):
+                self.screen.draw_color(self.screen.screen, color=(0, 0, 0), position=rect_clic)
+
             self.blit_img_object(objet, position)
             self.number_object(objet, position)
 
